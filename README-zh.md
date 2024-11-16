@@ -8,11 +8,13 @@
 - 引用Clerk：
     - 用于用户登录注册
     - 参见官网： https://dashboard.clerk.com/
+    - 本期内容废弃-采用谷歌登录方式
 
 - next-intl:
     - 用于国际化
     - 参见： https://next-intl-docs.vercel.app/docs/getting-started/app-router/with-i18n-routing
-    - 
+
+
 
 
 
