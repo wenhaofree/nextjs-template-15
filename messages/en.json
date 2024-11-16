@@ -1,0 +1,47 @@
+{
+  "HomePage": {
+    "title": "Title",
+    "about": "About",
+    "aiProducts": "AI Products",
+    "category": "Category",
+    "rankings": "Rankings",
+    "heroTitle": "Discover the Best AI Websites and Tools",
+    "heroDescription": "21,180 AI tools and 263 categories have been verified by millions of experts and tool specialists. AI tool content quality is maintained with the highest level of ChatGPT and big data review.",
+    "searchPlaceholder": "Enter anything to improve efficiency with AI, e.g.: AI smart editing tools",
+    "tool": "AI Tool",
+    "toolDescription": "This is a powerful AI tool that can help improve work efficiency.",
+    "aiAssistant": "AI Assistant"
+  },
+  "Index": {
+    "title": "Welcome to Next.js with shadcn/ui",
+    "description": "A modern web application with internationalization support"
+  },
+  "Button": {
+    "default": "Default",
+    "secondary": "Secondary",
+    "outline": "Outline",
+    "ghost": "Ghost",
+    "login": "Login",
+    "joinToolify": "Join Toolify",
+    "search": "Search"
+  },
+  "Category": {
+    "writing": "Writing",
+    "image": "Image",
+    "video": "Video",
+    "code": "Code AI",
+    "audio": "Audio",
+    "website": "Website",
+    "marketing": "Marketing",
+    "painting": "AI Painting",
+    "chatbot": "Chatbot",
+    "design": "Design & Art"
+  },
+  "Filter": {
+    "newest": "🌟 Newest AI",
+    "mostCollected": "🔥 Most Collected",
+    "basedOnCrowd": "👥 Based on Crowd",
+    "recommended": "🎯 Test Recommended",
+    "apps": "📱 Apps"
+  }
+}

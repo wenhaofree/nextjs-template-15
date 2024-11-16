@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <!-- 背景 -->
+    <rect width="800" height="600" fill="#f8f9fa"/>
+    
+    <!-- 标题 -->
+    <text x="400" y="50" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">个人成长身份建设框架</text>
+    
+    <!-- 左侧：身份定位 -->
+    <rect x="50" y="100" width="200" height="450" fill="#e3f2fd" rx="10"/>
+    <text x="150" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565c0">核心身份</text>
+    
+    <!-- 中间：行为养成 -->
+    <rect x="300" y="100" width="200" height="450" fill="#e8f5e9" rx="10"/>
+    <text x="400" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#2e7d32">日常行为</text>
+    
+    <!-- 右侧：目标愿景 -->
+    <rect x="550" y="100" width="200" height="450" fill="#fff3e0" rx="10"/>
+    <text x="650" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#ef6c00">目标成果</text>
+    
+    <!-- 身份内容 -->
+    <text x="60" y="170" font-size="14" fill="#1565c0">
+        <tspan x="60" dy="20">1. 独立开发者</tspan>
+        <tspan x="70" dy="20">• 终身学习者</tspan>
+        <tspan x="70" dy="20">• 问题解决者</tspan>
+        <tspan x="70" dy="20">• 创新思考者</tspan>
+        
+        <tspan x="60" dy="30">2. 自媒体工作者</tspan>
+        <tspan x="70" dy="20">• 内容创作者</tspan>
+        <tspan x="70" dy="20">• 知识分享者</tspan>
+        <tspan x="70" dy="20">• 影响力建设者</tspan>
+        
+        <tspan x="60" dy="30">3. 一人公司创始人</tspan>
+        <tspan x="70" dy="20">• 商业策略家</tspan>
+        <tspan x="70" dy="20">• 产品经理</tspan>
+        <tspan x="70" dy="20">• 品牌建设者</tspan>
+    </text>
+    
+    <!-- 行为内容 -->
+    <text x="310" y="170" font-size="14" fill="#2e7d32">
+        <tspan x="310" dy="20">1. 技能建设</tspan>
+        <tspan x="320" dy="20">• 每日编程4小时</tspan>
+        <tspan x="320" dy="20">• 每周技术分享</tspan>
+        <tspan x="320" dy="20">• 订阅技术月刊</tspan>
+        
+        <tspan x="310" dy="30">2. 内容创作</tspan>
+        <tspan x="320" dy="20">• 日更图文</tspan>
+        <tspan x="320" dy="20">• 周更视频</tspan>
+        <tspan x="320" dy="20">• 月更专栏</tspan>
+        
+        <tspan x="310" dy="30">3. 商业运营</tspan>
+        <tspan x="320" dy="20">• 产品迭代</tspan>
+        <tspan x="320" dy="20">• 用户反馈</tspan>
+        <tspan x="320" dy="20">• 数据分析</tspan>
+    </text>
+    
+    <!-- 目标内容 -->
+    <text x="560" y="170" font-size="14" fill="#ef6c00">
+        <tspan x="560" dy="20">1. 技术成果</tspan>
+        <tspan x="570" dy="20">• 年产10个作品</tspan>
+        <tspan x="570" dy="20">• 月收入稳定</tspan>
+        <tspan x="570" dy="20">• GitHub万星项目</tspan>
+        
+        <tspan x="560" dy="30">2. 影响力</tspan>
+        <tspan x="570" dy="20">• 10万粉丝</tspan>
+        <tspan x="570" dy="20">• 行业意见领袖</tspan>
+        <tspan x="570" dy="20">• 出版技术书籍</tspan>
+        
+        <tspan x="560" dy="30">3. 商业成就</tspan>
+        <tspan x="570" dy="20">• 年收入百万</tspan>
+        <tspan x="570" dy="20">• 品牌价值</tspan>
+        <tspan x="570" dy="20">• 被动收入</tspan>
+    </text>
+</svg>

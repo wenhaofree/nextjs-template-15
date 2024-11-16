@@ -1,0 +1,47 @@
+{
+  "HomePage": {
+    "title": "标题",
+    "about": "关于",
+    "aiProducts": "AI产品",
+    "category": "分类",
+    "rankings": "排行榜",
+    "heroTitle": "发现最好的AI网站和AI工具",
+    "heroDescription": "21180个AI工具和263个分类已被来千万大咖和工具专家验证，AI工具内容质量均持有最高级ChatGPT等大数据审核。",
+    "searchPlaceholder": "输入任意内容，使用AI提高效率，如：智能剪辑AI工具",
+    "tool": "AI工具",
+    "toolDescription": "这是一个强大的AI工具，可以帮助提高工作效率。",
+    "aiAssistant": "AI助手"
+  },
+  "Index": {
+    "title": "欢迎使用 Next.js 和 shadcn/ui",
+    "description": "具有国际化支持的现代网络应用"
+  },
+  "Button": {
+    "default": "默认按钮",
+    "secondary": "次要按钮",
+    "outline": "轮廓按钮",
+    "ghost": "幽灵按钮",
+    "login": "登录",
+    "joinToolify": "加入 Toolify",
+    "search": "搜索"
+  },
+  "Category": {
+    "writing": "文字写作",
+    "image": "图像",
+    "video": "视频",
+    "code": "代码AI",
+    "audio": "音频",
+    "website": "网站",
+    "marketing": "营销",
+    "painting": "AI绘画",
+    "chatbot": "聊天机器人",
+    "design": "设计与艺术"
+  },
+  "Filter": {
+    "newest": " 最新AI",
+    "mostCollected": " 最多收藏",
+    "basedOnCrowd": " 基于人群分",
+    "recommended": " 测试推荐",
+    "apps": " Apps"
+  }
+}
