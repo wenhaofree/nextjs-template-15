@@ -85,7 +85,7 @@ export function Header() {
               >
                 <DropdownMenuItem
                   className="text-[#E0E0FF] focus:bg-[#2A2A4A] focus:text-[#7B68EE] cursor-pointer"
-                  onClick={() => router.push('/profile')}
+                  onClick={() => router.push(`/profile`)}
                 >
                   个人资料
                 </DropdownMenuItem>
