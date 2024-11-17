@@ -10,6 +10,7 @@ import Image from "next/image"
 // import Link from "next/link"
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/routing';
+import { Header } from '@/components/layout/header'
 
 export default function Component() {
   const t = useTranslations('HomePage');
@@ -35,6 +36,7 @@ export default function Component() {
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
       {/* Header */}
+      <Header/>
       <header className="border-b border-[#2A2A4A] bg-[#12122A] sticky top-0 z-10">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-8">
