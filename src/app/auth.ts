@@ -1,6 +1,27 @@
 import NextAuth from 'next-auth';
-import Google from 'next-auth/providers/google';
 import GoogleProvider from "next-auth/providers/google";
+import { Agent } from "https";
+import { HttpsProxyAgent } from "https-proxy-agent";
+
+// Custom fetch with proxy support
+const customFetch = async (url: string, options: any) => {
+  const timeout = parseInt(process.env.NEXTAUTH_REQUEST_TIMEOUT || '30000');
+  const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+  
+  const fetchOptions = {
+    ...options,
+    timeout,
+    agent: proxyUrl ? new HttpsProxyAgent(proxyUrl) : undefined
+  };
+
+  try {
+    const response = await fetch(url, fetchOptions);
+    return response;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
+};
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -12,52 +33,47 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         params: {
           prompt: "consent",
           access_type: "offline",
-          response_type: "code"
+          response_type: "code",
+          scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+          redirect_uri: "http://localhost:3000/api/auth/callback/google"
         }
       },
-      token: "https://oauth2.googleapis.com/token",
-      userinfo: "https://www.googleapis.com/oauth2/v2/userinfo",
-      async profile(profile) {
-        return {
-          id: profile.id,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture
-        }
+      token: {
+        url: "https://oauth2.googleapis.com/token"
+      },
+      userinfo: {
+        url: "https://www.googleapis.com/oauth2/v2/userinfo"
+      },
+      httpOptions: {
+        timeout: parseInt(process.env.NEXTAUTH_REQUEST_TIMEOUT || '30000')
       }
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  session: { 
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60 // 24 hours
+  },
   pages: {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
       return true;
     },
-    async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.sub;
-      }
-      return session;
-    },
-    async jwt({ token, user, account, profile }) {
-      if (user) {
-        token.id = user.id;
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
       }
       return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub as string;
+      }
+      return session;
     }
   },
-  debug: process.env.NODE_ENV === 'development',
-  logger: {
-    error(code, ...message) {
-      console.error('Auth Error:', code, message);
-    },
-    warn(code, ...message) {
-      console.warn('Auth Warning:', code, message);
-    },
-    debug(code, ...message) {
-      console.debug('Auth Debug:', code, message);
-    }
-  }
+  debug: process.env.NODE_ENV === 'development'
 })
