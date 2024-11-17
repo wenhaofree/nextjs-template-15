@@ -3,6 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 
 // Custom fetch with proxy support
 
+// Get the NEXTAUTH_URL from environment variables
+const nextAuthUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     GoogleProvider({
@@ -15,7 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           access_type: "offline",
           response_type: "code",
           scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-          redirect_uri: "http://localhost:3000/api/auth/callback/google"
+          redirect_uri: `${nextAuthUrl}/api/auth/callback/google`
         }
       },
       token: {
