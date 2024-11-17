@@ -1,28 +1,32 @@
+import type { Metadata } from "next";
 import { Providers } from './providers'
 import { Header } from '@/components/layout/header'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { notFound } from 'next/navigation'
-import { routing } from '@/i18n/routing'
-import { getRequestConfig } from 'next-intl/server'
 import "./globals.css";
+import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
+import {notFound} from 'next/navigation';
+import {routing} from '@/i18n/routing';
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
-  params: { locale }
+  params
 }: {
-  children: React.ReactNode
-  params: { locale: string }
+  children: React.ReactNode;
+  params: {locale: string};
 }) {
-  // Validate locale
-  if (!routing.locales.includes(locale)) {
-    notFound()
+  // First await the params object itself
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
   }
 
-  // Enable static rendering
-  unstable_setRequestLocale(locale)
+  // This will properly set up the locale for the request
+  unstable_setRequestLocale(locale);
 
-  // Load messages
-  const messages = (await import(`../../../messages/${locale}.json`)).default
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
@@ -33,8 +37,10 @@ export default async function RootLayout({
         </Providers>
       </body>
     </html>
-  )
+  );
 }
 
-// Enable static rendering
-export const dynamic = 'force-static'
+// Add this to enable static rendering
+export function generateStaticParams() {
+  return [{locale: 'en'}, {locale: 'de'}]; // Add your supported locales
+}
