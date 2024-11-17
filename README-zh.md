@@ -1,22 +1,18 @@
-# Next.js15 新特性
+## 配置信息参见：
+GOOGLE_CLIENT_ID=482582148726-apmbd7dkcj6eh32lrepp0ufa8v5ts6gl.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=GOCSPX-
+NEXTAUTH_SECRET=ddd4de98d5191ae90a19fa8f08cdc4a4
+NEXTAUTH_URL=http://localhost:3000
+NODE_ENV=development
 
-## 路由：
-1. 基本路由：app/路径文件夹/page.tsx
-2. 模板：app/路径文件夹/template.tsx+page.tsx
-3. 动态路由：app/路径文件夹/[id]/page.tsx
-4. 动态 API 路由：app/api/路径文件夹/[id]/route.ts
-5. Cors跨越：app/api/route.ts
+# Debug settings
+DEBUG=true
+NEXTAUTH_DEBUG=true
 
-- Next-Auth
-    - 用于登录注册+谷歌注册
+# Proxy settings for China mainland
+HTTPS_PROXY=http://127.0.0.1:7890
+HTTP_PROXY=http://127.0.0.1:7890
 
-- Neon
-    - 用于数据存储
-    - 
+# Request timeout settings
+NEXTAUTH_REQUEST_TIMEOUT=30000
 
-- 数据获取
-- 动态路由
-- 动态 API 路由
-- 中间件
-- 静态资源
-- 错误处理
