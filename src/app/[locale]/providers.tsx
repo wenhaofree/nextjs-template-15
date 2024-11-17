@@ -3,13 +3,13 @@
 import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 
-type ProvidersProps = {
+interface ProvidersProps {
   children: React.ReactNode
-  locale: string 
-  messages: any
+  locale: string
+  messages: Record<string, any>
 }
 
-export default function Providers({ children, locale, messages }: ProvidersProps) {
+export function Providers({ children, locale, messages }: ProvidersProps) {
   return (
     <SessionProvider>
       <NextIntlClientProvider locale={locale} messages={messages}>

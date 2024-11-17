@@ -1,44 +1,40 @@
-import type { Metadata } from "next";
+import { Providers } from './providers'
+import { Header } from '@/components/layout/header'
+import { unstable_setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import { routing } from '@/i18n/routing'
+import { getRequestConfig } from 'next-intl/server'
 import "./globals.css";
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
-import {notFound} from 'next/navigation';
-import {routing} from '@/i18n/routing';
 
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
-  params
+  params: { locale }
 }: {
-  children: React.ReactNode;
-  params: {locale: string};
+  children: React.ReactNode
+  params: { locale: string }
 }) {
-  // First await the params object itself
-  const { locale } = await params;
-
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
+  // Validate locale
+  if (!routing.locales.includes(locale)) {
+    notFound()
   }
 
-  // This will properly set up the locale for the request
-  unstable_setRequestLocale(locale);
+  // Enable static rendering
+  unstable_setRequestLocale(locale)
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
+  // Load messages
+  const messages = (await import(`../../../messages/${locale}.json`)).default
 
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <Providers locale={locale} messages={messages}>
+          <Header />
           {children}
-        </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
-  );
+  )
 }
 
-// Add this to enable static rendering
-export function generateStaticParams() {
-  return [{locale: 'en'}, {locale: 'de'}]; // Add your supported locales
-}
+// Enable static rendering
+export const dynamic = 'force-static'

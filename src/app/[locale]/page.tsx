@@ -36,8 +36,7 @@ export default function Component() {
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
       {/* Header */}
-      <Header/>
-      <header className="border-b border-[#2A2A4A] bg-[#12122A] sticky top-0 z-10">
+      {/* <header className="border-b border-[#2A2A4A] bg-[#12122A] sticky top-0 z-10">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link href="/" className="flex items-center space-x-2">
@@ -63,7 +62,7 @@ export default function Component() {
             <Button size="sm" className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]">{b('joinToolify')}</Button>
           </div>
         </div>
-      </header>
+      </header> */}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">

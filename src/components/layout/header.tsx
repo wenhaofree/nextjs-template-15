@@ -1,10 +1,20 @@
+'use client'
+
 import { Button } from "../ui/button"
 import { Cpu } from "lucide-react"
 import { useRouter } from 'next/navigation'
-import {Link} from '@/i18n/routing';
+import { Link } from '@/i18n/routing'
+import { useSession, signOut } from "next-auth/react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function Header() {
   const router = useRouter()
+  const { data: session, status } = useSession()
   
   const handleLoginClick = () => {
     router.push('/sign-in')
@@ -12,6 +22,13 @@ export function Header() {
 
   const handleSignUpClick = () => {
     router.push('/sign-up')
+  }
+
+  const handleSignOut = async () => {
+    await signOut({ 
+      redirect: true,
+      callbackUrl: '/' 
+    })
   }
 
   return (
@@ -49,22 +66,56 @@ export function Header() {
             </Link>
           </nav>
         </div>
+
         <div className="flex items-center space-x-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="text-[#E0E0FF] hover:text-[#7B68EE] hover:bg-[#1E1E3A]"
-            onClick={handleLoginClick}
-          >
-            登录
-          </Button>
-          <Button 
-            size="sm" 
-            className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
-            onClick={handleSignUpClick}
-          >
-            加入 Toolify
-          </Button>
+          {status === "authenticated" && session?.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-[#E0E0FF] hover:text-[#7B68EE] hover:bg-[#1E1E3A]"
+                >
+                  {session.user.name || session.user.email}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="end"
+                className="w-56 bg-[#1E1E3A] border-[#2A2A4A]"
+              >
+                <DropdownMenuItem
+                  className="text-[#E0E0FF] focus:bg-[#2A2A4A] focus:text-[#7B68EE] cursor-pointer"
+                  onClick={() => router.push('/profile')}
+                >
+                  个人资料
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-[#E0E0FF] focus:bg-[#2A2A4A] focus:text-[#7B68EE] cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  退出登录
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-[#E0E0FF] hover:text-[#7B68EE] hover:bg-[#1E1E3A]"
+                onClick={handleLoginClick}
+              >
+                登录
+              </Button>
+              <Button 
+                size="sm" 
+                className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
+                onClick={handleSignUpClick}
+              >
+                加入 Toolify
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
