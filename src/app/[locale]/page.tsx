@@ -5,12 +5,11 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Star, ExternalLink, ArrowUp, Cpu } from "lucide-react"
+import { Search, Star, ExternalLink, ArrowUp } from "lucide-react"
 import Image from "next/image"
 // import Link from "next/link"
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/routing';
-import { Header } from '@/components/layout/header'
 
 export default function Component() {
   const t = useTranslations('HomePage');

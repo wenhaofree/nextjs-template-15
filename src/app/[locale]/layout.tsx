@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Providers } from './providers'
 import { Header } from '@/components/layout/header'
 import "./globals.css";
@@ -17,7 +16,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as  'zh' | 'en')) {
     notFound();
   }
 
@@ -27,11 +26,12 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
+  const typedMessages = messages as Record<string, string>;
 
   return (
     <html lang={locale}>
       <body>
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={typedMessages}>
           <Header />
           {children}
         </Providers>

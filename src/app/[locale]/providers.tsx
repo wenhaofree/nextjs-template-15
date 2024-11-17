@@ -6,7 +6,8 @@ import { NextIntlClientProvider } from 'next-intl'
 interface ProvidersProps {
   children: React.ReactNode
   locale: string
-  messages: Record<string, any>
+  messages: Record<string, string> // 修改这里
+
 }
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
