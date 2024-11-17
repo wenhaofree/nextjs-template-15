@@ -7,6 +7,12 @@
 4. 动态 API 路由：app/api/路径文件夹/[id]/route.ts
 5. Cors跨越：app/api/route.ts
 
+- Next-Auth
+    - 用于登录注册+谷歌注册
+
+- Neon
+    - 用于数据存储
+    - 
 
 - 数据获取
 - 动态路由
