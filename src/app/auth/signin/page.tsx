@@ -1,4 +1,4 @@
-import { auth } from '@/app/auth'
+import { auth,signIn } from '@/app/auth'
 import { redirect } from 'next/navigation'
 
 export default async function SignInPage() {

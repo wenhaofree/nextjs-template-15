@@ -1,27 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from "next-auth/providers/google";
-import { Agent } from "https";
-import { HttpsProxyAgent } from "https-proxy-agent";
 
 // Custom fetch with proxy support
-const customFetch = async (url: string, options: any) => {
-  const timeout = parseInt(process.env.NEXTAUTH_REQUEST_TIMEOUT || '30000');
-  const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
-  
-  const fetchOptions = {
-    ...options,
-    timeout,
-    agent: proxyUrl ? new HttpsProxyAgent(proxyUrl) : undefined
-  };
-
-  try {
-    const response = await fetch(url, fetchOptions);
-    return response;
-  } catch (error) {
-    console.error('Fetch error:', error);
-    throw error;
-  }
-};
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -43,9 +23,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       userinfo: {
         url: "https://www.googleapis.com/oauth2/v2/userinfo"
-      },
-      httpOptions: {
-        timeout: parseInt(process.env.NEXTAUTH_REQUEST_TIMEOUT || '30000')
       }
     })
   ],
@@ -59,7 +36,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     error: '/auth/error',
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn() {
       return true;
     },
     async jwt({ token, account }) {
