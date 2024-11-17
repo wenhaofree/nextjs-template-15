@@ -8,11 +8,8 @@ const pool = new Pool({
   ssl: true
 })
 
-export async function POST(
-  req: Request,
-  { params }: { params: { locale: string } }
-) {
-  console.log('Registration attempt:', { locale: params.locale }) // Log locale
+export async function POST(req: Request) {
+  console.log('Registration attempt')
   
   const client = await pool.connect()
   

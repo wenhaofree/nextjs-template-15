@@ -25,38 +25,31 @@ export default function SignInPage() {
     const password = formData.get('password') as string
 
     try {
-      console.log('开始登录:', { email })
-      
       const locale = params?.locale || 'zh'
       const callbackUrl = `/${locale}`
+      
+      console.log('Starting login:', { email, callbackUrl })
       
       const result = await signIn('credentials', {
         email,
         password,
         redirect: false,
-        callbackUrl,
+        callbackUrl: `${window.location.origin}${callbackUrl}`
       })
 
-      console.log('登录结果:', { 
-        ok: result?.ok,
-        error: result?.error,
-        url: result?.url
-      })
+      console.log('Login result:', result)
 
       if (result?.error) {
-        console.error('登录失败:', result.error)
         setError(result.error)
         return
       }
 
       if (result?.ok) {
-        console.log('登录成功，正在跳转到首页:', callbackUrl)
-        // 使用 replace 而不是 push，并添加完整的 URL
         router.replace(callbackUrl)
       }
 
     } catch (error) {
-      console.error('登录过程发生错误:', error)
+      console.error('Login error:', error)
       setError('登录失败，请重试')
     } finally {
       setLoading(false)

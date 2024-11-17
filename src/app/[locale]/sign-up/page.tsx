@@ -37,7 +37,7 @@ export default function SignUpPage() {
       
       console.log('Submitting registration:', { email, locale }) // Log attempt
       
-      const res = await fetch(`/${locale}/api/auth/register`, {
+      const res = await fetch(`/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
