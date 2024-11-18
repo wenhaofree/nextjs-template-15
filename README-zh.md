@@ -15,8 +15,14 @@
     - 参见： https://next-intl-docs.vercel.app/docs/getting-started/app-router/with-i18n-routing
 
 - next-auth:
-    - 用于验证
+    - 用于验证; 谷歌验证+自定义邮箱登录验证
     - 参见： https://next-auth.js.org/getting-started/example
+    - 谷歌登录本地测试必须要纯净IP才能登录,否则超时问题.
+    
+- Sonner:
+    - 用于弹窗;
+    - 参见: https://sonner.emilkowal.ski/
+
 
 
 
@@ -71,6 +77,18 @@
 
 
 ## 功能描述:
+2024年11月18日.
+1. 谷歌登录:
+    - 增加按钮
+    - route.js增加谷歌配置
+    - 配置文件链接配置
+    - 纯净IP网络验证
+    - Vercel部署验证成功
+
+2. 价格Stripe接入:
+    - 价格页面保证
+
+
 2024年11月15日.
 1. 验证支付流程
 2. 价格支付流程

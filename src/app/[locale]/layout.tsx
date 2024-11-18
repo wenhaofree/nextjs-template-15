@@ -4,6 +4,7 @@ import "./globals.css";
 import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import { Toaster } from 'sonner'
 
 export default async function LocaleLayout({
   children,
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
         <Providers locale={locale} messages={typedMessages}>
           <Header />
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>
@@ -42,5 +44,5 @@ export default async function LocaleLayout({
 
 // Add this to enable static rendering
 export function generateStaticParams() {
-  return [{locale: 'en'}, {locale: 'de'}]; // Add your supported locales
+  return [{locale: 'en'}, {locale: 'zh'}]; // Add your supported locales
 }
