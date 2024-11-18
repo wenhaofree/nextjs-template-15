@@ -25,12 +25,15 @@ const handler = NextAuth({
         const client = await pool.connect()
         
         try {
-          // Query user from database
+          console.log('Attempting database connection...')
+          
           const result = await client.query(
             'SELECT * FROM users WHERE email = $1',
             [credentials.email]
           )
 
+          console.log('Query result:', result.rows.length > 0)
+          
           const user = result.rows[0]
 
           if (!user) {
@@ -53,7 +56,7 @@ const handler = NextAuth({
           }
 
         } catch (error) {
-          console.error('Auth error:', error)
+          console.error('详细错误信息:', error)
           throw error
         } finally {
           client.release()
