@@ -49,6 +49,8 @@ interface UserSession {
   }
 }
 
+const siteUrl = process.env.NEXTAUTH_URL || 'https://aiwith.me'
+
 export default function Component() {
   const router = useRouter()
   const { data: session, status } = useSession() as { data: UserSession | null, status: string }
@@ -150,7 +152,7 @@ export default function Component() {
         "需要添加以下链接到主页：",
         {
           type: 'code',
-          content: '<a href="https://aiwith.me/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>'
+          content: `<a href="${siteUrl}/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>`
         }
       ]
     },
@@ -253,11 +255,11 @@ export default function Component() {
         if (!hasBacklink) {
           alert(`请先在您的网站主页添加以下链接后再提交：
           
-          <a href="https://aiwith.me/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>
+          <a href="${siteUrl}/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>
 
           提示：
           1. 链接必须添加在网站首页
-          2. href 属性必须指向 aiwith.me
+          2. href 属性必须指向 ${new URL(siteUrl).hostname}
           3. 添加链接后请等待几分钟再重试`)
           return
         }
@@ -370,7 +372,7 @@ export default function Component() {
             <span className="text-[#7B68EE]">AI With Me Domain Rating(DR): 60</span>
           </div>
           <p className="text-[#B0B0DA] max-w-3xl mx-auto">
-            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。���达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
+            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
           </p>
         </div>
 
