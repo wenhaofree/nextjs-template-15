@@ -1,4 +1,5 @@
 import { neon, neonConfig } from '@neondatabase/serverless'
+import { Tool } from './tools';
 
 // 配置 neon
 neonConfig.fetchConnectionCache = true
@@ -139,6 +140,8 @@ export class ToolsDB {
       throw error
     }
   }
+
+  
 
   async getTools(options: GetToolsOptions = {}): Promise<GetToolsResult> {
     try {
@@ -284,18 +287,13 @@ export class ToolsDB {
     }
   }
 
-  async getToolBySlug(slug: string): Promise<DbTool | null> {
-    try {
-      const [tool] = await sql<DbTool[]>`
-        SELECT * FROM tools 
-        WHERE LOWER(REGEXP_REPLACE(slug, '[^a-z0-9]+', '-', 'g')) = ${slug}
-        LIMIT 1
-      `
-      return tool || null
-    } catch (error) {
-      console.error('❌ Error fetching tool by slug:', error)
-      return null
-    }
+  static async getToolBySlug(slug: string):Promise<Tool | undefined> {
+    const tools = await sql<DbTool[]>`
+      SELECT * FROM tools 
+      WHERE slug = ${slug}
+      LIMIT 1
+    `
+    return tools[0] || null
   }
 
   async getToolByTitle(title: string): Promise<DbTool | null> {
