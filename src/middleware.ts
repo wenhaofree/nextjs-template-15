@@ -29,6 +29,7 @@ export function middleware(request: NextRequest) {
   // Skip auth API routes and static files
   if (
     pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api') ||
     pathname.includes('.')
   ) {
     return NextResponse.next()
@@ -50,7 +51,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip all internal paths (_next) and auth API routes
-    '/((?!_next|api/auth).*)',
+    '/((?!_next|api/auth|api).*)',
     // Optional: only run on root (/) URL
     '/'
   ],

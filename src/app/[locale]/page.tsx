@@ -1,15 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Search, Star, ExternalLink, ArrowUp } from "lucide-react"
 import Image from "next/image"
-// import Link from "next/link"
-import {useTranslations} from 'next-intl';
-import {Link} from '@/i18n/routing';
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
+import type { DbTool } from '@/lib/neon'
+import { Skeleton } from "@/components/ui/skeleton"
+import { AlertCircle } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+
+interface ToolsState {
+  tools: DbTool[];
+  total: number;
+  hasMore: boolean;
+  page: number;
+  loading: boolean;
+  error: string | null;
+}
 
 export default function Component() {
   const t = useTranslations('HomePage');
@@ -18,6 +30,56 @@ export default function Component() {
   const f = useTranslations('Filter');
 
   const [showScrollTop, setShowScrollTop] = useState(false)
+
+  const [toolsState, setToolsState] = useState<ToolsState>({
+    tools: [],
+    total: 0,
+    hasMore: false,
+    page: 1,
+    loading: true,
+    error: null
+  });
+
+  const fetchTools = useCallback(async (page: number = 1) => {
+    try {
+      setToolsState(prev => ({ ...prev, loading: true, error: null }));
+      
+      const response = await fetch(
+        `/api/tools?page=${page}&limit=12&sortBy=created_at&sortOrder=DESC`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch tools');
+      }
+      
+      const result = await response.json();
+      
+      setToolsState(prev => ({
+        ...prev,
+        tools: page === 1 ? result.tools : [...prev.tools, ...result.tools],
+        total: result.total,
+        hasMore: result.hasMore,
+        page,
+        loading: false
+      }));
+    } catch (error) {
+      setToolsState(prev => ({ 
+        ...prev, 
+        loading: false,
+        error: 'Failed to load tools. Please try again later.'
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTools(1);
+  }, [fetchTools]);
+
+  const handleLoadMore = () => {
+    if (toolsState.hasMore && !toolsState.loading) {
+      fetchTools(toolsState.page + 1);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,34 +96,6 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
-      {/* Header */}
-      {/* <header className="border-b border-[#2A2A4A] bg-[#12122A] sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-8">
-            <Link href="/" className="flex items-center space-x-2">
-              <Cpu className="w-8 h-8 text-[#7B68EE]" />
-              <span className="text-xl font-semibold text-[#7B68EE]">Toolify.ai</span>
-            </Link>
-            <nav className="hidden md:flex space-x-6">
-              <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-                {t('aiProducts')}
-              </Link>
-              <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-                {t('category')}
-              </Link>
-              <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-                {t('rankings')}
-              </Link>
-            </nav>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="text-[#E0E0FF] hover:text-[#7B68EE] hover:bg-[#1E1E3A]">
-              {b('login')}
-            </Button>
-            <Button size="sm" className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]">{b('joinToolify')}</Button>
-          </div>
-        </div>
-      </header> */}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -109,38 +143,90 @@ export default function Component() {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <Card key={i} className="bg-[#12122A] border-[#2A2A4A] overflow-hidden hover:shadow-lg hover:shadow-[#7B68EE]/10 transition-all duration-300">
-              <Link href="#" className="block">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Tool preview"
-                  width={400}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-[#7B68EE]">{t('tool')} {i + 1}</h3>
-                    <ExternalLink className="w-4 h-4 text-[#8080AA]" />
-                  </div>
-                  <p className="text-sm text-[#B0B0DA] mb-3">
-                    {t('toolDescription')}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-1">
-                      <Star className="w-4 h-4 fill-[#7B68EE] text-[#7B68EE]" />
-                      <span className="text-sm text-[#B0B0DA]">4.8</span>
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {toolsState.error ? (
+              <Alert variant="destructive" className="col-span-full">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  {toolsState.error}
+                </AlertDescription>
+              </Alert>
+            ) : toolsState.loading && toolsState.page === 1 ? (
+              // Loading skeletons
+              Array.from({ length: 8 }).map((_, i) => (
+                <Card key={`skeleton-${i}`} className="bg-[#12122A] border-[#2A2A4A]">
+                  <div className="space-y-3">
+                    <Skeleton className="h-48 w-full bg-[#1E1E3A]" />
+                    <div className="p-4 space-y-3">
+                      <Skeleton className="h-4 w-[250px] bg-[#1E1E3A]" />
+                      <Skeleton className="h-4 w-[200px] bg-[#1E1E3A]" />
                     </div>
-                    <Badge variant="secondary" className="text-xs bg-[#1E1E3A] text-[#7B68EE]">
-                      {t('aiAssistant')}
-                    </Badge>
                   </div>
-                </div>
-              </Link>
-            </Card>
-          ))}
+                </Card>
+              ))
+            ) : (
+              toolsState.tools.map((tool) => (
+                <Card key={tool.id} className="bg-[#12122A] border-[#2A2A4A] overflow-hidden hover:shadow-lg hover:shadow-[#7B68EE]/10 transition-all duration-300">
+                  <Link href={`/tools/${tool.slug}`} className="block">
+                    <Image
+                      // src={tool.image_url || "/placeholder.svg"}
+                      src={"/placeholder.svg"}
+                      alt={tool.title}
+                      width={400}
+                      height={200}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold text-[#7B68EE] truncate">{tool.title}</h3>
+                        <ExternalLink className="w-4 h-4 text-[#8080AA]" />
+                      </div>
+                      <p className="text-sm text-[#B0B0DA] mb-3 line-clamp-2">
+                        {tool.summary}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-4 h-4 fill-[#7B68EE] text-[#7B68EE]" />
+                          <span className="text-sm text-[#B0B0DA]">{tool.rating}</span>
+                        </div>
+                        <div className="flex gap-2">
+                          {tool.price_type !== 'free' && (
+                            <Badge variant="secondary" className="text-xs bg-[#1E1E3A] text-[#7B68EE]">
+                              {tool.price_type}
+                            </Badge>
+                          )}
+                          <Badge variant="secondary" className="text-xs bg-[#1E1E3A] text-[#7B68EE]">
+                            {tool.tags.split(',')[0]}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </Card>
+              ))
+            )}
+          </div>
+
+          {/* Load More Button */}
+          {toolsState.hasMore && !toolsState.loading && (
+            <div className="text-center mt-8">
+              <Button
+                onClick={handleLoadMore}
+                variant="outline" 
+                className="bg-[#1E1E3A] text-[#7B68EE] hover:bg-[#2A2A4A] border-[#3A3A5A]"
+              >
+                {t('loadMore')}
+              </Button>
+            </div>
+          )}
+
+          {/* Loading More Indicator */}
+          {toolsState.loading && toolsState.page > 1 && (
+            <div className="text-center mt-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#7B68EE]"></div>
+            </div>
+          )}
         </div>
       </main>
 
