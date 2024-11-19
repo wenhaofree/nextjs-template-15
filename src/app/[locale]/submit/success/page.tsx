@@ -32,7 +32,7 @@ function PaymentStatus() {
           return
         }
 
-        const response = await fetch('/api/verify-payment', {
+        const response = await fetch('/api/stripe/verify-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

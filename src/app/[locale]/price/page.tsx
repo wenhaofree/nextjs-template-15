@@ -33,7 +33,7 @@ export default function PricePage() {
         return
       }
       // 创建支付页面
-      const response = await fetch('/api/auth/create-checkout-session', {
+      const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
