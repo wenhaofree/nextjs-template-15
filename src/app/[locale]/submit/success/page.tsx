@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default function SuccessPage() {
+// 分离出支付状态检查组件
+function PaymentStatus() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('CHECKOUT_SESSION_ID') || searchParams.get('session_id')
   const submissionName = searchParams.get('submission_name')
@@ -31,7 +32,6 @@ export default function SuccessPage() {
           return
         }
 
-        // 调用后端 API 验证支付状态
         const response = await fetch('/api/verify-payment', {
           method: 'POST',
           headers: {
@@ -51,35 +51,14 @@ export default function SuccessPage() {
 
         const data = await response.json()
         console.log('Verification response:', data)
-
-        //支付成功-更新用户计划
-        
-
-
-
         setStatus(data.status === 'complete' ? 'success' : 'error')
-
       } catch (error) {
         console.error('Verification error:', error)
         setStatus('error')
       }
     }
-
     verifySession()
-  }, [sessionId, searchParams])
-
-  useEffect(() => {
-    console.log('Current URL:', window.location.href)
-    console.log('All search params:', {
-      raw: window.location.search,
-      parsed: Object.fromEntries(searchParams.entries())
-    })
-    console.log('Session ID attempts:', {
-      CHECKOUT_SESSION_ID: searchParams.get('CHECKOUT_SESSION_ID'),
-      session_id: searchParams.get('session_id'),
-      final: sessionId
-    })
-  }, [sessionId, searchParams])
+  }, [sessionId, searchParams, submissionName, submissionUrl])
 
   // 加载中状态
   if (status === 'loading') {
@@ -131,5 +110,23 @@ export default function SuccessPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+// 主页面组件
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
+        <main className="container mx-auto px-4 py-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <h1 className="text-2xl font-bold mb-4">加载中...</h1>
+            <p className="text-[#B0B0DA]">请稍候</p>
+          </div>
+        </main>
+      </div>
+    }>
+      <PaymentStatus />
+    </Suspense>
   )
 } 
