@@ -96,7 +96,6 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}

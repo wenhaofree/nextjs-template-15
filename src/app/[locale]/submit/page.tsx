@@ -229,10 +229,75 @@ export default function Component() {
     
 
     
-
-
     // Check user level from session
-    if (session?.user?.level === 'unlimited' || session?.user?.level === 'sponsor') {
+    if (session?.user?.level === 'free'){
+      // For free users, check if the website has the required backlink
+      try {
+        const response = await fetch('/api/tools/check-backlink', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            url: formData.url.trim()
+          })
+        })
+
+        if (!response.ok) {
+          const error = await response.json()
+          throw new Error(error.message || '检查链接失败')
+        }
+
+        const { hasBacklink } = await response.json()
+
+        if (!hasBacklink) {
+          alert(`请先在您的网站主页添加以下链接后再提交：
+          
+          <a href="https://aiwith.me/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>
+
+          提示：
+          1. 链接必须添加在网站首页
+          2. href 属性必须指向 aiwith.me
+          3. 添加链接后请等待几分钟再重试`)
+          return
+        }
+
+        // If backlink exists, proceed with tool submission
+        const submitResponse = await fetch('/api/tools/addtool', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: formData.name.trim(),
+            url: formData.url.trim(),
+            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',
+            summary: 'AI摘要',
+            tags: 'AI工具,AI助手',
+            status: 'active',
+            price_type: selectedPlan,
+            submit_user_id: session?.user?.email || ''
+          })
+        })
+
+        if (!submitResponse.ok) {
+          throw new Error('提交失败')
+        }
+
+        alert('提交成功！')
+        setFormData({
+          name: '',
+          url: ''
+        })
+
+      } catch (error) {
+        console.error('错误:', error)
+        alert('检查链接失败，请稍后重试。如果问题持续存在，请联系客服。')
+        return
+      }
+
+    }
+    else if (session?.user?.level === 'unlimited' || session?.user?.level === 'sponsor') {
       // 保存工具数据:
       try {
         const response = await fetch('/api/tools/addtool', {
@@ -305,7 +370,7 @@ export default function Component() {
             <span className="text-[#7B68EE]">AI With Me Domain Rating(DR): 60</span>
           </div>
           <p className="text-[#B0B0DA] max-w-3xl mx-auto">
-            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
+            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。���达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
           </p>
         </div>
 
