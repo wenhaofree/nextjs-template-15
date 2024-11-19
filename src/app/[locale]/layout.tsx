@@ -5,6 +5,7 @@ import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { Toaster } from 'sonner'
+import { Footer } from '@/components/layout/footer';
 
 export default async function LocaleLayout({
   children,
@@ -35,6 +36,7 @@ export default async function LocaleLayout({
         <Providers locale={locale} messages={typedMessages}>
           <Header />
           {children}
+          <Footer />
           <Toaster />
         </Providers>
       </body>
