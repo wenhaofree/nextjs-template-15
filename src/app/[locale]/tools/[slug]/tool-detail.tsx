@@ -1,16 +1,14 @@
 'use client'
 
-import React from 'react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Twitter, Facebook, Linkedin, Mail, Link as LinkIcon } from 'lucide-react'
 import { FallbackImage } from '@/components/ui/fallback-image'
-import { Tool } from '@/lib/tools'
-import { Header } from "@/components/layout/header"
+import { DbTool } from '@/lib/neon'
 import { cn } from '@/lib/utils'
 
 interface ToolDetailProps {
-  tool: Tool
+  tool: DbTool
 }
 
 export function ToolDetail({ tool }: ToolDetailProps) {
@@ -37,7 +35,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
   
     const renderMarkdownContent = (content: string) => {
       const sections = content.split('\n## ').filter(Boolean)
-      const [title, ...rest] = sections
+      const [, ...rest] = sections
 
       return (
         <div className="space-y-8">

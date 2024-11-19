@@ -1,50 +1,47 @@
-import { neon, neonConfig } from '@neondatabase/serverless'
-import { Tool } from './tools';
+import { Pool } from 'pg'
 
-// 配置 neon
-neonConfig.fetchConnectionCache = true
-
-// 创建数据库连接
-const sql = neon(process.env.DATABASE_URL!)
+// 创建连接池
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+})
 
 // 工具数据类型
 export interface DbTool {
-  id: number;
-  title: string;
-  url: string;
-  image_url?: string;
-  summary?: string;
-  tags: string;
-  language_support: string;
-  favorite_count: number;
-  content_markdown?: string;
-  created_at: Date;
-  updated_at: Date;
-  status: 'active' | 'inactive' | 'pending' | 'removed' | 'featured';
-  view_count: number;
-  price_type: 'free' | 'one-time' | 'unlimited' |'sponsor';
-  submit_user_id?: string;
-  last_check_time?: Date;
-  rating: number;
-  slug: string;
+  id: number
+  title: string
+  url: string
+  image_url?: string
+  summary?: string
+  tags: string
+  language_support: string
+  favorite_count: number
+  content_markdown?: string
+  created_at: Date
+  updated_at: Date
+  status: 'active' | 'inactive' | 'pending' | 'removed' | 'featured'
+  view_count: number
+  price_type: 'free' | 'one-time' | 'unlimited' | 'sponsor'
+  submit_user_id?: string
+  last_check_time?: Date
+  rating: number
+  slug: string
 }
 
-// Add these types
 interface GetToolsOptions {
-  page?: number;
-  limit?: number; 
-  sortBy?: 'created_at' | 'rating' | 'view_count';
-  sortOrder?: 'ASC' | 'DESC';
-  status?: DbTool['status'];
+  page?: number
+  limit?: number
+  sortBy?: 'created_at' | 'rating' | 'view_count'
+  sortOrder?: 'ASC' | 'DESC'
+  status?: DbTool['status']
 }
 
 interface GetToolsResult {
-  tools: DbTool[];
-  total: number;
-  hasMore: boolean;
+  tools: DbTool[]
+  total: number
+  hasMore: boolean
 }
 
-// 工具数据访问类
 export class ToolsDB {
   private static instance: ToolsDB
   private initialized = false
@@ -67,8 +64,9 @@ export class ToolsDB {
   }
 
   private async initDb() {
+    const client = await pool.connect()
     try {
-      await sql`
+      await client.query(`
         CREATE TABLE IF NOT EXISTS tools (
           id BIGSERIAL PRIMARY KEY,
           title VARCHAR(255) NOT NULL,
@@ -93,57 +91,72 @@ export class ToolsDB {
           CONSTRAINT rating_range CHECK (rating >= 0 AND rating <= 5.0),
           CONSTRAINT status_values CHECK (status IN ('active', 'inactive', 'pending', 'removed', 'featured')),
           CONSTRAINT price_type_values CHECK (price_type IN ('free', 'paid', 'freemium'))
-        );
-      `
+        )
+      `)
       console.log('✅ Database initialized')
     } catch (error) {
       console.error('❌ Database initialization error:', error)
       throw error
+    } finally {
+      client.release()
     }
   }
 
   async addTool(tool: Omit<DbTool, 'id' | 'created_at' | 'updated_at'>): Promise<DbTool> {
+    const client = await pool.connect()
     try {
-      const [newTool] = await sql<DbTool[]>`
+      const { rows: [newTool] } = await client.query<DbTool>(`
         INSERT INTO tools (
-          title,
-          url,
-          image_url,
-          summary,
-          tags,
-          language_support,
-          content_markdown,
-          status,
-          price_type,
-          submit_user_id,
-          rating,
-          slug
-        ) VALUES (
-          ${tool.title},
-          ${tool.url},
-          ${tool.image_url},
-          ${tool.summary},
-          ${tool.tags},
-          ${tool.language_support},
-          ${tool.content_markdown},
-          ${tool.status || 'pending'},
-          ${tool.price_type || 'free'},
-          ${tool.submit_user_id},
-          ${tool.rating || 0},
-          LOWER(REGEXP_REPLACE(${tool.title}, '[^a-zA-Z0-9]+', '-', 'g'))
-        )
+          title, url, image_url, summary, tags, language_support,
+          content_markdown, status, price_type, submit_user_id,
+          rating, slug
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING *
-      `
+      `, [
+        tool.title,
+        tool.url,
+        tool.image_url,
+        tool.summary,
+        tool.tags,
+        tool.language_support,
+        tool.content_markdown,
+        tool.status || 'pending',
+        tool.price_type || 'free',
+        tool.submit_user_id,
+        tool.rating || 0,
+        tool.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+      ])
       return newTool
     } catch (error) {
       console.error('❌ Error adding tool:', error)
       throw error
+    } finally {
+      client.release()
     }
   }
 
-  
+  static async getToolBySlug(slug: string): Promise<DbTool | null> {
+    const client = await pool.connect()
+    try {
+      const { rows: [dbTool] } = await client.query<DbTool>(`
+        SELECT * FROM tools 
+        WHERE slug = $1
+        LIMIT 1
+      `, [slug])
+
+      if (!dbTool) return null
+
+      return dbTool
+    } catch (error) {
+      console.error('❌ Error fetching tool by slug:', error)
+      return null
+    } finally {
+      client.release()
+    }
+  }
 
   async getTools(options: GetToolsOptions = {}): Promise<GetToolsResult> {
+    const client = await pool.connect()
     try {
       const {
         page = 1,
@@ -151,166 +164,47 @@ export class ToolsDB {
         sortBy = 'created_at',
         sortOrder = 'DESC',
         status = 'active'
-      } = options;
+      } = options
 
-      // Validate sort column and order
-      const validSortColumns = ['created_at', 'rating', 'view_count'];
-      const validSortOrders = ['ASC', 'DESC'];
-      
-      if (!validSortColumns.includes(sortBy)) {
-        throw new Error('Invalid sort column');
-      }
-      if (!validSortOrders.includes(sortOrder)) {
-        throw new Error('Invalid sort order');
-      }
+      const offset = (page - 1) * limit
 
-      const offset = (page - 1) * limit;
-
-      // Get total count
-      const [countResult] = await sql`
+      // 获取总数
+      const { rows: [countResult] } = await client.query(`
         SELECT COUNT(*) as count 
         FROM tools
-        WHERE status = ${status}
-      `;
+        WHERE status = $1
+      `, [status])
 
-      console.log('countResult:',countResult)
+      // 获取工具列表
+      const { rows: tools } = await client.query<DbTool>(`
+        SELECT * FROM tools
+        WHERE status = $1
+        ORDER BY ${sortBy} ${sortOrder}
+        LIMIT $2 OFFSET $3
+      `, [status, limit, offset])
 
-      const total = Number(countResult?.count || 0);
-
-      // Use a simpler query structure
-      const tools = await sql<DbTool[]>`
-        SELECT *  
-        FROM tools
-        WHERE status = ${status}
-        LIMIT ${limit}
-        OFFSET ${offset}
-      `;
-
-      console.log('tools:',tools)
-      // Ensure type safety by validating the results
-      const validatedTools = tools.map(tool => ({
-        ...tool,
-        created_at: new Date(tool.created_at),
-        updated_at: new Date(tool.updated_at),
-        last_check_time: tool.last_check_time ? new Date(tool.last_check_time) : undefined
-      })) as DbTool[];
+      const total = parseInt(countResult.count)
 
       return {
-        tools: validatedTools,
+        tools,
         total,
         hasMore: total > page * limit
-      };
+      }
 
     } catch (error) {
-      console.error('❌ Error fetching tools:', error);
+      console.error('❌ Error fetching tools:', error)
       return {
         tools: [],
         total: 0,
         hasMore: false
-      };
+      }
+    } finally {
+      client.release()
     }
   }
 
-  async getToolsByUser(userId: number): Promise<DbTool[]> {
-    try {
-      return await sql<DbTool[]>`
-        SELECT * FROM tools 
-        WHERE submit_user_id = ${userId}
-      `
-    } catch (error) {
-      console.error('❌ Error fetching user tools:', error)
-      return []
-    }
-  }
-
-  async updateTool(id: number, updates: Partial<DbTool>): Promise<DbTool | null> {
-    try {
-      const [updatedTool] = await sql<DbTool[]>`
-        UPDATE tools 
-        SET 
-          title = COALESCE(${updates.title}, title),
-          url = COALESCE(${updates.url}, url),
-          image_url = COALESCE(${updates.image_url}, image_url),
-          summary = COALESCE(${updates.summary}, summary),
-          tags = COALESCE(${updates.tags}, tags),
-          language_support = COALESCE(${updates.language_support}, language_support),
-          content_markdown = COALESCE(${updates.content_markdown}, content_markdown),
-          status = COALESCE(${updates.status}, status),
-          price_type = COALESCE(${updates.price_type}, price_type),
-          rating = COALESCE(${updates.rating}, rating),
-          updated_at = CURRENT_TIMESTAMP
-        WHERE id = ${id}
-        RETURNING *
-      `
-      return updatedTool || null
-    } catch (error) {
-      console.error('❌ Error updating tool:', error)
-      return null
-    }
-  }
-
-  async deleteTool(id: number): Promise<boolean> {
-    try {
-      const result = await sql`
-        UPDATE tools 
-        SET status = 'removed' 
-        WHERE id = ${id}
-      `
-      return result.length > 0
-    } catch (error) {
-      console.error('❌ Error deleting tool:', error)
-      return false
-    }
-  }
-
-  async incrementViewCount(id: number): Promise<void> {
-    try {
-      await sql`
-        UPDATE tools 
-        SET view_count = view_count + 1 
-        WHERE id = ${id}
-      `
-    } catch (error) {
-      console.error('❌ Error incrementing view count:', error)
-    }
-  }
-
-  async incrementFavoriteCount(id: number): Promise<void> {
-    try {
-      await sql`
-        UPDATE tools 
-        SET favorite_count = favorite_count + 1 
-        WHERE id = ${id}
-      `
-    } catch (error) {
-      console.error('❌ Error incrementing favorite count:', error)
-    }
-  }
-
-  static async getToolBySlug(slug: string):Promise<Tool | undefined> {
-    const tools = await sql<DbTool[]>`
-      SELECT * FROM tools 
-      WHERE slug = ${slug}
-      LIMIT 1
-    `
-    return tools[0] || null
-  }
-
-  async getToolByTitle(title: string): Promise<DbTool | null> {
-    try {
-      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      const [tool] = await sql<DbTool[]>`
-        SELECT * FROM tools 
-        WHERE slug = ${slug}
-        LIMIT 1
-      `
-      return tool || null
-    } catch (error) {
-      console.error('❌ Error fetching tool by title:', error)
-      return null
-    }
-  }
+  // ... 其他方法类似修改
 }
 
 // 导出获取实例的辅助函数
-export const getToolsDB = () => ToolsDB.getInstance() 
+export const getToolsDB = () => ToolsDB.getInstance()
