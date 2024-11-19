@@ -49,6 +49,10 @@ export async function POST(req: Request) {
       mode
     })
 
+    if (!process.env.NEXTAUTH_URL) {
+      throw new Error('NEXTAUTH_URL environment variable is not set')
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode,
       payment_method_types: ['card'],
@@ -58,14 +62,14 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXTAUTH_URL}/submit/success?session_id={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name)}&submission_url=${encodeURIComponent(submission.url)}`,
+      success_url: `${process.env.NEXTAUTH_URL}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
       cancel_url: `${process.env.NEXTAUTH_URL}/submit`,
       client_reference_id: email,
       metadata: {
         email,
         planType,
-        submissionName: submission.name,
-        submissionUrl: submission.url
+        submissionName: submission.name || '',
+        submissionUrl: submission.url || ''
       },
     })
 
@@ -74,7 +78,13 @@ export async function POST(req: Request) {
       url: session.url
     })
 
-    return NextResponse.json({ url: session.url })
+    console.log('Created session with success URL:', {
+      baseUrl: process.env.NEXTAUTH_URL,
+      successUrl: session.success_url,
+      sessionId: session.id
+    })
+
+    return NextResponse.json({ url: session.url})
   } catch (error) {
     console.error('❌ Error creating checkout session:', error)
     return NextResponse.json(

@@ -32,7 +32,7 @@ export default function PricePage() {
         toast.success("成功注册免费计划")
         return
       }
-
+      // 创建支付页面
       const response = await fetch('/api/auth/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -50,8 +50,7 @@ export default function PricePage() {
       if (!response.ok) {
         throw new Error(data.error || '支付创建失败')
       }
-
-      // Redirect to checkout
+      
       router.push(data.url)
       
     } catch (error) {

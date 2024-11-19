@@ -24,6 +24,9 @@ function getLocale(request: NextRequest): string {
 }
 
 export function middleware(request: NextRequest) {
+  console.log('Middleware - Full URL:', request.url)
+  console.log('Middleware - Search Params:', Object.fromEntries(new URL(request.url).searchParams))
+  
   const pathname = request.nextUrl.pathname
   
   // Skip auth API routes and static files
@@ -42,9 +45,11 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname}`, request.url)
-    )
+    const newUrl = new URL(`/${locale}${pathname}`, request.url)
+    request.nextUrl.searchParams.forEach((value, key) => {
+      newUrl.searchParams.set(key, value)
+    })
+    return NextResponse.redirect(newUrl)
   }
 }
 
