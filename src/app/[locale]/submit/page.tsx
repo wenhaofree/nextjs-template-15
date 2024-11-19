@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/accordion"
 import { Globe, LinkIcon, Languages, CreditCard, Check, Copy } from 'lucide-react'
 import Link from "next/link"
+import { useSession } from "next-auth/react"
+import { useRouter } from 'next/navigation'
+import { log } from 'console'
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
@@ -35,12 +38,25 @@ const ErrorMessage = ({ message }: { message: string }) => {
   );
 };
 
+// Add type for user level
+type UserLevel = 'free' | 'one-time' | 'unlimited' | 'sponsor'
+
+// Update the session type to include user info
+interface UserSession {
+  user?: {
+    level?: UserLevel
+    email?: string
+  }
+}
+
 export default function Component() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false) // Simple auth state
+  const router = useRouter()
+  const { data: session, status } = useSession() as { data: UserSession | null, status: string }
+  const isAuthenticated = status === 'authenticated'
   const [selectedPlan, setSelectedPlan] = useState('free')
   const [formData, setFormData] = useState({
     name: '',
-    url: ''
+    url: '',
   })
 
   // Add URL validation state
@@ -48,6 +64,9 @@ export default function Component() {
     name: '',
     url: ''
   });
+
+  // Add validation state
+  const [showValidation, setShowValidation] = useState(false);
 
   // Form validation logic
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,8 +205,10 @@ export default function Component() {
 
   // Simplified submit handler
   const handleSubmit = async () => {
-    if (!isLoggedIn) {
-      alert('请先登录')
+    setShowValidation(true)
+
+    if (!isAuthenticated) {
+      alert('请先登录后再提交')
       return
     }
 
@@ -196,7 +217,78 @@ export default function Component() {
       return
     }
 
-    alert('提交成功！（演示）')
+    if (formData.name.trim() === '' || formData.url.trim() === '') {
+      return
+    }
+
+    console.log('Form submission:', {
+      name: formData.name.trim(),
+      url: formData.url.trim(),
+      planId: selectedPlan
+    })
+    
+
+    
+
+
+    // Check user level from session
+    if (session?.user?.level === 'unlimited' || session?.user?.level === 'sponsor') {
+      // 保存工具数据:
+      try {
+        const response = await fetch('/api/tools/addtool', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          // TODO-FWH-基础数据填充
+          body: JSON.stringify({
+            title: formData.name.trim(),
+            url: formData.url.trim(),
+            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',//输入网址,截图首页
+            summary:'AI摘要',//输入网址,AI总结摘要
+            tags:'AI工具,AI助手',//输入网址,AI总结标签
+            status:'active',
+            price_type: selectedPlan, //根据用户订阅计划值
+            submit_user_id: session?.user?.email || ''
+          })
+        })
+  
+        if (!response.ok) {
+          throw new Error('提交失败')
+        }
+  
+        alert('提交成功！')
+        // Reset form
+        setFormData({
+          name: '',
+          url: ''
+        })
+      } catch (error) {
+        console.error('提交错误:', error)
+        alert('提交失败，请稍后重试')
+      }
+    } else {
+      // 创建支付页面
+      const response = await fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: session?.user?.email,
+          planType:selectedPlan,
+          submissionName:formData.name.trim(),
+          submissionUrl:formData.url.trim(),
+          submission: { name: formData.name.trim(), url: formData.url.trim() }
+        }),
+      })
+
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.error || '支付创建失败')
+      }
+      router.push(data.url)
+    }
   }
 
   return (
@@ -321,20 +413,18 @@ export default function Component() {
               查看定价详情
             </Link>
           </div>
-
-          <Button 
-            onClick={() => setIsLoggedIn(!isLoggedIn)}
-            className="w-full mt-4 bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
-          >
-            {isLoggedIn ? '退出登录' : '登录'}
-          </Button>
-
+          
+          {showValidation && (formData.name.trim() === '' || formData.url.trim() === '') && (
+            <div className="text-red-500 text-sm mt-2 text-center">
+              {formData.name.trim() === '' ? '请输入名称' : '请输入网址'}
+            </div>
+          )}
           <Button 
             onClick={handleSubmit}
-            disabled={!isLoggedIn || !formData.name.trim() || !formData.url.trim()}
+            disabled={!isAuthenticated}
             className="w-full mt-4 bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B] disabled:opacity-50"
           >
-            提交
+            {!isAuthenticated ? '请先登录' : '提交'}
           </Button>
         </div>
 

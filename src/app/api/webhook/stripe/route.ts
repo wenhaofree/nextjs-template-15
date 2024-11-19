@@ -116,24 +116,45 @@ export async function POST(req: Request) {
 
 
 
-      // // 创建工具记录
-      // if (submissionName && submissionUrl) {
-      //   const result = await createTool({
-      //     name: submissionName,
-      //     link: submissionUrl,
-      //     userId: userId,
-      //     priceType: planType,
-      //     status: 'active'
-      //   })
+      // 创建工具记录
+      if (submissionName && submissionUrl) {
+        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+        const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          // TODO-FWH-基础数据填充
+          body: JSON.stringify({
+            title: submissionName,
+            url: submissionUrl,
+            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',//输入网址,截图首页
+            summary:'AI摘要',//输入网址,AI总结摘要
+            tags:'AI工具,AI助手',//输入网址,AI总结标签
+            status:'active',
+            price_type: planType, //根据用户订阅计划值
+            submit_user_id: userId
+          })
+        })
 
-      //   console.log('✅ Tool status updated:', {
-      //     id: result.id,
-      //     title: result.title,
-      //     status: result.status
-      //   })
-      // }
+        console.log('Submit tool request:', {
+          title: submissionName,
+          url: submissionUrl,
+          price_type: planType,
+          submit_user_id: userId
+        });
+        console.log('Submit tool response:', {
+          status: submitResponse.status,
+          ok: submitResponse.ok,
+          statusText: submitResponse.statusText
+        });
+  
+        if (!submitResponse.ok) {
+          const submitData = await submitResponse.json()
+          throw new Error(submitData.error || '工具提交失败')
+        }
+      }
     }
-
     return NextResponse.json({ received: true })
   } catch (error) {
     const err = error as Error
