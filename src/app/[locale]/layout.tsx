@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header'
 import "./globals.css";
 import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
-import {routing} from '@/i18n/routing';
+import {Locale, routing} from '@/i18n/routing';
 import { Toaster } from 'sonner'
 import { Footer } from '@/components/layout/footer';
 
@@ -18,7 +18,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as  'zh' | 'en')) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
 
@@ -46,5 +46,5 @@ export default async function LocaleLayout({
 
 // Add this to enable static rendering
 export function generateStaticParams() {
-  return [{locale: 'en'}, {locale: 'zh'}]; // Add your supported locales
+  return [{locale: 'en'}, {locale: 'zh'},{locale: 'ja'}]; // Add your supported locales
 }

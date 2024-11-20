@@ -1,0 +1,82 @@
+{
+  "HomePage": {
+    "title": "タイトル",
+    "about": "概要",
+    "aiProducts": "AI製品",
+    "category": "カテゴリー",
+    "rankings": "ランキング",
+    "heroTitle": "最高のAIウェブサイトとツールを見つけよう",
+    "heroDescription": "21,180のAIツールと263のカテゴリーが、数百万人の専門家とツールスペシャリストによって検証されています。AIツールのコンテンツ品質は、ChatGPTとビッグデータレビューによって最高水準で維持されています。",
+    "searchPlaceholder": "AIで効率を上げたいことを入力してください（例：AIスマート編集ツール）",
+    "tool": "AIツール",
+    "toolDescription": "これは作業効率を向上させる強力なAIツールです。",
+    "aiAssistant": "AIアシスタント"
+  },
+  "Index": {
+    "title": "shadcn/uiを使用したNext.jsへようこそ",
+    "description": "多言語対応のモダンウェブアプリケーション"
+  },
+  "Button": {
+    "default": "デフォルト",
+    "secondary": "セカンダリー",
+    "outline": "アウトライン",
+    "ghost": "ゴースト",
+    "login": "ログイン",
+    "joinToolify": "Toolifyに参加",
+    "search": "検索"
+  },
+  "Category": {
+    "writing": "文章作成",
+    "image": "画像",
+    "video": "動画",
+    "code": "コードAI",
+    "audio": "音声",
+    "website": "ウェブサイト",
+    "marketing": "マーケティング",
+    "painting": "AIペインティング",
+    "chatbot": "チャットボット",
+    "design": "デザイン＆アート"
+  },
+  "Filter": {
+    "newest": "🌟 新着AI",
+    "mostCollected": "🔥 人気順",
+    "basedOnCrowd": "👥 ユーザー評価",
+    "recommended": "🎯 テスト推奨",
+    "apps": "📱 アプリ"
+  },
+  "Header": {
+    "aiProducts": "AI製品",
+    "categories": "カテゴリー",
+    "pricing": "料金プラン",
+    "submit": "投稿",
+    "rankings": "ランキング",
+    "profile": "プロフィール",
+    "signOut": "ログアウト",
+    "login": "ログイン",
+    "joinToolify": "Toolifyに参加"
+  },
+  "Footer": {
+    "test": "テスト",
+    "about": {
+      "title": "会社概要",
+      "about": "概要",
+      "blog": "ブログ"
+    },
+    "support": {
+      "title": "サポート",
+      "helpCenter": "ヘルプセンター",
+      "contactUs": "お問い合わせ"
+    },
+    "legal": {
+      "title": "法的情報",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約"
+    },
+    "language": {
+      "title": "言語",
+      "english": "English",
+      "chinese": "中文",
+      "japanese": "日本語"
+    }
+  }
+} 

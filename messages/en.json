@@ -43,5 +43,40 @@
     "basedOnCrowd": "👥 Based on Crowd",
     "recommended": "🎯 Test Recommended",
     "apps": "📱 Apps"
+  },
+  "Header": {
+    "aiProducts": "AI Products",
+    "categories": "Categories",
+    "pricing": "Pricing",
+    "submit": "Submit",
+    "rankings": "Rankings",
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "login": "Login",
+    "joinToolify": "Join Toolify"
+  },
+  "Footer": {
+    "test": "Test",
+    "about": {
+      "title": "About Us",
+      "about": "About",
+      "blog": "Blog"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Help Center",
+      "contactUs": "Contact Us"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "language": {
+      "title": "Language",
+      "english": "English",
+      "chinese": "中文",
+      "japanese": "日本語"
+    }
   }
 }

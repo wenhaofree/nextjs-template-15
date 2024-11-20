@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
+import type { Locale } from '@/i18n/routing'
 
 declare module 'negotiator' {
   export default class Negotiator {
@@ -11,8 +12,9 @@ declare module 'negotiator' {
 
 import Negotiator from 'negotiator'
 
-const locales = ['en', 'zh']
-const defaultLocale = 'zh'
+// Update locales array to include Japanese
+const locales = ['en', 'zh', 'ja'] as const
+const defaultLocale = 'en'
 
 function getLocale(request: NextRequest): string {
   const negotiatorHeaders: Record<string, string> = {}

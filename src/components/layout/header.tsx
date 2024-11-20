@@ -11,8 +11,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useTranslations } from 'next-intl'
+
 
 export function Header() {
+  const t = useTranslations('Header');
+
   const router = useRouter()
   const { data: session, status } = useSession()
   
@@ -41,28 +45,28 @@ export function Header() {
           </Link>
           <nav className="hidden md:flex space-x-6">
             <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-              AI产品
+              {t("aiProducts")}
             </Link>
             <Link 
               href="/categories" 
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
             >
-              分类
+              {t("categories")}
             </Link>
             <Link 
               href="/price" 
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
             >
-              价格
+              {t("pricing")}
             </Link>
             <Link 
               href="/submit" 
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
             >
-              提交
+              {t("submit")}
             </Link>
             <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-              排行榜
+              {t("rankings")}
             </Link>
           </nav>
         </div>
@@ -87,13 +91,13 @@ export function Header() {
                   className="text-[#E0E0FF] focus:bg-[#2A2A4A] focus:text-[#7B68EE] cursor-pointer"
                   onClick={() => router.push(`/profile`)}
                 >
-                  个人资料
+                  {t("profile")}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="text-[#E0E0FF] focus:bg-[#2A2A4A] focus:text-[#7B68EE] cursor-pointer"
                   onClick={handleSignOut}
                 >
-                  退出登录
+                  {t("signOut")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -105,14 +109,14 @@ export function Header() {
                 className="text-[#E0E0FF] hover:text-[#7B68EE] hover:bg-[#1E1E3A]"
                 onClick={handleLoginClick}
               >
-                登录
+                {t("login")}
               </Button>
               <Button 
                 size="sm" 
                 className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
                 onClick={handleSignUpClick}
               >
-                加入 Toolify
+                {t("joinToolify")}
               </Button>
             </>
           )}

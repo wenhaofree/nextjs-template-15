@@ -43,5 +43,39 @@
     "basedOnCrowd": " 基于人群分",
     "recommended": " 测试推荐",
     "apps": " Apps"
+  },
+  "Header": {
+    "aiProducts": "AI产品",
+    "categories": "分类",
+    "pricing": "定价",
+    "submit": "提交",
+    "rankings": "排行榜",
+    "profile": "个人资料",
+    "signOut": "退出登录",
+    "login": "登录",
+    "joinToolify": "加入 Toolify"
+  },
+  "Footer": {
+    "about": {
+      "title": "关于我们",
+      "about": "关于",
+      "blog": "博客"
+    },
+    "support": {
+      "title": "支持",
+      "helpCenter": "帮助中心",
+      "contactUs": "联系我们"
+    },
+    "legal": {
+      "title": "法律",
+      "privacy": "隐私政策",
+      "terms": "服务条款"
+    },
+    "language": {
+      "title": "语言",
+      "english": "English",
+      "chinese": "中文",
+      "japanese": "日本語"
+    }
   }
 }

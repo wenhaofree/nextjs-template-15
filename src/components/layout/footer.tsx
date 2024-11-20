@@ -1,36 +1,50 @@
-import Link from "next/link"
+'use client'
+import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
+import {useRouter,usePathname} from 'next/navigation';
 
 export function Footer() {
+  const t = useTranslations('Footer')
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLanguageChange = (locale: 'en' | 'zh' | 'ja') => {
+    const newPathname = pathname.replace(/^\/[a-z]{2}/, '')
+    const newPath = `/${locale}${newPathname || ''}`
+    router.replace(newPath)
+  }
+
   return (
     <footer className="bg-[#12122A] pt-16">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-[#7B68EE] font-semibold mb-4">关于我们</h3>
+            <h3 className="text-[#7B68EE] font-semibold mb-4">{t('about.title')}</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">关于</Link></li>
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">博客</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('about.about')}</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('about.blog')}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="text-[#7B68EE] font-semibold mb-4">支持</h3>
+            <h3 className="text-[#7B68EE] font-semibold mb-4">{t('support.title')}</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">帮助中心</Link></li>
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">联系我们</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('support.helpCenter')}</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('support.contactUs')}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="text-[#7B68EE] font-semibold mb-4">法律</h3>
+            <h3 className="text-[#7B68EE] font-semibold mb-4">{t('legal.title')}</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">隐私政策</Link></li>
-              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">服务条款</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('legal.privacy')}</Link></li>
+              <li><Link href="#" className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('legal.terms')}</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="text-[#7B68EE] font-semibold mb-4">语言</h3>
+            <h3 className="text-[#7B68EE] font-semibold mb-4">{t('language.title')}</h3>
             <ul className="space-y-2">
-              <li><button className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">English</button></li>
-              <li><button className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">中文</button></li>
+              <li><button onClick={() => handleLanguageChange('en')} className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('language.english')}</button></li>
+              <li><button onClick={() => handleLanguageChange('zh')} className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('language.chinese')}</button></li>
+              <li><button onClick={() => handleLanguageChange('ja')} className="text-[#B0B0DA] hover:text-[#7B68EE] transition-colors">{t('language.japanese')}</button></li>
             </ul>
           </div>
         </div>
