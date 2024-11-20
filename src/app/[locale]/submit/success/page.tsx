@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useSession } from "next-auth/react"
 
 // 分离出支付状态检查组件
 function PaymentStatus() {
@@ -12,6 +13,7 @@ function PaymentStatus() {
   const submissionName = searchParams.get('submission_name')
   const submissionUrl = searchParams.get('submission_url')
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const { data: session } = useSession()
 
   useEffect(() => {
     const verifySession = async () => {
@@ -31,7 +33,7 @@ function PaymentStatus() {
           setStatus('error')
           return
         }
-
+        
         const response = await fetch('/api/stripe/verify-payment', {
           method: 'POST',
           headers: {
@@ -48,17 +50,24 @@ function PaymentStatus() {
           console.error('Payment verification failed:', await response.text())
           throw new Error('Payment verification failed')
         }
-
+        
         const data = await response.json()
         console.log('Verification response:', data)
         setStatus(data.status === 'complete' ? 'success' : 'error')
+
+        //更新登录用户的订阅计划
+        if (session?.user) {
+          session.user.level = data.metadata.planType
+          console.log('Update user level:', data.metadata.planType)          
+        }
+        
       } catch (error) {
         console.error('Verification error:', error)
         setStatus('error')
       }
     }
     verifySession()
-  }, [sessionId, searchParams, submissionName, submissionUrl])
+  }, [sessionId, searchParams, submissionName, submissionUrl, session?.user])
 
   // 加载中状态
   if (status === 'loading') {
