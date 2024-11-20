@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.696.0",
     "@formatjs/intl-localematcher": "^0.5.8",
     "@neondatabase/serverless": "^0.10.3",
     "@radix-ui/react-accordion": "^1.2.1",
