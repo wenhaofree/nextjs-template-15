@@ -1,9 +1,8 @@
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-// import { UserAPI } from '@/lib/api/user'
-// import { createTool } from '@/app/actions'
-// import { PlanType } from '@/types/user'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/auth.config'
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
   apiVersion: process.env.STRIPE_API_VERSION as '2024-10-28.acacia',
@@ -86,7 +85,9 @@ export async function POST(req: Request) {
         submissionUrl
       })
 
-      // Update user's plan type after successful payment
+      // Update user's plan in DB
+      console.log('开始更新用户DB的Level:',planType);
+      
       const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
       const updateResponse = await fetch(`${baseUrl}/api/auth/update-plan`, {
         method: 'POST',
@@ -98,23 +99,27 @@ export async function POST(req: Request) {
           planType
         }),
       })
-      console.log('Update plan request:', {
-        email: userId,
-        planType
-      });
-      console.log('Update plan response:', {
-        status: updateResponse.status,
-        ok: updateResponse.ok,
-        statusText: updateResponse.statusText
-      });
-      
+
       if (!updateResponse.ok) {
         const updateData = await updateResponse.json()
         throw new Error(updateData.error || '更新用户计划失败')
       }
 
-
-
+      // Update session after successful DB update
+      // try {
+      //   console.log('开始更新用户Session的Level:',planType);
+      //   const session = await getServerSession(authOptions)
+      //   if (session?.user) {
+      //     session.user.level = planType
+      //     console.log('✅ Session updated with new plan:', planType)
+      //   }else{
+      //     console.log('未更新Sesson:',session);
+          
+      //   }
+      // } catch (error) {
+      //   console.error('❌ Failed to update session:', error)
+      //   // Don't throw here to allow webhook to complete
+      // }
 
       // 创建工具记录
       if (submissionName && submissionUrl) {
@@ -155,6 +160,7 @@ export async function POST(req: Request) {
         }
       }
     }
+
     return NextResponse.json({ received: true })
   } catch (error) {
     const err = error as Error

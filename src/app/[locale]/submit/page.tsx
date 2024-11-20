@@ -1,5 +1,5 @@
 'use client'
-
+import type { ChatCompletionOptions } from '@/lib/ai'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,7 +14,8 @@ import { Globe, LinkIcon, Languages, CreditCard, Check, Copy } from 'lucide-reac
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-import { log } from 'console'
+import { analyzeUrl } from '@/lib/ai'
+
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
@@ -50,6 +51,24 @@ interface UserSession {
 }
 
 const siteUrl = process.env.NEXTAUTH_URL || 'https://aiwith.me'
+
+// Helper to determine submission type
+type SubmissionType = 'free' | 'payment' | 'direct'
+
+const getSubmissionType = (userLevel: UserLevel | undefined, selectedPlan: string): SubmissionType => {
+  // Unlimited/sponsor users can submit directly
+  if (userLevel === 'unlimited' || userLevel === 'sponsor') {
+    return 'direct'
+  }
+
+  // Free plan requires backlink check
+  if (selectedPlan === 'free') {
+    return 'free'
+  }
+
+  // All other combinations require payment
+  return 'payment'
+}
 
 export default function Component() {
   const router = useRouter()
@@ -136,7 +155,7 @@ export default function Component() {
     },
     {
       title: "价格低廉，永久曝光",
-      description: "我们有多层定价来帮助初创公司节省推广成本，当然贵助商也会有更多的首页曝光率！",
+      description: "我们有多层定价来帮助初创公司节省推广成本，当然贵助商也会更多的首页曝光率！",
       icon: CreditCard,
     },
   ]
@@ -207,155 +226,136 @@ export default function Component() {
 
   // Simplified submit handler
   const handleSubmit = async () => {
-    setShowValidation(true)
+    try {
+      setShowValidation(true)
 
-    if (!isAuthenticated) {
-      alert('请先登录后再提交')
-      return
-    }
-
-    if (errors.name || errors.url) {
-      alert('请修正表单错误')
-      return
-    }
-
-    if (formData.name.trim() === '' || formData.url.trim() === '') {
-      return
-    }
-
-    console.log('Form submission:', {
-      name: formData.name.trim(),
-      url: formData.url.trim(),
-      planId: selectedPlan
-    })
-    
-
-    
-    // Check user level from session
-    if (session?.user?.level === 'free'){
-      // For free users, check if the website has the required backlink
-      try {
-        const response = await fetch('/api/tools/check-backlink', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            url: formData.url.trim()
-          })
-        })
-
-        if (!response.ok) {
-          const error = await response.json()
-          throw new Error(error.message || '检查链接失败')
-        }
-
-        const { hasBacklink } = await response.json()
-
-        if (!hasBacklink) {
-          alert(`请先在您的网站主页添加以下链接后再提交：
-          
-          <a href="${siteUrl}/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>
-
-          提示：
-          1. 链接必须添加在网站首页
-          2. href 属性必须指向 ${new URL(siteUrl).hostname}
-          3. 添加链接后请等待几分钟再重试`)
-          return
-        }
-
-        // If backlink exists, proceed with tool submission
-        const submitResponse = await fetch('/api/tools/addtool', {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            title: formData.name.trim(),
-            url: formData.url.trim(),
-            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',
-            summary: 'AI摘要',
-            tags: 'AI工具,AI助手',
-            status: 'active',
-            price_type: selectedPlan,
-            submit_user_id: session?.user?.email || ''
-          })
-        })
-
-        if (!submitResponse.ok) {
-          throw new Error('提交失败')
-        }
-
-        alert('提交成功！')
-        setFormData({
-          name: '',
-          url: ''
-        })
-
-      } catch (error) {
-        console.error('错误:', error)
-        alert('检查链接失败，请稍后重试。如果问题持续存在，请联系客服。')
+      if (!isAuthenticated) {
+        alert('请先登录后再提交')
         return
       }
 
-    }
-    else if (session?.user?.level === 'unlimited' || session?.user?.level === 'sponsor') {
-      // 保存工具数据:
-      try {
-        const response = await fetch('/api/tools/addtool', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          // TODO-FWH-基础数据填充
-          body: JSON.stringify({
-            title: formData.name.trim(),
-            url: formData.url.trim(),
-            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',//输入网址,截图首页
-            summary:'AI摘要',//输入网址,AI总结摘要
-            tags:'AI工具,AI助手',//输入网址,AI总结标签
-            status:'active',
-            price_type: selectedPlan, //根据用户订阅计划值
-            submit_user_id: session?.user?.email || ''
-          })
-        })
-  
-        if (!response.ok) {
-          throw new Error('提交失败')
-        }
-  
-        alert('提交成功！')
-        // Reset form
-        setFormData({
-          name: '',
-          url: ''
-        })
-      } catch (error) {
-        console.error('提交错误:', error)
-        alert('提交失败，请稍后重试')
+      if (errors.name || errors.url) {
+        alert('请修正表单错误')
+        return
       }
-    } else {
-      // 创建支付页面
-      const response = await fetch('/api/stripe/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: session?.user?.email,
-          planType:selectedPlan,
-          submissionName:formData.name.trim(),
-          submissionUrl:formData.url.trim(),
-          submission: { name: formData.name.trim(), url: formData.url.trim() }
-        }),
-      })
 
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.error || '支付创建失败')
+      if (formData.name.trim() === '' || formData.url.trim() === '') {
+        return
       }
-      router.push(data.url)
+
+      console.log('Form submission:', {
+        name: formData.name.trim(),
+        url: formData.url.trim(),
+        planId: selectedPlan
+      })
+      
+
+      // 大模型处理内容
+      // const aiAnalysis = await analyzeUrl(formData.url.trim());
+      // console.log('aiAnalysis',aiAnalysis);
+      
+      
+      console.log('level:',session?.user?.level);
+
+      const submissionType = getSubmissionType(session?.user?.level, selectedPlan)
+      console.log('submissionType:',submissionType);
+      
+      switch (submissionType) {
+        case 'free':
+          // Handle free submission with backlink check
+          const hasValidBacklink = await checkBacklink(formData.url)
+          if (!hasValidBacklink) {
+            alert(`Please add the required backlink...`) // Your existing alert message
+            return
+          }
+          await submitTool(formData, session)
+          break
+
+        case 'payment':
+          // Redirect to payment page
+          const checkoutUrl = await createCheckoutSession({
+            email: session?.user?.email,
+            planType: selectedPlan,
+            submission: formData
+          })
+          router.push(checkoutUrl)
+          break
+
+        case 'direct':
+          // Direct submission for unlimited/sponsor users
+          await submitTool(formData, session)
+          break
+      }
+
+      setFormData({ name: '', url: '' })
+
+    } catch (error) {
+      console.error('Error:', error)
+      alert('提交失败，请稍后重试')
     }
+  }
+
+  // Helper functions
+  const checkBacklink = async (url: string) => {
+    const response = await fetch('/api/tools/check-backlink', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    })
+    
+    if (!response.ok) {
+      throw new Error('Failed to check backlink')
+    }
+    
+    const { hasBacklink } = await response.json()
+    return hasBacklink
+  }
+
+  const submitTool = async (data: typeof formData, session: UserSession | null) => {
+    const response = await fetch('/api/tools/addtool', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: data.name.trim(),
+        url: data.url.trim(),
+        image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',
+        summary: 'AI摘要', // TODO: Generate with AI
+        tags: 'AI工具,AI助手', // TODO: Generate with AI
+        status: 'active',
+        price_type: selectedPlan,
+        submit_user_id: session?.user?.email || ''
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to submit tool')
+    }
+    alert('提交成功')
+  }
+
+  const createCheckoutSession = async (params: {
+    email?: string,
+    planType: string,
+    submission: typeof formData
+  }) => {
+    const response = await fetch('/api/stripe/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: params.email,
+        planType: params.planType,
+        submissionName: params.submission.name.trim(),
+        submissionUrl: params.submission.url.trim(),
+        submission: params.submission
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to create payment session')
+    }
+
+    const data = await response.json()
+    return data.url
   }
 
   return (
