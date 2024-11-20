@@ -85,9 +85,8 @@ export async function POST(req: Request) {
         submissionUrl
       })
 
-      // Update user's plan in DB
+      // 更新用户计划
       console.log('开始更新用户DB的Level:',planType);
-      
       const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
       const updateResponse = await fetch(`${baseUrl}/api/auth/update-plan`, {
         method: 'POST',
@@ -105,58 +104,109 @@ export async function POST(req: Request) {
         throw new Error(updateData.error || '更新用户计划失败')
       }
 
-      // Update session after successful DB update
-      // try {
-      //   console.log('开始更新用户Session的Level:',planType);
-      //   const session = await getServerSession(authOptions)
-      //   if (session?.user) {
-      //     session.user.level = planType
-      //     console.log('✅ Session updated with new plan:', planType)
-      //   }else{
-      //     console.log('未更新Sesson:',session);
-          
-      //   }
-      // } catch (error) {
-      //   console.error('❌ Failed to update session:', error)
-      //   // Don't throw here to allow webhook to complete
-      // }
-
-      // 创建工具记录
+      //根据URL截图
       if (submissionName && submissionUrl) {
-        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-        const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          // TODO-FWH-基础数据填充
-          body: JSON.stringify({
-            title: submissionName,
-            url: submissionUrl,
-            image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',//输入网址,截图首页
-            summary:'AI摘要',//输入网址,AI总结摘要
-            tags:'AI工具,AI助手',//输入网址,AI总结标签
-            status:'active',
-            price_type: planType, //根据用户订阅计划值
-            submit_user_id: userId
-          })
-        })
+        try {
+          // Use the same parameter structure as the working version
+          const screenshotParams = {
+            url: submissionUrl,  // rename to match API expectation
+            size: '16:9' as const  // explicitly type as const
+          };
 
-        console.log('Submit tool request:', {
-          title: submissionName,
-          url: submissionUrl,
-          price_type: planType,
-          submit_user_id: userId
-        });
-        console.log('Submit tool response:', {
-          status: submitResponse.status,
-          ok: submitResponse.ok,
-          statusText: submitResponse.statusText
-        });
-  
-        if (!submitResponse.ok) {
-          const submitData = await submitResponse.json()
-          throw new Error(submitData.error || '工具提交失败')
+          console.log('📸 Screenshot request params:', {
+            timestamp: new Date().toISOString(),
+            ...screenshotParams
+          });
+
+          // Get screenshot blob
+          const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+          const response = await fetch(`${baseUrl}/api/screenshot`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(screenshotParams),  // use renamed params
+          });
+
+          if (!response.ok) {
+            console.error('❌ Screenshot API error:', {
+              timestamp: new Date().toISOString(),
+              status: response.status,
+              statusText: response.statusText,
+              params: screenshotParams
+            });
+            throw new Error('Screenshot generation failed');
+          }
+
+          console.log('✅ Screenshot generated successfully:', {
+            timestamp: new Date().toISOString(),
+            status: response.status,
+          });
+
+          const blob = await response.blob();
+          
+          // Create FormData and directly append blob with filename
+          const formData = new FormData();
+          formData.append('file', blob, `screenshot-${Date.now()}.png`);  // 直接使用 blob，不需要创建 File 对象
+
+          console.log('📤 Uploading screenshot to R2:', {
+            timestamp: new Date().toISOString(),
+            fileSize: blob.size,
+            fileType: 'image/png',
+          });
+
+          // Upload to R2
+          const uploadResponse = await fetch(`${baseUrl}/api/upload`, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!uploadResponse.ok) {
+            console.error('❌ R2 upload error:', {
+              timestamp: new Date().toISOString(),
+              status: uploadResponse.status,
+              statusText: uploadResponse.statusText,
+            });
+            throw new Error('Failed to upload screenshot');
+          }
+
+          const { url } = await uploadResponse.json();
+          
+          console.log('✅ Screenshot uploaded successfully:', {
+            timestamp: new Date().toISOString(),
+            url,
+          });
+
+          // 创建工具记录
+          const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              title: submissionName,
+              url: submissionUrl,
+              image_url: url,
+              summary: 'AI摘要',
+              tags: 'AI工具,AI助手',
+              status: 'active',
+              price_type: planType,
+              submit_user_id: userId
+            })
+          })
+
+          if (!submitResponse.ok) {
+            const submitData = await submitResponse.json()
+            throw new Error(submitData.error || '工具提交失败')
+          }
+        } catch (err) {
+          console.error('❌ Screenshot/upload process error:', {
+            timestamp: new Date().toISOString(),
+            error: err instanceof Error ? err.message : 'Unknown error',
+            stack: err instanceof Error ? err.stack : undefined,
+            submissionUrl,
+          });
+          throw err;
         }
       }
     }
