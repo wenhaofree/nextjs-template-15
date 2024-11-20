@@ -130,8 +130,8 @@ export function ToolDetail({ tool }: ToolDetailProps) {
                 ))}
               </div>
               <FallbackImage
-                // src={tool.image_url|| "/placeholder.svg"}
-                src={"/placeholder.svg"}
+                src={tool.image_url|| "/placeholder.svg"}
+                // src={"/placeholder.svg"}
                 alt={`${tool.title} Preview`}
                 className="w-full h-[400px] object-cover"
               />

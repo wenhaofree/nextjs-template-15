@@ -169,8 +169,8 @@ export default function Component() {
                 <Card key={tool.id} className="bg-[#12122A] border-[#2A2A4A] overflow-hidden hover:shadow-lg hover:shadow-[#7B68EE]/10 transition-all duration-300">
                   <Link href={`/tools/${tool.slug}`} className="block">
                     <Image
-                      // src={tool.image_url || "/placeholder.svg"}
-                      src={"/placeholder.svg"}
+                      src={tool.image_url || "/placeholder.svg"}
+                      // src={"/placeholder.svg"}
                       alt={tool.title}
                       width={400}
                       height={200}

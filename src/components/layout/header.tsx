@@ -46,7 +46,7 @@ export function Header() {
             <span className="text-xl font-semibold text-[#7B68EE]">Toolify.ai</span>
           </Link>
           <nav className="hidden md:flex space-x-6">
-            <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
+            {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
               {t("aiProducts")}
             </Link>
             <Link 
@@ -54,7 +54,7 @@ export function Header() {
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
             >
               {t("categories")}
-            </Link>
+            </Link> */}
             <Link 
               href="/price" 
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
@@ -67,9 +67,9 @@ export function Header() {
             >
               {t("submit")}
             </Link>
-            <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
+            {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
               {t("rankings")}
-            </Link>
+            </Link> */}
           </nav>
         </div>
 
