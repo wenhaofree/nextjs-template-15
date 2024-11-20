@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     domains: ['cdn.aiwith.me'],
   },
+  experimental: {
+    serverActions: true,
+  },
 }
 
 module.exports = withNextIntl(nextConfig); 
