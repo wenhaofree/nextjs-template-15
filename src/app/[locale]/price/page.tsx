@@ -7,7 +7,9 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { useSession, signIn } from "next-auth/react"
 import { useTranslations } from 'next-intl'
-import { useRouter, usePathname } from '@/i18n/routing'
+import { useRouter,usePathname } from '@/i18n/routing'
+import { useLocale } from 'next-intl';
+
 
 export default function PricePage() {
   const t = useTranslations('Pricing')
@@ -17,7 +19,8 @@ export default function PricePage() {
   const pathname = usePathname()
   
   // Get locale from pathname
-  const locale = pathname.split('/')[1] || 'zh'
+  const locale = useLocale();
+
 
   const handleGetNow = async (planName: string) => {
     if (status === "loading") return
@@ -38,7 +41,7 @@ export default function PricePage() {
         toast.success("成功注册免费计划")
         return
       }
-
+      
       const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -47,6 +50,7 @@ export default function PricePage() {
         body: JSON.stringify({
           email: session.user.email,
           planType,
+          locale,
           submission: { name: '', url: '' }
         }),
       })
