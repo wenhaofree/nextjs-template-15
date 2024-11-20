@@ -1,18 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert } from "@/components/ui/alert"
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link, useRouter, usePathname } from '@/i18n/routing'
 
 export default function SignUpPage() {
+  const t = useTranslations('SignUp')
   const router = useRouter()
-  const params = useParams()
+  const pathname = usePathname()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
+  // Get locale from pathname
+  const locale = pathname.split('/')[1] || 'zh'
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -26,16 +30,13 @@ export default function SignUpPage() {
     const confirmPassword = formData.get('confirmPassword') as string
 
     if (password !== confirmPassword) {
-      setError('密码不匹配')
+      setError(t('error.passwordMismatch'))
       setLoading(false)
       return
     }
 
     try {
-      // Get locale from URL params
-      const locale = params?.locale || 'zh'
-      
-      console.log('Submitting registration:', { email, locale }) // Log attempt
+      console.log('Submitting registration:', { email, locale })
       
       const res = await fetch(`/api/auth/register`, {
         method: 'POST',
@@ -51,17 +52,17 @@ export default function SignUpPage() {
 
       if (!res.ok) {
         const data = await res.json()
-        console.error('Registration failed:', data) // Log error response
-        throw new Error(data.message || '注册失败')
+        console.error('Registration failed:', data)
+        throw new Error(data.message || t('error.registrationFailed'))
       }
 
-      console.log('Registration successful') // Log success
+      console.log('Registration successful')
       
-      // Automatically sign in after successful registration
-      router.push('/sign-in')
+      // Redirect to sign-in page with correct locale
+      router.push(`/${locale}/sign-in`)
     } catch (error) {
-      console.error('Registration error:', error) // Log error details
-      setError(error instanceof Error ? error.message : '发生错误，请重试')
+      console.error('Registration error:', error)
+      setError(error instanceof Error ? error.message : t('error.default'))
     } finally {
       setLoading(false)
     }
@@ -71,7 +72,7 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-[#12122A] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-bold text-[#E0E0FF]">
-          创建新账户
+          {t('title')}
         </h2>
       </div>
 
@@ -86,7 +87,7 @@ export default function SignUpPage() {
 
             <div>
               <Label htmlFor="name" className="text-[#E0E0FF]">
-                姓名
+                {t('name')}
               </Label>
               <Input
                 id="name"
@@ -100,7 +101,7 @@ export default function SignUpPage() {
 
             <div>
               <Label htmlFor="email" className="text-[#E0E0FF]">
-                邮箱地址
+                {t('email')}
               </Label>
               <Input
                 id="email"
@@ -114,7 +115,7 @@ export default function SignUpPage() {
 
             <div>
               <Label htmlFor="password" className="text-[#E0E0FF]">
-                密码
+                {t('password')}
               </Label>
               <Input
                 id="password"
@@ -128,7 +129,7 @@ export default function SignUpPage() {
 
             <div>
               <Label htmlFor="confirmPassword" className="text-[#E0E0FF]">
-                确认密码
+                {t('confirmPassword')}
               </Label>
               <Input
                 id="confirmPassword"
@@ -146,7 +147,7 @@ export default function SignUpPage() {
                 disabled={loading}
                 className="w-full bg-[#7B68EE] hover:bg-[#6A5ACD] text-white"
               >
-                {loading ? '注册中...' : '注册'}
+                {loading ? t('button.loading') : t('button.signUp')}
               </Button>
             </div>
           </form>
@@ -158,7 +159,7 @@ export default function SignUpPage() {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-[#1E1E3A] text-[#E0E0FF]">
-                  或者
+                  {t('divider')}
                 </span>
               </div>
             </div>
@@ -166,10 +167,10 @@ export default function SignUpPage() {
             <div className="mt-6">
               <div className="text-sm text-center">
                 <Link
-                  href="/sign-in"
+                  href={`/sign-in`}
                   className="font-medium text-[#7B68EE] hover:text-[#6A5ACD]"
                 >
-                  已有账户? 立即登录
+                  {t('login.text')} {t('login.link')}
                 </Link>
               </div>
             </div>

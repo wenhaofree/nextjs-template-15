@@ -1,4 +1,5 @@
 'use client'
+
 import type { ChatCompletionOptions } from '@/lib/ai'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
@@ -11,11 +12,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Globe, LinkIcon, Languages, CreditCard, Check, Copy } from 'lucide-react'
-import Link from "next/link"
 import { useSession } from "next-auth/react"
-import { useRouter } from 'next/navigation'
-import { analyzeUrl } from '@/lib/ai'
+import { useTranslations } from 'next-intl'
+import { Link, useRouter, usePathname } from '@/i18n/routing'
+import { toast } from "sonner"
 
+const siteUrl = process.env.NEXTAUTH_URL || 'https://aiwith.me'
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
@@ -50,8 +52,6 @@ interface UserSession {
   }
 }
 
-const siteUrl = process.env.NEXTAUTH_URL || 'https://aiwith.me'
-
 // Helper to determine submission type
 type SubmissionType = 'free' | 'payment' | 'direct'
 
@@ -71,7 +71,9 @@ const getSubmissionType = (userLevel: UserLevel | undefined, selectedPlan: strin
 }
 
 export default function Component() {
+  const t = useTranslations('Submit')
   const router = useRouter()
+  const pathname = usePathname()
   const { data: session, status } = useSession() as { data: UserSession | null, status: string }
   const isAuthenticated = status === 'authenticated'
   const [selectedPlan, setSelectedPlan] = useState('free')
@@ -79,6 +81,9 @@ export default function Component() {
     name: '',
     url: '',
   })
+
+  // Get locale from pathname
+  const locale = pathname.split('/')[1] || 'zh'
 
   // Add URL validation state
   const [errors, setErrors] = useState({
@@ -102,12 +107,12 @@ export default function Component() {
       if (!value.trim()) {
         setErrors(prev => ({
           ...prev,
-          name: '工具名称不能为空'
+          name: t('form.validation.required')
         }));
       } else if (value.trim().length < 2) {
         setErrors(prev => ({
           ...prev,
-          name: '工具名称至少需要2个字符'
+          name: t('form.validation.minLength')
         }));
       } else {
         setErrors(prev => ({
@@ -121,12 +126,12 @@ export default function Component() {
       if (!value.trim()) {
         setErrors(prev => ({
           ...prev,
-          url: '网址不能为空'
+          url: t('form.validation.required')
         }));
       } else if (!isValidUrl(value.trim())) {
         setErrors(prev => ({
           ...prev,
-          url: '请输入有效的网址 (例如: https://example.com)'
+          url: t('form.validation.invalidUrl')
         }));
       } else {
         setErrors(prev => ({
@@ -139,23 +144,23 @@ export default function Component() {
 
   const features = [
     {
-      title: "来自100个国家的观众",
-      description: "最受欢迎的观众来自美国、英国、加拿大、中国、日本、韩国、印度、法国、新加坡...",
+      title: t('features.audience.title'),
+      description: t('features.audience.description'),
       icon: Globe,
     },
     {
-      title: "获取 DR 60 反向链接",
-      description: "获得永久的高质量高功率反向链接，以提高您的网站和产品的知名度和权威性。",
+      title: t('features.backlinks.title'),
+      description: t('features.backlinks.description'),
       icon: LinkIcon,
     },
     {
-      title: "支持5种语言",
-      description: "您的产品介绍将以至少5种语言传播，覆盖更多国家的用户，未来还会增加更多。",
+      title: t('features.languages.title'),
+      description: t('features.languages.description'),
       icon: Languages,
     },
     {
-      title: "价格低廉，永久曝光",
-      description: "我们有多层定价来帮助初创公司节省推广成本，当然贵助商也会更多的首页曝光率！",
+      title: t('features.pricing.title'),
+      description: t('features.pricing.description'),
       icon: CreditCard,
     },
   ]
@@ -163,66 +168,38 @@ export default function Component() {
   const plans = [
     {
       id: 'free',
-      name: "免费提交",
+      name: t('plans.free.name'),
       price: "0",
-      description: "添加我们的链接到您的网站主页即可免费提交",
-      features: [
-        "7天内添加到列表",
-        "需要添加以下链接到主页：",
-        {
-          type: 'code',
-          content: `<a href="${siteUrl}/" title="AI With Me: Discover thousands of AI Tools">AI With Me</a>`
-        }
-      ]
+      description: t('plans.free.description'),
+      features: t.raw('plans.free.features') as any[]
     },
     {
       id: 'one-time',
-      name: "一次性提交",
+      name: t('plans.oneTime.name'),
       price: "16.9",
-      originalPrice: "19.9", 
-      description: "一次提交，不用担心持续扣费",
-      features: ["无需添加我们的反向链接"]
+      originalPrice: "19.9",
+      description: t('plans.oneTime.description'),
+      features: t.raw('plans.oneTime.features') as string[]
     },
     {
       id: 'unlimited',
-      name: "无限制提交 AI",
+      name: t('plans.unlimited.name'),
       price: "24.9",
       originalPrice: "39.9",
-      description: "每月无限提交AI",
-      features: ["您可以随时取消", "无需添加我们的反向链接"]
+      description: t('plans.unlimited.description'),
+      features: t.raw('plans.unlimited.features') as string[]
     },
     {
       id: 'sponsor',
-      name: "赞助广告",
+      name: t('plans.sponsor.name'),
       price: "39.9",
       originalPrice: "59.9",
-      description: "置顶的工具显示在顶部广告位置",
-      features: ["受益最高的展示效果", "无需添加我们的反向链接"]
+      description: t('plans.sponsor.description'),
+      features: t.raw('plans.sponsor.features') as string[]
     },
   ]
 
-  const faqs = [
-    {
-      question: "[AI With Me]什么时候会白名单的工具?",
-      answer: "我们会在收到提交后的48小时内审核您的工具。"
-    },
-    {
-      question: "退款政策是什么?",
-      answer: "如果您对我们的服务不满意，我们提供30天内全额退款保证。"
-    },
-    {
-      question: "提交的工具可以永远保留在主页上吗?",
-      answer: "是的，只要您的工具符合我们的社区准则，它将永久保留在我们的平台上。"
-    },
-    {
-      question: "赞助政策是什么?",
-      answer: "赞助商将获得优先展示位置、更多的展示机会以及专属的推广支持。"
-    },
-    {
-      question: "为什么显示交的网站没有显示在页面上?", 
-      answer: "所有提交的网站都需要经过审核流程，这可能需要一些时间。如果超过48小时仍未显示，请联系我们的支持团队。"
-    },
-  ]
+  const faqs = t.raw('faq.items') as Array<{question: string, answer: string}>
 
   // Simplified submit handler
   const handleSubmit = async () => {
@@ -230,12 +207,12 @@ export default function Component() {
       setShowValidation(true)
 
       if (!isAuthenticated) {
-        alert('请先登录后再提交')
+        toast.error(t('error.loginRequired'))
         return
       }
 
       if (errors.name || errors.url) {
-        alert('请修正表单错误')
+        toast.error(t('error.formErrors'))
         return
       }
 
@@ -248,24 +225,18 @@ export default function Component() {
         url: formData.url.trim(),
         planId: selectedPlan
       })
-      
 
-      // 大模型处理内容
-      // const aiAnalysis = await analyzeUrl(formData.url.trim());
-      // console.log('aiAnalysis',aiAnalysis);
-      
-      
-      console.log('level:',session?.user?.level);
+      console.log('level:', session?.user?.level);
 
       const submissionType = getSubmissionType(session?.user?.level, selectedPlan)
-      console.log('submissionType:',submissionType);
+      console.log('submissionType:', submissionType);
       
       switch (submissionType) {
         case 'free':
           // Handle free submission with backlink check
           const hasValidBacklink = await checkBacklink(formData.url)
           if (!hasValidBacklink) {
-            alert(`Please add the required backlink...`) // Your existing alert message
+            toast.error(t('error.backlinkRequired'))
             return
           }
           await submitTool(formData, session)
@@ -291,7 +262,7 @@ export default function Component() {
 
     } catch (error) {
       console.error('Error:', error)
-      alert('提交失败，请稍后重试')
+      toast.error(t('error.submissionFailed'))
     }
   }
 
@@ -330,7 +301,7 @@ export default function Component() {
     if (!response.ok) {
       throw new Error('Failed to submit tool')
     }
-    alert('提交成功')
+    toast.success(t('success.freePlan'))
   }
 
   const createCheckoutSession = async (params: {
@@ -340,13 +311,16 @@ export default function Component() {
   }) => {
     const response = await fetch('/api/stripe/create-checkout-session', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         email: params.email,
         planType: params.planType,
         submissionName: params.submission.name.trim(),
         submissionUrl: params.submission.url.trim(),
-        submission: params.submission
+        submission: params.submission,
+        locale
       })
     })
 
@@ -364,15 +338,14 @@ export default function Component() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#7B68EE] to-[#4169E1]">
-            提交你的 AI 工具在这里
+            {t('hero.title')}
           </h1>
           <div className="flex items-center justify-center gap-2 mb-6">
             <span className="text-[#32CD32]">✓</span>
-            <span className="text-[#B0B0DA]">立即提交您的AI工具即可获得</span>
-            <span className="text-[#7B68EE]">AI With Me Domain Rating(DR): 60</span>
+            <span className="text-[#B0B0DA]">{t('hero.badge')}</span>
           </div>
           <p className="text-[#B0B0DA] max-w-3xl mx-auto">
-            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
+            {t('hero.description')}
           </p>
         </div>
 
@@ -395,7 +368,7 @@ export default function Component() {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                placeholder="网站名称 e.g. AI With Me"
+                placeholder={t('form.name.placeholder')}
                 className={`bg-[#12122A] border-[#2A2A4A] text-[#E0E0FF] placeholder:text-[#B0B0DA] ${
                   errors.name ? 'border-red-500' : ''
                 }`}
@@ -408,7 +381,7 @@ export default function Component() {
                 name="url"
                 value={formData.url}
                 onChange={handleInputChange}
-                placeholder="网站地址 e.g. https://iwith.me/"
+                placeholder={t('form.url.placeholder')}
                 className={`bg-[#12122A] border-[#2A2A4A] text-[#E0E0FF] placeholder:text-[#B0B0DA] ${
                   errors.url ? 'border-red-500' : ''
                 }`}
@@ -474,16 +447,16 @@ export default function Component() {
 
           <div className="text-center mt-4">
             <Link 
-              href="/price" 
+              href={`/${locale}/price`}
               className="text-[#7B68EE] hover:text-[#6A5ACD] text-sm"
             >
-              查看定价详情
+              {t('button.viewPricing')}
             </Link>
           </div>
           
           {showValidation && (formData.name.trim() === '' || formData.url.trim() === '') && (
             <div className="text-red-500 text-sm mt-2 text-center">
-              {formData.name.trim() === '' ? '请输入名称' : '请输入网址'}
+              {formData.name.trim() === '' ? t('form.name.error') : t('form.url.error')}
             </div>
           )}
           <Button 
@@ -491,14 +464,14 @@ export default function Component() {
             disabled={!isAuthenticated}
             className="w-full mt-4 bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B] disabled:opacity-50"
           >
-            {!isAuthenticated ? '请先登录' : '提交'}
+            {!isAuthenticated ? t('button.pleaseLogin') : t('button.submit')}
           </Button>
         </div>
 
         {/* FAQ Section */}
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-center text-[#7B68EE] mb-8">
-            Frequently Asked Questions
+            {t('faq.title')}
           </h2>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (

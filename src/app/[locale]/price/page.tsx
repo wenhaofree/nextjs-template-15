@@ -6,33 +6,39 @@ import { Check, Globe, LinkIcon, Languages, CreditCard } from 'lucide-react'
 import { useState } from "react"
 import { toast } from "sonner"
 import { useSession, signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useTranslations } from 'next-intl'
+import { useRouter, usePathname } from '@/i18n/routing'
 
 export default function PricePage() {
+  const t = useTranslations('Pricing')
   const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState<string | null>(null)
   const router = useRouter()
+  const pathname = usePathname()
+  
+  // Get locale from pathname
+  const locale = pathname.split('/')[1] || 'zh'
 
   const handleGetNow = async (planName: string) => {
     if (status === "loading") return
 
     if (!session) {
-      signIn()
+      router.push('/sign-in')
       return
     }
 
     try {
       setIsLoading(planName)
       
-      const planType = planName === "一次性提交" ? "one-time" : 
-                      planName === "无限提交AI" ? "unlimited" :
-                      planName === "赞助" ? "sponsor" : "free"
+      const planType = planName === t('plans.oneTime.name') ? "one-time" : 
+                      planName === t('plans.unlimited.name') ? "unlimited" :
+                      planName === t('plans.sponsor.name') ? "sponsor" : "free"
       
       if (planType === "free") {
         toast.success("成功注册免费计划")
         return
       }
-      // 创建支付页面
+
       const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -48,14 +54,14 @@ export default function PricePage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || '支付创建失败')
+        throw new Error(data.error || t('error.paymentCreation'))
       }
       
       router.push(data.url)
       
     } catch (error) {
       console.error('Payment error:', error)
-      toast.error(error instanceof Error ? error.message : '支付过程中出现错误')
+      toast.error(error instanceof Error ? error.message : t('error.paymentProcess'))
     } finally {
       setIsLoading(null)
     }
@@ -63,87 +69,55 @@ export default function PricePage() {
 
   const features = [
     {
-      title: "来自100个国家的观众",
-      description: "最受欢迎的观众来自美国、英国、加拿大、中国、日本、韩国、印度、法国、新加坡...",
+      title: t('features.audience.title'),
+      description: t('features.audience.description'),
       icon: Globe,
     },
     {
-      title: "获取 DR 60 反向链接",
-      description: "获得永久的高质量高功率反向链接，以提高您的网站和产品的知名度和权威性。",
+      title: t('features.backlinks.title'),
+      description: t('features.backlinks.description'),
       icon: LinkIcon,
     },
     {
-      title: "支持5种语言",
-      description: "您的产品介绍将以至少5种语言传播，覆盖更多国家的用户，未来还会增加更多。",
+      title: t('features.languages.title'),
+      description: t('features.languages.description'),
       icon: Languages,
     },
     {
-      title: "价格低廉，永久曝光",
-      description: "我们有多层定价来帮助初创公司节省推广成本，当然贵助商也会有更多的首页曝光率！",
+      title: t('features.pricing.title'),
+      description: t('features.pricing.description'),
       icon: CreditCard,
     },
   ]
 
   const plans = [
     {
-      name: "免费提交",
+      name: t('plans.free.name'),
       price: "0",
       originalPrice: "0",
-      description: "将我们的反向链接添加到您的网站并获得免费提交",
-      features: [
-        "7 天内添加到列表",
-        "提交包含我们反向链接的工具网站",
-        "您的工具页面的出站链接是 dofollow",
-        "您的工具的链接永久存在",
-      ],
+      description: t('plans.free.description'),
+      features: t.raw('plans.free.features') as string[],
     },
     {
-      name: "一次性提交",
+      name: t('plans.oneTime.name'),
       price: "16.9",
       originalPrice: "19.9",
-      description: "提交一次，无需担心将续扣费",
-      features: [
-        "48 小时内添加到列表",
-        "提交1个AI工具",
-        "您可以多次购买",
-        "您的工具页面的出站链接是 dofollow",
-        "您的工具的链接永久存在",
-        "未使用可退款",
-        "随时使用",
-      ],
+      description: t('plans.oneTime.description'),
+      features: t.raw('plans.oneTime.features') as string[],
     },
     {
-      name: "无限提交AI",
+      name: t('plans.unlimited.name'),
       price: "24.9",
       originalPrice: "39.9",
-      description: "每月无限次提交AI工具，比一次性提交更划算",
-      features: [
-        "24小时内添加到列表",
-        "无限次提交AI工具",
-        "纳入建议列表",
-        "您可以更新您的产品信息",
-        "您的工具页面的出站链接是 dofollow",
-        "您的工具的链接永久存在",
-        "您可以在任何时候取消",
-      ],
+      description: t('plans.unlimited.description'),
+      features: t.raw('plans.unlimited.features') as string[],
     },
     {
-      name: "赞助",
+      name: t('plans.sponsor.name'),
       price: "39.9",
       originalPrice: "59.9",
-      description: "成为我们的赞助商并向顶部推荐您的产品 到处都是赞助链接",
-      features: [
-        "24小时内添加到列表",
-        "无限提交AI工具",
-        "纳入建议列表",
-        "您的工具会出现在更多页面上",
-        "您可以更新您的产品信息",
-        "赞助商独特的标志和推荐",
-        "专家单独交流",
-        "您的工具页面的出站链接是 dofollow",
-        "您的工具的链接永久存在",
-        "您可以在任何时候取消",
-      ],
+      description: t('plans.sponsor.description'),
+      features: t.raw('plans.sponsor.features') as string[],
     },
   ]
 
@@ -153,10 +127,10 @@ export default function PricePage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#7B68EE] to-[#4169E1]">
-            在 AI With Me 上发布您的工具
+            {t('hero.title')}
           </h1>
           <p className="text-[#B0B0DA] max-w-3xl mx-auto">
-            AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。
+            {t('hero.description')}
           </p>
         </div>
 
@@ -201,7 +175,7 @@ export default function PricePage() {
                 onClick={() => handleGetNow(plan.name)}
                 disabled={isLoading === plan.name}
               >
-                {isLoading === plan.name ? "处理中..." : "立即获取"}
+                {isLoading === plan.name ? t('button.processing') : t('button.getStarted')}
               </Button>
             </Card>
           ))}

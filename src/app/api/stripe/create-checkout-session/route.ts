@@ -11,6 +11,7 @@ const PRICE_IDS = {
   'sponsor': 'price_1QKcYKF6tgmitLrXEUPnogCL'      // $39.9 (subscription price)
 } as const
 
+
 export async function POST(req: Request) {
   try {
     const { email, planType, submission,submissionName,submissionUrl } = await req.json()
@@ -62,6 +63,7 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
+      // success_url: `${process.env.NEXTAUTH_URL}/${locale}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
       success_url: `${process.env.NEXTAUTH_URL}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
       cancel_url: `${process.env.NEXTAUTH_URL}/submit`,
       client_reference_id: email,

@@ -78,5 +78,277 @@
       "chinese": "中文",
       "japanese": "日本語"
     }
+  },
+  "SignIn": {
+    "title": "Sign in to your account",
+    "email": "Email address",
+    "password": "Password",
+    "button": {
+      "signIn": "Sign in",
+      "loading": "Signing in..."
+    },
+    "divider": "or",
+    "googleButton": "Sign in with Google",
+    "register": {
+      "text": "Don't have an account?",
+      "link": "Sign up now"
+    },
+    "error": {
+      "default": "Failed to sign in, please try again"
+    }
+  },
+  "SignUp": {
+    "title": "Create new account",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "button": {
+      "signUp": "Sign up",
+      "loading": "Signing up..."
+    },
+    "divider": "or",
+    "login": {
+      "text": "Already have an account?",
+      "link": "Sign in now"
+    },
+    "error": {
+      "passwordMismatch": "Passwords do not match",
+      "registrationFailed": "Registration failed",
+      "default": "An error occurred, please try again"
+    }
+  },
+  "Profile": {
+    "title": "Profile",
+    "loading": "Loading...",
+    "nameNotSet": "Name not set",
+    "membership": {
+      "level": "Membership Level",
+      "free": "Free User"
+    },
+    "registrationDate": "Registration Date",
+    "buttons": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password"
+    },
+    "collections": {
+      "title": "Saved Tools",
+      "empty": "No saved tools"
+    },
+    "history": {
+      "title": "Usage History",
+      "empty": "No usage history"
+    }
+  },
+  "Pricing": {
+    "hero": {
+      "title": "Publish Your Tool on AI With Me",
+      "description": "AI With Me can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
+    },
+    "features": {
+      "audience": {
+        "title": "Audience from 100+ Countries",
+        "description": "Most popular audiences are from USA, UK, Canada, China, Japan, Korea, India, France, Singapore..."
+      },
+      "backlinks": {
+        "title": "Get DR 60 Backlinks",
+        "description": "Get permanent high-quality high-power backlinks to increase visibility and authority of your website and products."
+      },
+      "languages": {
+        "title": "Support 5 Languages",
+        "description": "Your product introduction will be spread in at least 5 languages, covering users from more countries, with more to come in the future."
+      },
+      "pricing": {
+        "title": "Low Price, Permanent Exposure",
+        "description": "We have multi-tier pricing to help startups save on promotion costs, and sponsors will get more homepage exposure!"
+      }
+    },
+    "plans": {
+      "free": {
+        "name": "Free Submit",
+        "description": "Add our backlink to your website and get free submission",
+        "features": [
+          "Added to list within 7 days",
+          "Submit tool website with our backlink",
+          "Dofollow outbound link on your tool page",
+          "Your tool link exists permanently"
+        ]
+      },
+      "oneTime": {
+        "name": "One-time Submit",
+        "description": "Submit once, no recurring charges",
+        "features": [
+          "Added to list within 48 hours",
+          "Submit 1 AI tool",
+          "You can purchase multiple times",
+          "Dofollow outbound link on your tool page",
+          "Your tool link exists permanently",
+          "Refundable if unused",
+          "Use anytime"
+        ]
+      },
+      "unlimited": {
+        "name": "Unlimited AI Submit",
+        "description": "Submit unlimited AI tools monthly, better value than one-time",
+        "features": [
+          "Added to list within 24 hours",
+          "Unlimited AI tool submissions",
+          "Included in suggested list",
+          "You can update your product info",
+          "Dofollow outbound link on your tool page",
+          "Your tool link exists permanently",
+          "Cancel anytime"
+        ]
+      },
+      "sponsor": {
+        "name": "Sponsor",
+        "description": "Become our sponsor and promote your product to the top with sponsor links everywhere",
+        "features": [
+          "Added to list within 24 hours",
+          "Unlimited AI tool submissions",
+          "Included in suggested list",
+          "Your tools appear on more pages",
+          "You can update your product info",
+          "Unique sponsor badge and recommendations",
+          "Expert direct communication",
+          "Dofollow outbound link on your tool page",
+          "Your tool link exists permanently",
+          "Cancel anytime"
+        ]
+      }
+    },
+    "button": {
+      "getStarted": "Get Started",
+      "processing": "Processing..."
+    },
+    "error": {
+      "paymentCreation": "Payment creation failed",
+      "paymentProcess": "Error occurred during payment"
+    }
+  },
+  "Submit": {
+    "hero": {
+      "title": "Submit Your AI Tool Here",
+      "badge": "Get AI With Me Domain Rating(DR): 60",
+      "description": "AI With Me can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
+    },
+    "features": {
+      "audience": {
+        "title": "Audience from 100+ Countries",
+        "description": "Most popular audiences are from USA, UK, Canada, China, Japan, Korea, India, France, Singapore..."
+      },
+      "backlinks": {
+        "title": "Get DR 60 Backlinks",
+        "description": "Get permanent high-quality high-power backlinks to increase visibility and authority of your website and products."
+      },
+      "languages": {
+        "title": "Support 5 Languages",
+        "description": "Your product introduction will be spread in at least 5 languages, covering users from more countries, with more to come in the future."
+      },
+      "pricing": {
+        "title": "Low Price, Permanent Exposure",
+        "description": "We have multi-tier pricing to help startups save on promotion costs, and sponsors will get more homepage exposure!"
+      }
+    },
+    "form": {
+      "name": {
+        "label": "Website Name",
+        "placeholder": "Website name e.g. AI With Me",
+        "error": "Name is required"
+      },
+      "url": {
+        "label": "Website URL",
+        "placeholder": "Website URL e.g. https://iwith.me/",
+        "error": "Please enter a valid URL"
+      },
+      "validation": {
+        "required": "This field is required",
+        "minLength": "Name must be at least 2 characters",
+        "invalidUrl": "Please enter a valid URL (e.g.: https://example.com)"
+      }
+    },
+    "plans": {
+      "free": {
+        "name": "Free Submit",
+        "description": "Add our backlink to your homepage for free submission",
+        "features": [
+          "Added to list within 7 days",
+          "Need to add the following link to homepage:",
+          {
+            "type": "code",
+            "content": "backlink-code-here"
+          }
+        ]
+      },
+      "oneTime": {
+        "name": "One-time Submit",
+        "description": "Submit once, no recurring charges",
+        "features": ["No need to add our backlink"]
+      },
+      "unlimited": {
+        "name": "Unlimited AI Submit",
+        "description": "Submit unlimited AI tools monthly",
+        "features": ["You can cancel anytime", "No need to add our backlink"]
+      },
+      "sponsor": {
+        "name": "Sponsor Ad",
+        "description": "Featured tools displayed in top ad positions",
+        "features": ["Best exposure benefits", "No need to add our backlink"]
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "When will [AI With Me] whitelist the tool?",
+          "answer": "We will review your tool within 48 hours of submission."
+        },
+        {
+          "question": "What is the refund policy?",
+          "answer": "We offer a 30-day money-back guarantee if you're not satisfied with our service."
+        },
+        {
+          "question": "Can the submitted tool stay on the homepage forever?",
+          "answer": "Yes, as long as your tool complies with our community guidelines, it will remain permanently on our platform."
+        },
+        {
+          "question": "What is the sponsorship policy?",
+          "answer": "Sponsors receive priority placement, increased visibility, and exclusive promotional support."
+        },
+        {
+          "question": "Why isn't my submitted website showing on the page?",
+          "answer": "All submitted websites go through a review process, which may take some time. If it's not showing after 48 hours, please contact our support team."
+        }
+      ]
+    },
+    "button": {
+      "submit": "Submit",
+      "pleaseLogin": "Please Login First",
+      "viewPricing": "View Pricing Details"
+    },
+    "error": {
+      "loginRequired": "Please login before submitting",
+      "formErrors": "Please correct form errors",
+      "submissionFailed": "Submission failed, please try again"
+    },
+    "success": {
+      "freePlan": "Successfully registered for free plan"
+    }
+  },
+  "SubmitSuccess": {
+    "loading": {
+      "title": "Processing...",
+      "description": "Please wait while we process your submission"
+    },
+    "success": {
+      "title": "Payment Successful!",
+      "description": "Your submission \"{name}\" has been recorded!",
+      "button": "Continue Submitting"
+    },
+    "error": {
+      "title": "Invalid Request",
+      "description": "Missing required parameters. Please access this page through the normal process.",
+      "button": "Return to Submit Page"
+    }
   }
 }

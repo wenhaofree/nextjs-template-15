@@ -2,8 +2,7 @@
 
 import { Button } from "../ui/button"
 import { Cpu } from "lucide-react"
-import { useRouter } from 'next/navigation'
-import { Link } from '@/i18n/routing'
+import { useRouter,Link, usePathname } from '@/i18n/routing'
 import { useSession, signOut } from "next-auth/react"
 import {
   DropdownMenu,
@@ -18,8 +17,11 @@ export function Header() {
   const t = useTranslations('Header');
 
   const router = useRouter()
+  const pathname = usePathname()
   const { data: session, status } = useSession()
   
+  const locale = pathname.split('/')[1] || 'zh'
+
   const handleLoginClick = () => {
     router.push('/sign-in')
   }
@@ -31,7 +33,7 @@ export function Header() {
   const handleSignOut = async () => {
     await signOut({ 
       redirect: true,
-      callbackUrl: '/' 
+      callbackUrl: `/${locale}` 
     })
   }
 

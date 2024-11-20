@@ -3,11 +3,13 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { useSession } from "next-auth/react"
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
 
 // 分离出支付状态检查组件
 function PaymentStatus() {
+  const t = useTranslations('SubmitSuccess')
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('CHECKOUT_SESSION_ID') || searchParams.get('session_id')
   const submissionName = searchParams.get('submission_name')
@@ -75,8 +77,8 @@ function PaymentStatus() {
       <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
         <main className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4">处理中...</h1>
-            <p className="text-[#B0B0DA]">请稍候，我们正在处理您的提交</p>
+            <h1 className="text-2xl font-bold mb-4">{t('loading.title')}</h1>
+            <p className="text-[#B0B0DA]">{t('loading.description')}</p>
           </div>
         </main>
       </div>
@@ -89,14 +91,14 @@ function PaymentStatus() {
       <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
         <main className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4 text-[#32CD32]">支付成功！</h1>
+            <h1 className="text-2xl font-bold mb-4 text-[#32CD32]">{t('success.title')}</h1>
             {submissionName && submissionUrl && (
               <p className="text-[#32CD32] mb-8">
-                您的提交 "{submissionName}" 已记录！
+                {t('success.description', { name: submissionName })}
               </p>
             )}
             <Button asChild>
-              <Link href="/submit">继续提交</Link>
+              <Link href="/submit">{t('success.button')}</Link>
             </Button>
           </div>
         </main>
@@ -109,12 +111,12 @@ function PaymentStatus() {
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-2xl font-bold mb-4 text-red-500">无效的请求</h1>
+          <h1 className="text-2xl font-bold mb-4 text-red-500">{t('error.title')}</h1>
           <p className="text-[#B0B0DA] mb-8">
-            缺少必要的参数，请从正常流程访问此页面
+            {t('error.description')}
           </p>
           <Button asChild variant="outline">
-            <Link href="/submit">返回提交页面</Link>
+            <Link href="/submit">{t('error.button')}</Link>
           </Button>
         </div>
       </main>
@@ -124,13 +126,15 @@ function PaymentStatus() {
 
 // 主页面组件
 export default function SuccessPage() {
+  const t = useTranslations('SubmitSuccess')
+  
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
         <main className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4">加载中...</h1>
-            <p className="text-[#B0B0DA]">请稍候</p>
+            <h1 className="text-2xl font-bold mb-4">{t('loading.title')}</h1>
+            <p className="text-[#B0B0DA]">{t('loading.description')}</p>
           </div>
         </main>
       </div>

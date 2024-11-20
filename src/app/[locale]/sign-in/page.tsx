@@ -2,16 +2,16 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter, useParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert } from "@/components/ui/alert"
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link, useRouter } from '@/i18n/routing'
 
 export default function SignInPage() {
+  const t = useTranslations('SignIn')
   const router = useRouter()
-  const params = useParams()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -25,32 +25,29 @@ export default function SignInPage() {
     const password = formData.get('password') as string
 
     try {
-      const locale = params?.locale || 'zh'
-      const callbackUrl = `/${locale}`
-      
-      console.log('Starting login:', { email, callbackUrl })
+      console.log('Starting login:', { email })
       
       const result = await signIn('credentials', {
         email,
         password,
         redirect: false,
-        callbackUrl: `${window.location.origin}${callbackUrl}`
+        callbackUrl: '/'
       })
 
       console.log('Login result:', result)
 
       if (result?.error) {
-        setError(result.error)
+        setError(t('error.default'))
         return
       }
 
       if (result?.ok) {
-        router.replace(callbackUrl)
+        router.replace('/')
       }
 
     } catch (error) {
       console.error('Login error:', error)
-      setError('登录失败，请重试')
+      setError(t('error.default'))
     } finally {
       setLoading(false)
     }
@@ -58,15 +55,12 @@ export default function SignInPage() {
 
   async function handleGoogleSignIn() {
     try {
-      const locale = params?.locale || 'zh'
-      const callbackUrl = `/${locale}`
-      
       await signIn('google', {
-        callbackUrl: `${window.location.origin}${callbackUrl}`
+        callbackUrl: '/'
       })
     } catch (error) {
       console.error('Google login error:', error)
-      setError('登录失败，请重试')
+      setError(t('error.default'))
     }
   }
 
@@ -74,7 +68,7 @@ export default function SignInPage() {
     <div className="min-h-screen bg-[#12122A] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-bold text-[#E0E0FF]">
-          登录账户
+          {t('title')}
         </h2>
       </div>
 
@@ -89,7 +83,7 @@ export default function SignInPage() {
             
             <div>
               <Label htmlFor="email" className="text-[#E0E0FF]">
-                邮箱地址
+                {t('email')}
               </Label>
               <Input
                 id="email"
@@ -103,7 +97,7 @@ export default function SignInPage() {
 
             <div>
               <Label htmlFor="password" className="text-[#E0E0FF]">
-                密码
+                {t('password')}
               </Label>
               <Input
                 id="password"
@@ -121,7 +115,7 @@ export default function SignInPage() {
                 disabled={loading}
                 className="w-full bg-[#7B68EE] hover:bg-[#6A5ACD] text-white"
               >
-                {loading ? '登录中...' : '登录'}
+                {loading ? t('button.loading') : t('button.signIn')}
               </Button>
             </div>
           </form>
@@ -133,7 +127,7 @@ export default function SignInPage() {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-[#1E1E3A] text-[#E0E0FF]">
-                  或者
+                  {t('divider')}
                 </span>
               </div>
             </div>
@@ -150,7 +144,7 @@ export default function SignInPage() {
                   <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
                   <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                 </svg>
-                使用谷歌账号登录
+                {t('googleButton')}
               </Button>
 
               <div className="mt-6 text-sm text-center">
@@ -158,7 +152,7 @@ export default function SignInPage() {
                   href="/sign-up"
                   className="font-medium text-[#7B68EE] hover:text-[#6A5ACD]"
                 >
-                  还没有账户? 立即注册
+                  {t('register.text')} {t('register.link')}
                 </Link>
               </div>
             </div>
