@@ -12,7 +12,7 @@ export default getRequestConfig(async ({requestLocale}) => {
  
   return {
     locale,
-    timeZone: 'Asia/Shanghai', //欧洲 Europe/Vienna      timeZone: 'Asia/Shanghai'
+    timeZone: 'Asia/Shanghai',
     messages: (await import(`../../messages/${locale}.json`)).default
   };
 });
