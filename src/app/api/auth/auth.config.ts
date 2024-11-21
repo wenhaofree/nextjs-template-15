@@ -93,6 +93,7 @@ export const authOptions: AuthOptions = {
         provider: account?.provider,
         userEmail: user.email,
         userName: user.name,
+        initialUserObject: user,
         timestamp: new Date().toISOString()
       })
 
@@ -110,6 +111,10 @@ export const authOptions: AuthOptions = {
         )
         console.log('User query result:', {
           exists: result.rows.length > 0,
+          userDetails: result.rows[0] ? {
+            email: result.rows[0].email,
+            level: result.rows[0].level
+          } : null,
           timestamp: new Date().toISOString()
         })
         
@@ -119,24 +124,35 @@ export const authOptions: AuthOptions = {
             'INSERT INTO users (email, name, level) VALUES ($1, $2, $3) RETURNING id',
             [user.email, user.name, 'free']
           )
+          ;(user as UserExtended).level = 'free'
           console.log('New user created:', {
             userId: insertResult.rows[0].id,
+            assignedLevel: 'free',
             timestamp: new Date().toISOString()
           })
         } else {
           console.log('Updating existing user...')
           const updateResult = await client.query(
-            'UPDATE users SET name = $1 WHERE email = $2 RETURNING id',
+            'UPDATE users SET name = $1 WHERE email = $2 RETURNING id, level',
             [user.name, user.email]
           )
+          ;(user as UserExtended).level = updateResult.rows[0].level
           console.log('User updated:', {
             userId: updateResult.rows[0].id,
+            level: updateResult.rows[0].level,
             timestamp: new Date().toISOString()
           })
         }
         
         await client.query('COMMIT')
-        console.log('=== signIn callback completed successfully ===')
+        console.log('=== signIn callback completed ===', {
+          finalUserObject: {
+            email: user.email,
+            name: user.name,
+            level: (user as UserExtended).level
+          },
+          timestamp: new Date().toISOString()
+        })
         return true
         
       } catch (error) {
