@@ -199,7 +199,7 @@ export interface AIAnalysisResponse {
 }
 
 // Add new function to analyze URL
-export async function analyzeUrl(url: string): Promise<AIAnalysisResponse> {
+export async function analyzeUrl(url: string, baseUrl?: string): Promise<AIAnalysisResponse> {
   const inputContext = `请分析以下网址的内容：${url}
     要求输出以下内容（JSON格式）：
     {
@@ -217,18 +217,25 @@ export async function analyzeUrl(url: string): Promise<AIAnalysisResponse> {
     3. 所有文本使用中文输出
     4. status字段仅可选"success"或"error"
     5. 当无法访问网址时，返回适当的错误信息
-    6. 不要有其他要求以外的内容`;
+    6. 不要有其他要求以外的内容
+    7. 必须返回合法的JSON格式`;
 
   try {
+    const apiBaseUrl = baseUrl || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const apiUrl = new URL('/api/ai', apiBaseUrl).toString();
+
+    console.log('🔗 Making AI API request to:', apiUrl);
+
     const options: ChatCompletionOptions = {
       messages: [
         { role: 'user', content: inputContext }
       ],
       temperature: 0.7,
-      max_tokens: 1000
+      max_tokens: 1000,
+      response_format: { type: 'json_object' } // 强制返回JSON格式
     };
 
-    const res = await fetch('/api/ai', {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -237,12 +244,39 @@ export async function analyzeUrl(url: string): Promise<AIAnalysisResponse> {
     });
 
     if (!res.ok) {
-      throw new Error('AI API request failed');
+      throw new Error(`AI API request failed with status ${res.status}`);
     }
 
     const data = await res.json();
     const content = data.choices[0].message.content;
-    return JSON.parse(content) as AIAnalysisResponse;
+    
+    // Log raw content for debugging
+    console.log('📝 Raw AI response content:', content);
+
+    try {
+      // Try to clean the content if needed
+      const cleanContent = content.trim();
+      const parsedContent = JSON.parse(cleanContent);
+      
+      console.log('✅ Parsed AI response:', parsedContent);
+      
+      return parsedContent as AIAnalysisResponse;
+    } catch (parseError) {
+      console.error('❌ JSON parsing error:', {
+        error: parseError instanceof Error ? parseError.message : 'Unknown parsing error',
+        rawContent: content
+      });
+      
+      // Return fallback response
+      return {
+        summary: 'AI工具描述',
+        tags: ['AI工具', 'AI助手'],
+        target_audience: '通用用户',
+        value_proposition: '提供AI相关功能',
+        status: 'error',
+        message: '内容解析失败'
+      };
+    }
 
   } catch (error) {
     console.error('AI analysis error:', error);

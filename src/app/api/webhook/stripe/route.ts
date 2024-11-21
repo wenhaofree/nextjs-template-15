@@ -1,8 +1,7 @@
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/auth.config'
+import { analyzeUrl } from '@/lib/ai'
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
   apiVersion: process.env.STRIPE_API_VERSION as '2024-10-28.acacia',
@@ -104,109 +103,139 @@ export async function POST(req: Request) {
         throw new Error(updateData.error || '更新用户计划失败')
       }
 
-      //根据URL截图
+      
       if (submissionName && submissionUrl) {
+        // AI analysis
         try {
-          // Use the same parameter structure as the working version
-          const screenshotParams = {
-            url: submissionUrl,  // rename to match API expectation
-            size: '16:9' as const  // explicitly type as const
-          };
-
-          console.log('📸 Screenshot request params:', {
-            timestamp: new Date().toISOString(),
-            ...screenshotParams
+          console.log('🤖 Starting AI analysis for URL:', submissionUrl);
+          
+          const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+          const aiResponse = await analyzeUrl(submissionUrl, baseUrl);
+          
+          console.log('✅ AI analysis completed:', {
+            summary: aiResponse.summary,
+            tags: aiResponse.tags,
+            status: aiResponse.status
           });
 
-          // Get screenshot blob
-          const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-          const response = await fetch(`${baseUrl}/api/screenshot`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(screenshotParams),  // use renamed params
-          });
+          const summary = aiResponse.summary;
+          const tags = aiResponse.tags.join(',');
 
-          if (!response.ok) {
-            console.error('❌ Screenshot API error:', {
+          
+          //1.根据URL截图
+          try {
+            // Use the same parameter structure as the working version
+            const screenshotParams = {
+              url: submissionUrl,  // rename to match API expectation
+              size: '16:9' as const  // explicitly type as const
+            };
+
+            console.log('📸 Screenshot request params:', {
+              timestamp: new Date().toISOString(),
+              ...screenshotParams
+            });
+
+            // Get screenshot blob
+            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+            const response = await fetch(`${baseUrl}/api/screenshot`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(screenshotParams),  // use renamed params
+            });
+
+            if (!response.ok) {
+              console.error('❌ Screenshot API error:', {
+                timestamp: new Date().toISOString(),
+                status: response.status,
+                statusText: response.statusText,
+                params: screenshotParams
+              });
+              throw new Error('Screenshot generation failed');
+            }
+
+            console.log('✅ Screenshot generated successfully:', {
               timestamp: new Date().toISOString(),
               status: response.status,
-              statusText: response.statusText,
-              params: screenshotParams
             });
-            throw new Error('Screenshot generation failed');
-          }
 
-          console.log('✅ Screenshot generated successfully:', {
-            timestamp: new Date().toISOString(),
-            status: response.status,
-          });
+            const blob = await response.blob();
+            
+            // Create FormData and directly append blob with filename
+            const formData = new FormData();
+            formData.append('file', blob, `screenshot-${Date.now()}.png`);  // 直接使用 blob，不需要创建 File 对象
 
-          const blob = await response.blob();
-          
-          // Create FormData and directly append blob with filename
-          const formData = new FormData();
-          formData.append('file', blob, `screenshot-${Date.now()}.png`);  // 直接使用 blob，不需要创建 File 对象
-
-          console.log('📤 Uploading screenshot to R2:', {
-            timestamp: new Date().toISOString(),
-            fileSize: blob.size,
-            fileType: 'image/png',
-          });
-
-          // Upload to R2
-          const uploadResponse = await fetch(`${baseUrl}/api/upload`, {
-            method: 'POST',
-            body: formData
-          });
-
-          if (!uploadResponse.ok) {
-            console.error('❌ R2 upload error:', {
+            console.log('📤 Uploading screenshot to R2:', {
               timestamp: new Date().toISOString(),
-              status: uploadResponse.status,
-              statusText: uploadResponse.statusText,
+              fileSize: blob.size,
+              fileType: 'image/png',
             });
-            throw new Error('Failed to upload screenshot');
-          }
 
-          const { url } = await uploadResponse.json();
-          
-          console.log('✅ Screenshot uploaded successfully:', {
-            timestamp: new Date().toISOString(),
-            url,
-          });
+            // Upload to R2
+            const uploadResponse = await fetch(`${baseUrl}/api/upload`, {
+              method: 'POST',
+              body: formData
+            });
 
-          // 创建工具记录
-          const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              title: submissionName,
-              url: submissionUrl,
-              image_url: url,
-              summary: 'AI摘要',
-              tags: 'AI工具,AI助手',
-              status: 'active',
-              price_type: planType,
-              submit_user_id: userId
+            if (!uploadResponse.ok) {
+              console.error('❌ R2 upload error:', {
+                timestamp: new Date().toISOString(),
+                status: uploadResponse.status,
+                statusText: uploadResponse.statusText,
+              });
+              throw new Error('Failed to upload screenshot');
+            }
+
+            const { url } = await uploadResponse.json();
+            
+            console.log('✅ Screenshot uploaded successfully:', {
+              timestamp: new Date().toISOString(),
+              url,
+            });
+
+            // 2.创建工具记录
+            const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                title: submissionName,
+                url: submissionUrl,
+                image_url: url,
+                summary: summary,
+                tags: tags,
+                status: 'active',
+                price_type: planType,
+                submit_user_id: userId
+              })
             })
-          })
 
-          if (!submitResponse.ok) {
-            const submitData = await submitResponse.json()
-            throw new Error(submitData.error || '工具提交失败')
+            if (!submitResponse.ok) {
+              const submitData = await submitResponse.json()
+              throw new Error(submitData.error || '工具提交失败')
+            }
+          } catch (err) {
+            console.error('❌ Screenshot/upload process error:', {
+              timestamp: new Date().toISOString(),
+              error: err instanceof Error ? err.message : 'Unknown error',
+              stack: err instanceof Error ? err.stack : undefined,
+              submissionUrl,
+            });
+            throw err;
           }
-        } catch (err) {
-          console.error('❌ Screenshot/upload process error:', {
-            timestamp: new Date().toISOString(),
-            error: err instanceof Error ? err.message : 'Unknown error',
-            stack: err instanceof Error ? err.stack : undefined,
-            submissionUrl,
+        } catch (error) {
+          console.error('❌ AI analysis failed:', {
+            error: error instanceof Error ? error.message : 'Unknown error',
+            url: submissionUrl
           });
-          throw err;
+          
+          // Fallback to default values if AI analysis fails
+          const summary = 'AI工具描述';
+          const tags = 'AI工具,AI助手';
+          
+          // Continue with submission using fallback values...
         }
       }
     }
