@@ -1,6 +1,5 @@
 'use client'
 
-import type { ChatCompletionOptions } from '@/lib/ai'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,8 +15,8 @@ import { useSession } from "next-auth/react"
 import { useTranslations } from 'next-intl'
 import { Link, useRouter, usePathname } from '@/i18n/routing'
 import { toast } from "sonner"
+import { useLocale } from 'next-intl'
 
-const siteUrl = process.env.NEXTAUTH_URL || 'https://aiwith.me'
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
@@ -73,7 +72,6 @@ const getSubmissionType = (userLevel: UserLevel | undefined, selectedPlan: strin
 export default function Component() {
   const t = useTranslations('Submit')
   const router = useRouter()
-  const pathname = usePathname()
   const { data: session, status } = useSession() as { data: UserSession | null, status: string }
   const isAuthenticated = status === 'authenticated'
   const [selectedPlan, setSelectedPlan] = useState('free')
@@ -83,7 +81,9 @@ export default function Component() {
   })
 
   // Get locale from pathname
-  const locale = pathname.split('/')[1] || 'zh'
+  // const locale = pathname.split('/')[1] || 'zh'
+  const locale = useLocale();
+
 
   // Add URL validation state
   const [errors, setErrors] = useState({
