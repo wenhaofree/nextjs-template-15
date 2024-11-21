@@ -13,9 +13,10 @@ import {
 import { Globe, LinkIcon, Languages, CreditCard, Check, Copy } from 'lucide-react'
 import { useSession } from "next-auth/react"
 import { useTranslations } from 'next-intl'
-import { Link, useRouter, usePathname } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { toast } from "sonner"
 import { useLocale } from 'next-intl'
+import { Session } from 'next-auth'
 
 
 const copyToClipboard = (text: string) => {
@@ -54,7 +55,7 @@ interface UserSession {
 // Helper to determine submission type
 type SubmissionType = 'free' | 'payment' | 'direct'
 
-const getSubmissionType = (userLevel: UserLevel | undefined, selectedPlan: string): SubmissionType => {
+const getSubmissionType = (userLevel: string | undefined, selectedPlan: string): SubmissionType => {
   // Unlimited/sponsor users can submit directly
   if (userLevel === 'unlimited' || userLevel === 'sponsor') {
     return 'direct'
@@ -72,7 +73,7 @@ const getSubmissionType = (userLevel: UserLevel | undefined, selectedPlan: strin
 export default function Component() {
   const t = useTranslations('Submit')
   const router = useRouter()
-  const { data: session, status } = useSession() as { data: UserSession | null, status: string }
+  const { data: session, status } = useSession()
   const isAuthenticated = status === 'authenticated'
   const [selectedPlan, setSelectedPlan] = useState('free')
   const [formData, setFormData] = useState({
@@ -226,9 +227,9 @@ export default function Component() {
         planId: selectedPlan
       })
 
-      console.log('level:', session?.user?.level);
+      console.log('level:', session.user.level);
 
-      const submissionType = getSubmissionType(session?.user?.level, selectedPlan)
+      const submissionType = getSubmissionType(session.user.level, selectedPlan)
       console.log('submissionType:', submissionType);
       
       switch (submissionType) {
@@ -282,7 +283,7 @@ export default function Component() {
     return hasBacklink
   }
 
-  const submitTool = async (data: typeof formData, session: UserSession | null) => {
+  const submitTool = async (data: typeof formData, session: Session | null) => {
     const response = await fetch('/api/tools/addtool', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -2,6 +2,9 @@ import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { analyzeUrl } from '@/lib/ai'
+import { getServerSession } from "next-auth"
+import { authOptions } from '../../auth/auth.config'
+
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
   apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
@@ -12,6 +15,8 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
 export async function POST(req: Request) {
   try {
+    const userSession = await getServerSession(authOptions)
+    
     const body = await req.text()
     const headerList = await headers()
     const stripeSignature = headerList.get('stripe-signature')
@@ -101,6 +106,17 @@ export async function POST(req: Request) {
       if (!updateResponse.ok) {
         const updateData = await updateResponse.json()
         throw new Error(updateData.error || '更新用户计划失败')
+      }
+
+      // Update logged-in user's subscription plan
+      console.log('userSession level:', userSession?.user.level);
+      if (userSession?.user.level) {
+        if (userSession.user.level === 'free' || userSession.user.level === 'one-time') {
+          userSession.user.level = planType;
+        } else if (userSession.user.level === 'unlimited' && planType === 'sponsor') {
+          userSession.user.level = planType;
+        }
+        console.log('Update user level:', planType);
       }
 
       

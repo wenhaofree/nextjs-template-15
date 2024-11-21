@@ -57,9 +57,14 @@ function PaymentStatus() {
         console.log('Verification response:', data)
         setStatus(data.status === 'complete' ? 'success' : 'error')
 
-        //更新登录用户的订阅计划
+        //更新登录态用户的订阅计划
         if (session?.user) {
-          session.user.level = data.metadata.planType
+          if (session.user.level==='free'|| session.user.level==='one-time'){
+            session.user.level = data.metadata.planType
+          }else if (session.user.level==='unlimited' && data.metadata.planType==='sponsor'){
+            session.user.level = data.metadata.planType
+          }
+          // session.user.level = data.metadata.planType
           console.log('Update user level:', data.metadata.planType)          
         }
         
