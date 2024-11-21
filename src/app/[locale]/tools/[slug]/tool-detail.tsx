@@ -37,46 +37,51 @@ export function ToolDetail({ tool }: ToolDetailProps) {
       const sections = content.split('\n## ').filter(Boolean)
       const [, ...rest] = sections
 
+      // Helper function to parse inline markdown
+      const parseInlineMarkdown = (text: string) => {
+        const parts = text.split(/(\*\*.*?\*\*)/g)
+        return parts.map((part, i) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>
+          }
+          return part
+        })
+      }
+
       return (
-        <div className="space-y-8">
-          {rest.map((section, index) => {
-            const [sectionTitle, ...content] = section.split('\n')
-            return (
-              <section 
-                key={index}
-                className={cn(
-                  "bg-[#12122A] rounded-lg p-6 border border-[#2A2A4A]",
-                  "transition-all duration-200 hover:border-[#7B68EE]/50"
-                )}
-              >
-                <h2 className="text-xl font-semibold mb-4 text-[#7B68EE]">{sectionTitle}</h2>
-                <div className="prose prose-invert max-w-none">
+        <section className="bg-[#12122A] rounded-lg p-6 border border-[#2A2A4A] transition-all duration-200 hover:border-[#7B68EE]/50">
+          <div className="prose prose-invert max-w-none divide-y divide-[#2A2A4A]/50">
+            {rest.map((section, index) => {
+              const [sectionTitle, ...content] = section.split('\n')
+              return (
+                <div key={index} className="py-6 first:pt-0 last:pb-0">
+                  <h2 className="text-xl font-semibold mb-4 text-[#7B68EE]">{sectionTitle}</h2>
                   {content.map((line, i) => {
                     if (line.trim().startsWith('-')) {
                       return (
-                        <li key={i} className="text-[#B0B0DA] ml-4">
-                          {line.trim().slice(2)}
+                        <li key={i} className="text-[#B0B0DA] ml-4 py-2">
+                          {parseInlineMarkdown(line.trim().slice(2))}
                         </li>
                       )
                     }
                     if (line.trim().match(/^\d+\./)) {
                       return (
-                        <li key={i} className="text-[#B0B0DA] ml-4">
-                          {line.trim().replace(/^\d+\./, '')}
+                        <li key={i} className="text-[#B0B0DA] ml-4 py-2">
+                          {parseInlineMarkdown(line.trim().replace(/^\d+\./, ''))}
                         </li>
                       )
                     }
                     return (
-                      <p key={i} className="text-[#B0B0DA]">
-                        {line}
+                      <p key={i} className="text-[#B0B0DA] py-2">
+                        {parseInlineMarkdown(line)}
                       </p>
                     )
                   })}
                 </div>
-              </section>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        </section>
       )
     }
   

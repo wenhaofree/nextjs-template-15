@@ -1,5 +1,8 @@
 import fs from 'fs/promises'
 import path from 'path'
+import { generateToolContent } from './ai'
+import { DbTool } from './neon'
+
 
 export const TOOLS_CONTENT_DIR = path.join(process.cwd(), 'src/app/content/tools')
 
@@ -33,5 +36,27 @@ export async function getAllToolSlugs(): Promise<string[]> {
   } catch (error) {
     console.error('Error reading tool slugs:', error)
     return []
+  }
+}
+
+export async function generateAndSaveContent(tool: DbTool): Promise<string> {
+  try {
+    // Generate content using AI
+    const content = await generateToolContent(tool)
+    
+    // Ensure content directory exists
+    const contentDir = path.join(process.cwd(), 'src/app/content/tools')
+    await fs.mkdir(contentDir, { recursive: true })
+    
+    // Save to markdown file
+    const filePath = path.join(contentDir, `${tool.slug}.md`)
+    await fs.writeFile(filePath, content, 'utf-8')
+    
+    console.log('✅ Generated and saved content for:', tool.slug)
+    return content
+    
+  } catch (error) {
+    console.error('Error generating/saving content:', error)
+    throw error
   }
 } 

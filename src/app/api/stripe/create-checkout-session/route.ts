@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       ],
       success_url: `${process.env.NEXTAUTH_URL}/${locale}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
       // success_url: `${process.env.NEXTAUTH_URL}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
-      cancel_url: `${process.env.NEXTAUTH_URL}/submit`,
+      cancel_url: `${process.env.NEXTAUTH_URL}/price`,
       client_reference_id: email,
       metadata: {
         email,

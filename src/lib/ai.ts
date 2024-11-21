@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { DbTool } from './neon'
 
 // Types for request/response
 export interface Message {
@@ -281,5 +282,139 @@ export async function analyzeUrl(url: string, baseUrl?: string): Promise<AIAnaly
   } catch (error) {
     console.error('AI analysis error:', error);
     throw error;
+  }
+}
+
+export async function generateToolContent(tool: DbTool): Promise<string> {
+  const inputContext = `请分析并生成以下URL的详细内容报告：${tool.url}
+
+请生成一份详细的Markdown格式分析报告，包含以下部分：
+# [网站名称]
+
+## 网站概述
+- 网站定位与目标
+- 主要功能概述
+- 技术架构特点
+
+## 核心功能
+1. [功能1]
+   - 功能说明
+   - 特点优势
+   
+2. [功能2]
+   - 功能说明
+   - 特点优势
+   
+[继续列举主要功能，3-5个]
+
+## 技术特点
+- 技术架构
+- 创新特性
+- 性能表现
+
+## 应用场景
+1. 场景一：[场景名称]
+   - 问题描述
+   - 解决方案
+   - 应用效果
+
+2. 场景二：[场景名称]
+   - 问题描述
+   - 解决方案
+   - 应用效果
+
+[至少提供3个具体场景]
+
+## 使用指南
+1. 快速入门
+   - 注册流程
+   - 基础设置
+   - 开始使用
+
+2. 核心功能使用
+   - 功能A使用说明
+   - 功能B使用说明
+   
+3. 使用建议
+   - 最佳实践
+   - 注意事项
+
+## 目标用户
+- 主要用户群体
+- 使用场景分析
+- 价值定位
+
+## 常见问题
+Q1: [常见问题1]
+A1: [详细解答]
+
+Q2: [常见问题2]
+A2: [详细解答]
+
+[提供5个最具代表性的问题和解答]
+
+注意事项：
+1. 如果URL无法访问，返回错误信息
+2. 内容应基于URL实际信息进行分析
+3. 保持专业性和可读性
+4. 突出重点特征和核心价值
+5. 使用清晰的层级结构
+6. 适当使用Markdown格式元素（列表、强调、引用等） `
+
+  try {
+    const apiBaseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const apiUrl = new URL('/api/ai', apiBaseUrl).toString();
+
+    console.log('🤖 Generating content for:', tool.title);
+
+    const options: ChatCompletionOptions = {
+      messages: [
+        { role: 'user', content: inputContext }
+      ],
+      temperature: 0.7,
+      max_tokens: 2000, // 增加token限制以获取更详细的内容
+      response_format: { type: 'text' } // 使用text格式因为我们需要markdown
+    };
+
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(options),
+    });
+
+    if (!res.ok) {
+      throw new Error(`AI API request failed with status ${res.status}`);
+    }
+
+    const data = await res.json();
+    const content = data.choices[0].message.content;
+    
+    // 验证返回的内容是否符合markdown格式
+    if (!content.includes('# ' + tool.title)) {
+      console.warn('⚠️ Generated content may not be properly formatted');
+    }
+
+    console.log('✅ Content generated successfully for:', tool.title);
+    
+    return content.trim();
+
+  } catch (error) {
+    console.error('❌ Error generating content:', error);
+    
+    // 返回一个基础的错误提示内容
+    return `# ${tool.title}
+
+      ## 详细介绍
+      抱歉，暂时无法获取该工具的详细信息。
+
+      ## 基本信息
+      ${tool.summary}
+
+      ## 访问地址
+      ${tool.url}
+
+      请稍后再试或联系管理员。`;
   }
 } 

@@ -3,7 +3,7 @@ import { getToolsDB,DbTool,ToolsDB } from '@/lib/neon'
 import { notFound } from 'next/navigation'
 import { ToolDetail } from './tool-detail'
 import { Suspense } from 'react'
-import { getToolContent } from '@/lib/content'
+import { getToolContent, generateAndSaveContent } from '@/lib/content'
 function Loading() {
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF] flex items-center justify-center">
@@ -32,12 +32,21 @@ export default async function ToolPage({ params }: PageProps) {
   }
   console.log('✅ Tool found:', tool.title)
 
-  // 获取markdown内容
-  const content = await getToolContent(slug)
+  // Try to get existing content
+  let content = await getToolContent(slug)
   
+  // If no content exists, generate it
+  if (!content) {
+    console.log('📝 Generating content for:', slug)
+    content = await generateAndSaveContent(tool)
+  }
+
   if (content) {
     tool.content_markdown = content
   }  
+
+  
+
   return (
     <Suspense fallback={<Loading />}>
       <ToolDetail tool={tool} />
