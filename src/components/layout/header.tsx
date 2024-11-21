@@ -43,7 +43,7 @@ export function Header() {
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-2">
             <Cpu className="w-8 h-8 text-[#7B68EE]" />
-            <span className="text-xl font-semibold text-[#7B68EE]">Toolify.ai</span>
+            <span className="text-xl font-semibold text-[#7B68EE]">AI STAK</span>
           </Link>
           <nav className="hidden md:flex space-x-6">
             {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">

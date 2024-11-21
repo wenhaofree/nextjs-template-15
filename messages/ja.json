@@ -142,8 +142,8 @@
   },
   "Pricing": {
     "hero": {
-      "title": "AI With Meで あなたのツールを公開",
-      "description": "AI With Meは、世界中の何百万ものAIユーザーや潜在的な顧客にリーチすることができます。AIエンスージアスト、AI起業家、AI投資家、VPなどとつながり、製品の認知度、トライアル率、有料ユーザーを増やします。"
+      "title": "AI STAKで あなたのツールを公開",
+      "description": "AI STAKは、世界中の何百万ものAIユーザーや潜在的な顧客にリーチすることができます。AIエンスージアスト、AI起業家、AI投資家、VPなどとつながり、製品の認知度、トライアル率、有料ユーザーを増やします。"
     },
     "features": {
       "audience": {
@@ -229,8 +229,8 @@
   "Submit": {
     "hero": {
       "title": "AIツールを登録する",
-      "badge": "AI With Me Domain Rating(DR): 60を獲得",
-      "description": "AI With Meは、世界中の何百万ものAIユーザーや潜在的な顧客にリーチすることができます。AIエンスージアスト、AI起業家、AI投資家、VPなどとつながり、製品の認知度、トライアル率、有料ユーザーを増やします。"
+      "badge": "AI STAK Domain Rating(DR): 60を獲得",
+      "description": "AI STAKは、世界中の何百万ものAIユーザーや潜在的な顧客にリーチすることができます。AIエンスージアスト、AI起業家、AI投資家、VPなどとつながり、製品の認知度、トライアル率、有料ユーザーを増やします。"
     },
     "features": {
       "audience": {
@@ -253,12 +253,12 @@
     "form": {
       "name": {
         "label": "サイト名",
-        "placeholder": "サイト名 例: AI With Me",
+        "placeholder": "サイト名 例: AI STAK",
         "error": "名前を入力してください"
       },
       "url": {
         "label": "サイトURL",
-        "placeholder": "サイトURL 例: https://iwith.me/",
+        "placeholder": "サイトURL 例: https://aistak.com",
         "error": "有効なURLを入力してください"
       },
       "validation": {
@@ -300,7 +300,7 @@
       "title": "よくある質問",
       "items": [
         {
-          "question": "[AI With Me]はいつツールをホワイトリストに登録しますか？",
+          "question": "[AI STAK]はいつツールをホワイトリストに登録しますか？",
           "answer": "提出から48時間以内にツールを審査いたします。"
         },
         {

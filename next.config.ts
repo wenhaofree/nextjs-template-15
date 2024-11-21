@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.aiwith.me',
+        hostname: 'cdn.aistak.com',
         port: '',
         pathname: '/**',
       },

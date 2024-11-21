@@ -289,7 +289,7 @@ export default function Component() {
       body: JSON.stringify({
         title: data.name.trim(),
         url: data.url.trim(),
-        image_url: 'https://cdn.aiwith.me/s2%2Fscreenshot_getinboxzero.com.webp',
+        image_url: 'https://cdn.aistak.com/s2%2Fscreenshot_getinboxzero.com.webp',
         summary: 'AI摘要', // TODO: Generate with AI
         tags: 'AI工具,AI助手', // TODO: Generate with AI
         status: 'active',

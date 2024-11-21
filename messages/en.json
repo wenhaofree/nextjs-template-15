@@ -142,8 +142,8 @@
   },
   "Pricing": {
     "hero": {
-      "title": "Publish Your Tool on AI With Me",
-      "description": "AI With Me can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
+      "title": "Publish Your Tool on AI STAK",
+      "description": "AI STAK can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
     },
     "features": {
       "audience": {
@@ -229,8 +229,8 @@
   "Submit": {
     "hero": {
       "title": "Submit Your AI Tool Here",
-      "badge": "Get AI With Me Domain Rating(DR): 60",
-      "description": "AI With Me can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
+      "badge": "Get AI STAK Domain Rating(DR): 60",
+      "description": "AI STAK can help you reach millions of AI users and potential customers globally. Connect with AI enthusiasts, AI entrepreneurs, AI investors, VPs, and more to increase product awareness, trial rates, and paid users."
     },
     "features": {
       "audience": {
@@ -253,12 +253,12 @@
     "form": {
       "name": {
         "label": "Website Name",
-        "placeholder": "Website name e.g. AI With Me",
+        "placeholder": "Website name e.g. AI STAK",
         "error": "Name is required"
       },
       "url": {
         "label": "Website URL",
-        "placeholder": "Website URL e.g. https://iwith.me/",
+        "placeholder": "Website URL e.g. https://aistak.com",
         "error": "Please enter a valid URL"
       },
       "validation": {
@@ -300,7 +300,7 @@
       "title": "Frequently Asked Questions",
       "items": [
         {
-          "question": "When will [AI With Me] whitelist the tool?",
+          "question": "When will [AI STAK] whitelist the tool?",
           "answer": "We will review your tool within 48 hours of submission."
         },
         {

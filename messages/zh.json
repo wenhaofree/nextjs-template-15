@@ -141,8 +141,8 @@
   },
   "Pricing": {
     "hero": {
-      "title": "在 AI With Me 上发布您的工具",
-      "description": "AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
+      "title": "在 AI STAK 上发布您的工具",
+      "description": "AI STAK 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
     },
     "features": {
       "audience": {
@@ -228,8 +228,8 @@
   "Submit": {
     "hero": {
       "title": "提交你的 AI 工具在这里",
-      "badge": "立即获得 AI With Me Domain Rating(DR): 60",
-      "description": "AI With Me 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
+      "badge": "立即获得 AI STAK Domain Rating(DR): 60",
+      "description": "AI STAK 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
     },
     "features": {
       "audience": {
@@ -252,12 +252,12 @@
     "form": {
       "name": {
         "label": "网站名称",
-        "placeholder": "网站名称 e.g. AI With Me",
+        "placeholder": "网站名称 e.g. AI STAK",
         "error": "名称不能为空"
       },
       "url": {
         "label": "网站地址",
-        "placeholder": "网站地址 e.g. https://iwith.me/",
+        "placeholder": "网站地址 e.g. https://aistak.com",
         "error": "请输入有效的网址"
       },
       "validation": {
@@ -299,7 +299,7 @@
       "title": "常见问题",
       "items": [
         {
-          "question": "[AI With Me]什么时候会白名单的工具?",
+          "question": "[AI STAK]什么时候会白名单的工具?",
           "answer": "我们会在收到提交后的48小时内审核您的工具。"
         },
         {
