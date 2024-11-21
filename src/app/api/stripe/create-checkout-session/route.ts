@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
-  apiVersion: process.env.STRIPE_API_VERSION as '2024-10-28.acacia',
+  apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
 })
 
 const PRICE_IDS = {
