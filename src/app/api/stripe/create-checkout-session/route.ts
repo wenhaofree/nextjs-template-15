@@ -6,9 +6,9 @@ const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
 })
 
 const PRICE_IDS = {
-  'one-time': 'price_1QKXZRF6tgmitLrXDNiaqwY0',    // $16.9 (one-time price)
-  'unlimited': 'price_1QKcf7F6tgmitLrX8duAHtxF',   // $24.9 (subscription price)
-  'sponsor': 'price_1QKcYKF6tgmitLrXEUPnogCL'      // $39.9 (subscription price)
+  'one-time': process.env.STRIPE_PRICE_ONE_TIME!,    // $16.9 (one-time price)
+  'unlimited': process.env.STRIPE_PRICE_UNLIMITED!,   // $24.9 (subscription price)
+  'sponsor': process.env.STRIPE_PRICE_SPONSOR!       // $39.9 (subscription price)
 } as const
 
 
