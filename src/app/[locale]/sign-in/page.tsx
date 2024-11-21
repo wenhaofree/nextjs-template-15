@@ -8,8 +8,12 @@ import { Label } from "@/components/ui/label"
 import { Alert } from "@/components/ui/alert"
 import { useTranslations } from 'next-intl'
 import { Link, useRouter } from '@/i18n/routing'
+import { useLocale } from 'next-intl';
+import { useParams } from 'next/navigation'
 
 export default function SignInPage() {
+  const locale = useLocale();
+
   const t = useTranslations('SignIn')
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
@@ -54,9 +58,9 @@ export default function SignInPage() {
   }
 
   async function handleGoogleSignIn() {
-    try {
+    try {      
       await signIn('google', {
-        callbackUrl: '/'
+        callbackUrl: `/${locale}`
       })
     } catch (error) {
       console.error('Google login error:', error)
