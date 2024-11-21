@@ -294,7 +294,6 @@ export async function generateToolContent(tool: DbTool): Promise<string> {
 ## 网站概述
 - 网站定位与目标
 - 主要功能概述
-- 技术架构特点
 
 ## 核心功能
 1. [功能1]

@@ -119,13 +119,13 @@ export default function Component() {
         </div>
 
         {/* Filter Tags */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        {/* <div className="flex flex-wrap gap-2 mb-8">
           {[f('newest'), f('mostCollected'), f('basedOnCrowd'), f('recommended'), f('apps')].map((tag) => (
             <Badge key={tag} variant="secondary" className="cursor-pointer bg-[#1E1E3A] text-[#7B68EE] hover:bg-[#2A2A4A] transition-colors">
               {tag}
             </Badge>
           ))}
-        </div>
+        </div> */}
 
         {/* Category Tabs */}
         <div className="flex flex-wrap gap-4 mb-12 text-sm">
@@ -185,20 +185,21 @@ export default function Component() {
                         {tool.summary}
                       </p>
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-1">
+                        {/* <div className="flex items-center space-x-1">
                           <Star className="w-4 h-4 fill-[#7B68EE] text-[#7B68EE]" />
                           <span className="text-sm text-[#B0B0DA]">{tool.rating}</span>
-                        </div>
-                        <div className="flex gap-2">
-                          {tool.price_type !== 'free' && (
-                            <Badge variant="secondary" className="text-xs bg-[#1E1E3A] text-[#7B68EE]">
-                              {tool.price_type}
+                        </div> */}
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                          {tool.tags.split(',').slice(0,3).map((tag) => (
+                            <Badge 
+                              key={tag}
+                              variant="secondary" 
+                              className="text-xs bg-[#1E1E3A] text-[#7B68EE]"
+                            >
+                              {tag.trim()}
                             </Badge>
-                          )}
-                          <Badge variant="secondary" className="text-xs bg-[#1E1E3A] text-[#7B68EE]">
-                            {tool.tags.split(',')[0]}
-                          </Badge>
-                        </div>
+                          ))}
                       </div>
                     </div>
                   </Link>
