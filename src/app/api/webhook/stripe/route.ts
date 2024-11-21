@@ -4,7 +4,7 @@ import Stripe from 'stripe'
 import { analyzeUrl } from '@/lib/ai'
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
-  apiVersion: process.env.STRIPE_API_VERSION as '2024-10-28.acacia',
+  apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
 })
 
 // 直接使用环境变量，不做额外处理
