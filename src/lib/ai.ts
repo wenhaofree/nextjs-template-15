@@ -246,7 +246,7 @@ export async function analyzeUrl(locale:string,url: string, baseUrl?: string): P
 
   
   try {
-    const apiBaseUrl = baseUrl || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const apiBaseUrl = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
     const apiUrl = new URL('/api/ai', apiBaseUrl).toString();
 
     console.log('🔗 Making AI API request to:', apiUrl);
@@ -385,7 +385,7 @@ A2: [详细解答]
 6. 适当使用Markdown格式元素（列表、强调、引用等） `
 
   try {
-    const apiBaseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const apiBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
     const apiUrl = new URL('/api/ai', apiBaseUrl).toString();
 
     console.log('🤖 Generating content for:', tool.title);

@@ -96,7 +96,7 @@ export async function POST(req: Request) {
 
       // 更新用户计划
       console.log('开始更新用户DB的Level:',planType);
-      const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
       const updateResponse = await fetch(`${baseUrl}/api/auth/update-plan`, {
         method: 'POST',
         headers: {
@@ -133,7 +133,7 @@ export async function POST(req: Request) {
           const locale = await getLocale()
           console.log('🤖 Starting AI analysis for URL:', submissionUrl);
           
-          // const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+          // const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
           // const aiResponse = await analyzeUrl(locale,submissionUrl, baseUrl);
           // const summary = aiResponse.summary;
           // const tags = aiResponse.tags.join(',');
@@ -187,7 +187,7 @@ export async function POST(req: Request) {
             });
 
             // Get screenshot blob
-            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+            const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
             const response = await fetch(`${baseUrl}/api/screenshot`, {
               method: 'POST',
               headers: {

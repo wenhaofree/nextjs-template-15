@@ -78,7 +78,7 @@ export async function getToolJson(slug: string, locale: string = 'en') {
 export async function generateAndSaveToolJson(tool: DbTool, locale: string = 'en'): Promise<any> {
   try {
     // Generate content using AI
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
     const content = await analyzeUrl(locale,tool.url,baseUrl)
     
     // Ensure directory exists

@@ -50,8 +50,8 @@ export async function POST(req: Request) {
       mode
     })
 
-    if (!process.env.NEXTAUTH_URL) {
-      throw new Error('NEXTAUTH_URL environment variable is not set')
+    if (!process.env.NEXT_PUBLIC_SITE_URL) {
+      throw new Error('NEXT_PUBLIC_SITE_URL environment variable is not set')
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -63,9 +63,8 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXTAUTH_URL}/${locale}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
-      // success_url: `${process.env.NEXTAUTH_URL}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
-      cancel_url: `${process.env.NEXTAUTH_URL}/price`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/price`,
       client_reference_id: email,
       metadata: {
         email,
@@ -81,7 +80,7 @@ export async function POST(req: Request) {
     })
 
     console.log('Created session with success URL:', {
-      baseUrl: process.env.NEXTAUTH_URL,
+      baseUrl: process.env.NEXT_PUBLIC_SITE_URL,
       successUrl: session.success_url,
       sessionId: session.id
     })
