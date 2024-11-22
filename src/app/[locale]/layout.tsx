@@ -47,6 +47,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@aistak', // Your Twitter handle
   },
+  title: {
+    default: 'AI STAK',
+    template: '%s | AI STAK'
+  },
+  description: 'The Best AI Navigation Site and AI Tools List - AISTAK',
+  keywords: ['bestai', 'aitools', 'aistak'],
   robots: {
     index: true,
     follow: true,
