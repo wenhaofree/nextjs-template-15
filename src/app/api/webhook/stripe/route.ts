@@ -4,8 +4,11 @@ import Stripe from 'stripe'
 import { analyzeUrl } from '@/lib/ai'
 import { getServerSession } from "next-auth"
 import { authOptions } from '../../auth/auth.config'
-import { getToolContent, generateAndSaveContent } from '@/lib/content'
-import { getTool } from '@/lib/neon'
+import { getToolContent, generateAndSaveContent,generateAndSaveToolJson,getToolJson } from '@/lib/content'
+import { getTool,DbTool } from '@/lib/neon'
+import { getLocale } from 'next-intl/server'
+
+
 
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
@@ -124,20 +127,50 @@ export async function POST(req: Request) {
       
       if (submissionName && submissionUrl) {
         // AI analysis
+        let summary
+        let tags
         try {
+          const locale = await getLocale()
           console.log('🤖 Starting AI analysis for URL:', submissionUrl);
           
-          const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-          const aiResponse = await analyzeUrl(submissionUrl, baseUrl);
-          
-          console.log('✅ AI analysis completed:', {
-            summary: aiResponse.summary,
-            tags: aiResponse.tags,
-            status: aiResponse.status
-          });
+          // const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+          // const aiResponse = await analyzeUrl(locale,submissionUrl, baseUrl);
+          // const summary = aiResponse.summary;
+          // const tags = aiResponse.tags.join(',');
 
-          const summary = aiResponse.summary;
-          const tags = aiResponse.tags.join(',');
+          //0. 将内容保存到json文件中
+          const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          const toolsJson = await getToolJson(slug, locale)
+          console.log('toolsJson:',toolsJson);
+          if (!toolsJson) {
+            console.log('📝 Generating JSON content for:', slug)
+            const newTool: DbTool = {
+              id: 0,
+              slug,
+              url: submissionUrl,
+              title: submissionName,
+              summary: '',
+              tags: '',
+              status: 'active',
+              created_at: new Date(),
+              updated_at: new Date(),
+              image_url: '',
+              price_type: 'free',
+              submit_user_id: userId,
+              language_support: 'en',
+              favorite_count: 0,
+              view_count: 0,
+              rating: 0
+            };
+            const generatedJson = await generateAndSaveToolJson(newTool, locale)
+            if (generatedJson) {
+              newTool.summary = generatedJson.summary
+              newTool.tags = generatedJson.tags
+              summary = generatedJson.summary
+              tags = generatedJson.tags.join(',')
+            }
+          }
+          
 
           
           //1.根据URL截图
@@ -279,12 +312,6 @@ export async function POST(req: Request) {
             error: error instanceof Error ? error.message : 'Unknown error',
             url: submissionUrl
           });
-          
-          // Fallback to default values if AI analysis fails
-          const summary = 'AI工具描述';
-          const tags = 'AI工具,AI助手';
-          
-          // Continue with submission using fallback values...
         }
       }
     }

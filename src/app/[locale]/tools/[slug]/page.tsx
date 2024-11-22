@@ -3,7 +3,7 @@ import { getToolsDB,DbTool,ToolsDB } from '@/lib/neon'
 import { notFound } from 'next/navigation'
 import { ToolDetail } from './tool-detail'
 import { Suspense } from 'react'
-import { getToolContent, generateAndSaveContent } from '@/lib/content'
+import { getToolContent, generateAndSaveContent, generateAndSaveToolJson,getToolJson } from '@/lib/content'
 function Loading() {
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF] flex items-center justify-center">
@@ -16,12 +16,14 @@ function Loading() {
 }
 
 interface PageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ 
+    slug: string
+    locale: string 
+  }>
 }
 
 export default async function ToolPage({ params }: PageProps) {
-  // 等待params解析完成
-  const { slug } = await params
+  const { slug, locale } = await params
   
   console.log('🔍 Fetching tool with slug:', slug)
   const tool = await ToolsDB.getToolBySlug(slug)
@@ -45,7 +47,20 @@ export default async function ToolPage({ params }: PageProps) {
     tool.content_markdown = content
   }  
 
-  
+  // Read data from JSON file
+  const toolsJson = await getToolJson(slug, locale)
+  console.log('toolsJson:',toolsJson);
+  if (!toolsJson) {
+    console.log('📝 Generating JSON content for:', slug)
+    const generatedJson = await generateAndSaveToolJson(tool, locale)
+    if (generatedJson) {
+      tool.summary = generatedJson.summary
+      tool.tags = generatedJson.tags
+    }
+  } else {
+    tool.summary = toolsJson.summary
+    tool.tags = toolsJson.tags
+  }
 
   return (
     <Suspense fallback={<Loading />}>

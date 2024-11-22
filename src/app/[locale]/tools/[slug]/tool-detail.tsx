@@ -85,6 +85,24 @@ export function ToolDetail({ tool }: ToolDetailProps) {
       )
     }
   
+    const renderTags = (tags: string[] | string | undefined) => {
+      if (!tags) return null;
+      
+      // Convert to array if string format
+      const tagsArray = Array.isArray(tags) 
+        ? tags 
+        : tags.split(',').map(tag => tag.trim());
+
+      return tagsArray.map((category) => (
+        <Badge 
+          key={category}
+          className="bg-[#1E1E3A] text-[#7B68EE]"
+        >
+          {category}
+        </Badge>
+      ));
+    }
+  
     return (
       <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
         <main className="container mx-auto px-4 py-8">
@@ -94,7 +112,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
               <h1 className="text-3xl font-bold mb-4 text-[#7B68EE]">{tool.title}</h1>
               <p className="text-[#B0B0DA] mb-4">{tool.summary}</p>
               <div className="flex flex-wrap items-center gap-4 mb-6">
-                <Badge className="bg-[#1E1E3A] text-[#7B68EE]">评分: {tool.rating}/5</Badge>
+                {/* <Badge className="bg-[#1E1E3A] text-[#7B68EE]">评分: {tool.rating}/5</Badge> */}
                 {tool.updated_at && (
                   <Badge className="bg-[#1E1E3A] text-[#7B68EE]">
                     更新于: {new Date(tool.updated_at).toLocaleDateString()}
@@ -102,14 +120,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
                 )}
               </div>
               <div className="flex flex-wrap gap-2 mb-6">
-                {tool.tags.split(',').map((category) => (
-                  <Badge 
-                    key={category}
-                    className="bg-[#1E1E3A] text-[#7B68EE]"
-                  >
-                    {category}
-                  </Badge>
-                ))}
+                {renderTags(tool.tags)}
               </div>
               <Button 
                 className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"

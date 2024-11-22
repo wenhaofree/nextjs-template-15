@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { generateToolContent } from './ai'
+import { generateToolContent, analyzeUrl } from './ai'
 import { DbTool } from './neon'
 import { getLocale } from 'next-intl/server';
 
@@ -59,6 +59,45 @@ export async function generateAndSaveContent(tool: DbTool): Promise<string> {
     
   } catch (error) {
     console.error('Error generating/saving content:', error)
+    throw error
+  }
+}
+
+export async function getToolJson(slug: string, locale: string = 'en') {
+  try {
+    const filePath = path.join(process.cwd(), 'src/app/content/toolsSummary', locale, `${slug}.json`)
+    const jsonContent = await fs.readFile(filePath, 'utf8')
+    return JSON.parse(jsonContent)
+  } catch (error) {
+    console.error(`Error reading JSON for ${slug}:`, error)
+    // Return default empty structure if file not found
+    return null
+  }
+}
+
+export async function generateAndSaveToolJson(tool: DbTool, locale: string = 'en'): Promise<any> {
+  try {
+    // Generate content using AI
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const content = await analyzeUrl(locale,tool.url,baseUrl)
+    
+    // Ensure directory exists
+    const jsonDir = path.join(process.cwd(), 'src/app/content/toolsSummary', locale)
+    await fs.mkdir(jsonDir, { recursive: true })
+    
+    // Save to JSON file
+    const filePath = path.join(jsonDir, `${tool.slug}.json`)
+    await fs.writeFile(
+      filePath, 
+      JSON.stringify(content, null, 2), 
+      'utf-8'
+    )
+    
+    console.log('✅ Generated and saved JSON for:', tool.slug)
+    return content
+    
+  } catch (error) {
+    console.error('Error generating/saving JSON:', error)
     throw error
   }
 } 

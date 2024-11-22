@@ -1,5 +1,7 @@
 import { z } from 'zod'
 import { DbTool } from './neon'
+import { getLocale } from 'next-intl/server';
+import { OpenAI } from 'openai'
 
 // Types for request/response
 export interface Message {
@@ -200,8 +202,29 @@ export interface AIAnalysisResponse {
 }
 
 // Add new function to analyze URL
-export async function analyzeUrl(url: string, baseUrl?: string): Promise<AIAnalysisResponse> {
-  const inputContext = `请分析以下网址的内容：${url}
+export async function analyzeUrl(locale:string,url: string, baseUrl?: string): Promise<AIAnalysisResponse> {
+  const inputContext = locale === 'en' 
+  ? `Please analyze the following URL: ${url}
+
+    Generate a response in JSON format with the following content:
+    {
+      "summary": "<Describe main features and core characteristics within 150 words>",
+      "tags": ["3-5 key tags highlighting themes and core areas"],
+      "target_audience": "<Brief description of target users>", 
+      "value_proposition": "<Core value statement>",
+      "status": "<success/error>",
+      "message": "<Error message when status is error>"
+    }
+
+    Requirements:
+    1. Summary field must be within 150 words
+    2. Tags array should contain 3-5 keyword tags
+    3. All text must be in English
+    4. Status field can only be "success" or "error" 
+    5. Return appropriate error message if URL is inaccessible
+    6. Do not include content beyond requirements
+    7. Must return valid JSON format` // English prompt
+  : `请分析以下网址的内容：${url}
     要求输出以下内容（JSON格式）：
     {
       "summary": "<150字内描述网站主要功能和核心特点>",
@@ -219,8 +242,9 @@ export async function analyzeUrl(url: string, baseUrl?: string): Promise<AIAnaly
     4. status字段仅可选"success"或"error"
     5. 当无法访问网址时，返回适当的错误信息
     6. 不要有其他要求以外的内容
-    7. 必须返回合法的JSON格式`;
+    7. 必须返回合法的JSON格式`; // Chinese prompt
 
+  
   try {
     const apiBaseUrl = baseUrl || process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const apiUrl = new URL('/api/ai', apiBaseUrl).toString();
