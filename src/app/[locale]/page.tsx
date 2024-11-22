@@ -30,6 +30,7 @@ export default function Component() {
   const f = useTranslations('Filter');
 
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
 
   const [toolsState, setToolsState] = useState<ToolsState>({
     tools: [],
@@ -94,6 +95,44 @@ export default function Component() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const handleSearch = async () => {
+    if (!searchValue.trim()) return
+    
+    try {
+      setToolsState(prev => ({ ...prev, loading: true, error: null }));
+      
+      const response = await fetch('/api/tools/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: searchValue }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Search failed');
+      }
+
+      const result = await response.json();
+      
+      setToolsState(prev => ({
+        ...prev,
+        tools: result.tools,
+        total: result.total,
+        hasMore: false, // 搜索结果暂不支持分页
+        page: 1,
+        loading: false
+      }));
+      
+    } catch (error) {
+      setToolsState(prev => ({
+        ...prev,
+        loading: false,
+        error: 'Search failed. Please try again.'
+      }));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
       {/* Main Content */}
@@ -108,12 +147,18 @@ export default function Component() {
           </p>
           <div className="max-w-2xl mx-auto relative">
             <Input
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)} 
               placeholder={t('searchPlaceholder')}
               className="pl-10 py-6 bg-[#1E1E3A] border-[#3A3A5A] text-[#E0E0FF] placeholder-[#8080AA]"
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8080AA]" />
-            <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]">
-              {b('search')}
+            <Button 
+              onClick={handleSearch}
+              disabled={toolsState.loading}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
+            >
+              {toolsState.loading ? '...' : b('search')}
             </Button>
           </div>
         </div>
