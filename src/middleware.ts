@@ -18,7 +18,13 @@ const defaultLocale = 'en'
 // Add auth-related paths that should be localized
 const authPages = ['/sign-in', '/sign-up', '/forgot-password']
 
+const ENABLE_LOCALE_DETECTION = false  // 设置为 false 禁用语言检测
+
 function getLocale(request: NextRequest): string {
+  // if (!ENABLE_LOCALE_DETECTION) {
+  //   return defaultLocale
+  // }
+  
   const negotiatorHeaders: Record<string, string> = {}
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
 
@@ -59,8 +65,9 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale || isAuthPage) {
-    // 优先使用URL中的locale,如果没有再使用getLocale()检测
-    const currentLocale = getLocaleFromPath(pathname) || getLocale(request)
+    // 直接使用默认语言，不再检测路径或浏览器语言
+    // const currentLocale = getLocaleFromPath(pathname) || getLocale(request)
+    const currentLocale = defaultLocale
     
     // For auth pages, preserve the path but add locale
     const newUrl = new URL(
