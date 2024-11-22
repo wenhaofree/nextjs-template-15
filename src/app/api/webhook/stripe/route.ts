@@ -4,6 +4,8 @@ import Stripe from 'stripe'
 import { analyzeUrl } from '@/lib/ai'
 import { getServerSession } from "next-auth"
 import { authOptions } from '../../auth/auth.config'
+import { getToolContent, generateAndSaveContent } from '@/lib/content'
+import { getTool } from '@/lib/neon'
 
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
@@ -232,6 +234,36 @@ export async function POST(req: Request) {
               const submitData = await submitResponse.json()
               throw new Error(submitData.error || '工具提交失败')
             }
+
+            // After successful tool submission:
+            const submitData = await submitResponse.json()
+            const toolId = submitData.id // Assuming the API returns the created tool ID
+
+            // Get the tool data
+            const tool = await getTool(toolId)
+            if (!tool) {
+              console.error('❌ Failed to fetch tool data after creation')
+              // Continue webhook processing - don't block on content generation
+              return NextResponse.json({ received: true })
+            }
+
+            // Check and generate content asynchronously
+            try {
+              const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+              const content = await getToolContent(slug)
+              
+              if (!content) {
+                // Generate content in the background
+                console.log('📝 Generating content for:', slug)
+                generateAndSaveContent(tool).catch(err => {
+                  console.error('❌ Failed to generate content:', err)
+                })
+              }
+            } catch (err) {
+              // Log error but don't fail the webhook
+              console.error('❌ Error checking/generating content:', err)
+            }
+
           } catch (err) {
             console.error('❌ Screenshot/upload process error:', {
               timestamp: new Date().toISOString(),

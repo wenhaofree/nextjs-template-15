@@ -208,3 +208,22 @@ export class ToolsDB {
 
 // 导出获取实例的辅助函数
 export const getToolsDB = () => ToolsDB.getInstance()
+
+// Add this function to get tool by ID
+export async function getTool(id: number): Promise<DbTool | null> {
+  const client = await pool.connect()
+  try {
+    const { rows: [tool] } = await client.query<DbTool>(`
+      SELECT * FROM tools 
+      WHERE id = $1
+      LIMIT 1
+    `, [id])
+    
+    return tool || null
+  } catch (error) {
+    console.error('Error fetching tool:', error)
+    return null
+  } finally {
+    client.release()
+  }
+}
