@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useTranslations } from 'next-intl'
-
+import Image from 'next/image'
 
 export function Header() {
   const t = useTranslations('Header');
@@ -42,9 +42,21 @@ export function Header() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-2">
+            <div className="mr-4">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={1200}
+                height={1200}
+                className="h-8 w-auto"
+              />
+            </div>
+          </Link>
+
+          {/* <Link href="/" className="flex items-center space-x-2">
             <Cpu className="w-8 h-8 text-[#7B68EE]" />
             <span className="text-xl font-semibold text-[#7B68EE]">AI STAK</span>
-          </Link>
+          </Link> */}
           <nav className="hidden md:flex space-x-6">
             {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
               {t("aiProducts")}

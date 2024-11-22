@@ -11,6 +11,14 @@ import { Metadata } from 'next'
 // Define metadata for better SEO
 export const metadata: Metadata = {
   metadataBase: new URL('https://aistak.com'),
+  icons:{
+    icon:[
+      {
+        url: '/favicon.ico',
+        sizes: 'any',
+      }
+    ]
+  },
   alternates: {
     canonical: '/',
     languages: {
