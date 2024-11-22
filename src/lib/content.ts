@@ -2,7 +2,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { generateToolContent } from './ai'
 import { DbTool } from './neon'
-
+import { getLocale } from 'next-intl/server';
 
 export const TOOLS_CONTENT_DIR = path.join(process.cwd(), 'src/app/content/tools')
 
@@ -17,7 +17,8 @@ async function validateContentDir() {
 export async function getToolContent(slug: string): Promise<string | null> {
   try {
     await validateContentDir()
-    const filePath = path.join(TOOLS_CONTENT_DIR, `${slug}.md`)
+    const locale = await getLocale();
+    const filePath = path.join(TOOLS_CONTENT_DIR,locale,`${slug}.md`)
     console.log('Reading content from:', filePath)
     const content = await fs.readFile(filePath, 'utf-8')
     return content
@@ -45,7 +46,8 @@ export async function generateAndSaveContent(tool: DbTool): Promise<string> {
     const content = await generateToolContent(tool)
     
     // Ensure content directory exists
-    const contentDir = path.join(process.cwd(), 'src/app/content/tools')
+    const locale = await getLocale();
+    const contentDir = path.join(process.cwd(),locale,'src/app/content/tools')
     await fs.mkdir(contentDir, { recursive: true })
     
     // Save to markdown file

@@ -235,6 +235,7 @@ export async function POST(req: Request) {
               throw new Error(submitData.error || '工具提交失败')
             }
 
+            // 3. 异步生成内容
             // After successful tool submission:
             const submitData = await submitResponse.json()
             const toolId = submitData.id // Assuming the API returns the created tool ID
