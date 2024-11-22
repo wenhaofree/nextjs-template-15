@@ -59,7 +59,7 @@ export default function SignUpPage() {
       console.log('Registration successful')
       
       // Redirect to sign-in page with correct locale
-      router.push(`/${locale}/sign-in`)
+      router.push(`/sign-in`)
     } catch (error) {
       console.error('Registration error:', error)
       setError(error instanceof Error ? error.message : t('error.default'))

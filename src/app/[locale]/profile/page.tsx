@@ -21,7 +21,7 @@ export default function ProfilePage() {
   // 如果未登录，重定向到登录页面
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push(`/${locale}/sign-in`)
+      router.push(`/sign-in`)
     }
   }, [status, router, locale])
 
