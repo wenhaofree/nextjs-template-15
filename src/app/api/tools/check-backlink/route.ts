@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio'
 import axios from 'axios'
 
 // Get domain from environment variable
-const SITE_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 const SITE_DOMAIN = new URL(SITE_URL).hostname.replace('www.', '')
 
 // Cache successful checks to avoid repeated requests
