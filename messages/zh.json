@@ -331,7 +331,8 @@
       "submissionFailed": "提交失败，请稍后重试"
     },
     "success": {
-      "freePlan": "成功注册免费计划"
+      "freePlan": "成功注册免费计划",
+      "submitPlan": "成功提交工具站点"
     }
   },
   "SubmitSuccess": {

@@ -332,7 +332,8 @@
       "submissionFailed": "Submission failed, please try again"
     },
     "success": {
-      "freePlan": "Successfully registered for free plan"
+      "freePlan": "Successfully registered for free plan",
+      "submitPlan":"Successfully submitted tool station"
     }
   },
   "SubmitSuccess": {

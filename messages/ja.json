@@ -332,7 +332,8 @@
       "submissionFailed": "投稿に失敗しました。後でもう一度お試しください"
     },
     "success": {
-      "freePlan": "無料プランに登録しました"
+      "freePlan": "無料プランに登録しました",
+      "submitPlan": "ツールステーションの提出が完了しました"
     }
   },
   "SubmitSuccess": {

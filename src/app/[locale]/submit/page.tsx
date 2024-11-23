@@ -57,7 +57,7 @@ type SubmissionType = 'free' | 'payment' | 'direct'
 
 const getSubmissionType = (userLevel: string | undefined, selectedPlan: string): SubmissionType => {
   // Unlimited/sponsor users can submit directly
-  if (userLevel === 'unlimited' || userLevel === 'sponsor') {
+  if (userLevel === 'unlimited' || userLevel === 'sponsor' || userLevel === 'one-time') {
     return 'direct'
   }
 
@@ -227,10 +227,9 @@ export default function Component() {
         planId: selectedPlan
       })
 
-      console.log('level:', session.user.level);
-
+      console.log('当前用户level:', session.user.level);
       const submissionType = getSubmissionType(session.user.level, selectedPlan)
-      console.log('submissionType:', submissionType);
+      console.log('当前用户submissionType:', submissionType);
       
       switch (submissionType) {
         case 'free':
@@ -302,7 +301,25 @@ export default function Component() {
     if (!response.ok) {
       throw new Error('Failed to submit tool')
     }
-    toast.success(t('success.freePlan'))
+
+    // one-time 提交成功 更新为free
+    if (response.ok && session?.user.level==='one-time'){
+      const updateResponse = await fetch(`/api/auth/update-plan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: session?.user?.email,
+          planType: 'free'
+        }),
+      })
+      if (!updateResponse.ok) {
+        const updateData = await updateResponse.json()
+        throw new Error(updateData.error || '更新用户计划free失败')
+      }
+    }
+    
+
+    toast.success(t('success.submitPlan'))
   }
 
   const createCheckoutSession = async (params: {
