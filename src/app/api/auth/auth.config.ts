@@ -86,6 +86,17 @@ export const authOptions: AuthOptions = {
       if (session.user) {
         (session.user as UserExtended).level = token.level as string
       }
+      if (session.user && token) {
+        // 更新session的用户状态
+        const client = await pool.connect()
+        const result = await client.query(
+          'SELECT id,level FROM users WHERE email = $1',
+          [session.user.email]
+        )
+        const user = result.rows[0]
+        session.user.level=user.level
+        console.log('session.user.level:',session.user.level);      
+      }
       return session
     },
     async signIn({ user, account, profile }) {
