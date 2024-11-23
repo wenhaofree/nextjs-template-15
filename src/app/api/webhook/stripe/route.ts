@@ -7,6 +7,7 @@ import { authOptions } from '../../auth/auth.config'
 import { getToolContent, generateAndSaveContent,generateAndSaveToolJson,getToolJson } from '@/lib/content'
 import { getTool,DbTool } from '@/lib/neon'
 import { getLocale } from 'next-intl/server'
+import { updateUserPlan } from '@/lib/user/plan'
 
 
 
@@ -20,8 +21,6 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
 export async function POST(req: Request) {
   try {
-    const userSession = await getServerSession(authOptions)
-    
     const body = await req.text()
     const headerList = await headers()
     const stripeSignature = headerList.get('stripe-signature')
@@ -80,7 +79,7 @@ export async function POST(req: Request) {
         throw new Error('No metadata in session')
       }
 
-      const { planType, submissionName, submissionUrl } = metadata
+      const { planType,userLevel, submissionName, submissionUrl } = metadata
       const userId = session.client_reference_id
 
       if (!userId || !planType) {
@@ -90,53 +89,29 @@ export async function POST(req: Request) {
       console.log('✅ Processing checkout session:', {
         userId,
         planType,
+        userLevel,
         submissionName,
         submissionUrl
       })
 
-      // 更新用户计划
-      console.log('开始更新用户DB的Level:',planType);
-      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-      const updateResponse = await fetch(`${baseUrl}/api/auth/update-plan`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: userId,
-          planType
-        }),
+
+      // 更新用户订阅计划DB和Session
+      await updateUserPlan({
+        userId,//邮箱
+        planType,
+        userLevel
       })
-
-      if (!updateResponse.ok) {
-        const updateData = await updateResponse.json()
-        throw new Error(updateData.error || '更新用户计划失败')
-      }
-
-      // Update logged-in user's subscription plan
-      console.log('userSession level:', userSession?.user.level);
-      if (userSession?.user.level) {
-        if (userSession.user.level === 'free' || userSession.user.level === 'one-time') {
-          userSession.user.level = planType;
-        } else if (userSession.user.level === 'unlimited' && planType === 'sponsor') {
-          userSession.user.level = planType;
-        }
-        console.log('Update user level:', planType);
-      }
 
       
       if (submissionName && submissionUrl) {
+        //TODO-fwh-Bug-AI失败导致用户提交不成功.
+
         // AI analysis
         let summary
         let tags
         try {
           const locale = await getLocale()
           console.log('🤖 Starting AI analysis for URL:', submissionUrl);
-          
-          // const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-          // const aiResponse = await analyzeUrl(locale,submissionUrl, baseUrl);
-          // const summary = aiResponse.summary;
-          // const tags = aiResponse.tags.join(',');
 
           //0. 将内容保存到json文件中
           const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')

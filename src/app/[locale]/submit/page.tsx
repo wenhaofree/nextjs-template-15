@@ -17,6 +17,7 @@ import { Link, useRouter } from '@/i18n/routing'
 import { toast } from "sonner"
 import { useLocale } from 'next-intl'
 import { Session } from 'next-auth'
+import { updateUserPlan } from '@/lib/user/plan'
 
 
 const copyToClipboard = (text: string) => {
@@ -302,20 +303,13 @@ export default function Component() {
       throw new Error('Failed to submit tool')
     }
 
-    // one-time 提交成功 更新为free
-    if (response.ok && session?.user.level==='one-time'){
-      const updateResponse = await fetch(`/api/auth/update-plan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: session?.user?.email,
-          planType: 'free'
-        }),
+    // 用户level: one-time 提交成功 更新为free
+    if (response.ok && session?.user.level === 'one-time') {
+      await updateUserPlan({
+        userId: session.user.email,
+        planType: 'free',
+        userLevel: session.user.level
       })
-      if (!updateResponse.ok) {
-        const updateData = await updateResponse.json()
-        throw new Error(updateData.error || '更新用户计划free失败')
-      }
     }
     
 
@@ -335,6 +329,7 @@ export default function Component() {
       body: JSON.stringify({
         email: params.email,
         planType: params.planType,
+        userLevel: session?.user.level,
         submissionName: params.submission.name.trim(),
         submissionUrl: params.submission.url.trim(),
         submission: params.submission,

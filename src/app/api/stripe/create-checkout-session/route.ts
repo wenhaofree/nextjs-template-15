@@ -14,7 +14,7 @@ const PRICE_IDS = {
 
 export async function POST(req: Request) {
   try {
-    const { email, planType, submission,submissionName,submissionUrl,locale } = await req.json()
+    const { email, planType,userLevel, submission,submissionName,submissionUrl,locale } = await req.json()
     
     if (!email || !planType) {
       return NextResponse.json(
@@ -69,6 +69,7 @@ export async function POST(req: Request) {
       metadata: {
         email,
         planType,
+        userLevel,
         submissionName: submission.name || '',
         submissionUrl: submission.url || ''
       },
