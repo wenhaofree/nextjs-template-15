@@ -203,6 +203,32 @@ export class ToolsDB {
     }
   }
 
+  async updateToolStatus({ 
+    email, 
+    status 
+  }: { 
+    email: string
+    status: DbTool['status']
+  }): Promise<DbTool | null> {
+    const client = await pool.connect()
+    try {
+      const { rows: [updatedTool] } = await client.query<DbTool>(`
+        UPDATE tools 
+        SET status = $1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE email = $2
+        RETURNING *
+      `, [status, email])
+
+      return updatedTool || null
+    } catch (error) {
+      console.error('❌ Error updating tool status:', error)
+      return null
+    } finally {
+      client.release()
+    }
+  }
+
   // ... 其他方法类似修改
 }
 

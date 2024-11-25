@@ -20,6 +20,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 // 直接使用环境变量，不做额外处理
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
+// Add type validation helper
+const isValidPlanType = (plan: string): plan is "free" | "one-time" | "unlimited" | "sponsor" => {
+  return ["free", "one-time", "unlimited", "sponsor"].includes(plan);
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.text()
@@ -109,6 +114,10 @@ export async function POST(req: Request) {
 
         // AI analysis
         try {
+          if (!isValidPlanType(planType)) {
+            throw new Error(`Invalid plan type: ${planType}`);
+          }
+
           //0. 将内容保存到json文件中
           // const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
           const { summary, tags, success, error } = await generateToolJsonContent({
