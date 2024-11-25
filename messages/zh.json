@@ -332,7 +332,7 @@
     },
     "success": {
       "freePlan": "成功注册免费计划",
-      "submitPlan": "成功提交工具站点"
+      "submitPlan": "成功提交工具站点，48小时内展示您的工具站点"
     }
   },
   "SubmitSuccess": {

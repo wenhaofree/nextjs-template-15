@@ -333,7 +333,7 @@
     },
     "success": {
       "freePlan": "Successfully registered for free plan",
-      "submitPlan":"Successfully submitted tool station"
+      "submitPlan":"Successfully submitted tool site, your tool site will be displayed within 48 hours."
     }
   },
   "SubmitSuccess": {
@@ -343,7 +343,7 @@
     },
     "success": {
       "title": "Payment Successful!",
-      "description": "Your submission \"{name}\" has been recorded!",
+      "description": "Your submission \"{name}\" has been recorded! We will review your tool within 48 hours of submission.",
       "button": "Continue Submitting"
     },
     "error": {

@@ -18,6 +18,11 @@ import { toast } from "sonner"
 import { useLocale } from 'next-intl'
 import { Session } from 'next-auth'
 import { updateUserPlan } from '@/lib/user/plan'
+import { generateToolJsonContent } from '@/lib/tools'
+import { captureAndUploadScreenshot } from '@/lib/screenshot'
+import { getToolContent, generateAndSaveContent } from '@/lib/content'
+import { getTool,DbTool } from '@/lib/neon'
+
 
 
 const copyToClipboard = (text: string) => {
@@ -284,36 +289,120 @@ export default function Component() {
   }
 
   const submitTool = async (data: typeof formData, session: Session | null) => {
-    const response = await fetch('/api/tools/addtool', {
+    //TODO-fwh-提交工具数据
+    const submitResponse = await fetch('/api/tools/addtool', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: data.name.trim(),
         url: data.url.trim(),
-        image_url: 'https://cdn.aistak.com/s2%2Fscreenshot_getinboxzero.com.webp',
-        summary: 'AI摘要', // TODO: Generate with AI
-        tags: 'AI工具,AI助手', // TODO: Generate with AI
-        status: 'active',
-        price_type: selectedPlan,
+        // image_url: 'https://cdn.aistak.com/s2%2Fscreenshot_getinboxzero.com.webp',
+        // summary: 'AI摘要', // TODO: Generate with AI
+        // tags: 'AI工具,AI助手', // TODO: Generate with AI
+        status: 'pending', //先保存数据-后续AI内容优化数据修改状态
+        price_type: session?.user?.level || '',
         submit_user_id: session?.user?.email || ''
       })
     })
 
-    if (!response.ok) {
+    if (!submitResponse.ok) {
       throw new Error('Failed to submit tool')
     }
 
     // 用户level: one-time 提交成功 更新为free
-    if (response.ok && session?.user.level === 'one-time') {
+    if (submitResponse.ok && session?.user.level === 'one-time') {
       await updateUserPlan({
         userId: session.user.email,
         planType: 'free',
         userLevel: session.user.level
       })
     }
-    
-
+    //TODO-考虑48小时内处理提示
     toast.success(t('success.submitPlan'))
+
+    
+    //AI内容生成
+    //1.截图URL
+    // Add retry logic for screenshot capture
+    // let screenshotResult;
+    // let retries = 3;
+    // while (retries > 0) {
+    //   try {
+    //     screenshotResult = await captureAndUploadScreenshot({
+    //       url: data.url.trim()
+    //     });
+        
+    //     if (screenshotResult.success) {
+    //       break; // Success - exit retry loop
+    //     }
+        
+    //     console.error(`❌ Screenshot attempt ${4-retries}/3 failed:`, screenshotResult.error);
+    //     retries--;
+        
+    //     if (retries > 0) {
+    //       // Wait 2 seconds before retrying
+    //       await new Promise(resolve => setTimeout(resolve, 2000));
+    //     }
+        
+    //   } catch (error) {
+    //     console.error(`❌ Screenshot attempt ${4-retries}/3 error:`, error);
+    //     retries--;
+        
+    //     if (retries > 0) {
+    //       await new Promise(resolve => setTimeout(resolve, 2000));
+    //     }
+    //   }
+    // }
+    // const imageUrl = screenshotResult?.url;
+    
+    // //2.简介内容JSON
+    // const { summary, tags, success, error } = await generateToolJsonContent({
+    //   submissionName:data.name.trim(),
+    //   submissionUrl:data.url.trim(),
+    //   userId:session?.user?.email,
+    //   planType:session?.user?.level
+    // })
+    // if (!success) {
+    //   console.error('❌ Failed to generate tool JSON:', error)
+    //   // Continue processing - don't block webhook
+    // }
+
+    // //3.生成详情内容MD
+    // // After successful tool submission:
+    // const submitData = await submitResponse.json()
+    // const toolId = submitData.id // Assuming the API returns the created tool ID
+    // const tool = await getTool(toolId)
+    // if (!tool) {
+    //   console.error('❌ Failed to fetch tool data after creation')
+    //   const slug = data.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    //   const content = await getToolContent(slug)
+    //   if (!content) {
+    //     // Generate content in the background
+    //     console.log('📝 Generating content for:', slug)
+    //     generateAndSaveContent(tool).catch(err => {
+    //       console.error('❌ Failed to generate content:', err)
+    //     })
+    //   }
+    // }
+
+    // //4.更新数据库状态
+    // const updateResponse = await fetch('/api/tools/updatetool', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     id: toolId,
+    //     image_url: imageUrl,
+    //     summary: summary,
+    //     tags: tags,
+    //     status: 'active'
+    //   })
+    // })
+
+    // if (!updateResponse.ok) {
+    //   console.error('❌ Failed to update tool status')
+    // }
+  
+
   }
 
   const createCheckoutSession = async (params: {

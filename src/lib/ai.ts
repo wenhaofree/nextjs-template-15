@@ -310,6 +310,7 @@ export async function analyzeUrl(locale:string,url: string, baseUrl?: string): P
 }
 
 export async function generateToolContent(tool: DbTool): Promise<string> {
+  // const inputContext = locale === 'en'?'':'' 
   const inputContext = `请分析并生成以下URL的详细内容报告：${tool.url}
 
 请生成一份详细的Markdown格式分析报告，包含以下部分：

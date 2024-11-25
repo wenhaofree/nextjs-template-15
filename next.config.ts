@@ -11,7 +11,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.aistak.com',
+        hostname: 'img.aistak.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.wenhaofree.com',
         port: '',
         pathname: '/**',
       },

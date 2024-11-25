@@ -8,7 +8,8 @@ import { getToolContent, generateAndSaveContent,generateAndSaveToolJson,getToolJ
 import { getTool,DbTool } from '@/lib/neon'
 import { getLocale } from 'next-intl/server'
 import { updateUserPlan } from '@/lib/user/plan'
-
+import { generateToolJsonContent } from '@/lib/tools'
+import { captureAndUploadScreenshot } from '@/lib/screenshot'
 
 
 
@@ -107,120 +108,39 @@ export async function POST(req: Request) {
         //TODO-fwh-Bug-AI失败导致用户提交不成功.
 
         // AI analysis
-        let summary
-        let tags
         try {
-          const locale = await getLocale()
-          console.log('🤖 Starting AI analysis for URL:', submissionUrl);
-
           //0. 将内容保存到json文件中
-          const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-          const toolsJson = await getToolJson(slug, locale)
-          console.log('toolsJson:',toolsJson);
-          if (!toolsJson) {
-            console.log('📝 Generating JSON content for:', slug)
-            const newTool: DbTool = {
-              id: 0,
-              slug,
-              url: submissionUrl,
-              title: submissionName,
-              summary: '',
-              tags: '',
-              status: 'active',
-              created_at: new Date(),
-              updated_at: new Date(),
-              image_url: '',
-              price_type: 'free',
-              submit_user_id: userId,
-              language_support: 'en',
-              favorite_count: 0,
-              view_count: 0,
-              rating: 0
-            };
-            const generatedJson = await generateAndSaveToolJson(newTool, locale)
-            if (generatedJson) {
-              newTool.summary = generatedJson.summary
-              newTool.tags = generatedJson.tags
-              summary = generatedJson.summary
-              tags = generatedJson.tags.join(',')
-            }
+          // const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          const { summary, tags, success, error } = await generateToolJsonContent({
+            submissionName,
+            submissionUrl,
+            userId,
+            planType
+          })
+          if (!success) {
+            console.error('❌ Failed to generate tool JSON:', error)
+            // Continue processing - don't block webhook
           }
-          
 
           
-          //1.根据URL截图
           try {
+            //1.根据URL截图
             // Use the same parameter structure as the working version
-            const screenshotParams = {
-              url: submissionUrl,  // rename to match API expectation
-              size: '16:9' as const  // explicitly type as const
-            };
-
-            console.log('📸 Screenshot request params:', {
-              timestamp: new Date().toISOString(),
-              ...screenshotParams
+            // Replace the screenshot code block with:
+            const screenshotResult = await captureAndUploadScreenshot({
+              url: submissionUrl
             });
 
-            // Get screenshot blob
-            const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-            const response = await fetch(`${baseUrl}/api/screenshot`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(screenshotParams),  // use renamed params
-            });
-
-            if (!response.ok) {
-              console.error('❌ Screenshot API error:', {
-                timestamp: new Date().toISOString(),
-                status: response.status,
-                statusText: response.statusText,
-                params: screenshotParams
-              });
-              throw new Error('Screenshot generation failed');
+            if (!screenshotResult.success) {
+              console.error('❌ Screenshot generation failed:', screenshotResult.error);
+              // Continue processing - don't block webhook
             }
 
-            console.log('✅ Screenshot generated successfully:', {
-              timestamp: new Date().toISOString(),
-              status: response.status,
-            });
+            const imageUrl = screenshotResult.url;
 
-            const blob = await response.blob();
-            
-            // Create FormData and directly append blob with filename
-            const formData = new FormData();
-            formData.append('file', blob, `screenshot-${Date.now()}.png`);  // 直接使用 blob，不需要创建 File 对象
-
-            console.log('📤 Uploading screenshot to R2:', {
-              timestamp: new Date().toISOString(),
-              fileSize: blob.size,
-              fileType: 'image/png',
-            });
-
-            // Upload to R2
-            const uploadResponse = await fetch(`${baseUrl}/api/upload`, {
-              method: 'POST',
-              body: formData
-            });
-
-            if (!uploadResponse.ok) {
-              console.error('❌ R2 upload error:', {
-                timestamp: new Date().toISOString(),
-                status: uploadResponse.status,
-                statusText: uploadResponse.statusText,
-              });
-              throw new Error('Failed to upload screenshot');
-            }
-
-            const { url } = await uploadResponse.json();
-            
-            console.log('✅ Screenshot uploaded successfully:', {
-              timestamp: new Date().toISOString(),
-              url,
-            });
 
             // 2.创建工具记录
+            const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
             const submitResponse = await fetch(`${baseUrl}/api/tools/addtool`, {
               method: 'POST',
               headers: {
@@ -229,21 +149,21 @@ export async function POST(req: Request) {
               body: JSON.stringify({
                 title: submissionName,
                 url: submissionUrl,
-                image_url: url,
+                image_url: imageUrl,
                 summary: summary,
                 tags: tags,
-                status: 'active',
+                status: 'pending',//'active', 'inactive', 'pending'
                 price_type: planType,
                 submit_user_id: userId
               })
             })
+            
 
             if (!submitResponse.ok) {
               const submitData = await submitResponse.json()
               throw new Error(submitData.error || '工具提交失败')
             }
 
-            // 3. 异步生成内容
             // After successful tool submission:
             const submitData = await submitResponse.json()
             const toolId = submitData.id // Assuming the API returns the created tool ID
@@ -256,11 +176,11 @@ export async function POST(req: Request) {
               return NextResponse.json({ received: true })
             }
 
+            // 3. 异步生成内容
             // Check and generate content asynchronously
             try {
               const slug = submissionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
               const content = await getToolContent(slug)
-              
               if (!content) {
                 // Generate content in the background
                 console.log('📝 Generating content for:', slug)

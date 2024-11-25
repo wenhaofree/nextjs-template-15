@@ -47,7 +47,7 @@ export async function generateAndSaveContent(tool: DbTool): Promise<string> {
     
     // Ensure content directory exists
     const locale = await getLocale();
-    const contentDir = path.join(process.cwd(),locale,'src/app/content/tools')
+    const contentDir = path.join(process.cwd(),'src/app/content/tools',locale)
     await fs.mkdir(contentDir, { recursive: true })
     
     // Save to markdown file
@@ -82,7 +82,9 @@ export async function generateAndSaveToolJson(tool: DbTool, locale: string = 'en
     const content = await analyzeUrl(locale,tool.url,baseUrl)
     
     // Ensure directory exists
+    console.log('process.cwd():',process.cwd());
     const jsonDir = path.join(process.cwd(), 'src/app/content/toolsSummary', locale)
+    console.log('jsonDir:',jsonDir);
     await fs.mkdir(jsonDir, { recursive: true })
     
     // Save to JSON file

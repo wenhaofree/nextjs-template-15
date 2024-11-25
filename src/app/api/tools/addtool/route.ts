@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       language_support: body.language_support || '英文',
       favorite_count: 0,
       content_markdown: body.content_markdown || '',
-      status: 'active' as DbTool['status'],
+      status: body.status,
       view_count: 0,
       price_type: (body.price_type || 'free') as DbTool['price_type'],
       submit_user_id: body.submit_user_id,
