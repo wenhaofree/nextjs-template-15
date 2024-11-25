@@ -7,6 +7,18 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
+    serverComponentsExternalPackages: ['fs', 'path']
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Don't attempt to load node-specific modules on the client side
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      }
+    }
+    return config
   },
 }
 
