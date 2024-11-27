@@ -1,0 +1,14 @@
+{
+  "summary": "PDF.ai is a platform that leverages artificial intelligence to enhance the management and interaction with PDF documents. It offers features such as automatic text extraction, document summarization, and advanced search capabilities. Users can upload PDFs and receive AI-driven insights, making it easier to extract valuable information from large documents. The platform aims to streamline workflows and improve productivity by automating repetitive tasks associated with PDF handling.",
+  "tags": [
+    "AI",
+    "PDF Management",
+    "Document Summarization",
+    "Text Extraction",
+    "Productivity"
+  ],
+  "target_audience": "Professionals, researchers, students, and businesses that frequently deal with large volumes of PDF documents and require efficient tools to extract and manage information.",
+  "value_proposition": "PDF.ai provides a seamless and efficient way to extract, summarize, and manage PDF content using AI, thereby saving time and enhancing productivity.",
+  "status": "success",
+  "message": ""
+}

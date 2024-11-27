@@ -22,24 +22,26 @@ export default function TestContent() {
     e.preventDefault()
     setError(null)
     
-    if (!url) {
+    const trimmedUrl = url.trim()
+    const trimmedTitle = title.trim()
+    
+    if (!trimmedUrl) {
       setError('Please enter a URL')
       return
     }
 
-    if (!isValidUrl(url)) {
+    if (!isValidUrl(trimmedUrl)) {
       setError('Please enter a valid URL')
       return
     }
 
     try {
-      // 1. 内容生成
       const response = await fetch('/api/tools/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, url })
+        body: JSON.stringify({ title: trimmedTitle, url: trimmedUrl })
       })
 
       if (!response.ok) {
@@ -47,19 +49,18 @@ export default function TestContent() {
       }
 
       
-      //2. 状态修改
       const updateToolStatusRes = await fetch('/api/tools/updateToolStatus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url, status:'active' })
+        body: JSON.stringify({ url: trimmedUrl, status:'active' })
       })
       if (!updateToolStatusRes.ok) {
         throw new Error('Failed to updateToolStatusRes')
       }
 
-      setSubmittedUrl(url)
+      setSubmittedUrl(trimmedUrl)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to update tool')
     }
