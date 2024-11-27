@@ -18,6 +18,7 @@ import { toast } from "sonner"
 import { useLocale } from 'next-intl'
 import { Session } from 'next-auth'
 import { updateUserPlan } from '@/lib/user/plan'
+import { captureAndUploadScreenshot } from '@/lib/screenshot'
 
 
 
@@ -235,7 +236,8 @@ export default function Component() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url:formData.url.trim() })
       })
-      if (response){
+      console.log('response:',response);
+      if (response.status==200){
         toast.success(t('success.repeatedSubmission'))
         return
       }
@@ -305,7 +307,7 @@ export default function Component() {
       body: JSON.stringify({
         title: data.name.trim(),
         url: data.url.trim(),
-        // image_url: 'https://cdn.aistak.com/s2%2Fscreenshot_getinboxzero.com.webp',
+        // image_url: imageUrl,
         // summary: 'AI摘要', // TODO: Generate with AI
         // tags: 'AI工具,AI助手', // TODO: Generate with AI
         status: 'pending', //先保存数据-后续AI内容优化数据修改状态
@@ -328,6 +330,31 @@ export default function Component() {
     }
     //TODO-考虑48小时内处理提示
     toast.success(t('success.submitPlan'))
+
+    //1. 异步获取网站首页截图
+    const screenshotResult = await captureAndUploadScreenshot({
+     url: data.url.trim()
+    });
+    // Set default image URL
+    let imageUrl = '/placeholder.svg'; // Add a default screenshot path
+    if (screenshotResult.success && screenshotResult.url) {
+      imageUrl = screenshotResult.url;
+    } else {
+      console.error('❌ Screenshot generation failed:', screenshotResult.error);
+    }
+    const updateToolImageRes = await fetch('/api/tools/updateToolImage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url: data.url.trim(),
+        image_url: imageUrl,
+      })
+    })
+    if (!updateToolImageRes.ok) {
+      console.log('updateToolImageRes Failed');
+    }
+
+
 
     
     //AI内容生成

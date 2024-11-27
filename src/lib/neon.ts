@@ -249,6 +249,32 @@ export class ToolsDB {
     }
   }
 
+  async updateToolImage({ 
+    url, 
+    image_url 
+  }: { 
+    url: string
+    image_url: string
+  }): Promise<DbTool | null> {
+    const client = await pool.connect()
+    try {
+      const { rows: [updatedTool] } = await client.query<DbTool>(`
+        UPDATE tools 
+        SET image_url = $1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE url = $2
+        RETURNING *
+      `, [image_url, url])
+
+      return updatedTool || null
+    } catch (error) {
+      console.error('❌ Error updating tool image:', error)
+      return null
+    } finally {
+      client.release()
+    }
+  }
+
   // ... 其他方法类似修改
 }
 

@@ -19,7 +19,6 @@ export async function captureAndUploadScreenshot(
   params: ScreenshotParams
 ): Promise<ScreenshotResult> {
   const timestamp = new Date().toISOString();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
   try {
     // Prepare screenshot parameters
@@ -33,8 +32,8 @@ export async function captureAndUploadScreenshot(
       ...screenshotParams
     });
 
-    // Capture screenshot
-    const response = await fetch(`${baseUrl}/api/screenshot`, {
+    // Use relative paths instead of full URLs
+    const response = await fetch('/api/screenshot', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(screenshotParams),
@@ -57,8 +56,8 @@ export async function captureAndUploadScreenshot(
     const filename = `screenshot-${Date.now()}.png`;
     formData.append('file', blob, filename);
 
-    // Upload to R2
-    const uploadResponse = await fetch(`${baseUrl}/api/upload`, {
+    // Use relative path for upload
+    const uploadResponse = await fetch('/api/upload', {
       method: 'POST',
       body: formData
     });

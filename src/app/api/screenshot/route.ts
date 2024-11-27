@@ -1,7 +1,20 @@
 import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
+import { headers } from 'next/headers';
 
 const VIEWPORT_WIDTH = 1280;
+
+// CORS headers helper
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+}
+
+// Handle OPTIONS preflight request
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders })
+}
 
 export async function POST(request: Request) {
   try {
