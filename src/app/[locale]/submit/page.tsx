@@ -18,10 +18,6 @@ import { toast } from "sonner"
 import { useLocale } from 'next-intl'
 import { Session } from 'next-auth'
 import { updateUserPlan } from '@/lib/user/plan'
-import { generateToolJsonContent } from '@/lib/tools'
-import { captureAndUploadScreenshot } from '@/lib/screenshot'
-import { getToolContent, generateAndSaveContent } from '@/lib/content'
-import { getTool,DbTool } from '@/lib/neon'
 
 
 
@@ -232,6 +228,17 @@ export default function Component() {
         url: formData.url.trim(),
         planId: selectedPlan
       })
+      
+      // 校验工具站是否已经存在
+      const response = await fetch('/api/tools/getToolByUrl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url:formData.url.trim() })
+      })
+      if (response){
+        toast.success(t('success.repeatedSubmission'))
+        return
+      }
 
       console.log('当前用户level:', session.user.level);
       const submissionType = getSubmissionType(session.user.level, selectedPlan)
@@ -269,6 +276,8 @@ export default function Component() {
     } catch (error) {
       console.error('Error:', error)
       toast.error(t('error.submissionFailed'))
+    }finally{
+      setShowValidation(false)
     }
   }
 

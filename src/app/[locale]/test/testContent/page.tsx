@@ -33,6 +33,7 @@ export default function TestContent() {
     }
 
     try {
+      // 1. 内容生成
       const response = await fetch('/api/tools/update', {
         method: 'POST',
         headers: {
@@ -43,6 +44,19 @@ export default function TestContent() {
 
       if (!response.ok) {
         throw new Error('Failed to update tool')
+      }
+
+      
+      //2. 状态修改
+      const updateToolStatusRes = await fetch('/api/tools/updateToolStatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url, status:'active' })
+      })
+      if (!updateToolStatusRes.ok) {
+        throw new Error('Failed to updateToolStatusRes')
       }
 
       setSubmittedUrl(url)

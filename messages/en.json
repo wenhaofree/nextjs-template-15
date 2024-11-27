@@ -333,7 +333,8 @@
     },
     "success": {
       "freePlan": "Successfully registered for free plan",
-      "submitPlan":"Successfully submitted tool site, your tool site will be displayed within 48 hours."
+      "submitPlan":"Successfully submitted tool site, your tool site will be displayed within 48 hours.",
+      "repeatedSubmission":"The tool site has been submitted, do not resubmit."
     }
   },
   "SubmitSuccess": {

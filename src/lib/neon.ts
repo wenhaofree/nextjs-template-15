@@ -155,6 +155,26 @@ export class ToolsDB {
     }
   }
 
+  static async getToolByUrl(url: string): Promise<DbTool | null> {
+    const client = await pool.connect()
+    try {
+      const { rows: [dbTool] } = await client.query<DbTool>(`
+        SELECT * FROM tools 
+        WHERE url = $1
+        LIMIT 1
+      `, [url])
+
+      if (!dbTool) return null
+
+      return dbTool
+    } catch (error) {
+      console.error('❌ Error fetching tool by URL:', error)
+      return null
+    } finally {
+      client.release()
+    }
+  }
+
   async getTools(options: GetToolsOptions = {}): Promise<GetToolsResult> {
     const client = await pool.connect()
     try {
@@ -204,10 +224,10 @@ export class ToolsDB {
   }
 
   async updateToolStatus({ 
-    email, 
+    url, 
     status 
   }: { 
-    email: string
+    url: string
     status: DbTool['status']
   }): Promise<DbTool | null> {
     const client = await pool.connect()
@@ -216,9 +236,9 @@ export class ToolsDB {
         UPDATE tools 
         SET status = $1,
             updated_at = CURRENT_TIMESTAMP
-        WHERE email = $2
+        WHERE url = $2
         RETURNING *
-      `, [status, email])
+      `, [status, url])
 
       return updatedTool || null
     } catch (error) {

@@ -328,7 +328,8 @@
     "error": {
       "loginRequired": "请先登录后再提交",
       "formErrors": "请修正表单错误",
-      "submissionFailed": "提交失败，请稍后重试"
+      "submissionFailed": "提交失败，请稍后重试",
+      "repeatedSubmission": "该工具网站已提交过，请勿重复提交"
     },
     "success": {
       "freePlan": "成功注册免费计划",

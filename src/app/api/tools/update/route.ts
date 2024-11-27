@@ -11,6 +11,7 @@ export async function POST(request: Request) {
   console.log('📥 Update tool request:', JSON.stringify({ title, url }))
   
   try {
+    //1. json总结
     const { summary, tags, success, error } = await generateToolJsonContent({
       submissionName: title,
       submissionUrl: url,
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
       console.error('❌ Failed to generate tool JSON:', error)
     }
 
+    // 2. md文件生成
     const slug = title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
     console.log('🔑 Generated slug:', slug)
 
@@ -63,7 +65,7 @@ export async function POST(request: Request) {
         const content = generateAndSaveContent(newTool).catch(err => {
           console.error('❌ Failed to generate content:', err)
         })
-        
+        console.log('content:',content);
       }
     }
     
