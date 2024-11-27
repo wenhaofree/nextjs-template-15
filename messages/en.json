@@ -352,5 +352,10 @@
       "description": "Missing required parameters. Please access this page through the normal process.",
       "button": "Return to Submit Page"
     }
+  },
+  "ToolDetail": {
+    "visit": "Visit",
+    "linkCopied": "Link copied to clipboard!",
+    "updatedAt": "Updated at"
   }
 }

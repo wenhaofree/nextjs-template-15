@@ -6,12 +6,14 @@ import { ExternalLink, Twitter, Facebook, Linkedin, Mail, Link as LinkIcon } fro
 import { FallbackImage } from '@/components/ui/fallback-image'
 import { DbTool } from '@/lib/neon'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface ToolDetailProps {
   tool: DbTool
 }
 
 export function ToolDetail({ tool }: ToolDetailProps) {
+    const t = useTranslations('ToolDetail')
     const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
     const title = `Check out ${tool.title} - AI Tool`
     console.log('tool-tool:',tool);
@@ -27,7 +29,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
     const handleShareClick = (link: typeof shareLinks[0]) => {
       if (link.name === 'Copy Link') {
         navigator.clipboard.writeText(link.url)
-        alert('链接已复制到剪贴板！')
+        alert(t('linkCopied'))
       } else {
         window.open(link.url, link.target, link.target === '_blank' ? 'noopener noreferrer' : '')
       }
@@ -115,7 +117,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
                 {/* <Badge className="bg-[#1E1E3A] text-[#7B68EE]">评分: {tool.rating}/5</Badge> */}
                 {tool.updated_at && (
                   <Badge className="bg-[#1E1E3A] text-[#7B68EE]">
-                    更新于: {new Date(tool.updated_at).toLocaleDateString()}
+                    {t('updatedAt')}: {new Date(tool.updated_at).toLocaleDateString()}
                   </Badge>
                 )}
               </div>
@@ -126,7 +128,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
                 className="bg-[#7B68EE] hover:bg-[#6A5ACD] text-[#0A0A1B]"
                 onClick={() => window.open(tool.url, '_blank', 'noopener noreferrer')}
               >
-                免费使用
+                {t('visit')} {tool.title}
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </div>

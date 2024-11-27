@@ -351,5 +351,10 @@
       "description": "缺少必要的参数，请从正常流程访问此页面",
       "button": "返回提交页面"
     }
+  },
+  "ToolDetail": {
+    "visit": "访问",
+    "linkCopied": "链接已复制到剪贴板！",
+    "updatedAt": "更新于"
   }
 }
