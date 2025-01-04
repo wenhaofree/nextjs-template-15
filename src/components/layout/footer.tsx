@@ -33,7 +33,7 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-[#2A2A4A]">
           <p className="text-[#B0B0DA] text-center">
-            {t('copyright')} {new Date().getFullYear()} AI STAK.
+            {t('copyright')} <span className="text-[#7B68EE]">{new Date().getFullYear()}</span> AI STAK
           </p>
         </div>
       </div>

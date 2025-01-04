@@ -1,38 +1,32 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useSession } from "next-auth/react"
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
+import { Loader2, CheckCircle2, XCircle } from 'lucide-react'
 
-// 分离出支付状态检查组件
+type PaymentStatus = 'loading' | 'success' | 'error' | 'pending'
+
 function PaymentStatus() {
   const t = useTranslations('SubmitSuccess')
   const searchParams = useSearchParams()
-  const sessionId = searchParams.get('CHECKOUT_SESSION_ID') || searchParams.get('session_id')
+  const router = useRouter()
+  const sessionId = searchParams.get('session_id')
   const submissionName = searchParams.get('submission_name')
   const submissionUrl = searchParams.get('submission_url')
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
-  const { data: session } = useSession()
+  const [status, setStatus] = useState<PaymentStatus>('loading')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const { data: session, update } = useSession()
 
   useEffect(() => {
     const verifySession = async () => {
       try {
-        console.log('Page load details:', {
-          fullUrl: window.location.href,
-          pathname: window.location.pathname,
-          search: window.location.search,
-          rawParams: new URLSearchParams(window.location.search).toString()
-        })
-        
-        console.log('Search params:', Object.fromEntries(searchParams.entries()))
-        console.log('Session ID:', sessionId)
-        
         if (!sessionId) {
-          console.error('No session ID found in URL. Full URL:', window.location.href)
           setStatus('error')
+          setErrorMessage(t('error.noSessionId'))
           return
         }
         
@@ -42,109 +36,133 @@ function PaymentStatus() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ 
-            sessionId: sessionId,
+            sessionId,
             submissionName,
             submissionUrl
           }),
         })
         
         if (!response.ok) {
-          console.error('Payment verification failed:', await response.text())
-          throw new Error('Payment verification failed')
+          const errorData = await response.json()
+          throw new Error(errorData.error || t('error.verification'))
         }
         
         const data = await response.json()
-        console.log('Verification response:', data)
-        setStatus(data.status === 'complete' ? 'success' : 'error')
+        
+        if (data.status === 'pending') {
+          setStatus('pending')
+          // 5秒后重试
+          setTimeout(verifySession, 5000)
+          return
+        }
 
-        //更新登录态用户的订阅计划
-        if (session?.user) {
-          if (session.user.level==='free'|| session.user.level==='one-time'){
-            session.user.level = data.metadata.planType
-          }else if (session.user.level==='unlimited' && data.metadata.planType==='sponsor'){
-            session.user.level = data.metadata.planType
-          }
-          // session.user.level = data.metadata.planType
-          console.log('Update user level:', data.metadata.planType)          
+        if (data.status === 'error' || data.status === 'failed') {
+          router.push(`/submit/failed?error=${encodeURIComponent(data.message)}`)
+          return
+        }
+
+        setStatus('success')
+
+        // 更新会话状态
+        if (session?.user && data.metadata?.planType) {
+          await update({
+            ...session,
+            user: {
+              ...session.user,
+              level: data.metadata.planType
+            }
+          })
         }
         
       } catch (error) {
         console.error('Verification error:', error)
         setStatus('error')
+        setErrorMessage(error instanceof Error ? error.message : t('error.unknown'))
       }
     }
-    verifySession()
-  }, [sessionId, searchParams, submissionName, submissionUrl, session?.user])
 
-  // 加载中状态
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
-        <main className="container mx-auto px-4 py-12">
-          <div className="max-w-2xl mx-auto text-center">
+    verifySession()
+  }, [sessionId, submissionName, submissionUrl, session, t, router, update])
+
+  const renderContent = () => {
+    switch (status) {
+      case 'loading':
+        return (
+          <>
+            <Loader2 className="h-16 w-16 animate-spin text-[#7B68EE] mb-4" />
             <h1 className="text-2xl font-bold mb-4">{t('loading.title')}</h1>
             <p className="text-[#B0B0DA]">{t('loading.description')}</p>
-          </div>
-        </main>
-      </div>
-    )
-  }
-
-  // 支付成功状态
-  if (status === 'success') {
-    return (
-      <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
-        <main className="container mx-auto px-4 py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4 text-[#32CD32]">{t('success.title')}</h1>
+          </>
+        )
+      
+      case 'pending':
+        return (
+          <>
+            <Loader2 className="h-16 w-16 animate-spin text-[#7B68EE] mb-4" />
+            <h1 className="text-2xl font-bold mb-4">{t('pending.title')}</h1>
+            <p className="text-[#B0B0DA]">{t('pending.description')}</p>
+          </>
+        )
+      
+      case 'success':
+        return (
+          <>
+            <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
+            <h1 className="text-2xl font-bold mb-4 text-green-500">{t('success.title')}</h1>
             {submissionName && submissionUrl && (
-              <p className="text-[#32CD32] mb-8">
-                {t('success.description', { name: submissionName })}
+              <p className="text-green-500 mb-8">
+                {t('success.submission', { name: submissionName })}
               </p>
             )}
-            <Button asChild>
-              <Link href="/submit">{t('success.button')}</Link>
-            </Button>
-          </div>
-        </main>
-      </div>
-    )
+            <div className="flex justify-center space-x-4">
+              <Button asChild>
+                <Link href="/dashboard">
+                  {t('success.dashboard')}
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/">
+                  {t('success.home')}
+                </Link>
+              </Button>
+            </div>
+          </>
+        )
+      
+      case 'error':
+        return (
+          <>
+            <XCircle className="h-16 w-16 text-red-500 mb-4" />
+            <h1 className="text-2xl font-bold mb-4 text-red-500">{t('error.title')}</h1>
+            <p className="text-red-400 mb-8">{errorMessage || t('error.unknown')}</p>
+            <div className="flex justify-center space-x-4">
+              <Button asChild>
+                <Link href="/price">
+                  {t('error.tryAgain')}
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/support">
+                  {t('error.support')}
+                </Link>
+              </Button>
+            </div>
+          </>
+        )
+    }
   }
 
-  // 错误状态
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-2xl font-bold mb-4 text-red-500">{t('error.title')}</h1>
-          <p className="text-[#B0B0DA] mb-8">
-            {t('error.description')}
-          </p>
-          <Button asChild variant="outline">
-            <Link href="/submit">{t('error.button')}</Link>
-          </Button>
+          {renderContent()}
         </div>
       </main>
     </div>
   )
 }
 
-// 主页面组件
 export default function SuccessPage() {
-  const t = useTranslations('SubmitSuccess')
-  
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#0A0A1B] text-[#E0E0FF]">
-        <main className="container mx-auto px-4 py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4">{t('loading.title')}</h1>
-            <p className="text-[#B0B0DA]">{t('loading.description')}</p>
-          </div>
-        </main>
-      </div>
-    }>
-      <PaymentStatus />
-    </Suspense>
-  )
-} 
+  return <PaymentStatus />
+}

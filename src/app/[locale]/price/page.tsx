@@ -33,7 +33,7 @@ export default function PricePage() {
     try {
       setIsLoading(planName)
       
-      const planType = planName === t('plans.oneTime.name') ? "one-time" : 
+      const planType = planName === t('plans.oneTime.name') ? "one_time" : 
                       planName === t('plans.unlimited.name') ? "unlimited" :
                       planName === t('plans.sponsor.name') ? "sponsor" : "free"
       
@@ -48,7 +48,6 @@ export default function PricePage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: session.user.email,
           planType,
           locale,
           submission: { name: '', url: '' }

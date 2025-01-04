@@ -1,0 +1,53 @@
+{
+  "Index": {
+    "title": "Welcome to Next.js Template",
+    "description": "A powerful Next.js template with authentication, payment, and more"
+  },
+  "Navigation": {
+    "home": "Home",
+    "price": "Pricing",
+    "submit": "Submit",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "Footer": {
+    "copyright": "© 2025 Next.js Template. All rights reserved.",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "Auth": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "Price": {
+    "title": "Simple, transparent pricing",
+    "description": "Choose the plan that's right for you",
+    "oneTime": "One-time",
+    "unlimited": "Unlimited",
+    "sponsor": "Sponsor",
+    "features": "Features included",
+    "subscribe": "Subscribe",
+    "current": "Current Plan"
+  },
+  "Profile": {
+    "title": "Profile",
+    "updateProfile": "Update Profile",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account"
+  },
+  "Submit": {
+    "title": "Submit Your Project",
+    "description": "Share your project with the community",
+    "name": "Project Name",
+    "url": "Project URL",
+    "submit": "Submit"
+  }
+}

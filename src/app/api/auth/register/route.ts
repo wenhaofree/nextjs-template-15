@@ -1,17 +1,9 @@
 import { NextResponse } from 'next/server'
 import { hash } from 'bcryptjs'
-import { Pool } from 'pg'
-
-// Create connection pool
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-})
+import { prisma } from '@/lib/db'
 
 export async function POST(req: Request) {
   console.log('Registration attempt')
-  
-  const client = await pool.connect()
   
   try {
     const { email, password, name } = await req.json()
@@ -28,12 +20,12 @@ export async function POST(req: Request) {
     }
 
     // Check if user exists
-    const existingUser = await client.query(
-      'SELECT id FROM users WHERE email = $1',
-      [email]
-    )
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true }
+    })
 
-    if (existingUser.rows.length > 0) {
+    if (existingUser) {
       console.log('Registration failed: Email already exists', { email })
       return NextResponse.json(
         { message: '该邮箱已被注册' },
@@ -47,14 +39,21 @@ export async function POST(req: Request) {
     // Create user
     console.log('Creating new user...', { email })
     
-    const result = await client.query(
-      `INSERT INTO users (email, password_hash, name, level)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, email, name, level, created_at`,
-      [email, hashedPassword, name || null, 'free']
-    )
-
-    const user = result.rows[0]
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password_hash: hashedPassword,
+        name: name || null,
+        level: 'free'
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        level: true,
+        created_at: true
+      }
+    })
     
     console.log('User created successfully:', { 
       id: user.id,
@@ -82,7 +81,5 @@ export async function POST(req: Request) {
       { message: '注册失败，请重试' },
       { status: 500 }
     )
-  } finally {
-    client.release()
   }
-} 
+}

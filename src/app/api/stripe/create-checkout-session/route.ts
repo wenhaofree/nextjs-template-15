@@ -1,60 +1,105 @@
 import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
 import Stripe from 'stripe'
+import { prisma } from '@/lib/db'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('Missing required environment variable: STRIPE_SECRET_KEY')
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2024-06-20',
 })
 
-const PRICE_IDS = {
-  'one-time': process.env.STRIPE_PRICE_ONE_TIME!,    // $16.9 (one-time price)
-  'unlimited': process.env.STRIPE_PRICE_UNLIMITED!,   // $24.9 (subscription price)
-  'sponsor': process.env.STRIPE_PRICE_SPONSOR!       // $39.9 (subscription price)
-} as const
+// 定义有效的计划类型
+const VALID_PLAN_TYPES = ['one_time', 'unlimited', 'sponsor'] as const
+type PlanType = typeof VALID_PLAN_TYPES[number]
 
-
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const { email, planType,userLevel, submission,submissionName,submissionUrl,locale } = await req.json()
+    const session = await getServerSession()
     
-    if (!email || !planType) {
+    if (!session?.user?.email) {
       return NextResponse.json(
-        { error: 'Missing email or planType' },
+        { error: 'Not authenticated' },
+        { status: 401 }
+      )
+    }
+
+    const body = await request.json()
+    const { planType, locale, submission } = body
+
+    console.log('Received request:', { planType, locale })
+
+    if (!planType) {
+      return NextResponse.json(
+        { error: 'Plan type is required' },
         { status: 400 }
       )
     }
 
-    if (planType === 'free') {
+    // 验证计划类型
+    if (!VALID_PLAN_TYPES.includes(planType)) {
+      console.error('Invalid plan type:', planType)
       return NextResponse.json(
-        { error: 'Free plan does not require payment' },
+        { error: `Invalid plan type. Must be one of: ${VALID_PLAN_TYPES.join(', ')}` },
         { status: 400 }
       )
     }
 
-    const priceId = PRICE_IDS[planType as keyof typeof PRICE_IDS]
-    
+    // 获取价格 ID
+    const priceIdKey = `STRIPE_PRICE_${planType.toUpperCase().replace('-', '_')}`
+    const priceId = process.env[priceIdKey]
+    console.log('Looking for price ID with key:', priceIdKey)
+
     if (!priceId) {
+      console.error('Price ID not found for key:', priceIdKey)
       return NextResponse.json(
-        { error: 'Invalid plan type' },
+        { error: `Price not configured for plan type: ${planType}` },
         { status: 400 }
       )
     }
 
-    const mode = planType === 'one-time' ? 'payment' : 'subscription'
-
-    console.log('Creating checkout session:', {
-      email,
-      planType,
-      priceId,
-      submissionName,
-      submissionUrl,
-      mode
+    // 获取或创建 Stripe 客户
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: {
+        stripeCustomerId: true,
+      },
     })
 
-    if (!process.env.NEXT_PUBLIC_SITE_URL) {
-      throw new Error('NEXT_PUBLIC_SITE_URL environment variable is not set')
+    let customerId = user?.stripeCustomerId
+
+    // 如果用户没有 Stripe 客户 ID，创建一个新的
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: session.user.email,
+        metadata: {
+          userId: session.user.id,
+        },
+      })
+      customerId = customer.id
+
+      // 更新用户的 Stripe 客户 ID
+      await prisma.user.update({
+        where: { email: session.user.email },
+        data: { stripeCustomerId: customerId },
+      })
     }
 
-    const session = await stripe.checkout.sessions.create({
+    // 确定支付模式
+    const mode = planType === 'one_time' ? 'payment' : 'subscription'
+
+    console.log('Creating checkout session with:', {
+      customerId,
+      mode,
+      priceId,
+      planType
+    })
+
+    // 创建结账会话
+    const checkoutSession = await stripe.checkout.sessions.create({
+      customer: customerId,
       mode,
       payment_method_types: ['card'],
       line_items: [
@@ -63,35 +108,34 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/submit/success?CHECKOUT_SESSION_ID={CHECKOUT_SESSION_ID}&submission_name=${encodeURIComponent(submission.name || '')}&submission_url=${encodeURIComponent(submission.url || '')}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/price`,
-      client_reference_id: email,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/submit/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/price`,
       metadata: {
-        email,
+        userId: session.user.id,
+        userEmail: session.user.email,
         planType,
-        userLevel,
-        submissionName: submission.name || '',
-        submissionUrl: submission.url || ''
+        submissionName: submission?.name,
+        submissionUrl: submission?.url
       },
+      allow_promotion_codes: true,
+      billing_address_collection: 'required',
+      customer_update: {
+        address: 'auto',
+        name: 'auto',
+      },
+      automatic_tax: { enabled: true },
+      locale: locale === 'zh' ? 'zh' : locale === 'ja' ? 'ja' : 'en',
     })
 
-    console.log('✅ Checkout session created:', {
-      sessionId: session.id,
-      url: session.url
-    })
+    console.log('Checkout session created:', checkoutSession.id)
 
-    console.log('Created session with success URL:', {
-      baseUrl: process.env.NEXT_PUBLIC_SITE_URL,
-      successUrl: session.success_url,
-      sessionId: session.id
-    })
+    return NextResponse.json({ url: checkoutSession.url })
 
-    return NextResponse.json({ url: session.url})
   } catch (error) {
-    console.error('❌ Error creating checkout session:', error)
+    console.error('Error creating checkout session:', error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Error creating checkout session' },
+      { error: error instanceof Error ? error.message : 'Failed to create checkout session' },
       { status: 500 }
     )
   }
-} 
+}

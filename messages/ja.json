@@ -49,13 +49,16 @@
     "category": "カテゴリー",
     "rankings": "ランキング",
     "categories": "カテゴリー",
-    "pricing": "価格",
-    "submit": "提出",
+    "pricing": "料金",
+    "submit": "投稿",
     "login": "ログイン",
-    "joinToolify": "参加する"
+    "joinToolify": "Toolifyに参加",
+    "profile": "プロフィール",
+    "signOut": "ログアウト"
   },
   "Footer": {
     "test": "テスト",
+    "copyright": "© 著作権",
     "about": {
       "title": "会社概要",
       "about": "概要",

@@ -52,9 +52,12 @@
     "pricing": "价格",
     "submit": "提交",
     "login": "登录",
-    "joinToolify": "加入我们"
+    "joinToolify": "加入我们",
+    "profile": "个人中心",
+    "signOut": "退出登录"
   },
   "Footer": {
+    "copyright": " 版权所有",
     "about": {
       "title": "关于我们",
       "about": "关于",

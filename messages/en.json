@@ -52,10 +52,13 @@
     "pricing": "Pricing",
     "submit": "Submit",
     "login": "Login",
-    "joinToolify": "Join Toolify"
+    "joinToolify": "Join Toolify",
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "Footer": {
     "test": "Test",
+    "copyright": " 2023",
     "about": {
       "title": "About Us",
       "about": "About",
@@ -338,23 +341,73 @@
   },
   "SubmitSuccess": {
     "loading": {
-      "title": "Processing...",
-      "description": "Please wait while we process your submission"
+      "title": "Verifying Payment",
+      "description": "Please wait while we verify your payment..."
+    },
+    "pending": {
+      "title": "Payment Processing",
+      "description": "Your payment is being processed. This may take a few moments..."
     },
     "success": {
       "title": "Payment Successful!",
-      "description": "Your submission \"{name}\" has been recorded! We will review your tool within 48 hours of submission.",
-      "button": "Continue Submitting"
+      "submission": "Thank you for submitting %{name}",
+      "dashboard": "Go to Dashboard",
+      "home": "Back to Home"
     },
     "error": {
-      "title": "Invalid Request",
-      "description": "Missing required parameters. Please access this page through the normal process.",
-      "button": "Return to Submit Page"
+      "title": "Verification Failed",
+      "noSessionId": "No payment session found",
+      "verification": "Could not verify payment",
+      "unknown": "An unknown error occurred",
+      "tryAgain": "Try Again",
+      "support": "Contact Support"
     }
+  },
+  "SubmitFailed": {
+    "title": "Payment Failed",
+    "defaultError": "We couldn't process your payment. Please try again.",
+    "errorMessage": "Error: %{error}",
+    "tryAgain": "Try Again",
+    "contactSupport": "Contact Support"
   },
   "ToolDetail": {
     "visit": "Visit",
     "linkCopied": "Link copied to clipboard!",
     "updatedAt": "Updated at"
+  },
+  "Subscription": {
+    "currentPlan": {
+      "title": "Current Subscription",
+      "manage": "Manage Subscription",
+      "renewalDate": "Next renewal on %{date}"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "canceled": "Canceled",
+      "past_due": "Past Due"
+    },
+    "plans": {
+      "free": {
+        "name": "Free Plan"
+      },
+      "one-time": {
+        "name": "One-Time Plan"
+      },
+      "unlimited": {
+        "name": "Unlimited Plan"
+      },
+      "sponsor": {
+        "name": "Sponsor Plan"
+      }
+    },
+    "paymentHistory": {
+      "title": "Payment History",
+      "empty": "No payment history found",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "description": "Description"
+    }
   }
 }
