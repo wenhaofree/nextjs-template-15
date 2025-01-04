@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { LanguageSwitcher } from "../language-switcher"
 
 export function Header() {
   const t = useTranslations('Header');
@@ -52,21 +53,16 @@ export function Header() {
               />
             </div>
           </Link>
-
-          {/* <Link href="/" className="flex items-center space-x-2">
-            <Cpu className="w-8 h-8 text-[#7B68EE]" />
-            <span className="text-xl font-semibold text-[#7B68EE]">AI STAK</span>
-          </Link> */}
-          <nav className="hidden md:flex space-x-6">
-            {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-              {t("aiProducts")}
+          <nav className="hidden md:flex space-x-8">
+            <Link href="/" className="text-gray-300 hover:text-white">
+              {t('aiProducts')}
             </Link>
-            <Link 
-              href="/categories" 
-              className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
-            >
-              {t("categories")}
-            </Link> */}
+            <Link href="/category" className="text-gray-300 hover:text-white">
+              {t('category')}
+            </Link>
+            <Link href="/rankings" className="text-gray-300 hover:text-white">
+              {t('rankings')}
+            </Link>
             <Link 
               href="/price" 
               className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors"
@@ -79,9 +75,6 @@ export function Header() {
             >
               {t("submit")}
             </Link>
-            {/* <Link href="#" className="text-sm text-[#E0E0FF] hover:text-[#7B68EE] transition-colors">
-              {t("rankings")}
-            </Link> */}
           </nav>
         </div>
 
@@ -134,6 +127,7 @@ export function Header() {
               </Button>
             </>
           )}
+          <LanguageSwitcher />
         </div>
       </div>
     </header>

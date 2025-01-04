@@ -7,6 +7,7 @@ import {Locale, routing} from '@/i18n/routing';
 import { Toaster } from 'sonner'
 import { Footer } from '@/components/layout/footer';
 import { Metadata } from 'next'
+import { ClientLanguageManager } from '@/components/client-language-manager';
 
 // Define metadata for better SEO
 export const metadata: Metadata = {
@@ -106,8 +107,6 @@ export default async function LocaleLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        
-        {/* Add structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -115,6 +114,7 @@ export default async function LocaleLayout({
       </head>
       <body>
         <Providers locale={locale} messages={typedMessages}>
+          <ClientLanguageManager locale={locale} />
           <Header />
           <main>{children}</main>
           <Footer />

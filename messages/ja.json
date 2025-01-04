@@ -46,14 +46,13 @@
   },
   "Header": {
     "aiProducts": "AI製品",
-    "categories": "カテゴリー",
-    "pricing": "料金プラン",
-    "submit": "投稿",
+    "category": "カテゴリー",
     "rankings": "ランキング",
-    "profile": "プロフィール",
-    "signOut": "ログアウト",
+    "categories": "カテゴリー",
+    "pricing": "価格",
+    "submit": "提出",
     "login": "ログイン",
-    "joinToolify": "Toolifyに参加"
+    "joinToolify": "参加する"
   },
   "Footer": {
     "test": "テスト",

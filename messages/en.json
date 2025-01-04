@@ -38,20 +38,19 @@
     "design": "Design & Art"
   },
   "Filter": {
-    "newest": "🌟 Newest AI",
-    "mostCollected": "🔥 Most Collected",
-    "basedOnCrowd": "👥 Based on Crowd",
-    "recommended": "🎯 Test Recommended",
-    "apps": "📱 Apps"
+    "newest": " Newest AI",
+    "mostCollected": " Most Collected",
+    "basedOnCrowd": " Based on Crowd",
+    "recommended": " Test Recommended",
+    "apps": " Apps"
   },
   "Header": {
     "aiProducts": "AI Products",
+    "category": "Category",
+    "rankings": "Rankings",
     "categories": "Categories",
     "pricing": "Pricing",
     "submit": "Submit",
-    "rankings": "Rankings",
-    "profile": "Profile",
-    "signOut": "Sign Out",
     "login": "Login",
     "joinToolify": "Join Toolify"
   },
@@ -75,8 +74,8 @@
     "language": {
       "title": "Language",
       "english": "English",
-      "chinese": "中文",
-      "japanese": "日本語"
+      "chinese": "",
+      "japanese": ""
     }
   },
   "SignIn": {

@@ -46,14 +46,13 @@
   },
   "Header": {
     "aiProducts": "AI产品",
-    "categories": "分类",
-    "pricing": "定价",
-    "submit": "提交",
+    "category": "分类",
     "rankings": "排行榜",
-    "profile": "个人资料",
-    "signOut": "退出登录",
+    "categories": "分类",
+    "pricing": "价格",
+    "submit": "提交",
     "login": "登录",
-    "joinToolify": "加入 Toolify"
+    "joinToolify": "加入我们"
   },
   "Footer": {
     "about": {
