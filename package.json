@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:setup": "npx tsx src/lib/db/setup.ts",
+    "db:seed": "npx tsx src/lib/db/seed.ts",
+    "db:reset": "npm run db:setup && npm run db:seed"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.696.0",
@@ -53,6 +56,7 @@
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.7",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",

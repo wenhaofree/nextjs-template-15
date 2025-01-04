@@ -24,6 +24,23 @@
     - 参见: https://sonner.emilkowal.ski/
 
 
+# 本地运行：
+```
+$ pnpm run db:setup
+$ pnpm run db:seed
+
+自动创建表结构和测试数据：
+
+admin@example.com (管理员用户)
+test@example.com (免费用户)
+premium@example.com (高级用户)
+
+Admin用户: Admin123!@#
+Test用户: Test123!@#
+Premium用户: Premium123!@#
+
+```
+
 
 
 # 开发流程:
@@ -75,8 +92,6 @@
 
 ## 上线部署dev.aistak.com
 1. 修改配置文件
-2. 
-
 
 
 
@@ -113,174 +128,3 @@
 11. 详情的社交媒体分享功能
 12. 404页面,500页面✅
 
-
-
-单独网站:
-1. 输入网址就可以截屏的SaaS. 对标: 
-2. 在线工具集SaaS. 对标: 
-
-
-
-
-
-## 功能描述:
-2024年11月22日.
-1. Logo
-2. dev域名配置
-3. Bugs:
-    - 支付成功对应缓存Bug
-    - 
-
-2024年11月21日.
-1. AI识别标签和生成内容:
-2. AI内容生成markdown;
-3. SEO内容生成处理
-4. 修复Bug:
-    - 谷歌登录用户存储
-    - 谷歌用户 level不更新
-    - 用户登出跳转
-    - 谷歌登录成功切换了英文
-    - 支付Bug重点测试
-
-2024年11月20日.
-1. 网站内容AI总结
-2. 用户登录态更新
-3. 实现国际化
-4. 实现URL转截图功能
-
-2024年11月19日.
-1. 首页工具列表Grad页面
-2. Neon的数据库连接
-3. card详情页面
-4. 工具提交逻辑
-5. 价格支付成功, 修改用户级别
-
-2024年11月18日.
-1. 谷歌登录:
-    - 增加按钮
-    - route.js增加谷歌配置
-    - 配置文件链接配置
-    - 纯净IP网络验证
-    - Vercel部署验证成功
-2. 价格Stripe接入:
-    - 价格页面保证
-
-2024年11月15日.
-1. 验证支付流程
-2. 价格支付流程
-
-2024年11月14日.
-1. 用户支付提交流程;
-2. 回显支付提示
-3. 数据保存
-
-2024年11月13日.
-1. 网站数据增加Neon数据库和markdown文件处理
-2. 工具列表和工具详情页面
-
-2024年11月11日.
-1. 对标导航网站: https://www.toolify.ai/zh/most-used
-2. 增加分类功能
-3. 需要挖掘有效关键词;
-
-2024年11月10日. 
-1. 增加主页面的aistak.com的主页;
-2. 修正Clerk的登录注册; 注意注册时候发送邮件的表头;
-
-
-
-## SQL脚本:
-````
-CREATE TABLE tools (
-    id BIGSERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    url VARCHAR(512) NOT NULL,
-    image_url VARCHAR(512),
-    summary VARCHAR(1000),
-    tags VARCHAR(255) DEFAULT '',
-    language_support VARCHAR(100) DEFAULT '',
-    favorite_count INTEGER DEFAULT 0,
-    content_markdown TEXT,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) DEFAULT 'active',
-    view_count INTEGER DEFAULT 0,
-    price_type VARCHAR(20) DEFAULT 'free',
-    submit_user_id BIGINT,
-    last_check_time TIMESTAMPTZ,
-    rating NUMERIC(3,2) DEFAULT 0.0,
-
-    -- 约束
-    CONSTRAINT url_unique UNIQUE (url),
-    CONSTRAINT rating_range CHECK (rating >= 0 AND rating <= 5.0),
-    CONSTRAINT status_values CHECK (status IN ('active', 'inactive', 'pending', 'removed', 'featured')),
-    CONSTRAINT price_type_values CHECK (price_type IN ('free', 'paid', 'freemium'))
-);
-
--- 创建索引
-CREATE INDEX idx_tools_created_at ON tools(created_at);
-CREATE INDEX idx_tools_status ON tools(status);
-CREATE INDEX idx_tools_submit_user_id ON tools(submit_user_id);
-CREATE INDEX idx_tools_tags ON tools(tags);
-CREATE INDEX idx_tools_price_type ON tools(price_type);
-
--- 更新时间触发器
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
-CREATE TRIGGER update_tools_updated_at
-    BEFORE UPDATE ON tools
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
-
--- 添加表注释
-COMMENT ON TABLE tools IS 'AI工具导航数据表';
-
--- 添加字段注释
-COMMENT ON COLUMN tools.id IS '主键ID';
-COMMENT ON COLUMN tools.title IS '工具名称';
-COMMENT ON COLUMN tools.url IS '工具网站链接';
-COMMENT ON COLUMN tools.image_url IS '工具封面图片链接';
-COMMENT ON COLUMN tools.summary IS '工具简介描述';
-COMMENT ON COLUMN tools.tags IS '标签，多个标签用逗号分隔，如：AI绘画,图片处理,设计';
-COMMENT ON COLUMN tools.language_support IS '支持的语言，多个语言用逗号分隔，如：中文,英文';
-COMMENT ON COLUMN tools.favorite_count IS '收藏数量';
-COMMENT ON COLUMN tools.content_markdown IS '工具详细介绍(Markdown格式)';
-COMMENT ON COLUMN tools.created_at IS '创建时间';
-COMMENT ON COLUMN tools.updated_at IS '更新时间';
-COMMENT ON COLUMN tools.status IS '状态(active:正常 inactive:无效 pending:待审核 removed:下架 featured:推荐)';
-COMMENT ON COLUMN tools.view_count IS '浏览量';
-COMMENT ON COLUMN tools.price_type IS '价格类型(free:免费 paid:付费 freemium:部分付费)';
-COMMENT ON COLUMN tools.submit_user_id IS '提交用户ID';
-COMMENT ON COLUMN tools.last_check_time IS '最后检测时间';
-COMMENT ON COLUMN tools.rating IS '平均评分(0-5分)';
-
--- 插入测试数据示例
-INSERT INTO tools (
-    title,
-    url,
-    image_url,
-    summary,
-    tags,
-    language_support,
-    content_markdown,
-    price_type,
-    rating
-) VALUES (
-    'Midjourney',
-    'https://www.midjourney.com',
-    'https://example.com/midjourney.jpg',
-    'AI图像生成工具，通过文本描述生成高质量图片',
-    'AI绘画,图像生成,创意设计',
-    '英文',
-    '# Midjourney\n\nMidjourney是一款强大的AI图像生成工具...',
-    'freemium',
-    4.8
-);
-
-````
