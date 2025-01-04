@@ -1,7 +1,20 @@
 {
   "Index": {
-    "title": "Welcome to Next.js Template",
-    "description": "A powerful Next.js template with authentication, payment, and more"
+    "title": "Home",
+    "description": "Welcome to Proactiv",
+    "heroTitle": "Transform Your Marketing with Proactiv",
+    "heroDescription": "Automate your social media presence and grow your audience with AI-powered tools",
+    "search": "Search",
+    "loadMore": "Load More",
+    "noTools": "No tools found",
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "blog": "Blog",
+      "contact": "Contact",
+      "register": "Register",
+      "bookDemo": "Book a demo"
+    }
   },
   "Navigation": {
     "home": "Home",
@@ -12,7 +25,7 @@
     "logout": "Logout"
   },
   "Footer": {
-    "copyright": "© 2025 Next.js Template. All rights reserved.",
+    "copyright": " 2025 Next.js Template. All rights reserved.",
     "terms": "Terms",
     "privacy": "Privacy"
   },
@@ -36,6 +49,36 @@
     "features": "Features included",
     "subscribe": "Subscribe",
     "current": "Current Plan"
+  },
+  "Features": {
+    "title": "Features",
+    "postMultiple": "Post to multiple platforms at once",
+    "postMultipleDesc": "With our AI-powered platform, you can post to multiple platforms at once, saving you time and effort.",
+    "analytics": "Analytics for everything",
+    "analyticsDesc": "Check analytics, track your posts, and get insights into your audience.",
+    "scheduling": "Automated scheduling",
+    "schedulingDesc": "Schedule your posts in advance and let our AI handle the optimal posting times."
+  },
+  "Pricing": {
+    "title": "Pricing",
+    "description": "Choose the plan that's right for you",
+    "starter": {
+      "name": "Starter",
+      "price": "$29",
+      "period": "/month",
+      "description": "Perfect for individuals and small teams"
+    },
+    "professional": {
+      "name": "Professional",
+      "price": "$79",
+      "period": "/month",
+      "description": "Best for growing businesses"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Custom",
+      "description": "For large organizations"
+    }
   },
   "Profile": {
     "title": "Profile",
