@@ -12,6 +12,7 @@ import { FAQ } from "@/components/sections/FAQ";
 import { CTA } from "@/components/sections/CTA";
 import { getLandingPage } from "@/app/actions";
 import { unstable_setRequestLocale } from 'next-intl/server';
+import AuthCheck from "@/components/AuthCheck";
 
 export default async function LandingPage({
   params,
@@ -27,6 +28,7 @@ export default async function LandingPage({
 
   return (
     <>
+      <AuthCheck />
       {page.hero && <Hero hero={page.hero} />}
       {page.branding && <Branding section={page.branding} />}
       {page.introduce && <Feature1 section={page.introduce} />}

@@ -141,15 +141,13 @@ export default function Header({ header }: HeaderProps) {
                 )}
               </div>
             ) : (
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => signIn()}
-                  className="text-sm text-gray-600 hover:text-gray-900"
+              <div className="flex items-center">
+                <Button 
+                  onClick={() => signIn()} 
+                  size="sm" 
+                  className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full px-6"
                 >
                   {header.cta.login}
-                </button>
-                <Button size="sm" className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full px-6">
-                  {header.cta.signup}
                 </Button>
               </div>
             )}
@@ -208,14 +206,12 @@ export default function Header({ header }: HeaderProps) {
                   </div>
                 ) : (
                   <div className="flex flex-col space-y-3 pt-4">
-                    <button
-                      onClick={() => signIn()}
-                      className="text-sm text-gray-600 hover:text-gray-900"
+                    <Button 
+                      onClick={() => signIn()} 
+                      size="sm" 
+                      className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full"
                     >
                       {header.cta.login}
-                    </button>
-                    <Button size="sm" className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full">
-                      {header.cta.signup}
                     </Button>
                   </div>
                 )}
