@@ -17,11 +17,6 @@ export const authOptions = {
           GithubProvider({
             clientId: process.env.AUTH_GITHUB_ID!,
             clientSecret: process.env.AUTH_GITHUB_SECRET!,
-            authorization: {
-              params: {
-                redirect_uri: `${process.env.NEXT_PUBLIC_WEB_URL}/api/auth/callback/github`,
-              },
-            },
             httpOptions: {
               timeout: 10000,
             },
