@@ -1,37 +1,50 @@
-import "../.././globals.css";
+import "../../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { getMessages } from '@/i18n';
+import { getLandingPage } from '@/app/actions';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { locales } from '@/i18n/config';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   params: { locale: string };
-};
-
-async function getMessages(locale: string) {
-  try {
-    return (await import(`@/../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
-  const messages = await getMessages(locale);
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
+export default async function LocaleLayout({
+  children,
+  params,
+}: Props) {
+  const { locale } = await Promise.resolve(params);
+  
+  // Enable static rendering
+  unstable_setRequestLocale(locale);
+  
+  const messages = await getMessages(locale);
+  const page = await getLandingPage(locale);
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider 
-          locale={locale} 
-          messages={messages}
-          timeZone="Asia/Shanghai"
-        >
-          {children}
+    <html lang={locale} className="scroll-smooth">
+      <body className="min-h-screen flex flex-col bg-background text-foreground">
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <div className="fixed inset-x-0 top-0 z-50 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="h-full">
+              {page.header && <Header header={page.header} />}
+            </div>
+          </div>
+          <main className="flex-1 pt-16">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              {children}
+            </div>
+          </main>
+          <div className="border-t">
+            {page.footer && <Footer footer={page.footer} />}
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
