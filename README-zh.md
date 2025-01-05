@@ -1,3 +1,10 @@
+## 分支介绍：
+- main：同步最新的稳定版本
+- base: 原始基础功能；
+- Next-auth：集成Next-auth；
+- LandingPage：落地页分支
+
+
 # Next.js15 新特性
 
 ## 路由：
