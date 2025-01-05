@@ -1,0 +1,362 @@
+{
+  "HomePage": {
+    "title": "标题",
+    "about": "关于",
+    "aiProducts": "AI产品",
+    "category": "分类",
+    "rankings": "排行榜",
+    "heroTitle": "发现最好的AI网站和AI工具",
+    "heroDescription": "21180个AI工具和263个分类已被来千万大咖和工具专家验证，AI工具内容质量均持有最高级ChatGPT等大数据审核。",
+    "searchPlaceholder": "输入任意内容，使用AI提高效率，如：智能剪辑AI工具",
+    "tool": "AI工具",
+    "toolDescription": "这是一个强大的AI工具，可以帮助提高工作效率。",
+    "aiAssistant": "AI助手"
+  },
+  "Index": {
+    "title": "欢迎使用 Next.js 和 shadcn/ui",
+    "description": "具有国际化支持的现代网络应用"
+  },
+  "Button": {
+    "default": "默认按钮",
+    "secondary": "次要按钮",
+    "outline": "轮廓按钮",
+    "ghost": "幽灵按钮",
+    "login": "登录",
+    "joinToolify": "加入 Toolify",
+    "search": "搜索"
+  },
+  "Category": {
+    "writing": "文字写作",
+    "image": "图像",
+    "video": "视频",
+    "code": "代码AI",
+    "audio": "音频",
+    "website": "网站",
+    "marketing": "营销",
+    "painting": "AI绘画",
+    "chatbot": "聊天机器人",
+    "design": "设计与艺术"
+  },
+  "Filter": {
+    "newest": " 最新AI",
+    "mostCollected": " 最多收藏",
+    "basedOnCrowd": " 基于人群分",
+    "recommended": " 测试推荐",
+    "apps": " Apps"
+  },
+  "Header": {
+    "aiProducts": "AI产品",
+    "category": "分类",
+    "rankings": "排行榜",
+    "categories": "分类",
+    "pricing": "价格",
+    "submit": "提交",
+    "login": "登录",
+    "joinToolify": "加入我们",
+    "profile": "个人中心",
+    "signOut": "退出登录"
+  },
+  "Footer": {
+    "copyright": " 版权所有",
+    "about": {
+      "title": "关于我们",
+      "about": "关于",
+      "blog": "博客"
+    },
+    "support": {
+      "title": "支持",
+      "helpCenter": "帮助中心",
+      "contactUs": "联系我们"
+    },
+    "legal": {
+      "title": "法律",
+      "privacy": "隐私政策",
+      "terms": "服务条款"
+    },
+    "language": {
+      "title": "语言",
+      "english": "English",
+      "chinese": "中文",
+      "japanese": "日本語"
+    }
+  },
+  "SignIn": {
+    "title": "登录账户",
+    "email": "邮箱地址",
+    "password": "密码",
+    "button": {
+      "signIn": "登录",
+      "loading": "登录中..."
+    },
+    "divider": "或者",
+    "googleButton": "使用谷歌账号登录",
+    "register": {
+      "text": "还没有账户?",
+      "link": "立即注册"
+    },
+    "error": {
+      "default": "登录失败，请重试"
+    }
+  },
+  "SignUp": {
+    "title": "创建新账户",
+    "name": "姓名",
+    "email": "邮箱地址",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "button": {
+      "signUp": "注册",
+      "loading": "注册中..."
+    },
+    "divider": "或者",
+    "login": {
+      "text": "已有账户?",
+      "link": "立即登录"
+    },
+    "error": {
+      "passwordMismatch": "密码不匹配",
+      "registrationFailed": "注册失败",
+      "default": "发生错误，请重试"
+    }
+  },
+  "Profile": {
+    "title": "个人资料",
+    "loading": "加载中...",
+    "nameNotSet": "未设置昵称",
+    "membership": {
+      "level": "会员等级",
+      "free": "免费用户"
+    },
+    "registrationDate": "注册时间",
+    "buttons": {
+      "editProfile": "编辑资料",
+      "changePassword": "修改密码"
+    },
+    "collections": {
+      "title": "收藏的工具",
+      "empty": "暂无收藏的工具"
+    },
+    "history": {
+      "title": "使用记录",
+      "empty": "暂无使用记录"
+    }
+  },
+  "Pricing": {
+    "hero": {
+      "title": "在 AI STAK 上发布您的工具",
+      "description": "AI STAK 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
+    },
+    "features": {
+      "audience": {
+        "title": "来自100个国家的观众",
+        "description": "最受欢迎的观众来自美国、英国、加拿大、中国、日本、韩国、印度、法国、新加坡..."
+      },
+      "backlinks": {
+        "title": "获取 DR 60 反向链接",
+        "description": "获得永久的高质量高功率反向链接，以提高您的网站和产品的知名度和权威性。"
+      },
+      "languages": {
+        "title": "支持5种语言",
+        "description": "您的产品介绍将以至少5种语言传播，覆盖更多国家的用户，未来还会增加更多。"
+      },
+      "pricing": {
+        "title": "价格低廉，永久曝光",
+        "description": "我们有多层定价来帮助初创公司节省推广成本，当然赞助商也会有更多的首页曝光率！"
+      }
+    },
+    "plans": {
+      "free": {
+        "name": "免费提交",
+        "description": "将我们的反向链接添加到您的网站并获得免费提交",
+        "features": [
+          "7 天内添加到列表",
+          "提交包含我们反向链接的工具网站",
+          "您的工具页面的出站链接是 dofollow",
+          "您的工具的链接永久存在"
+        ]
+      },
+      "oneTime": {
+        "name": "一次性提交",
+        "description": "提交一次，无需担心将续扣费",
+        "features": [
+          "48 小时内添加到列表",
+          "提交1个AI工具",
+          "您可以多次购买",
+          "您的工具页面的出站链接是 dofollow",
+          "您的工具的链接永久存在",
+          "未使用可退款",
+          "随时使用"
+        ]
+      },
+      "unlimited": {
+        "name": "无限提交AI",
+        "description": "每月无限次提交AI工具，比一次性提交更划算",
+        "features": [
+          "24小时内添加到列表",
+          "无限次提交AI工具",
+          "纳入建议列表",
+          "您可以更新您的产品信息",
+          "您的工具页面的出站链接是 dofollow",
+          "您的工具的链接永久存在",
+          "您可以在任何时候取消"
+        ]
+      },
+      "sponsor": {
+        "name": "赞助",
+        "description": "成为我们的赞助商并向顶部推荐您的产品 到处都是赞助链接",
+        "features": [
+          "24小时内添加到列表",
+          "无限提交AI工具",
+          "纳入建议列表",
+          "您的工具会出现在更多页面上",
+          "您可以更新您的产品信息",
+          "赞助商独特的标志和推荐",
+          "专家单独交流",
+          "您的工具页面的出站链接是 dofollow",
+          "您的工具的链接永久存在",
+          "您可以在任何时候取消"
+        ]
+      }
+    },
+    "button": {
+      "getStarted": "立即获取",
+      "processing": "处理中..."
+    },
+    "error": {
+      "paymentCreation": "支付创建失败",
+      "paymentProcess": "支付过程中出现错误"
+    }
+  },
+  "Submit": {
+    "hero": {
+      "title": "提交你的 AI 工具在这里",
+      "badge": "立即获得 AI STAK Domain Rating(DR): 60",
+      "description": "AI STAK 可以帮助您接触到全球数百万 AI 用户和潜在客户。触达AI爱好者、AI创业者、AI投资人、VP等，提高产品认知度、试用率和付费用户。"
+    },
+    "features": {
+      "audience": {
+        "title": "来自100个国家的观众",
+        "description": "最受欢迎的观众来自美国、英国、加拿大、中国、日本、韩国、印度、法国、新加坡..."
+      },
+      "backlinks": {
+        "title": "获取 DR 60 反向链接",
+        "description": "获得永久的高质量高功率反向链接，以提高您的网站和产品的知名度和权威性。"
+      },
+      "languages": {
+        "title": "支持5种语言",
+        "description": "您的产品介绍将以至少5种语言传播，覆盖更多国家的用户，未来还会增加更多。"
+      },
+      "pricing": {
+        "title": "价格低廉，永久曝光",
+        "description": "我们有多层定价来帮助初创公司节省推广成本，当然赞助商也会有更多的首页曝光率！"
+      }
+    },
+    "form": {
+      "name": {
+        "label": "网站名称",
+        "placeholder": "网站名称 e.g. AI STAK",
+        "error": "名称不能为空"
+      },
+      "url": {
+        "label": "网站地址",
+        "placeholder": "网站地址 e.g. https://aistak.com",
+        "error": "请输入有效的网址"
+      },
+      "validation": {
+        "required": "此字段为必填项",
+        "minLength": "名称至少需要2个字符",
+        "invalidUrl": "请输入有效的网址 (例如: https://example.com)"
+      }
+    },
+    "plans": {
+      "free": {
+        "name": "免费提交",
+        "description": "添加我们的链接到您的网站主页即可免费提交",
+        "features": [
+          "7天内添加到列表",
+          "需要添加以下链接到主页：",
+          {
+            "type": "code",
+            "content": "backlink-code-here"
+          }
+        ]
+      },
+      "oneTime": {
+        "name": "一次性提交",
+        "description": "一次提交，不用担心持续扣费",
+        "features": ["无需添加我们的反向链接"]
+      },
+      "unlimited": {
+        "name": "无限制提交 AI",
+        "description": "每月无限提交AI",
+        "features": ["您可以随时取消", "无需添加我们的反向链接"]
+      },
+      "sponsor": {
+        "name": "赞助广告",
+        "description": "置顶的工具显示在顶部广告位置",
+        "features": ["受益最高的展示效果", "无需添加我们的反向链接"]
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "question": "[AI STAK]什么时候会白名单的工具?",
+          "answer": "我们会在收到提交后的48小时内审核您的工具。"
+        },
+        {
+          "question": "退款政策是什么?",
+          "answer": "如果您对我们的服务不满意，我们提供30天内全额退款保证。"
+        },
+        {
+          "question": "提交的工具可以永远保留在主页上吗?",
+          "answer": "是的，只要您的工具符合我们的社区准则，它将永久保留在我们的平台上。"
+        },
+        {
+          "question": "赞助政策是什么?",
+          "answer": "赞助商将获得优先展示位置、更多的展示机会以及专属的推广支持。"
+        },
+        {
+          "question": "为什么显示交的网站没有显示在页面上?",
+          "answer": "所有提交的网站都需要经过审核流程，这可能需要一些时间。如果超过48小时仍未显示，请联系我们的支持团队。"
+        }
+      ]
+    },
+    "button": {
+      "submit": "提交",
+      "pleaseLogin": "请先登录",
+      "viewPricing": "查看定价详情"
+    },
+    "error": {
+      "loginRequired": "请先登录后再提交",
+      "formErrors": "请修正表单错误",
+      "submissionFailed": "提交失败，请稍后重试",
+      "repeatedSubmission": "该工具网站已提交过，请勿重复提交"
+    },
+    "success": {
+      "freePlan": "成功注册免费计划",
+      "submitPlan": "成功提交工具站点，48小时内展示您的工具站点"
+    }
+  },
+  "SubmitSuccess": {
+    "loading": {
+      "title": "处理中...",
+      "description": "请稍候，我们正在处理您的提交"
+    },
+    "success": {
+      "title": "支付成功！",
+      "description": "您的提交 \"{name}\" 已记录！",
+      "button": "继续提交"
+    },
+    "error": {
+      "title": "无效的请求",
+      "description": "缺少必要的参数，请从正常流程访问此页面",
+      "button": "返回提交页面"
+    }
+  },
+  "ToolDetail": {
+    "visit": "访问",
+    "linkCopied": "链接已复制到剪贴板！",
+    "updatedAt": "更新于"
+  }
+}

@@ -3,6 +3,7 @@
 - base: 原始基础功能；
 - Next-auth：集成Next-auth；
 - LandingPage：落地页分支
+- Internet：国际化
 
 
 # Next.js15 新特性
