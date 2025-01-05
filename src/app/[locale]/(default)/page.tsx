@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
 import { Branding } from "@/components/sections/Branding";
 import { Feature1 } from "@/components/sections/Feature1";
@@ -24,7 +23,6 @@ export default async function LandingPage({
   // Enable static rendering
   unstable_setRequestLocale(locale);
 
-  const t = await getTranslations();
   const page = await getLandingPage(locale);
 
   return (
