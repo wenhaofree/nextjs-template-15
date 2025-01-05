@@ -2,6 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { loadStripe } from '@stripe/stripe-js';
+import { toast } from "sonner";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 interface PricingProps {
   pricing: {
@@ -10,6 +14,7 @@ interface PricingProps {
     plans: Array<{
       name: string;
       price: string;
+      amount?: number;
       description: string;
       features: string[];
     }>;
@@ -17,6 +22,43 @@ interface PricingProps {
 }
 
 export function Pricing({ pricing }: PricingProps) {
+  const handlePayment = async (price: number) => {
+    try {
+      const response = await fetch("/api/stripe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          price,
+          successUrl: `${process.env.NEXT_PUBLIC_PAY_SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
+          cancelUrl: process.env.NEXT_PUBLIC_PAY_CANCEL_URL,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Payment request failed');
+      }
+
+      const { id: sessionId } = await response.json();
+      const stripe = await stripePromise;
+      
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId,
+        });
+
+        if (error) {
+          toast.error(error.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Payment failed. Please try again.");
+      console.error("Payment error:", error);
+    }
+  };
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6">
@@ -34,7 +76,7 @@ export function Pricing({ pricing }: PricingProps) {
           {pricing.plans.map((plan, index) => (
             <div
               key={index}
-              className="flex flex-col justify-between space-y-4 rounded-lg border p-6 shadow-lg"
+              className="flex flex-col justify-between space-y-4 rounded-lg border p-6 shadow-lg bg-white dark:bg-gray-900"
             >
               <div>
                 <h3 className="text-2xl font-bold">{plan.name}</h3>
@@ -60,8 +102,12 @@ export function Pricing({ pricing }: PricingProps) {
                   ))}
                 </ul>
               </div>
-              <Button className="w-full" variant="outline">
-                开始使用
+              <Button 
+                className="w-full" 
+                variant={plan.price === "联系我们" ? "outline" : "default"}
+                onClick={() => plan.amount ? handlePayment(plan.amount) : window.location.href = '#contact'}
+              >
+                {plan.price === "联系我们" ? "开始使用" : "立即购买"}
               </Button>
             </div>
           ))}

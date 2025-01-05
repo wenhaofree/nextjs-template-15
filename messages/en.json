@@ -183,42 +183,45 @@
     "subtitle": "Start creating amazing images today",
     "plans": [
       {
-        "name": "Free",
-        "price": "$0",
-        "description": "Perfect for trying out",
+        "name": "Basic",
+        "price": "$9.99",
+        "amount": 9.99,
+        "description": "Perfect for individuals",
         "features": [
-          "25 images per month",
+          "100 images per month",
           "Basic image generation",
-          "Community support",
-          "Standard resolution (512x512)",
+          "Email support",
+          "HD resolution (1024x1024)",
           "Access to Flux Basic model"
         ]
       },
       {
         "name": "Pro",
-        "price": "$15",
+        "price": "$29.99",
+        "amount": 29.99,
         "description": "For creative professionals",
         "features": [
-          "250 images per month",
-          "Priority generation",
-          "HD resolution (1024x1024)",
-          "Access to all models",
-          "Email support",
-          "Commercial usage rights"
+          "500 images per month",
+          "Advanced image generation",
+          "Priority support",
+          "4K resolution",
+          "Access to all Flux models",
+          "Custom image styles",
+          "Batch processing"
         ]
       },
       {
         "name": "Enterprise",
-        "price": "Custom",
-        "description": "For teams and businesses",
+        "price": "Contact Us",
+        "description": "For large organizations",
         "features": [
           "Unlimited images",
-          "Highest priority generation",
-          "4K resolution (2048x2048)",
-          "API access",
-          "Custom model fine-tuning",
-          "Dedicated support",
-          "Team collaboration tools"
+          "Custom API access",
+          "24/7 dedicated support",
+          "Custom resolution options",
+          "Private model training",
+          "SLA guarantee",
+          "Custom integration support"
         ]
       }
     ]
