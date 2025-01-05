@@ -12,6 +12,10 @@
     "cta": {
       "login": "Login",
       "signup": "Get Started"
+    },
+    "userMenu": {
+      "myOrders": "My Orders",
+      "signOut": "Sign Out"
     }
   },
   "hero": {

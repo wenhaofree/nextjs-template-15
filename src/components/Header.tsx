@@ -29,6 +29,10 @@ interface HeaderProps {
       login: string;
       signup: string;
     };
+    userMenu: {
+      myOrders: string;
+      signOut: string;
+    };
   };
 }
 
@@ -99,6 +103,8 @@ export default function Header({ header }: HeaderProps) {
                         alt={session.user.name || ''}
                         width={32}
                         height={32}
+                        unoptimized
+                        priority
                       />
                     ) : (
                       <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
@@ -114,20 +120,22 @@ export default function Header({ header }: HeaderProps) {
                   <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="px-4 py-2 text-sm text-gray-700">
                       <div className="font-medium">{session.user?.name}</div>
-                      <div className="text-gray-500">{session.user?.email}</div>
+                    </div>
+                    <div className="px-4 py-2 text-sm text-gray-700">
+                    <div className="text-gray-500">{session.user?.email}</div>
                     </div>
                     <div className="border-t border-gray-100"></div>
                     <Link
                       href="/orders"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      我的订单
+                      {header.userMenu.myOrders}
                     </Link>
                     <button
                       onClick={() => signOut()}
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      退出登录
+                      {header.userMenu.signOut}
                     </button>
                   </div>
                 )}
@@ -189,13 +197,13 @@ export default function Header({ header }: HeaderProps) {
                       href="/orders"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      我的订单
+                      {header.userMenu.myOrders}
                     </Link>
                     <button
                       onClick={() => signOut()}
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      退出登录
+                      {header.userMenu.signOut}
                     </button>
                   </div>
                 ) : (

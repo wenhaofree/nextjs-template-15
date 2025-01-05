@@ -12,6 +12,10 @@
     "cta": {
       "login": "登录",
       "signup": "开始使用"
+    },
+    "userMenu": {
+      "myOrders": "我的订单",
+      "signOut": "退出登录"
     }
   },
   "hero": {
