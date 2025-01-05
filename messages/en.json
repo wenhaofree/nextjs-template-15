@@ -2,99 +2,205 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Flux AI",
+    "logo": "Your Logo",
     "nav": {
       "features": "Features",
       "pricing": "Pricing",
       "examples": "Examples",
-      "docs": "Documentation"
+      "docs": "Docs"
     },
     "cta": {
-      "login": "Log in",
-      "signup": "Try for free"
+      "login": "Login",
+      "signup": "Get Started"
     }
   },
   "hero": {
-    "title": "Create stunning images with AI",
-    "subtitle": "Transform your ideas into beautiful visuals with Flux AI's advanced image generation technology",
-    "description": "Experience the next generation of AI image creation. Flux AI combines cutting-edge machine learning with intuitive design tools to help you create professional-quality images in seconds.",
+    "title": "Transform Your Imagination Into Images",
+    "subtitle": "Watch as your words bloom into stunning visuals with Flux AI Image Generator",
+    "description": "State-of-the-art AI image generation platform with enhanced detail, improved prompt adherence, and diverse outputs",
     "cta": {
-      "primary": "Start creating",
-      "secondary": "View gallery"
+      "primary": "Start For Free",
+      "secondary": "View Gallery"
     }
   },
-  "features": {
-    "title": "Why choose Flux AI",
-    "subtitle": "Advanced features for unlimited creativity",
-    "items": [
+  "branding": {
+    "title": "Trusted by Industry Leaders",
+    "subtitle": "Join thousands of companies already using our platform",
+    "brands": [
       {
-        "title": "Smart Generation",
-        "description": "Advanced AI models trained on millions of high-quality images",
+        "name": "Company 1",
+        "logo": "/brands/1.svg"
+      },
+      {
+        "name": "Company 2",
+        "logo": "/brands/2.svg"
+      },
+      {
+        "name": "Company 3",
+        "logo": "/brands/3.svg"
+      }
+    ]
+  },
+  "introduce": {
+    "title": "Advanced AI Image Generation",
+    "subtitle": "Powerful Features for Creative Minds",
+    "description": "Generate high-quality images from text descriptions using our cutting-edge AI technology",
+    "image": "/features/intro.gif",
+    "features": [
+      {
+        "title": "Enhanced Image Detail",
+        "description": "Generate images with exceptional detail and clarity using advanced AI algorithms",
         "icon": "sparkles"
       },
       {
-        "title": "Style Control",
-        "description": "Fine-tune your results with precise style and composition controls",
-        "icon": "sliders"
+        "title": "Improved Prompt Adherence",
+        "description": "Accurately interprets and executes your text prompts for precise results",
+        "icon": "wand"
       },
       {
-        "title": "Fast Results",
-        "description": "Generate high-resolution images in seconds",
-        "icon": "zap"
+        "title": "Increased Output Diversity",
+        "description": "Explore various interpretations and styles from similar prompts",
+        "icon": "palette"
+      }
+    ]
+  },
+  "benefit": {
+    "title": "Why Choose Us",
+    "subtitle": "Benefits that set us apart",
+    "benefits": [
+      {
+        "title": "Increased Productivity",
+        "description": "Build and deploy faster with automated workflows",
+        "icon": "speed"
       },
       {
-        "title": "Commercial License",
-        "description": "Full commercial rights for all generated images",
-        "icon": "check-circle"
+        "title": "Better Collaboration",
+        "description": "Work together seamlessly with built-in collaboration tools",
+        "icon": "team"
+      },
+      {
+        "title": "Enhanced Security",
+        "description": "Enterprise-grade security to protect your code and data",
+        "icon": "shield"
+      }
+    ]
+  },
+  "usage": {
+    "title": "How It Works",
+    "subtitle": "Get started in three simple steps",
+    "steps": [
+      {
+        "title": "Create Your Project",
+        "description": "Set up your project with our intuitive project creation wizard",
+        "image": "/usage/step1.png"
+      },
+      {
+        "title": "Configure Settings",
+        "description": "Customize your project settings to match your needs",
+        "image": "/usage/step2.png"
+      },
+      {
+        "title": "Start Development",
+        "description": "Begin coding with our powerful development tools",
+        "image": "/usage/step3.png"
+      }
+    ]
+  },
+  "feature": {
+    "title": "Available Models",
+    "subtitle": "Choose the perfect model for your needs",
+    "items": [
+      {
+        "title": "Flux Pro",
+        "description": "Flagship model optimized for high-end commercial use",
+        "icon": "star"
+      },
+      {
+        "title": "Flux 1.1 Pro Ultra",
+        "description": "4K resolution generator optimized for high-speed generation",
+        "icon": "bolt"
+      },
+      {
+        "title": "Flux Schnell",
+        "description": "Turbo mode for fastest image generation",
+        "icon": "rocket"
       }
     ]
   },
   "showcase": {
-    "title": "Endless possibilities",
-    "subtitle": "See what you can create",
+    "title": "See It in Action",
+    "subtitle": "Real projects built with our platform",
     "gallery": [
       {
-        "image": "/gallery/1.jpg",
-        "title": "Digital Art",
-        "description": "Create stunning digital artwork"
+        "title": "Project 1",
+        "description": "A modern web application",
+        "image": "/gallery/1.jpg"
       },
       {
-        "image": "/gallery/2.jpg",
-        "title": "Product Design",
-        "description": "Generate product mockups and concepts"
+        "title": "Project 2",
+        "description": "Mobile app development",
+        "image": "/gallery/2.jpg"
       },
       {
-        "image": "/gallery/3.jpg",
-        "title": "Marketing",
-        "description": "Design eye-catching marketing materials"
+        "title": "Project 3",
+        "description": "Enterprise solution",
+        "image": "/gallery/3.jpg"
+      }
+    ]
+  },
+  "stats": {
+    "title": "By the Numbers",
+    "subtitle": "Our impact in the development community",
+    "stats": [
+      {
+        "value": "10M+",
+        "label": "Downloads",
+        "description": "Active developers using our platform"
+      },
+      {
+        "value": "50K+",
+        "label": "Projects",
+        "description": "Successfully completed projects"
+      },
+      {
+        "value": "99.9%",
+        "label": "Uptime",
+        "description": "Platform reliability"
+      },
+      {
+        "value": "24/7",
+        "label": "Support",
+        "description": "Always here to help"
       }
     ]
   },
   "pricing": {
-    "title": "Simple, transparent pricing",
-    "subtitle": "Choose the plan that works for you",
+    "title": "Choose Your Plan",
+    "subtitle": "Start creating amazing images today",
     "plans": [
       {
         "name": "Free",
-        "price": "0",
-        "description": "Perfect for trying out Flux AI",
+        "price": "$0",
+        "description": "Perfect for trying out",
         "features": [
-          "20 images per month",
-          "Basic image resolution",
+          "25 images per month",
+          "Basic image generation",
           "Community support",
-          "Basic editing tools"
+          "Standard resolution (512x512)",
+          "Access to Flux Basic model"
         ]
       },
       {
         "name": "Pro",
-        "price": "29",
-        "description": "For professionals and creators",
+        "price": "$15",
+        "description": "For creative professionals",
         "features": [
-          "500 images per month",
-          "4K resolution",
-          "Priority support",
-          "Advanced editing tools",
-          "Commercial license"
+          "250 images per month",
+          "Priority generation",
+          "HD resolution (1024x1024)",
+          "Access to all models",
+          "Email support",
+          "Commercial usage rights"
         ]
       },
       {
@@ -103,75 +209,77 @@
         "description": "For teams and businesses",
         "features": [
           "Unlimited images",
-          "Custom API access",
+          "Highest priority generation",
+          "4K resolution (2048x2048)",
+          "API access",
+          "Custom model fine-tuning",
           "Dedicated support",
-          "Custom training",
-          "Volume discount"
+          "Team collaboration tools"
         ]
       }
     ]
   },
-  "testimonials": {
-    "title": "Loved by creators worldwide",
-    "items": [
+  "testimonial": {
+    "title": "What Our Users Say",
+    "subtitle": "Don't just take our word for it",
+    "testimonials": [
       {
-        "quote": "Flux AI has revolutionized our design workflow. We can now create stunning visuals in minutes instead of hours.",
-        "author": "Sarah Chen",
-        "role": "Art Director",
-        "company": "Design Studio"
+        "content": "This platform has transformed how we build software. The productivity gains are incredible.",
+        "author": {
+          "name": "John Doe",
+          "title": "CTO",
+          "company": "Tech Corp",
+          "image": "/testimonials/1.jpg"
+        }
       },
       {
-        "quote": "The quality and speed of image generation is incredible. It's become an essential tool in our creative process.",
-        "author": "Michael Rodriguez",
-        "role": "Creative Lead",
-        "company": "Digital Agency"
+        "content": "The best development platform we've used. The features and support are unmatched.",
+        "author": {
+          "name": "Jane Smith",
+          "title": "Lead Developer",
+          "company": "Dev Inc",
+          "image": "/testimonials/2.jpg"
+        }
+      },
+      {
+        "content": "A game-changer for our development team. We've cut our development time in half.",
+        "author": {
+          "name": "Mike Johnson",
+          "title": "Engineering Manager",
+          "company": "Software Co",
+          "image": "/testimonials/3.jpg"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions",
+    "faqs": [
+      {
+        "question": "How do I get started?",
+        "answer": "Sign up for a free account and follow our quick start guide. You'll be up and running in minutes."
+      },
+      {
+        "question": "What kind of support do you offer?",
+        "answer": "We offer various support options including community forums, documentation, and dedicated support for paid plans."
+      },
+      {
+        "question": "Can I use it with my existing tools?",
+        "answer": "Yes! Our platform integrates with most popular development tools and services."
       }
     ]
   },
   "cta": {
-    "title": "Start creating amazing images today",
-    "description": "Join thousands of creators and businesses using Flux AI",
-    "button": {
-      "primary": "Get started for free",
-      "secondary": "Contact sales"
+    "title": "Ready to Get Started?",
+    "subtitle": "Join thousands of developers already using our platform",
+    "cta": {
+      "primary": "Start Free Trial",
+      "secondary": "Contact Sales"
     }
   },
   "footer": {
-    "company": {
-      "title": "Company",
-      "links": [
-        "About",
-        "Careers",
-        "Press",
-        "Blog"
-      ]
-    },
-    "product": {
-      "title": "Product",
-      "links": [
-        "Features",
-        "Pricing",
-        "Examples",
-        "Documentation"
-      ]
-    },
-    "legal": {
-      "title": "Legal",
-      "links": [
-        "Privacy",
-        "Terms",
-        "Security"
-      ]
-    },
-    "social": {
-      "title": "Social",
-      "links": [
-        "Twitter",
-        "Discord",
-        "GitHub"
-      ]
-    },
-    "copyright": "Flux AI. All rights reserved.",
+    "copyright": "All rights reserved",
     "about": {
       "title": "About",
       "about": "About Us",

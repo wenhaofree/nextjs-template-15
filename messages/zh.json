@@ -2,7 +2,7 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Flux AI",
+    "logo": "Your Logo",
     "nav": {
       "features": "功能特点",
       "pricing": "价格",
@@ -11,109 +11,168 @@
     },
     "cta": {
       "login": "登录",
-      "signup": "免费试用"
+      "signup": "开始使用"
     }
   },
   "hero": {
-    "title": "使用 AI 创建令人惊叹的图像",
-    "subtitle": "使用 Flux AI 的先进图像生成技术将您的想法转化为精美的视觉效果",
-    "description": "体验下一代 AI 图像创作。Flux AI 将尖端机器学习与直观的设计工具相结合，帮助您在几秒钟内创建专业质量的图像。",
+    "title": "将您的想象力转化为图像",
+    "subtitle": "使用 Flux AI 图像生成器，观看您的文字绽放成令人惊叹的视觉效果",
+    "description": "先进的 AI 图像生成平台，具有增强的细节表现、更准确的提示词响应和多样化的输出",
     "cta": {
-      "primary": "开始创作",
+      "primary": "免费开始",
       "secondary": "查看画廊"
     }
   },
-  "features": {
-    "title": "为什么选择 Flux AI",
-    "subtitle": "无限创意的高级功能",
-    "items": [
+  "branding": {
+    "title": "行业领袖的信赖之选",
+    "subtitle": "加入已在使用我们平台的数千家公司",
+    "brands": [
       {
-        "title": "智能生成",
-        "description": "在数百万高质量图像上训练的先进 AI 模型",
-        "icon": "sparkles"
+        "name": "公司 1",
+        "logo": "/brands/1.svg"
       },
       {
-        "title": "风格控制",
-        "description": "通过精确的风格和构图控制微调您的结果",
-        "icon": "sliders"
+        "name": "公司 2",
+        "logo": "/brands/2.svg"
       },
       {
-        "title": "快速结果",
-        "description": "在几秒钟内生成高分辨率图像",
-        "icon": "zap"
-      },
-      {
-        "title": "商业许可",
-        "description": "所有生成图像的完整商业权利",
-        "icon": "check-circle"
+        "name": "公司 3",
+        "logo": "/brands/3.svg"
       }
     ]
   },
-  "showcase": {
-    "title": "无限可能",
-    "subtitle": "看看您能创造什么",
-    "gallery": [
+  "introduce": {
+    "title": "先进的 AI 图像生成",
+    "subtitle": "为创意人士打造的强大功能",
+    "description": "使用我们尖端的 AI 技术，从文字描述生成高质量图像",
+    "image": "/features/intro.gif",
+    "features": [
       {
-        "image": "/gallery/1.jpg",
-        "title": "数字艺术",
-        "description": "创建令人惊叹的数字艺术作品"
+        "title": "增强图像细节",
+        "description": "使用先进的 AI 算法生成具有出色细节和清晰度的图像",
+        "icon": "sparkles"
       },
       {
-        "image": "/gallery/2.jpg",
-        "title": "产品设计",
-        "description": "生成产品模型和概念"
+        "title": "提示词精准响应",
+        "description": "准确理解和执行您的文字提示，确保精确的结果",
+        "icon": "wand"
       },
       {
-        "image": "/gallery/3.jpg",
-        "title": "营销",
-        "description": "设计吸引眼球的营销材料"
+        "title": "多样化输出",
+        "description": "从相似的提示词探索各种不同的诠释和风格",
+        "icon": "palette"
+      }
+    ]
+  },
+  "feature": {
+    "title": "可用模型",
+    "subtitle": "选择最适合您需求的模型",
+    "items": [
+      {
+        "title": "Flux Pro",
+        "description": "为高端商业用途优化的旗舰模型",
+        "icon": "star"
+      },
+      {
+        "title": "Flux 1.1 Pro Ultra",
+        "description": "针对高速生成优化的4K分辨率生成器",
+        "icon": "bolt"
+      },
+      {
+        "title": "Flux Schnell",
+        "description": "最快图像生成的涡轮模式",
+        "icon": "rocket"
       }
     ]
   },
   "pricing": {
-    "title": "简单透明的定价",
-    "subtitle": "选择适合您的方案",
+    "title": "选择您的方案",
+    "subtitle": "立即开始创建惊艳图像",
     "plans": [
       {
         "name": "免费版",
-        "price": "0",
-        "description": "完美体验 Flux AI",
+        "price": "¥0",
+        "description": "完美的入门体验",
         "features": [
-          "每月20张图片",
-          "基础图像分辨率",
+          "每月25张图片",
+          "基础图像生成",
           "社区支持",
-          "基础编辑工具"
+          "标准分辨率 (512x512)",
+          "访问 Flux 基础模型"
         ]
       },
       {
         "name": "专业版",
-        "price": "29",
-        "description": "适合专业人士和创作者",
+        "price": "¥99",
+        "description": "适合创意专业人士",
         "features": [
-          "每月500张图片",
-          "4K分辨率",
-          "优先支持",
-          "高级编辑工具",
-          "商业许可"
+          "每月250张图片",
+          "优先生成",
+          "HD分辨率 (1024x1024)",
+          "访问所有模型",
+          "邮件支持",
+          "商业使用权"
         ]
       },
       {
         "name": "企业版",
         "price": "联系我们",
-        "description": "为大型团队和企业定制",
+        "description": "为团队和企业定制",
         "features": [
-          "无限图片生成",
-          "8K分辨率",
-          "专属客户经理",
+          "无限图片",
+          "最高优先级生成",
+          "4K分辨率 (2048x2048)",
           "API访问",
-          "自定义模型训练",
-          "高级安全功能"
+          "自定义模型微调",
+          "专属支持",
+          "团队协作工具"
         ]
       }
     ]
   },
+  "testimonial": {
+    "title": "用户评价",
+    "subtitle": "听听他们怎么说",
+    "testimonials": [
+      {
+        "content": "这个平台彻底改变了我们创建内容的方式。生产力提升令人难以置信。",
+        "author": {
+          "name": "张三",
+          "title": "技术总监",
+          "company": "科技公司",
+          "image": "/testimonials/1.jpg"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "找到常见问题的答案",
+    "faqs": [
+      {
+        "question": "如何开始使用？",
+        "answer": "注册一个免费账户并按照我们的快速入门指南操作。几分钟内即可开始使用。"
+      },
+      {
+        "question": "提供什么样的支持？",
+        "answer": "我们提供多种支持选项，包括社区论坛、文档以及付费方案的专属支持。"
+      },
+      {
+        "question": "可以与现有工具集成吗？",
+        "answer": "是的！我们的平台可以与大多数流行的开发工具和服务集成。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "准备开始了吗？",
+    "subtitle": "加入已经在使用我们平台的数千名开发者",
+    "cta": {
+      "primary": "免费试用",
+      "secondary": "联系销售"
+    }
+  },
   "footer": {
-    "copyright": "Flux AI. 保留所有权利。",
+    "copyright": "保留所有权利",
     "about": {
       "title": "关于",
       "about": "关于我们",

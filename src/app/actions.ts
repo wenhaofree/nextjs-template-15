@@ -5,9 +5,17 @@ export async function getLandingPage(locale: string) {
       header: messages.header,
       footer: messages.footer,
       hero: messages.hero,
-      features: messages.features,
+      branding: messages.branding,
+      introduce: messages.introduce,
+      benefit: messages.benefit,
+      usage: messages.usage,
+      feature: messages.feature,
       showcase: messages.showcase,
-      pricing: messages.pricing
+      stats: messages.stats,
+      pricing: messages.pricing,
+      testimonial: messages.testimonial,
+      faq: messages.faq,
+      cta: messages.cta
     };
   } catch (error) {
     console.error('Error loading landing page data:', error);
