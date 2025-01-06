@@ -63,7 +63,7 @@ export default function Header({ header }: HeaderProps) {
             {Object.entries(header.nav).map(([key, value]) => (
               <Link
                 key={key}
-                href={`#${key}`}
+                href={key === 'pricing' ? `/${pathname.split('/')[1]}/pricing` : `#${key}`}
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
                 {value}
@@ -170,7 +170,7 @@ export default function Header({ header }: HeaderProps) {
                 {Object.entries(header.nav).map(([key, value]) => (
                   <Link
                     key={key}
-                    href={`#${key}`}
+                    href={key === 'pricing' ? '/pricing' : `#${key}`}
                     className="text-sm text-gray-600 hover:text-gray-900"
                   >
                     {value}
