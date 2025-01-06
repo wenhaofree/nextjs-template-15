@@ -185,6 +185,7 @@
     "contactUs": "联系我们",
     "getStarted": "开始使用",
     "buyNow": "立即购买",
+    "pleaseLogin": "请先登录后再进行购买",
     "plans": [
       {
         "name": "基础版",

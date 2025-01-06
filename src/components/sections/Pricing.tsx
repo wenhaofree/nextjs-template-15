@@ -5,6 +5,8 @@ import { Check } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { toast } from "sonner";
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -24,8 +26,16 @@ interface PricingProps {
 
 export function Pricing({ pricing }: PricingProps) {
   const t = useTranslations('pricing');
+  const router = useRouter();
+  const { data: session } = useSession();
   
   const handlePayment = async (price: number) => {
+    if (!session) {
+      toast.error(t('pleaseLogin'));
+      router.push('/login');
+      return;
+    }
+
     try {
       const response = await fetch("/api/stripe", {
         method: "POST",

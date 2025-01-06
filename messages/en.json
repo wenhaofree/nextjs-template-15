@@ -185,6 +185,7 @@
     "contactUs": "Contact Us",
     "getStarted": "Get Started",
     "buyNow": "Buy Now",
+    "pleaseLogin": "Please log in to continue with your purchase",
     "plans": [
       {
         "name": "Basic",
