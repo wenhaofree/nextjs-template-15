@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { toast } from "sonner";
+import { useTranslations } from 'next-intl';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -22,6 +23,8 @@ interface PricingProps {
 }
 
 export function Pricing({ pricing }: PricingProps) {
+  const t = useTranslations('pricing');
+  
   const handlePayment = async (price: number) => {
     try {
       const response = await fetch("/api/stripe", {
@@ -65,10 +68,10 @@ export function Pricing({ pricing }: PricingProps) {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              {pricing.title}
+              {t('title')}
             </h2>
             <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              {pricing.subtitle}
+              {t('subtitle')}
             </p>
           </div>
         </div>
@@ -84,8 +87,8 @@ export function Pricing({ pricing }: PricingProps) {
                   <span className="text-5xl font-extrabold tracking-tight">
                     {plan.price}
                   </span>
-                  {plan.price !== "联系我们" && (
-                    <span className="ml-1 text-xl font-semibold">/月</span>
+                  {plan.price !== t('contactUs') && (
+                    <span className="ml-1 text-xl font-semibold">{t('perMonth')}</span>
                   )}
                 </div>
                 <p className="mt-4 text-gray-500 dark:text-gray-400">
@@ -104,10 +107,10 @@ export function Pricing({ pricing }: PricingProps) {
               </div>
               <Button 
                 className="w-full" 
-                variant={plan.price === "联系我们" ? "outline" : "default"}
+                variant={plan.price === t('contactUs') ? "outline" : "default"}
                 onClick={() => plan.amount ? handlePayment(plan.amount) : window.location.href = '#contact'}
               >
-                {plan.price === "联系我们" ? "开始使用" : "立即购买"}
+                {plan.price === t('contactUs') ? t('getStarted') : t('buyNow')}
               </Button>
             </div>
           ))}

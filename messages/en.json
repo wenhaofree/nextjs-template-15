@@ -181,6 +181,10 @@
   "pricing": {
     "title": "Choose Your Plan",
     "subtitle": "Start creating amazing images today",
+    "perMonth": "/month",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "buyNow": "Buy Now",
     "plans": [
       {
         "name": "Basic",

@@ -2,7 +2,7 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Your Logo",
+    "logo": "您的Logo",
     "nav": {
       "features": "功能特点",
       "pricing": "价格",
@@ -19,12 +19,12 @@
     }
   },
   "hero": {
-    "title": "AI驱动的图像创作平台",
-    "subtitle": "让创意无限可能 - 文字到图像的智能转换",
-    "description": "业界领先的AI图像生成技术,支持超高清输出、精准提示词控制和多样化风格创作",
+    "title": "将您的想象力转化为图像",
+    "subtitle": "观看您的文字如何在 Flux AI 图像生成器中绽放为惊艳的视觉效果",
+    "description": "领先的AI图像生成平台，具备增强细节、改进提示词响应和多样化输出功能",
     "cta": {
-      "primary": "立即体验",
-      "secondary": "查看示例"
+      "primary": "免费开始",
+      "secondary": "查看画廊"
     }
   },
   "branding": {
@@ -46,25 +46,67 @@
     ]
   },
   "introduce": {
-    "title": "为什么选择 Flux AI",
-    "subtitle": "重新定义AI图像生成",
-    "description": "强大的AI引擎,简单的操作流程,让创作更轻松自如",
+    "title": "先进的AI图像生成",
+    "subtitle": "为创意思维提供强大功能",
+    "description": "使用我们的前沿AI技术，从文本描述生成高质量图像",
     "image": "/features/intro.gif",
     "features": [
       {
-        "title": "超高清输出",
-        "description": "支持最高4K分辨率输出,细节清晰度和真实感极佳",
+        "title": "增强图像细节",
+        "description": "使用先进的AI算法生成具有卓越细节和清晰度的图像",
         "icon": "sparkles"
       },
       {
-        "title": "智能提示优化",
-        "description": "AI自动优化提示词,帮助您获得更理想的创作效果",
+        "title": "改进提示词响应",
+        "description": "准确解释和执行您的文本提示，实现精确的结果",
         "icon": "wand"
       },
       {
-        "title": "风格多样化",
-        "description": "内置上百种艺术风格,轻松实现不同视觉效果",
+        "title": "提升输出多样性",
+        "description": "从相似的提示词探索各种不同的诠释和风格",
         "icon": "palette"
+      }
+    ]
+  },
+  "benefit": {
+    "title": "为什么选择我们",
+    "subtitle": "与众不同的优势",
+    "benefits": [
+      {
+        "title": "提升生产力",
+        "description": "通过自动化工作流程更快地构建和部署",
+        "icon": "speed"
+      },
+      {
+        "title": "更好的协作",
+        "description": "使用内置协作工具无缝协作",
+        "icon": "team"
+      },
+      {
+        "title": "增强安全性",
+        "description": "企业级安全保护您的代码和数据",
+        "icon": "shield"
+      }
+    ]
+  },
+  "usage": {
+    "title": "使用方法",
+    "subtitle": "三个简单步骤开始使用",
+    "steps": [
+      {
+        "title": "创建您的项目",
+        "description": "使用我们直观的项目创建向导设置您的项目",
+        "image": "/usage/step1.png"
+      },
+      {
+        "title": "配置设置",
+        "description": "根据您的需求自定义项目设置",
+        "image": "/usage/step2.png"
+      },
+      {
+        "title": "开始开发",
+        "description": "使用我们强大的开发工具开始编码",
+        "image": "/usage/step3.png"
       }
     ]
   },
@@ -89,43 +131,99 @@
       }
     ]
   },
+  "showcase": {
+    "title": "实际效果",
+    "subtitle": "使用我们平台构建的真实项目",
+    "gallery": [
+      {
+        "title": "项目 1",
+        "description": "现代网络应用",
+        "image": "/gallery/1.jpg"
+      },
+      {
+        "title": "项目 2",
+        "description": "移动应用开发",
+        "image": "/gallery/2.jpg"
+      },
+      {
+        "title": "项目 3",
+        "description": "企业解决方案",
+        "image": "/gallery/3.jpg"
+      }
+    ]
+  },
+  "stats": {
+    "title": "数据说话",
+    "subtitle": "我们在开发者社区的影响力",
+    "stats": [
+      {
+        "value": "10M+",
+        "label": "下载量",
+        "description": "正在使用我们平台的活跃开发者"
+      },
+      {
+        "value": "50K+",
+        "label": "项目",
+        "description": "成功完成的项目"
+      },
+      {
+        "value": "99.9%",
+        "label": "运行时间",
+        "description": "平台可靠性"
+      },
+      {
+        "value": "24/7",
+        "label": "支持",
+        "description": "随时为您服务"
+      }
+    ]
+  },
   "pricing": {
     "title": "选择您的方案",
     "subtitle": "立即开始创建惊艳图像",
+    "perMonth": "/月",
+    "contactUs": "联系我们",
+    "getStarted": "开始使用",
+    "buyNow": "立即购买",
     "plans": [
       {
-        "name": "入门版",
-        "price": "¥0",
-        "description": "体验基础功能",
+        "name": "基础版",
+        "price": "¥69",
+        "amount": 69,
+        "description": "个人用户的完美选择",
         "features": [
-          "每日10张图片额度",
-          "512x512分辨率",
-          "基础模型访问",
-          "社区支持"
+          "每月100张图片",
+          "基础图像生成",
+          "邮件支持",
+          "HD分辨率 (1024x1024)",
+          "访问Flux基础模型"
         ]
       },
       {
-        "name": "创作者版",
-        "price": "¥129/月",
+        "name": "专业版",
+        "price": "¥199",
+        "amount": 199,
         "description": "适合专业创作者",
         "features": [
-          "每月500张图片",
-          "最高2K分辨率",
-          "所有模型访问权限",
-          "优先生成队列",
-          "7x24小时支持"
+          "每月1000张图片",
+          "高级图像生成",
+          "优先支持",
+          "4K超高清分辨率",
+          "访问所有Flux模型",
+          "API访问"
         ]
       },
       {
         "name": "企业版",
-        "price": "定制价格",
-        "description": "企业级功能与支持",
+        "price": "联系我们",
+        "description": "为大型团队定制",
         "features": [
-          "无限制图片生成",
-          "4K超清分辨率",
-          "API集成接口",
-          "专属模型训练",
-          "企业级SLA保障"
+          "无限图片生成",
+          "企业级功能",
+          "专属客户经理",
+          "自定义API集成",
+          "SLA保障",
+          "高级安全特性"
         ]
       }
     ]
