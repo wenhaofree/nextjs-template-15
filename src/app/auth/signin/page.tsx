@@ -3,11 +3,13 @@
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function SignIn() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
   const [loading, setLoading] = useState('');
+  const t = useTranslations('auth');
 
   const handleSignIn = async (provider: string) => {
     try {
@@ -28,13 +30,13 @@ export default function SignIn() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            {t('signInTitle')}
           </h2>
           {error && (
             <div className="mt-4 p-4 text-sm text-red-600 bg-red-50 rounded-md">
               {error === 'OAuthCallback' 
-                ? 'An error occurred during sign in. Please try again.'
-                : 'Authentication error. Please try again.'}
+                ? t('oauthError')
+                : t('authError')}
             </div>
           )}
         </div>
@@ -63,19 +65,19 @@ export default function SignIn() {
                   fill="#EA4335"
                 />
               </svg>
-              {loading === 'google' ? 'Signing in...' : 'Continue with Google'}
+              {loading === 'google' ? t('signingIn') : t('signInWithGoogle')}
             </button>
           )}
           {process.env.NEXT_PUBLIC_AUTH_GITHUB_ENABLED === "true" && (
             <button
               onClick={() => handleSignIn('github')}
               disabled={!!loading}
-              className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-lg text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#24292E] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-lg text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#24292F] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                 <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
               </svg>
-              {loading === 'github' ? 'Signing in...' : 'Continue with GitHub'}
+              {loading === 'github' ? t('signingIn') : t('signInWithGithub')}
             </button>
           )}
         </div>

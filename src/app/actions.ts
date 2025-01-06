@@ -1,6 +1,12 @@
 export async function getLandingPage(locale: string) {
   try {
-    const messages = (await import(`../../messages/${locale}.json`)).default;
+    let messages;
+    try {
+      messages = (await import(`../../messages/${locale}.json`)).default;
+    } catch {
+      // If the requested locale file doesn't exist, fallback to English
+      messages = (await import(`../../messages/en.json`)).default;
+    }
     return {
       header: messages.header,
       footer: messages.footer,
@@ -19,6 +25,6 @@ export async function getLandingPage(locale: string) {
     };
   } catch (error) {
     console.error('Error loading landing page data:', error);
-    return {};
+    throw error;
   }
 }

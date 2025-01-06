@@ -122,11 +122,11 @@ export default function Header({ header }: HeaderProps) {
                       <div className="font-medium">{session.user?.name}</div>
                     </div>
                     <div className="px-4 py-2 text-sm text-gray-700">
-                    <div className="text-gray-500">{session.user?.email}</div>
+                      <div className="text-gray-500">{session.user?.email}</div>
                     </div>
                     <div className="border-t border-gray-100"></div>
                     <Link
-                      href="/orders"
+                      href={`/${currentLocale}/my-orders`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {header.userMenu.myOrders}
@@ -192,7 +192,7 @@ export default function Header({ header }: HeaderProps) {
                     <div className="font-medium">{session.user?.name}</div>
                     <div className="text-gray-500">{session.user?.email}</div>
                     <Link
-                      href="/orders"
+                      href={`/${currentLocale}/my-orders`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {header.userMenu.myOrders}

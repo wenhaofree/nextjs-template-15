@@ -262,6 +262,14 @@
       }
     ]
   },
+  "auth": {
+    "signInTitle": "登录您的账户",
+    "signInWithGoogle": "使用 Google 账号登录",
+    "signInWithGithub": "使用 GitHub 账号登录",
+    "signingIn": "正在登录...",
+    "oauthError": "登录过程中发生错误，请重试。",
+    "authError": "认证错误，请重试。"
+  },
   "cta": {
     "title": "准备开始了吗？",
     "subtitle": "加入已经在使用我们平台的数千名开发者",
@@ -292,6 +300,20 @@
       "english": "English",
       "chinese": "中文",
       "japanese": "日本語"
+    }
+  },
+  "my-orders": {
+    "title": "我的订单",
+    "description": "查看您的所有订单历史记录",
+    "noOrders": "暂无订单记录",
+    "orderDetails": {
+      "orderId": "订单编号",
+      "amount": "金额",
+      "status": "状态",
+      "date": "日期",
+      "success": "成功",
+      "pending": "处理中",
+      "failed": "失败"
     }
   }
 }

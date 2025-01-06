@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Order {
   id: string;
@@ -43,31 +42,24 @@ export default function OrdersPage() {
       ) : (
         <div className="grid gap-4">
           {orders.map((order) => (
-            <Card key={order.id}>
-              <CardHeader>
-                <CardTitle>
+            <div key={order.id} className="bg-white rounded-lg shadow-md p-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold">
                   {t("orderDetails.orderId")}: {order.id}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-500">{t("orderDetails.date")}</p>
-                    <p>{new Date(order.createdAt).toLocaleDateString()}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">{t("orderDetails.amount")}</p>
-                    <p>${order.amount.toFixed(2)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">{t("orderDetails.status")}</p>
-                    <p className="capitalize text-green-600">
-                      {t(`orderDetails.${order.status}`)}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <div className="space-y-2">
+                <p>
+                  {t("orderDetails.amount")}: ${order.amount.toFixed(2)}
+                </p>
+                <p>
+                  {t("orderDetails.status")}: {t(`orderDetails.${order.status}`)}
+                </p>
+                <p>
+                  {t("orderDetails.date")}: {new Date(order.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       )}

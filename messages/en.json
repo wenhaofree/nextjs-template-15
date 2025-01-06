@@ -282,6 +282,14 @@
       }
     ]
   },
+  "auth": {
+    "signInTitle": "Sign in to your account",
+    "signInWithGoogle": "Continue with Google",
+    "signInWithGithub": "Continue with GitHub",
+    "signingIn": "Signing in...",
+    "oauthError": "An error occurred during sign in. Please try again.",
+    "authError": "Authentication error. Please try again."
+  },
   "cta": {
     "title": "Ready to Get Started?",
     "subtitle": "Join thousands of developers already using our platform",
@@ -312,6 +320,20 @@
       "english": "English",
       "chinese": "中文",
       "japanese": "日本語"
+    }
+  },
+  "my-orders": {
+    "title": "My Orders",
+    "description": "View all your order history",
+    "noOrders": "No orders found",
+    "orderDetails": {
+      "orderId": "Order ID",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date",
+      "success": "Success",
+      "pending": "Pending",
+      "failed": "Failed"
     }
   }
 }
