@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { toast } from "sonner";
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
@@ -28,11 +28,14 @@ export function Pricing({ pricing }: PricingProps) {
   const t = useTranslations('pricing');
   const router = useRouter();
   const { data: session } = useSession();
+  const pathname = usePathname();
+  const locale = pathname.split('/')[1];
   
   const handlePayment = async (price: number) => {
     if (!session) {
       toast.error(t('pleaseLogin'));
-      router.push('/login');
+      // router.push(`/${locale}/auth/signin`);
+      router.push(`/auth/signin`);
       return;
     }
 
@@ -44,8 +47,9 @@ export function Pricing({ pricing }: PricingProps) {
         },
         body: JSON.stringify({
           price,
-          successUrl: `${process.env.NEXT_PUBLIC_PAY_SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
-          cancelUrl: process.env.NEXT_PUBLIC_PAY_CANCEL_URL,
+          email: session.user?.email,
+          successUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/my-orders?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
+          cancelUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/#pricing`,
         }),
       });
 

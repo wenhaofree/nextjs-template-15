@@ -12,7 +12,15 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { price, successUrl, cancelUrl } = body;
+    const { price, successUrl, cancelUrl, email } = body;
+
+    // 打印接收到的请求数据
+    console.log('Received stripe payment request:', {
+      price,
+      email,
+      successUrl,
+      cancelUrl
+    });
 
     // Ensure price is a number and convert to cents
     const amount = Math.round(parseFloat(price) * 100);
@@ -24,9 +32,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // 打印创建 session 的配置
+    console.log('Creating Stripe checkout session with config:', {
+      amount,
+      customer_email: email,
+      mode: 'payment'
+    });
+
     // Create a payment session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
+      customer_email: email,
       line_items: [
         {
           price_data: {
@@ -43,6 +59,9 @@ export async function POST(request: Request) {
       success_url: successUrl,
       cancel_url: cancelUrl,
     });
+
+    // 打印创建的 session ID
+    console.log('Created Stripe session:', session.id);
 
     return NextResponse.json({ id: session.id });
   } catch (error) {
