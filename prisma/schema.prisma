@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  uuid           String    @unique
+  email          String
+  createdAt      DateTime? @map("created_at") @db.Timestamptz(6)
+  nickname       String?   @db.VarChar(255)
+  avatarUrl      String?   @map("avatar_url") @db.VarChar(255)
+  locale         String?   @db.VarChar(50)
+  signinType     String?   @map("signin_type") @db.VarChar(50)
+  signinIp       String?   @map("signin_ip") @db.VarChar(255)
+  signinProvider String?   @map("signin_provider") @db.VarChar(50)
+  signinOpenid   String?   @map("signin_openid") @db.VarChar(255)
+  orders         Order[]
+
+  @@unique([email, signinProvider])
+  @@map("users")
+}
+
+model Order {
+  id               Int       @id @default(autoincrement())
+  orderNo          String    @unique @map("order_no") @db.VarChar(255)
+  createdAt        DateTime? @map("created_at") @db.Timestamptz(6)
+  userUuid         String    @map("user_uuid") @db.VarChar(255)
+  userEmail        String    @map("user_email") @db.VarChar(255)
+  amount           Int
+  interval         String?   @db.VarChar(50)
+  expiredAt        DateTime? @map("expired_at") @db.Timestamptz(6)
+  status           String    @db.VarChar(50)
+  stripeSessionId  String?   @map("stripe_session_id") @db.VarChar(255)
+  credits          Int
+  currency         String?   @db.VarChar(50)
+  subId            String?   @map("sub_id") @db.VarChar(255)
+  subIntervalCount Int?      @map("sub_interval_count")
+  subCycleAnchor   Int?      @map("sub_cycle_anchor")
+  subPeriodEnd     Int?      @map("sub_period_end")
+  subPeriodStart   Int?      @map("sub_period_start")
+  subTimes         Int?      @map("sub_times")
+  productId        String?   @map("product_id") @db.VarChar(255)
+  productName      String?   @map("product_name") @db.VarChar(255)
+  validMonths      Int?      @map("valid_months")
+  orderDetail      String?   @map("order_detail")
+  paidAt           DateTime? @map("paid_at") @db.Timestamptz(6)
+  paidEmail        String?   @map("paid_email") @db.VarChar(255)
+  paidDetail       String?   @map("paid_detail")
+  user             User      @relation(fields: [userUuid], references: [uuid])
+
+  @@map("orders")
+}

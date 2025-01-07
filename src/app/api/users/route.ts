@@ -1,0 +1,39 @@
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+
+export async function GET() {
+  try {
+    const users = await prisma.user.findMany({
+      include: {
+        orders: true,
+      },
+    });
+    return NextResponse.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const json = await request.json();
+    const user = await prisma.user.create({
+      data: {
+        uuid: json.uuid,
+        email: json.email,
+        nickname: json.nickname,
+        avatarUrl: json.avatarUrl,
+        locale: json.locale,
+        signinType: json.signinType,
+        signinIp: json.signinIp,
+        signinProvider: json.signinProvider,
+        signinOpenid: json.signinOpenid,
+      },
+    });
+    return NextResponse.json(user);
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+  }
+}

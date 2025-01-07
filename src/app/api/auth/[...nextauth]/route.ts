@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import { prisma } from "@/lib/prisma";
+import { v4 as uuidv4 } from "uuid";
 
 export const authOptions = {
   providers: [
@@ -30,6 +32,7 @@ export const authOptions = {
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
+        token.provider = account?.provider;
       }
       return token;
     },
@@ -40,12 +43,47 @@ export const authOptions = {
       return session;
     },
     async signIn({ user, account, profile }) {
-      if (profile) {
-        user.name = profile.name || user.name;
-        user.email = profile.email || user.email;
-        user.image = profile.picture || profile.avatar_url || user.image;
+      if (!user.email) {
+        return false;
       }
-      return true;
+
+      try {
+        const existingUser = await prisma.user.findFirst({
+          where: {
+            email: user.email,
+            signinProvider: account?.provider,
+          },
+        });
+
+        if (!existingUser) {
+          await prisma.user.create({
+            data: {
+              uuid: uuidv4(),
+              email: user.email,
+              nickname: user.name,
+              avatarUrl: user.image,
+              signinProvider: account?.provider,
+              signinType: "oauth",
+              createdAt: new Date(),
+            },
+          });
+        } else {
+          await prisma.user.update({
+            where: {
+              id: existingUser.id,
+            },
+            data: {
+              nickname: user.name || existingUser.nickname,
+              avatarUrl: user.image || existingUser.avatarUrl,
+            },
+          });
+        }
+
+        return true;
+      } catch (error) {
+        console.error("Error saving user to database:", error);
+        return false;
+      }
     },
     async redirect({ url, baseUrl }) {
       return url.startsWith(baseUrl) ? url : baseUrl;

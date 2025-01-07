@@ -17,8 +17,8 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
-  const pathname = headersList.get("x-pathname") || "";
+  const headersList = await headers();
+  const pathname = await headersList.get("x-pathname") || "";
   const locale = pathname.split("/")[1] || "en";
   const messages = await getMessages(locale);
 
