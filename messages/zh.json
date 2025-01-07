@@ -304,16 +304,14 @@
   },
   "my-orders": {
     "title": "我的订单",
-    "description": "查看您的所有订单历史记录",
-    "noOrders": "暂无订单记录",
+    "description": "查看您的订单历史和支付状态",
+    "noOrders": "您还没有任何订单",
     "orderDetails": {
-      "orderId": "订单编号",
+      "purchase": "购买",
+      "orderId": "订单号",
       "amount": "金额",
-      "status": "状态",
-      "date": "日期",
-      "success": "成功",
-      "pending": "处理中",
-      "failed": "失败"
+      "orderDate": "下单时间",
+      "paidDate": "支付时间"
     }
   }
 }

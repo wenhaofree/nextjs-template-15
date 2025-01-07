@@ -1,13 +1,37 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function GET() {
   try {
-    const orders = await prisma.order.findMany({
-      include: {
-        user: true,
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Get user by email
+    const user = await prisma.user.findFirst({
+      where: {
+        email: session.user.email,
       },
     });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    // Get user's orders
+    const orders = await prisma.order.findMany({
+      where: {
+        userUuid: user.uuid,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
     return NextResponse.json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
@@ -17,6 +41,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const json = await request.json();
     const order = await prisma.order.create({
       data: {

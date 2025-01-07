@@ -20,13 +20,28 @@ export const authOptions = {
             clientId: process.env.AUTH_GITHUB_ID!,
             clientSecret: process.env.AUTH_GITHUB_SECRET!,
             httpOptions: {
-              timeout: 10000,
+              timeout: 40000,
             },
           }),
         ]
       : []),
   ],
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === "development" ? "next-auth.session-token" : "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   secret: process.env.AUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account, profile }) {
@@ -51,7 +66,6 @@ export const authOptions = {
         const existingUser = await prisma.user.findFirst({
           where: {
             email: user.email,
-            signinProvider: account?.provider,
           },
         });
 
@@ -60,40 +74,36 @@ export const authOptions = {
             data: {
               uuid: uuidv4(),
               email: user.email,
-              nickname: user.name,
-              avatarUrl: user.image,
-              signinProvider: account?.provider,
-              signinType: "oauth",
-              createdAt: new Date(),
+              name: user.name || user.email?.split("@")[0],
+              image: user.image,
+              provider: account?.provider,
             },
           });
         } else {
           await prisma.user.update({
             where: {
-              id: existingUser.id,
+              email: user.email,
             },
             data: {
-              nickname: user.name || existingUser.nickname,
-              avatarUrl: user.image || existingUser.avatarUrl,
+              name: user.name || existingUser.name,
+              image: user.image || existingUser.image,
+              provider: account?.provider || existingUser.provider,
             },
           });
         }
 
         return true;
       } catch (error) {
-        console.error("Error saving user to database:", error);
+        console.error("Error in signIn callback:", error);
         return false;
       }
-    },
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
   pages: {
     signIn: '/auth/signin',
+    error: '/auth/error',
   },
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

@@ -2,35 +2,82 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
+import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
 
 interface Order {
-  id: string;
+  id: number;
+  orderNo: string;
   amount: number;
   status: string;
   createdAt: string;
+  productName: string;
+  currency: string;
+  paidAt: string | null;
 }
 
 export default function OrdersPage() {
   const t = useTranslations("my-orders");
   const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    // Here you would typically fetch orders from your backend
-    // For now, we'll show the latest payment result from URL params
-    const urlParams = new URLSearchParams(window.location.search);
-    const sessionId = urlParams.get("session_id");
-    
-    if (sessionId) {
-      // Create a mock order from the successful payment
-      const newOrder = {
-        id: sessionId,
-        amount: parseFloat(urlParams.get("amount") || "0"),
-        status: "success",
-        createdAt: new Date().toISOString(),
-      };
-      setOrders([newOrder]);
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch("/api/orders");
+        if (!response.ok) {
+          throw new Error("Failed to fetch orders");
+        }
+        const data = await response.json();
+        setOrders(data);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (session) {
+      fetchOrders();
     }
-  }, []);
+  }, [session]);
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "paid":
+        return "bg-green-500";
+      case "pending":
+        return "bg-yellow-500";
+      case "failed":
+        return "bg-red-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
+  const formatAmount = (amount: number, currency: string) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency || "USD",
+    }).format(amount / 100);
+  };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto py-8">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-32 bg-gray-200 rounded"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-8">
@@ -42,22 +89,44 @@ export default function OrdersPage() {
       ) : (
         <div className="grid gap-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white rounded-lg shadow-md p-6">
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold">
-                  {t("orderDetails.orderId")}: {order.id}
-                </h3>
+            <div
+              key={order.orderNo}
+              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {order.productName || t("orderDetails.purchase")}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {t("orderDetails.orderId")}: {order.orderNo}
+                  </p>
+                </div>
+                <Badge className={getStatusColor(order.status)}>
+                  {order.status.toUpperCase()}
+                </Badge>
               </div>
-              <div className="space-y-2">
-                <p>
-                  {t("orderDetails.amount")}: ${order.amount.toFixed(2)}
-                </p>
-                <p>
-                  {t("orderDetails.status")}: {t(`orderDetails.${order.status}`)}
-                </p>
-                <p>
-                  {t("orderDetails.date")}: {new Date(order.createdAt).toLocaleDateString()}
-                </p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                <div>
+                  <p className="text-gray-500">{t("orderDetails.amount")}</p>
+                  <p className="font-medium">
+                    {formatAmount(order.amount, order.currency)}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-500">{t("orderDetails.orderDate")}</p>
+                  <p className="font-medium">
+                    {format(new Date(order.createdAt), "PPP")}
+                  </p>
+                </div>
+                {order.paidAt && (
+                  <div>
+                    <p className="text-gray-500">{t("orderDetails.paidDate")}</p>
+                    <p className="font-medium">
+                      {format(new Date(order.paidAt), "PPP")}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ))}

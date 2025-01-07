@@ -324,16 +324,14 @@
   },
   "my-orders": {
     "title": "My Orders",
-    "description": "View all your order history",
-    "noOrders": "No orders found",
+    "description": "View your order history and payment status",
+    "noOrders": "You haven't placed any orders yet",
     "orderDetails": {
+      "purchase": "Purchase",
       "orderId": "Order ID",
       "amount": "Amount",
-      "status": "Status",
-      "date": "Date",
-      "success": "Success",
-      "pending": "Pending",
-      "failed": "Failed"
+      "orderDate": "Order Date",
+      "paidDate": "Payment Date"
     }
   }
 }
