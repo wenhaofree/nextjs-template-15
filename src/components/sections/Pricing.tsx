@@ -31,7 +31,7 @@ export function Pricing({ pricing }: PricingProps) {
   const pathname = usePathname();
   const locale = pathname.split('/')[1];
   
-  const handlePayment = async (price: number) => {
+  const handlePayment = async (price: number, productName?: string) => {
     if (!session) {
       toast.error(t('pleaseLogin'));
       // router.push(`/${locale}/auth/signin`);
@@ -48,6 +48,7 @@ export function Pricing({ pricing }: PricingProps) {
         body: JSON.stringify({
           price,
           email: session.user?.email,
+          productName: productName || 'Credits Purchase',
           successUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/my-orders?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
           cancelUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/#pricing`,
         }),
@@ -58,17 +59,11 @@ export function Pricing({ pricing }: PricingProps) {
         throw new Error(errorData.error || 'Payment request failed');
       }
 
-      const { id: sessionId } = await response.json();
-      const stripe = await stripePromise;
-      
-      if (stripe) {
-        const { error } = await stripe.redirectToCheckout({
-          sessionId,
-        });
-
-        if (error) {
-          toast.error(error.message);
-        }
+      const { url } = await response.json();
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error('No checkout URL received');
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Payment failed. Please try again.");
@@ -122,7 +117,7 @@ export function Pricing({ pricing }: PricingProps) {
               <Button 
                 className="w-full" 
                 variant={plan.price === t('contactUs') ? "outline" : "default"}
-                onClick={() => plan.amount ? handlePayment(plan.amount) : window.location.href = '#contact'}
+                onClick={() => plan.amount ? handlePayment(plan.amount, plan.name) : window.location.href = '#contact'}
               >
                 {plan.price === t('contactUs') ? t('getStarted') : t('buyNow')}
               </Button>
