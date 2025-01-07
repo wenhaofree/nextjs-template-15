@@ -6,8 +6,7 @@
     "nav": {
       "features": "Features",
       "pricing": "Pricing",
-      "examples": "Examples",
-      "docs": "Docs"
+      "showcase": "Showcase"
     },
     "cta": {
       "login": "Login",
