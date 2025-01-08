@@ -47,7 +47,7 @@ export const authOptions = {
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
-        token.provider = account?.provider;
+        token.signinProvider = account?.provider;
       }
       return token;
     },
@@ -74,20 +74,23 @@ export const authOptions = {
             data: {
               uuid: uuidv4(),
               email: user.email,
-              name: user.name || user.email?.split("@")[0],
-              image: user.image,
-              provider: account?.provider,
+              nickname: user.name || user.email?.split("@")[0],
+              avatarUrl: user.image,
+              signinProvider: account?.provider,
             },
           });
         } else {
           await prisma.user.update({
             where: {
-              email: user.email,
+              email_signinProvider: {
+                email: user.email,
+                signinProvider: account?.provider || existingUser.signinProvider
+              }
             },
             data: {
-              name: user.name || existingUser.name,
-              image: user.image || existingUser.image,
-              provider: account?.provider || existingUser.provider,
+              nickname: user.name || existingUser.nickname,
+              avatarUrl: user.image || existingUser.avatarUrl,
+              signinProvider: account?.provider || existingUser.signinProvider,
             },
           });
         }
