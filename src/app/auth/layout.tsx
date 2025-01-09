@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "@/i18n";
+import { getMessages } from "@/i18n/routing";
 import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +17,7 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
+  const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const locale = pathname.split("/")[1] || "en";
   const messages = await getMessages(locale);
