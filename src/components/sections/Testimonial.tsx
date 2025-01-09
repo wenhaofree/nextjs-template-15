@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 interface TestimonialProps {
   section: {
     title: string;
@@ -41,9 +43,11 @@ export default function Testimonial({ section }: TestimonialProps) {
                 <p className="text-gray-600 mb-6">{testimonial.content}</p>
               </div>
               <div className="flex items-center">
-                <img
+                <Image
                   src={testimonial.author.image}
                   alt={testimonial.author.name}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>

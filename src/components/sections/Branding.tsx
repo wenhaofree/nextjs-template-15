@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 interface BrandingProps {
   section: {
     title: string;
@@ -22,9 +24,11 @@ export function Branding({ section }: BrandingProps) {
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
           {section.brands.map((brand, index) => (
             <div key={index} className="flex items-center">
-              <img
+              <Image
                 src={brand.logo}
                 alt={brand.name}
+                width={200}
+                height={48}
                 className="h-8 md:h-12 object-contain grayscale hover:grayscale-0 transition-all"
               />
             </div>

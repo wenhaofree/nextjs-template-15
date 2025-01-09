@@ -44,7 +44,7 @@ export const authOptions = {
   },
   secret: process.env.AUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.signinProvider = account?.provider;
@@ -57,7 +57,7 @@ export const authOptions = {
       }
       return session;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (!user.email) {
         return false;
       }

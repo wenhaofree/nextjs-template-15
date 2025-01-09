@@ -2,13 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import { loadStripe } from '@stripe/stripe-js';
 import { toast } from "sonner";
 import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 interface PricingProps {
   pricing: {

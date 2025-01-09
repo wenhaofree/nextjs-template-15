@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 interface Feature3Props {
   section: {
     title: string;
@@ -33,9 +35,11 @@ export function Feature3({ section }: Feature3Props) {
                 <p className="text-gray-600">{step.description}</p>
               </div>
               <div className={index % 2 === 1 ? 'md:order-1' : ''}>
-                <img
+                <Image
                   src={step.image}
                   alt={step.title}
+                  width={800}
+                  height={600}
                   className="rounded-lg shadow-xl"
                 />
               </div>

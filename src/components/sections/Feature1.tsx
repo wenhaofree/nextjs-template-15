@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 interface Feature1Props {
   section: {
     title: string;
@@ -40,9 +42,11 @@ export function Feature1({ section }: Feature1Props) {
             </div>
           </div>
           <div className="relative">
-            <img
+            <Image
               src={section.image}
               alt={section.title}
+              width={800}
+              height={600}
               className="rounded-lg shadow-xl"
             />
           </div>

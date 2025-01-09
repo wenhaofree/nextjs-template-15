@@ -5,13 +5,13 @@ import { locales } from './config';
 export async function getMessages(locale: string) {
   try {
     return (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
+  } catch {
     notFound();
   }
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale as string)) notFound();
 
   return {
     messages: await getMessages(locale)

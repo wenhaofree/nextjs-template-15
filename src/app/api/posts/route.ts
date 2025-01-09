@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const posts = await prisma.post.findMany();
     return NextResponse.json(posts);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       data: json,
     });
     return NextResponse.json(post);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
   }
 }

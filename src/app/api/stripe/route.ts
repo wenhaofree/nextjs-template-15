@@ -97,10 +97,16 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ url: stripeSession.url });
-  } catch (error: any) {
+  } catch (error: Error | unknown) {
     console.error('Error processing payment:', error);
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { error: error.message },
+      { error: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
