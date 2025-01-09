@@ -13,8 +13,7 @@ import { Languages } from 'lucide-react';
 
 const localeNames = {
   en: 'English',
-  zh: '中文',
-  ja: '日本語',
+  zh: '中文'
 };
 
 export function LanguageSwitcher() {
