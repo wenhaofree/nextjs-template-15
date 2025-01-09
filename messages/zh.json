@@ -4,9 +4,11 @@
   "header": {
     "logo": "您的Logo",
     "nav": {
-      "features": "功能特点",
-      "pricing": "价格",
-      "examples": "示例"
+      "showcase": "作品展示",
+      "stats": "数据统计",
+      "pricing": "价格方案",
+      "testimonial": "用户评价",
+      "faq": "常见问题"
     },
     "cta": {
       "login": "登录",
@@ -19,7 +21,7 @@
   },
   "hero": {
     "title": "将您的想象力转化为图像",
-    "subtitle": "观看您的文字如何在 Flux AI 图像生成器中绽放为惊艳的视觉效果",
+    "subtitle": "使用 Flux AI 图像生成器，让您的文字绽放为惊艳的视觉效果",
     "description": "领先的AI图像生成平台，具备增强细节、改进提示词响应和多样化输出功能",
     "cta": {
       "primary": "免费开始",
@@ -205,25 +207,27 @@
         "amount": 199,
         "description": "适合专业创作者",
         "features": [
-          "每月1000张图片",
+          "每月500张图片",
           "高级图像生成",
           "优先支持",
-          "4K超高清分辨率",
+          "4K分辨率",
           "访问所有Flux模型",
-          "API访问"
+          "自定义图像风格",
+          "批量处理"
         ]
       },
       {
         "name": "企业版",
         "price": "联系我们",
-        "description": "为大型团队定制",
+        "description": "适合大型组织",
         "features": [
-          "无限图片生成",
-          "企业级功能",
-          "专属客户经理",
-          "自定义API集成",
+          "无限图片数量",
+          "自定义API访问",
+          "24/7专属支持",
+          "自定义分辨率选项",
+          "私有模型训练",
           "SLA保障",
-          "高级安全特性"
+          "自定义集成支持"
         ]
       }
     ]
@@ -233,12 +237,30 @@
     "subtitle": "听听他们怎么说",
     "testimonials": [
       {
-        "content": "这个平台彻底改变了我们创建内容的方式。生产力提升令人难以置信。",
+        "content": "这个平台彻底改变了我们的软件开发方式，生产力提升令人难以置信。",
         "author": {
-          "name": "张三",
+          "name": "张明",
           "title": "技术总监",
           "company": "科技公司",
           "image": "/testimonials/1.jpg"
+        }
+      },
+      {
+        "content": "我们用过的最好的开发平台，功能和支持都无可比拟。",
+        "author": {
+          "name": "李华",
+          "title": "首席开发工程师",
+          "company": "开发公司",
+          "image": "/testimonials/2.jpg"
+        }
+      },
+      {
+        "content": "对我们的开发团队来说是一个改变游戏规则的工具，开发时间减少了一半。",
+        "author": {
+          "name": "王强",
+          "title": "工程经理",
+          "company": "软件公司",
+          "image": "/testimonials/3.jpg"
         }
       }
     ]
@@ -304,7 +326,7 @@
   "my-orders": {
     "title": "我的订单",
     "description": "查看您的订单历史和支付状态",
-    "noOrders": "您还没有任何订单",
+    "noOrders": "您还没有下过任何订单",
     "orderDetails": {
       "purchase": "购买",
       "orderId": "订单号",

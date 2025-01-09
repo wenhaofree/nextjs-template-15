@@ -4,30 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { locales } from "@/i18n/config";
 
+interface FooterSection {
+  title: string;
+  [key: string]: string;
+}
+
 interface FooterProps {
   footer: {
     copyright: string;
-    about: {
-      title: string;
-      about: string;
-      blog: string;
-    };
-    support: {
-      title: string;
-      helpCenter: string;
-      contactUs: string;
-    };
-    legal: {
-      title: string;
-      privacy: string;
-      terms: string;
-    };
-    language: {
-      title: string;
-      english: string;
-      chinese: string;
-      japanese: string;
-    };
+    about: FooterSection;
+    support: FooterSection;
+    legal: FooterSection;
+    language: FooterSection;
   };
 }
 

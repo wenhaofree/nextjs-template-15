@@ -25,10 +25,10 @@ interface PricingProps {
 }
 
 export function Pricing({ pricing }: PricingProps) {
-  const t = useTranslations('pricing');
   const router = useRouter();
-  const { data: session } = useSession();
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const t = useTranslations('pricing');
   const locale = pathname.split('/')[1];
   
   const handlePayment = async (price: number, productName?: string) => {
@@ -72,7 +72,7 @@ export function Pricing({ pricing }: PricingProps) {
   };
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+    <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">

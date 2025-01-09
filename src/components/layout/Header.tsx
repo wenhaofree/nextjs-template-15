@@ -1,10 +1,14 @@
 "use client";
 
+import { type FC, useState } from "react";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { locales } from "@/i18n/config";
-import { Menu } from "lucide-react";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+// UI Components
+import { Button } from "@/components/ui/button";
+import { Menu, Globe } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -12,19 +16,27 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+// Config
+import { locales } from "@/i18n/config";
+
+interface NavItems {
+  features: string;
+  pricing: string;
+  examples: string;
+  docs: string;
+}
 
 interface HeaderProps {
   header: {
     logo: string;
-    nav: {
-      features: string;
-      pricing: string;
-      examples: string;
-      docs: string;
-    };
+    nav: NavItems;
     cta: {
       login: string;
       signup: string;
@@ -47,6 +59,21 @@ export default function Header({ header }: HeaderProps) {
     window.location.href = newPathname;
   };
 
+  const getLanguageName = (locale: string) => {
+    return locale === 'en' ? 'English' : '中文';
+  };
+
+  const handleNavClick = (key: string) => {
+    // If we're not on the homepage, navigate to homepage with hash
+    if (!pathname.endsWith(`/${currentLocale}`)) {
+      window.location.href = `/${currentLocale}#${key}`;
+    } else {
+      // If we're on the homepage, just scroll to the section
+      const element = document.getElementById(key);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
       <nav className="relative flex h-16 items-center justify-between">
@@ -61,30 +88,37 @@ export default function Header({ header }: HeaderProps) {
         <div className="hidden md:flex items-center justify-center flex-1 px-8">
           <div className="flex space-x-8">
             {Object.entries(header.nav).map(([key, value]) => (
-              <Link
+              <button
                 key={key}
-                href={key === 'pricing' ? `/${pathname.split('/')[1]}/pricing` : `#${key.toLowerCase()}`}
+                onClick={() => handleNavClick(key)}
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
                 {value}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
 
         {/* Right: Language & CTA Buttons */}
         <div className="hidden md:flex items-center space-x-6">
-          <select
-            onChange={(e) => switchLocale(e.target.value)}
-            value={currentLocale}
-            className="bg-transparent text-sm text-gray-600 hover:text-gray-900 cursor-pointer"
-          >
-            {locales.map((locale) => (
-              <option key={locale} value={locale}>
-                {locale.toUpperCase()}
-              </option>
-            ))}
-          </select>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Globe className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {locales.map((locale) => (
+                <DropdownMenuItem
+                  key={locale}
+                  onClick={() => switchLocale(locale)}
+                  className="cursor-pointer"
+                >
+                  {getLanguageName(locale)}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <div className="flex items-center space-x-3">
             {session ? (
@@ -168,25 +202,32 @@ export default function Header({ header }: HeaderProps) {
               </SheetHeader>
               <div className="flex flex-col space-y-4 mt-6">
                 {Object.entries(header.nav).map(([key, value]) => (
-                  <Link
+                  <button
                     key={key}
-                    href={key === 'pricing' ? '/pricing' : `#${key.toLowerCase()}`}
+                    onClick={() => handleNavClick(key)}
                     className="text-sm text-gray-600 hover:text-gray-900"
                   >
                     {value}
-                  </Link>
+                  </button>
                 ))}
-                <select
-                  onChange={(e) => switchLocale(e.target.value)}
-                  value={currentLocale}
-                  className="bg-transparent text-sm text-gray-600 hover:text-gray-900 py-2"
-                >
-                  {locales.map((locale) => (
-                    <option key={locale} value={locale}>
-                      {locale.toUpperCase()}
-                    </option>
-                  ))}
-                </select>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <Globe className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {locales.map((locale) => (
+                      <DropdownMenuItem
+                        key={locale}
+                        onClick={() => switchLocale(locale)}
+                        className="cursor-pointer"
+                      >
+                        {getLanguageName(locale)}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 {session ? (
                   <div className="flex flex-col space-y-3 pt-4">
                     <div className="font-medium">{session.user?.name}</div>

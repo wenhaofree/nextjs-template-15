@@ -1,15 +1,21 @@
-import "../../globals.css";
+// Core dependencies
+import "../globals.css";
+import { type ReactNode } from 'react';
+
+// Next.js and i18n dependencies
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from '@/i18n';
-import { getLandingPage } from '@/app/actions';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { locales } from '@/i18n/config';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { Providers } from '../../providers';
+import { locales } from '@/i18n/config';
+import { getMessages } from '@/i18n';
+
+// App components and actions
+import { getLandingPage } from '@/app/actions';
+import { Providers } from '../providers';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   params: { locale: string };
 }
 
