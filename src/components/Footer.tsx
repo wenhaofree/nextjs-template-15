@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { locales } from "@/i18n/config";
+import { locales, localeNames } from "@/i18n/routing";
 
 interface FooterProps {
   footer: {
@@ -27,6 +27,8 @@ interface FooterProps {
       english: string;
       chinese: string;
       japanese: string;
+      korean: string;
+      french: string;
     };
   };
 }
@@ -107,7 +109,7 @@ export default function Footer({ footer }: FooterProps) {
                       locale === currentLocale ? 'font-bold' : ''
                     }`}
                   >
-                    {footer.language[locale === 'en' ? 'english' : locale === 'zh' ? 'chinese' : 'japanese']}
+                    {localeNames[locale]}
                   </button>
                 </li>
               ))}
