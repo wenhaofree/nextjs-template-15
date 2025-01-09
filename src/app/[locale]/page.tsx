@@ -17,10 +17,13 @@ import {routing} from '@/i18n/routing';
 type Locale = (typeof routing.locales)[number];
 
 export default async function LandingPage({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  // 使用 await 获取 locale
+  const { locale } = await params;
+
   // 设置请求的 locale
   unstable_setRequestLocale(locale);
 

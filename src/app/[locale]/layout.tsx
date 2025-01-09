@@ -21,10 +21,10 @@ export default async function Layout({
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  // 获取并等待 locale
-  const locale = params.locale;
+  // 使用 await 获取 locale
+  const { locale } = await params;
   
   // 验证 locale
   if (!routing.locales.includes(locale as any)) {
