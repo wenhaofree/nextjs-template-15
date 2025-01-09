@@ -46,7 +46,14 @@ export default async function Layout({
                 {page.header && <Header header={page.header} />}
               </div>
           </div>
-          {children}
+          <main className="flex-1 pt-16">
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
+            </main>
+          <div className="border-t">
+            {page.footer && <Footer footer={page.footer} />}
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
