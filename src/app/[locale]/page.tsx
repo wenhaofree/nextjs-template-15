@@ -1,46 +1,32 @@
-import { Hero } from "@/components/sections/Hero";
-import { Branding } from "@/components/sections/Branding";
-import { Feature1 } from "@/components/sections/Feature1";
-import { Feature2 } from "@/components/sections/Feature2";
-import { Feature3 } from "@/components/sections/Feature3";
-import { Features } from "@/components/sections/Features";
-import Showcase from "@/components/sections/Showcase";
-import Stats from "@/components/sections/Stats";
-import { Pricing } from "@/components/sections/Pricing";
-import Testimonial from "@/components/sections/Testimonial";
-import FAQ from "@/components/sections/FAQ";
-import { CTA } from "@/components/sections/CTA";
 import { getLandingPage } from "@/app/actions";
 import { unstable_setRequestLocale } from 'next-intl/server';
-import AuthCheck from "@/components/AuthCheck";
+import type { Metadata, PageProps } from 'next';
+import LandingPageContent from './LandingPageContent';
 
-export default async function LandingPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
-  const { locale } = await Promise.resolve(params);
-  
-  // Enable static rendering
+type LocaleParams = {
+  locale: string;
+};
+
+export async function generateMetadata({ params }: PageProps<LocaleParams>): Promise<Metadata> {
+  const { locale } = params;
+
+  return {
+    title: locale === 'zh' ? '下一代模板' : 'Next.js Template',
+    description: locale === 'zh' ? '一个现代化的Next.js模板' : 'A modern Next.js template',
+  };
+}
+
+export default async function Page({ params }: PageProps<LocaleParams>) {
+  const { locale } = params;
   unstable_setRequestLocale(locale);
-
   const page = await getLandingPage(locale);
 
-  return (
-    <>
-      <AuthCheck />
-      {page.hero && <Hero hero={page.hero} />}
-      {page.branding && <Branding section={page.branding} />}
-      {page.introduce && <Feature1 section={page.introduce} />}
-      {page.benefit && <Feature2 section={page.benefit} />}
-      {page.usage && <Feature3 section={page.usage} />}
-      {page.feature && <Features features={page.feature} />}
-      {page.showcase && <Showcase section={page.showcase} />}
-      {page.stats && <Stats section={page.stats} />}
-      {page.pricing && <Pricing pricing={page.pricing} />}
-      {page.testimonial && <Testimonial section={page.testimonial} />}
-      {page.faq && <FAQ section={page.faq} />}
-      {page.cta && <CTA section={page.cta} />}
-    </>
-  );
+  return <LandingPageContent page={page} />;
+}
+
+export async function generateStaticParams(): Promise<LocaleParams[]> {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ];
 }

@@ -5,6 +5,8 @@
 - LandingPage：落地页分支
 - Next-auth：集成Next-auth；
 - db： neno数据库
+- fixPage: 调整页面构建结构-同时build成功
+- 
 
 
 # Next.js15 新特性
