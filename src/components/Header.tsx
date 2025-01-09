@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import { locales } from "@/i18n/config";
+import { locales } from "@/i18n/routing";
 import { Menu } from "lucide-react";
 import {
   Sheet,

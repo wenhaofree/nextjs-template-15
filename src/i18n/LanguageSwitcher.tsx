@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, usePathname } from '@/i18n/routing';
+import { useRouter, usePathname, localeNames } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,11 +10,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Languages } from 'lucide-react';
-
-const localeNames = {
-  en: 'English',
-  zh: '中文'
-};
 
 export function LanguageSwitcher() {
   const locale = useLocale();
@@ -30,7 +25,6 @@ export function LanguageSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Languages className="h-5 w-5" />
-          {/* <span className="sr-only">Switch language</span> */}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -40,7 +34,7 @@ export function LanguageSwitcher() {
             onClick={() => switchLocale(key)}
             className={locale === key ? 'bg-accent' : ''}
           >
-            {name}
+            {name as string}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

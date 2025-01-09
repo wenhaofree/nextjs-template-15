@@ -1,9 +1,11 @@
-import {use} from 'react';
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import {getMessages} from '@/i18n/routing';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import '../globals.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { getLandingPage } from '@/app/actions';
 
 // 从 routing 中获取具体的 locale 类型
 type Locale = (typeof routing.locales)[number];
@@ -13,28 +15,37 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
 
-// 移除自定义的 LayoutProps 类型，使用 Next.js 的默认类型
-export default function Layout({
+// 更新 Layout 组件以支持异步 params
+export default async function Layout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: { locale: string };
 }) {
-  const resolvedParams = use(params);
+  // 获取并等待 locale
+  const locale = params.locale;
   
   // 验证 locale
-  if (!routing.locales.includes(resolvedParams.locale)) {
+  if (!routing.locales.includes(locale as any)) {
     notFound();
   }
  
-  // 传递正确类型的 locale 参数给 getMessages
-  const messages = use(getMessages({ locale: resolvedParams.locale }));
- 
+  // 并行获取消息和页面数据
+  const [messages, page] = await Promise.all([
+    getMessages(locale),
+    getLandingPage(locale)
+  ]);
+
   return (
-    <html lang={resolvedParams.locale}>
+    <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
+          <div className="fixed inset-x-0 top-0 z-50 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <div className="h-full">
+                {page.header && <Header header={page.header} />}
+              </div>
+          </div>
           {children}
         </NextIntlClientProvider>
       </body>

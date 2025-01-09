@@ -12,17 +12,19 @@ import { FAQ } from "@/components/sections/FAQ";
 import { CTA } from "@/components/sections/CTA";
 import { getLandingPage } from "@/app/actions";
 import { unstable_setRequestLocale } from 'next-intl/server';
+import {routing} from '@/i18n/routing';
+
+type Locale = (typeof routing.locales)[number];
 
 export default async function LandingPage({
-  params,
+  params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const { locale } = await Promise.resolve(params);
-  
-  // Enable static rendering
+  // 设置请求的 locale
   unstable_setRequestLocale(locale);
 
+  // 获取页面数据
   const page = await getLandingPage(locale);
 
   return (
