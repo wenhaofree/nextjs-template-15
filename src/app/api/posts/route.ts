@@ -3,21 +3,21 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const posts = await prisma.post.findMany();
-    return NextResponse.json(posts);
+    const orders = await prisma.order.findMany();
+    return NextResponse.json(orders);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch orders' }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const json = await request.json();
-    const post = await prisma.post.create({
+    const order = await prisma.order.create({
       data: json,
     });
-    return NextResponse.json(post);
+    return NextResponse.json(order);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
   }
 }

@@ -1,4 +1,4 @@
-import type { Session, User, Account, Profile } from "next-auth";
+import type { Session, User } from "next-auth";
 import type { AuthOptions } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
@@ -25,6 +25,17 @@ export const config: AuthOptions = {
   ],
   debug: true,
   secret: process.env.AUTH_SECRET,
+  cookies: {
+    state: {
+      name: 'next-auth.state',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production'
+      }
+    }
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
