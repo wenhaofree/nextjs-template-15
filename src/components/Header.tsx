@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +47,20 @@ export default function Header({ header }: HeaderProps) {
   const pathname = usePathname();
   const currentLocale = pathname.split('/')[1];
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const switchLocale = (locale: string) => {
     const newPathname = pathname.replace(`/${currentLocale}`, `/${locale}`);
@@ -100,7 +114,7 @@ export default function Header({ header }: HeaderProps) {
 
           <div className="flex items-center space-x-3">
             {session ? (
-              <div className="relative">
+              <div className="relative" ref={dropdownRef}>
                 <div>
                   <button
                     type="button"
@@ -136,16 +150,17 @@ export default function Header({ header }: HeaderProps) {
                     <div className="px-4 py-2 text-sm text-gray-700">
                       <div className="text-gray-500">{session.user?.email}</div>
                     </div>
-                    <div className="border-t border-gray-100"></div>
+                    <div className="border-t border-gray-100" />
                     <Link
                       href={`/${currentLocale}/orders`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
                     >
                       {header.userMenu.myOrders}
                     </Link>
                     <button
-                      onClick={() => signOut()}
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                      type="button"
+                      onClick={() => signOut({ callbackUrl: `/${currentLocale}` })}
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-pink-50"
                     >
                       {header.userMenu.signOut}
                     </button>
@@ -198,13 +213,14 @@ export default function Header({ header }: HeaderProps) {
                     <div className="text-gray-500">{session.user?.email}</div>
                     <Link
                       href={`/${currentLocale}/orders`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
                     >
                       {header.userMenu.myOrders}
                     </Link>
                     <button
-                      onClick={() => signOut()}
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                      type="button"
+                      onClick={() => signOut({ callbackUrl: `/${currentLocale}` })}
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-pink-50"
                     >
                       {header.userMenu.signOut}
                     </button>
