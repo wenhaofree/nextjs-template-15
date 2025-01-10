@@ -9,14 +9,14 @@ export const locales = ["en", "zh", "ja", "ko", "fr"];
 
 export const localeNames: any = {
   en: "English",
-  zh: "中文",
+  zh: "简体中文",
   ja: "日本語",
   ko: "한국어",
   fr: "Français",
 };
 
 export const defaultLocale = "en";
-export const localePrefix = "as-needed";
+export const localePrefix = "always";
 export const localeDetection = true;
 
 export const pathnames = {

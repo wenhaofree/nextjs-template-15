@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import { locales } from "@/i18n/routing";
-import { Menu } from "lucide-react";
+import { locales, localeNames } from "@/i18n/routing";
+import { Menu, Globe } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -15,6 +15,12 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   header: {
@@ -74,17 +80,23 @@ export default function Header({ header }: HeaderProps) {
 
         {/* Right: Language & CTA Buttons */}
         <div className="hidden md:flex items-center space-x-6">
-          <select
-            onChange={(e) => switchLocale(e.target.value)}
-            value={currentLocale}
-            className="bg-transparent text-sm text-gray-600 hover:text-gray-900 cursor-pointer"
-          >
-            {locales.map((locale) => (
-              <option key={locale} value={locale}>
-                {locale.toUpperCase()}
-              </option>
-            ))}
-          </select>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900">
+              <Globe className="h-4 w-4" />
+              <span>{localeNames[currentLocale]}</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {locales.map((locale) => (
+                <DropdownMenuItem
+                  key={locale}
+                  onClick={() => switchLocale(locale)}
+                  className="cursor-pointer"
+                >
+                  {localeNames[locale]}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <div className="flex items-center space-x-3">
             {session ? (
@@ -176,17 +188,10 @@ export default function Header({ header }: HeaderProps) {
                     {value}
                   </Link>
                 ))}
-                <select
-                  onChange={(e) => switchLocale(e.target.value)}
-                  value={currentLocale}
-                  className="bg-transparent text-sm text-gray-600 hover:text-gray-900 py-2"
-                >
-                  {locales.map((locale) => (
-                    <option key={locale} value={locale}>
-                      {locale.toUpperCase()}
-                    </option>
-                  ))}
-                </select>
+                <div className="flex items-center space-x-1 text-sm text-gray-600" onClick={() => switchLocale(currentLocale)}>
+                  <Globe className="h-4 w-4" />
+                  <span>{localeNames[currentLocale]}</span>
+                </div>
                 {session ? (
                   <div className="flex flex-col space-y-3 pt-4">
                     <div className="font-medium">{session.user?.name}</div>
