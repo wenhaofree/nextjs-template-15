@@ -18,7 +18,7 @@ interface Order {
 }
 
 export default function OrdersPage() {
-  const t = useTranslations("my-orders");
+  const t = useTranslations("orders");
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();

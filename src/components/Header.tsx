@@ -138,7 +138,7 @@ export default function Header({ header }: HeaderProps) {
                     </div>
                     <div className="border-t border-gray-100"></div>
                     <Link
-                      href={`/${currentLocale}/my-orders`}
+                      href={`/${currentLocale}/orders`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {header.userMenu.myOrders}
@@ -197,7 +197,7 @@ export default function Header({ header }: HeaderProps) {
                     <div className="font-medium">{session.user?.name}</div>
                     <div className="text-gray-500">{session.user?.email}</div>
                     <Link
-                      href={`/${currentLocale}/my-orders`}
+                      href={`/${currentLocale}/orders`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {header.userMenu.myOrders}

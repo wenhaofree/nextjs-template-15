@@ -49,7 +49,7 @@ export function Pricing({ pricing }: PricingProps) {
           price,
           email: session.user?.email,
           productName: productName || 'Credits Purchase',
-          successUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/my-orders?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
+          successUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/orders?session_id={CHECKOUT_SESSION_ID}&amount=${price}`,
           cancelUrl: `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}/#pricing`,
         }),
       });

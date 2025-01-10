@@ -325,7 +325,7 @@
       "japanese": "日本語"
     }
   },
-  "my-orders": {
+  "orders": {
     "title": "My Orders",
     "description": "View your order history and payment status",
     "noOrders": "You haven't placed any orders yet",

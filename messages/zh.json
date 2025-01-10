@@ -192,8 +192,8 @@
     "plans": [
       {
         "name": "基础版",
-        "price": "¥69",
-        "amount": 69,
+        "price": "$9.99",
+        "amount": 9.99,
         "description": "个人用户的完美选择",
         "features": [
           "每月100张图片",
@@ -205,8 +205,8 @@
       },
       {
         "name": "专业版",
-        "price": "¥199",
-        "amount": 199,
+        "price": "$29.99",
+        "amount": 29.99,
         "description": "适合专业创作者",
         "features": [
           "每月1000张图片",
@@ -305,7 +305,7 @@
       "japanese": "日本語"
     }
   },
-  "my-orders": {
+  "orders": {
     "title": "我的订单",
     "description": "查看您的订单历史和支付状态",
     "noOrders": "您还没有任何订单",

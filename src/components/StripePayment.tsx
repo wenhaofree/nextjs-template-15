@@ -49,7 +49,7 @@ export default function StripePayment({ amount, currency = 'usd' }: StripePaymen
           price: amount,
           currency,
           email: session.user.email,
-          successUrl: `${window.location.origin}/my-orders?session_id={CHECKOUT_SESSION_ID}&amount=${amount}`,
+          successUrl: `${window.location.origin}/orders?session_id={CHECKOUT_SESSION_ID}&amount=${amount}`,
           cancelUrl: `${window.location.origin}/#pricing`
         }),
       });
