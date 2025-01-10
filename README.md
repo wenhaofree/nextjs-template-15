@@ -4,6 +4,18 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
+# 项目名称
+
+## 一键部署到Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2F[YOUR_GITHUB_USERNAME]%2F[YOUR_REPOSITORY_NAME]&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=[YOUR_PROJECT_NAME]&repository-name=[YOUR_REPOSITORY_NAME])
+
+## 环境变量
+
+部署前请确保配置以下环境变量:
+
+
+
 ```bash
 npm run dev
 # or
