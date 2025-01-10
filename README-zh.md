@@ -4,7 +4,10 @@
 - Internet：国际化
 - LandingPage：落地页分支
 - Next-auth：集成Next-auth；
+- stripe:支付功能
 - db： neno数据库
+- Starter: 启动版本-打标
+- Vercel: 部署版本
 
 
 # Next.js15 新特性
