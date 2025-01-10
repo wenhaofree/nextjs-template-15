@@ -4,9 +4,13 @@
   "header": {
     "logo": "Your Logo",
     "nav": {
-      "features": "Features",
+      "introduce": "Features",
+      "benefit": "Benefits",
+      "showcase": "Showcase",
+      "stats": "Stats",
       "pricing": "Pricing",
-      "showcase": "Showcase"
+      "testimonial": "Testimonials",
+      "faq": "FAQ"
     },
     "cta": {
       "login": "Login",

@@ -69,7 +69,7 @@ export default function Header({ header }: HeaderProps) {
             {Object.entries(header.nav).map(([key, value]) => (
               <Link
                 key={key}
-                href={key === 'pricing' ? `/${pathname.split('/')[1]}/pricing` : `#${key.toLowerCase()}`}
+                href={`/${pathname.split('/')[1]}#${key}`}
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
                 {value}
