@@ -11,7 +11,7 @@ model User {
   id             Int       @id @default(autoincrement())
   uuid           String    @unique
   email          String
-  createdAt      DateTime? @map("created_at") @db.Timestamptz(6)
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   nickname       String?   @db.VarChar(255)
   avatarUrl      String?   @map("avatar_url") @db.VarChar(255)
   locale         String?   @db.VarChar(50)
