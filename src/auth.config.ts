@@ -114,7 +114,7 @@ export const config: AuthOptions = {
           email: user.email,
           nickname: profile?.name || user.name,
           avatarUrl: profile?.picture || profile?.avatar_url || user.image,
-          locale: profile?.locale || 'en',
+          // locale: profile?.locale || 'en',
           signinType: 'oauth',
           signinIp: ip,
           signinProvider: account?.provider,
@@ -143,7 +143,7 @@ export const config: AuthOptions = {
               nickname: userData.nickname,
               avatarUrl: userData.avatarUrl,
               signinIp: ip,
-              locale: userData.locale,
+              // locale: userData.locale,
             },
           });
         } else {
