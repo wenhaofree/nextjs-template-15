@@ -129,17 +129,6 @@ pnpm db:studio   # 启动Prisma Studio
 pnpm db:sync     # 同步数据库架构
 ```
 
-## 部署
-
-### Vercel 部署
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextSphere&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextsphere&repository-name=nextsphere)
-
-1. Fork 本项目
-2. 在 Vercel 创建新项目
-3. 导入你的 GitHub 仓库
-4. 配置环境变量
-5. 部署
 
 ## 项目结构
 
