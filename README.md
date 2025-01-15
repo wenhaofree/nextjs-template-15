@@ -1,6 +1,6 @@
-# NextSphere
+# NextLaunchPad
 
-NextSphere 是一个基于 Next.js 15 构建的现代化全栈应用框架，采用最新的 React 技术栈，提供完整的企业级开发解决方案。
+NextLaunchPad 是一个基于 Next.js 15 构建的现代化全栈应用框架，采用最新的 React 技术栈，提供完整的企业级开发解决方案。
 
 ## 核心特性
 
@@ -52,8 +52,8 @@ NextSphere 是一个基于 Next.js 15 构建的现代化全栈应用框架，采
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/NextSphere.git
-cd NextSphere
+git clone https://github.com/your-username/NextLaunchPad.git
+cd NextLaunchPad
 ```
 
 ### 2. 安装依赖
@@ -133,7 +133,7 @@ pnpm db:sync     # 同步数据库架构
 
 ### Vercel 部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextSphere&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextsphere&repository-name=nextsphere)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextLaunchPad&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextlaunchpad&repository-name=nextlaunchpad)
 
 1. Fork 本项目
 2. 在 Vercel 创建新项目
@@ -144,7 +144,7 @@ pnpm db:sync     # 同步数据库架构
 ## 项目结构
 
 ```
-NextSphere/
+NextLaunchPad/
 ├── app/                # Next.js 应用目录
 │   ├── api/           # API 路由
 │   ├── [locale]/      # 国际化路由
