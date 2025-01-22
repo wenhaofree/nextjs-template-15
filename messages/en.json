@@ -289,6 +289,7 @@
     "signInTitle": "Sign in to your account",
     "signInWithGoogle": "Continue with Google",
     "signInWithGithub": "Continue with GitHub",
+    "signInWithWechat": "Sign in with WeChat",
     "signingIn": "Signing in...",
     "oauthError": "An error occurred during sign in. Please try again.",
     "authError": "Authentication error. Please try again."

@@ -1,8 +1,11 @@
 import type { Session, User } from "next-auth";
 import type { AuthOptions } from "next-auth";
 import type { JWT } from "next-auth/jwt";
+import type { OAuthConfig } from "@auth/core/providers";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import type { WeChatProfile } from "@auth/core/providers/wechat";
+import { default as WeChatProvider } from "@auth/core/providers/wechat";
 import { prisma } from '@/lib/prisma';
 import { v4 as uuidv4 } from 'uuid';
 import { headers } from 'next/headers';
@@ -23,6 +26,15 @@ export const config: AuthOptions = {
             clientId: process.env.AUTH_GITHUB_ID,
             clientSecret: process.env.AUTH_GITHUB_SECRET,
           }),
+        ]
+      : []),
+    ...(process.env.NEXT_PUBLIC_AUTH_WECHAT_ENABLED === "true" && process.env.NEXT_PUBLIC_AUTH_WECHAT_ID && process.env.AUTH_WECHAT_SECRET
+      ? [
+          WeChatProvider({
+            clientId: process.env.NEXT_PUBLIC_AUTH_WECHAT_ID,
+            clientSecret: process.env.AUTH_WECHAT_SECRET,
+            platformType: "OfficialAccount",
+          }) as OAuthConfig<WeChatProfile>,
         ]
       : []),
   ],
