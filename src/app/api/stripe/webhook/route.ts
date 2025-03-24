@@ -1,8 +1,10 @@
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
+// import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
 
+// 注释掉Stripe初始化代码
+/*
 if (!process.env.STRIPE_PRIVATE_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
   throw new Error('Missing Stripe environment variables');
 }
@@ -10,9 +12,14 @@ if (!process.env.STRIPE_PRIVATE_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
   apiVersion: '2024-12-18.acacia',
 });
+*/
 
 export async function POST(request: Request) {
   try {
+    // 简化的webhook处理
+    return NextResponse.json({ message: 'Stripe webhook processing temporarily disabled' });
+    
+    /*
     const body = await request.text();
     const headersList = request.headers;
     const signature = headersList.get('stripe-signature');
@@ -113,6 +120,7 @@ export async function POST(request: Request) {
         break;
       }
     }
+    */
 
     return NextResponse.json({ received: true });
   } catch (err) {

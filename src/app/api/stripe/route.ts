@@ -6,13 +6,13 @@ import { config as authOptions } from '@/auth.config';
 
 import { v4 as uuidv4 } from 'uuid';
 
-if (!process.env.STRIPE_PRIVATE_KEY) {
-  throw new Error('STRIPE_PRIVATE_KEY is not set');
-}
+// if (!process.env.STRIPE_PRIVATE_KEY) {
+//   throw new Error('STRIPE_PRIVATE_KEY is not set');
+// }
 
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
-  apiVersion: '2024-12-18.acacia',
-});
+// const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
+//   apiVersion: '2024-12-18.acacia',
+// });
 
 export async function POST(request: Request) {
   try {
@@ -61,25 +61,28 @@ export async function POST(request: Request) {
     }
 
     // Create Stripe checkout session
-    const stripeSession = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      customer_email: email,
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: productName || 'Purchase',
-            },
-            unit_amount: amount,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-    });
+    // const stripeSession = await stripe.checkout.sessions.create({
+    //   payment_method_types: ['card'],
+    //   customer_email: email,
+    //   line_items: [
+    //     {
+    //       price_data: {
+    //         currency: 'usd',
+    //         product_data: {
+    //           name: productName || 'Purchase',
+    //         },
+    //         unit_amount: amount,
+    //       },
+    //       quantity: 1,
+    //     },
+    //   ],
+    //   mode: 'payment',
+    //   success_url: successUrl,
+    //   cancel_url: cancelUrl,
+    // });
+
+    // 创建一个临时回调URL，替代Stripe支付流程
+    const temporaryUrl = successUrl || '/';
 
     // Create order in database
     await prisma.order.create({
@@ -89,7 +92,7 @@ export async function POST(request: Request) {
         userEmail: user.email,
         amount: amount,
         status: 'pending',
-        stripeSessionId: stripeSession.id,
+        stripeSessionId: 'temporary-disabled-' + Date.now(), // 临时ID
         credits: 1,
         currency: 'usd',
         productName: productName || 'Purchase',
@@ -97,7 +100,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ url: stripeSession.url });
+    // 返回临时URL代替Stripe支付页面
+    return NextResponse.json({ url: temporaryUrl });
+    
   } catch (error: any) {
     console.error('Error processing payment:', error);
     return NextResponse.json(
