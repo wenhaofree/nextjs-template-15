@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
+import { SplashCursor } from "@/components/ui/splash-cursor"
 
 // 从 routing 中获取具体的 locale 类型
 type Locale = (typeof routing.locales)[number];
@@ -40,8 +41,8 @@ export default async function Layout({
 
   return (
     <html lang={locale} className="scroll-smooth">
+      <SplashCursor />
       <body>
-        
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
             <div className="fixed inset-x-0 top-0 z-50 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
