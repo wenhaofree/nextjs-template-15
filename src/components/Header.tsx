@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HeaderProps {
   header: {
@@ -94,6 +95,7 @@ export default function Header({ header }: HeaderProps) {
 
         {/* Right: Language & CTA Buttons */}
         <div className="hidden md:flex items-center space-x-6">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900">
               <Globe className="h-4 w-4" />
@@ -183,6 +185,7 @@ export default function Header({ header }: HeaderProps) {
 
         {/* Mobile Menu Button */}
         <div className="flex md:hidden">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="h-9 w-9">
