@@ -5,14 +5,15 @@ import { getRequestConfig } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // Define supported locales
-export const locales = ["en", "zh", "ja", "ko", "fr"];
+// export const locales = ["en", "zh", "ja", "ko", "fr"];
+export const locales = ["en", "zh"];
 
 export const localeNames: any = {
   en: "English",
   zh: "简体中文",
-  ja: "日本語",
-  ko: "한국어",
-  fr: "Français",
+  // ja: "日本語",
+  // ko: "한국어",
+  // fr: "Français",
 };
 
 export const defaultLocale = "en";
