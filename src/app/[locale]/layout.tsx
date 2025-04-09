@@ -4,13 +4,11 @@ import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import '../globals.css';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
 import { SplashCursor } from "@/components/ui/splash-cursor"
 
-// 从 routing 中获取具体的 locale 类型
-type Locale = (typeof routing.locales)[number];
 
 // 修改类型定义，使用 generateStaticParams 来处理参数
 export async function generateStaticParams() {
