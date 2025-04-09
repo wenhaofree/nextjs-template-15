@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 进入指定目录
-cd /home/fwh/github/aistak || { echo "切换目录失败"; exit 1; }
+cd /home/fwh/github/nextjs-template-15 || { echo "切换目录失败"; exit 1; }
 
 # 拉取最新代码
 git pull || { echo "Git pull失败"; exit 1; }
