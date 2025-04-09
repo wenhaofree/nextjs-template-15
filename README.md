@@ -166,6 +166,9 @@ pnpm run test:debug
 pnpm run db:test:studio
 ```
 
+## 数据库配置注意：
+1. sslmode=prefer 实现数据库链接；
+
 ## 认证配置注意事项
 
 ### GitHub OAuth认证配置
