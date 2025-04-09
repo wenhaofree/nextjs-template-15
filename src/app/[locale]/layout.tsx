@@ -38,9 +38,9 @@ export default async function Layout({
   ]);
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <SplashCursor />
+    <html lang={locale} className="scroll-smooth" suppressHydrationWarning>
       <body>
+          <SplashCursor />
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
             <div className="fixed inset-x-0 top-0 z-50 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
