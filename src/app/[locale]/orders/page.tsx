@@ -52,6 +52,8 @@ export default function OrdersPage() {
         return "bg-yellow-500";
       case "failed":
         return "bg-red-500";
+      case "expired":
+        return "bg-gray-500";
       default:
         return "bg-gray-500";
     }
@@ -62,6 +64,10 @@ export default function OrdersPage() {
       style: "currency",
       currency: currency || "USD",
     }).format(amount / 100);
+  };
+
+  const getStatusText = (status: string) => {
+    return t(`orderDetails.status.${status.toLowerCase()}`);
   };
 
   if (loading) {
@@ -103,7 +109,7 @@ export default function OrdersPage() {
                   </p>
                 </div>
                 <Badge className={getStatusColor(order.status)}>
-                  {order.status.toUpperCase()}
+                  {getStatusText(order.status)}
                 </Badge>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">

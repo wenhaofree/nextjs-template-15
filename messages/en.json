@@ -343,15 +343,21 @@
   },
   "orders": {
     "title": "My Orders",
-    "subtitle": "View your order history",
-    "emptyOrders": "You don't have any orders yet",
-    "getStarted": "Get Started",
-    "orderNo": "Order #",
-    "date": "Date",
-    "status": "Status",
-    "amount": "Amount",
-    "actions": "Actions",
-    "viewDetails": "View Details"
+    "description": "View all your order history and status",
+    "noOrders": "No orders found",
+    "orderDetails": {
+      "purchase": "Purchase",
+      "orderId": "Order ID",
+      "amount": "Amount",
+      "orderDate": "Order Date",
+      "paidDate": "Payment Date",
+      "status": {
+        "paid": "Paid",
+        "pending": "Pending",
+        "failed": "Failed",
+        "expired": "Expired"
+      }
+    }
   },
   "profile": {
     "title": "My Profile",

@@ -167,7 +167,7 @@ export const TIERS = [
       "Up to 6 seats",
     ],
     cta: "Get started",
-    popular: true,
+    // popular: true,  //会导致无法跳转支付问题css的bug
   },
   {
     id: "organizations",

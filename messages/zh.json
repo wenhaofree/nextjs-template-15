@@ -323,15 +323,21 @@
   },
   "orders": {
     "title": "我的订单",
-    "subtitle": "查看订单历史",
-    "emptyOrders": "暂无订单记录",
-    "getStarted": "开始使用",
-    "orderNo": "订单号 #",
-    "date": "日期",
-    "status": "状态",
-    "amount": "金额",
-    "actions": "操作",
-    "viewDetails": "查看详情"
+    "description": "查看您的所有订单记录和状态",
+    "noOrders": "暂无订单记录",
+    "orderDetails": {
+      "purchase": "购买",
+      "orderId": "订单号",
+      "amount": "金额",
+      "orderDate": "下单时间",
+      "paidDate": "支付时间",
+      "status": {
+        "paid": "已支付",
+        "pending": "待支付",
+        "failed": "支付失败",
+        "expired": "已过期"
+      }
+    }
   },
   "profile": {
     "title": "个人资料",
