@@ -14,6 +14,8 @@ model User {
   uuid           String    @unique
   // 用户邮箱
   email          String
+  // 密码哈希，可选（用于邮箱密码登录）
+  password       String?   @db.VarChar(255)
   // 创建时间，自动生成当前时间
   createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   // 更新时间，自动更新

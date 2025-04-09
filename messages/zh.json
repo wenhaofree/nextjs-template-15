@@ -272,7 +272,22 @@
     "signInWithGithub": "使用 GitHub 账号登录",
     "signingIn": "正在登录...",
     "oauthError": "登录过程中发生错误，请重试。",
-    "authError": "认证错误，请重试。"
+    "authError": "认证错误，请重试。",
+    "signIn": "登录",
+    "email": "邮箱地址",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "noAccount": "还没有账号？注册一个",
+    "alreadyHaveAccount": "已有账号？立即登录",
+    "orContinueWith": "或使用以下方式继续",
+    "invalidCredentials": "邮箱或密码不正确",
+    "signInError": "登录时发生错误，请重试",
+    "signUp": "注册",
+    "signingUp": "正在注册...",
+    "createAccount": "创建新账号",
+    "signUpError": "注册时发生错误，请重试",
+    "passwordsDoNotMatch": "两次输入的密码不一致",
+    "signUpSuccess": "注册成功！正在自动登录..."
   },
   "cta": {
     "title": "准备开始了吗？",

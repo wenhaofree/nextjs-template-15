@@ -7,7 +7,7 @@ import SignInForm from './SignInForm';
 export default async function SignIn(
   props: {
     params: Promise<{ locale: string }>;
-    searchParams: Promise<{ callbackUrl?: string; error?: string }>;
+    searchParams: Promise<{ callbackUrl?: string; error?: string; email?: string }>;
   }
 ) {
   const searchParams = await props.searchParams;
@@ -23,6 +23,22 @@ export default async function SignIn(
   // 正确处理searchParams（Next.js 15需要这种写法）
   const error = searchParams?.error;
   const callbackUrl = searchParams?.callbackUrl || '/';
+  const email = searchParams?.email || '';
+
+  // 获取错误提示文本
+  let errorMessage = '';
+  if (error) {
+    switch (error) {
+      case 'OAuthCallback':
+        errorMessage = t('oauthError');
+        break;
+      case 'CredentialsSignin':
+        errorMessage = t('invalidCredentials');
+        break;
+      default:
+        errorMessage = t('authError');
+    }
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -31,16 +47,14 @@ export default async function SignIn(
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             {t('signInTitle')}
           </h2>
-          {error && (
+          {errorMessage && (
             <div className="mt-4 p-4 text-sm text-red-600 bg-red-50 rounded-md">
-              {error === 'OAuthCallback' 
-                ? t('oauthError')
-                : t('authError')}
+              {errorMessage}
             </div>
           )}
         </div>
         <Suspense fallback={<div className="text-center">Loading...</div>}>
-          <SignInForm callbackUrl={callbackUrl} />
+          <SignInForm callbackUrl={callbackUrl} initialEmail={email} />
         </Suspense>
       </div>
     </div>

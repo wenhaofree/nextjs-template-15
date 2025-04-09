@@ -292,7 +292,22 @@
     "signInWithGithub": "Continue with GitHub",
     "signingIn": "Signing in...",
     "oauthError": "An error occurred during sign in. Please try again.",
-    "authError": "Authentication error. Please try again."
+    "authError": "Authentication error. Please try again.",
+    "signIn": "Sign in",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "noAccount": "Don't have an account? Sign up",
+    "alreadyHaveAccount": "Already have an account? Sign in",
+    "orContinueWith": "Or continue with",
+    "invalidCredentials": "Invalid email or password",
+    "signInError": "An error occurred during sign in. Please try again.",
+    "signUp": "Sign up",
+    "signingUp": "Signing up...",
+    "createAccount": "Create an account",
+    "signUpError": "An error occurred during sign up. Please try again.",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "signUpSuccess": "Registration successful! Signing you in..."
   },
   "cta": {
     "title": "Ready to Get Started?",
