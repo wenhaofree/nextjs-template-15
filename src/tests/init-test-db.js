@@ -7,6 +7,7 @@ const { execSync } = require('child_process');
 const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 // 确保.env.test使用不带TLS的连接字符串
 function ensureNoTlsConnection() {
@@ -102,18 +103,22 @@ async function main() {
       
       const now = new Date();
       
-      // 创建一个测试用户
+      // 创建一个测试用户，对密码进行加密
+      const testPassword = 'test123456';
+      const hashedPassword = await bcrypt.hash(testPassword, 12);
+      
       const user = await prisma.user.create({
         data: {
           uuid: `test-${Date.now()}`,
           email: `test-${Date.now()}@example.com`,
           nickname: '测试用户',
-          signinProvider: 'test',
+          password: hashedPassword, // 使用加密后的密码
+          signinProvider: 'credentials', // 修改为credentials
           updatedAt: now, // 添加更新时间
           isDeleted: false, // 添加删除标志
         },
       });
-      console.log(`✅ 测试用户创建成功: ${user.email}`);
+      console.log(`✅ 测试用户创建成功: ${user.email} (密码: ${testPassword})`);
     } else {
       console.log('\n✅ 步骤5: 已有测试数据，跳过');
     }
