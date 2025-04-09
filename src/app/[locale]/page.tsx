@@ -14,6 +14,7 @@ import { getLandingPage } from "@/app/actions";
 import { unstable_setRequestLocale } from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import { Footer } from "@/components/ui/footer-section";
+import GoogleOneTapWrapper from "@/components/GoogleOneTapWrapper";
 
 type Locale = (typeof routing.locales)[number];
 
@@ -33,6 +34,9 @@ export default async function LandingPage({
 
   return (
     <>
+      {/* Google One Tap组件 */}
+      <GoogleOneTapWrapper />
+      
       {page.hero && <Hero hero={page.hero} />}
       {/* {page.branding && <Branding section={page.branding} />} */}
       {/* {page.introduce && <Feature1 section={page.introduce} />} */}

@@ -6,6 +6,68 @@ import GithubProvider from "next-auth/providers/github";
 import { prisma } from '@/lib/prisma';
 import { v4 as uuidv4 } from 'uuid';
 import { headers } from 'next/headers';
+import CredentialsProvider from "next-auth/providers/credentials";
+import { jwtDecode } from "jwt-decode";
+
+// 添加Google One Tap凭据提供者
+const googleOneTapProvider = CredentialsProvider({
+  id: "google-one-tap",
+  name: "Google One Tap",
+  credentials: {
+    credential: { type: "text" }
+  },
+  async authorize(credentials) {
+    try {
+      if (!credentials?.credential) return null;
+      
+      // 解码Google提供的JWT令牌
+      const decoded: any = jwtDecode(credentials.credential);
+      
+      // 处理用户信息
+      const userData = {
+        uuid: decoded.sub,
+        email: decoded.email,
+        nickname: decoded.name,
+        avatarUrl: decoded.picture,
+        signinType: 'oauth',
+        signinIp: '127.0.0.1', // 可以使用相同的IP获取逻辑
+        signinProvider: 'google-one-tap',
+        signinOpenid: decoded.sub,
+        createdAt: new Date(),
+      };
+
+      // 查找或创建用户
+      const existingUser = await prisma.user.findFirst({
+        where: {
+          email: decoded.email,
+          signinProvider: 'google-one-tap',
+        },
+      });
+
+      if (existingUser) {
+        await prisma.user.update({
+          where: { id: existingUser.id },
+          data: {
+            nickname: userData.nickname,
+            avatarUrl: userData.avatarUrl,
+          },
+        });
+      } else {
+        await prisma.user.create({ data: userData });
+      }
+
+      return {
+        id: decoded.sub,
+        email: decoded.email,
+        name: decoded.name,
+        image: decoded.picture
+      };
+    } catch (error) {
+      console.error("Google One Tap验证错误:", error);
+      return null;
+    }
+  }
+});
 
 export const config: AuthOptions = {
   providers: [
@@ -24,6 +86,9 @@ export const config: AuthOptions = {
             clientSecret: process.env.AUTH_GITHUB_SECRET,
           }),
         ]
+      : []),
+    ...(process.env.NEXT_PUBLIC_AUTH_GOOGLE_ONE_TAP_ENABLED === "true"
+      ? [googleOneTapProvider]
       : []),
   ],
   debug: true,
