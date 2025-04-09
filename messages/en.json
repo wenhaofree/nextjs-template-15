@@ -18,7 +18,8 @@
     },
     "userMenu": {
       "myOrders": "My Orders",
-      "signOut": "Sign Out"
+      "signOut": "Sign Out",
+      "profile": "My Profile"
     }
   },
   "hero": {
@@ -327,14 +328,26 @@
   },
   "orders": {
     "title": "My Orders",
-    "description": "View your order history and payment status",
-    "noOrders": "You haven't placed any orders yet",
-    "orderDetails": {
-      "purchase": "Purchase",
-      "orderId": "Order ID",
-      "amount": "Amount",
-      "orderDate": "Order Date",
-      "paidDate": "Payment Date"
-    }
+    "subtitle": "View your order history",
+    "emptyOrders": "You don't have any orders yet",
+    "getStarted": "Get Started",
+    "orderNo": "Order #",
+    "date": "Date",
+    "status": "Status",
+    "amount": "Amount",
+    "actions": "Actions",
+    "viewDetails": "View Details"
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "View and manage your profile",
+    "personalInfo": "Personal Information",
+    "uuid": "UUID",
+    "email": "Email",
+    "nickname": "Nickname",
+    "registrationDate": "Registration Date",
+    "signinMethod": "Sign-in Method",
+    "lastSigninIp": "Last Sign-in IP",
+    "unknown": "Unknown"
   }
 }

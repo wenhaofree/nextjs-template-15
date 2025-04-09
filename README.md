@@ -203,6 +203,13 @@ pnpm run db:test:studio
    - `Missing GitHub client ID or secret`：
      - 确保环境变量中正确设置了GitHub认证凭据
      - 检查`AUTH_GITHUB_ID`和`AUTH_GITHUB_SECRET`是否与GitHub OAuth应用一致
+   - `outgoing request timed out after 3500ms`（请求超时错误）：
+     - 这通常是网络连接问题，而非配置错误
+     - 检查您的网络连接是否稳定
+     - 如果使用代理或VPN，尝试临时关闭
+     - GitHub API可能暂时不可用，稍后再试
+     - 如果在中国大陆地区，可能需要配置代理来访问GitHub API
+     - 增加NextAuth超时配置（在auth.config.ts中添加`timeout: 10000`将超时延长到10秒）
 
 5. **域名变更时的处理**
    - 当应用域名发生变更时（如从本地开发到生产环境）：

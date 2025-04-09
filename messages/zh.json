@@ -18,7 +18,8 @@
     },
     "userMenu": {
       "myOrders": "我的订单",
-      "signOut": "退出登录"
+      "signOut": "退出登录",
+      "profile": "个人资料"
     }
   },
   "hero": {
@@ -307,14 +308,26 @@
   },
   "orders": {
     "title": "我的订单",
-    "description": "查看您的订单历史和支付状态",
-    "noOrders": "您还没有任何订单",
-    "orderDetails": {
-      "purchase": "购买",
-      "orderId": "订单号",
-      "amount": "金额",
-      "orderDate": "下单时间",
-      "paidDate": "支付时间"
-    }
+    "subtitle": "查看订单历史",
+    "emptyOrders": "暂无订单记录",
+    "getStarted": "开始使用",
+    "orderNo": "订单号 #",
+    "date": "日期",
+    "status": "状态",
+    "amount": "金额",
+    "actions": "操作",
+    "viewDetails": "查看详情"
+  },
+  "profile": {
+    "title": "个人资料",
+    "subtitle": "查看和管理您的个人信息",
+    "personalInfo": "个人信息",
+    "uuid": "唯一标识",
+    "email": "邮箱",
+    "nickname": "昵称",
+    "registrationDate": "注册时间",
+    "signinMethod": "登录方式",
+    "lastSigninIp": "最后登录IP",
+    "unknown": "未知"
   }
 }

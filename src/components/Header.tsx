@@ -39,6 +39,7 @@ interface HeaderProps {
     userMenu: {
       myOrders: string;
       signOut: string;
+      profile: string;
     };
   };
 }
@@ -159,6 +160,12 @@ export default function Header({ header }: HeaderProps) {
                     >
                       {header.userMenu.myOrders}
                     </Link>
+                    <Link
+                      href={`/${currentLocale}/profile`}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                    >
+                      {header.userMenu.profile}
+                    </Link>
                     <button
                       type="button"
                       onClick={() => signOut({ callbackUrl: `/${currentLocale}` })}
@@ -219,6 +226,12 @@ export default function Header({ header }: HeaderProps) {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
                     >
                       {header.userMenu.myOrders}
+                    </Link>
+                    <Link
+                      href={`/${currentLocale}/profile`}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                    >
+                      {header.userMenu.profile}
                     </Link>
                     <button
                       type="button"
