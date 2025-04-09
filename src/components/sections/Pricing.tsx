@@ -155,7 +155,7 @@ export const TIERS = [
     id: "teams",
     name: "Teams",
     price: {
-      monthly: 90,
+      monthly: 0.6,
       yearly: 75,
     },
     description: "Great for small businesses",
