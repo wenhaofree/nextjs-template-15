@@ -13,6 +13,7 @@ import { CTA } from "@/components/sections/CTA";
 import { getLandingPage } from "@/app/actions";
 import { unstable_setRequestLocale } from 'next-intl/server';
 import {routing} from '@/i18n/routing';
+import { Footer } from "@/components/ui/footer-section";
 
 type Locale = (typeof routing.locales)[number];
 
@@ -44,6 +45,9 @@ export default async function LandingPage({
       {page.testimonial && <Testimonial section={page.testimonial} />}
       {page.faq && <FAQ section={page.faq} />}
       {page.cta && <CTA section={page.cta} />}
+      
+      {/* {page.footer && <Footerdemo footer={page.footer} />} */}
+      <Footer />
     </>
   );
 }

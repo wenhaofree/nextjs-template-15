@@ -55,9 +55,9 @@ export default async function Layout({
                   {children}
                 </div>
               </main>
-            <div className="border-t">
+            {/* <div className="border-t">
               {page.footer && <Footer footer={page.footer} />}
-            </div>
+            </div> */}
             </Providers>
           </NextIntlClientProvider>
         
