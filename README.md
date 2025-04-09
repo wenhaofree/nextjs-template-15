@@ -161,9 +161,53 @@ pnpm run test:db:setup
 pnpm run test:db
 # 运行测试调试脚本
 pnpm run test:debug
-# 启动Prisma Studio查看测试数据库
+
+# 启动Prisma Studio查看测试数据库-http://localhost:5555
 pnpm run db:test:studio
 ```
+
+## 认证配置注意事项
+
+### GitHub OAuth认证配置
+
+配置GitHub OAuth登录时，请注意以下关键事项：
+
+1. **GitHub OAuth应用设置**
+   - 在GitHub开发者设置页面 (https://github.com/settings/developers) 创建OAuth应用
+   - 应用名称设置为您的项目名称，如："NextLaunchPad"
+   - Homepage URL必须与环境变量中的`NEXT_PUBLIC_WEB_URL`保持一致
+
+2. **回调URL配置**
+   - 回调URL格式：`{您的域名}/api/auth/callback/github`
+   - 本地开发环境示例：`http://localhost:3000/api/auth/callback/github`
+   - **注意**：`localhost`和`127.0.0.1`在OAuth认证中被视为不同域名，必须精确匹配
+
+3. **环境变量设置**
+   ```
+   # GitHub认证变量必须正确设置
+   AUTH_GITHUB_ID=您的GitHub客户端ID
+   AUTH_GITHUB_SECRET=您的GitHub客户端密钥
+   NEXT_PUBLIC_AUTH_GITHUB_ENABLED=true
+   
+   # NEXTAUTH_URL与GitHub OAuth应用中的域名必须保持一致
+   # 如果GitHub OAuth中使用localhost，这里也必须使用localhost
+   NEXTAUTH_URL=http://localhost:3000
+   NEXT_PUBLIC_WEB_URL=http://localhost:3000
+   ```
+
+4. **常见错误处理**
+   - `redirect_uri is not associated with this application`：
+     - 检查GitHub OAuth应用中的回调URL与实际使用的域名是否完全一致
+     - 确保使用相同的域名格式（localhost vs 127.0.0.1）
+     - 检查端口号是否匹配
+   - `Missing GitHub client ID or secret`：
+     - 确保环境变量中正确设置了GitHub认证凭据
+     - 检查`AUTH_GITHUB_ID`和`AUTH_GITHUB_SECRET`是否与GitHub OAuth应用一致
+
+5. **域名变更时的处理**
+   - 当应用域名发生变更时（如从本地开发到生产环境）：
+     - 更新GitHub OAuth应用中的回调URL
+     - 或创建多个OAuth应用分别用于不同环境
 
 ## 数据库测试
 
