@@ -8,50 +8,99 @@ datasource db {
 }
 
 model User {
+  // 自增主键ID
   id             Int       @id @default(autoincrement())
+  // 用户唯一标识UUID
   uuid           String    @unique
+  // 用户邮箱
   email          String
+  // 创建时间，自动生成当前时间
   createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  // 更新时间，自动更新
+  updatedAt      DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  // 是否已删除标记
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  // 用户昵称，可选
   nickname       String?   @db.VarChar(255)
+  // 用户头像URL，可选
   avatarUrl      String?   @map("avatar_url") @db.VarChar(255)
+  // 用户区域/语言设置，可选
   locale         String?   @db.VarChar(50)
+  // 登录类型，可选
   signinType     String?   @map("signin_type") @db.VarChar(50)
+  // 登录IP地址，可选
   signinIp       String?   @map("signin_ip") @db.VarChar(255)
+  // 登录提供商(如Google、Facebook等)，可选
   signinProvider String?   @map("signin_provider") @db.VarChar(50)
+  // 第三方登录的OpenID，可选
   signinOpenid   String?   @map("signin_openid") @db.VarChar(255)
+  // 用户订单关联
   orders         Order[]
 
+  // 联合唯一索引：确保同一登录提供商下邮箱唯一
   @@unique([email, signinProvider])
+  // 数据库表映射名称
   @@map("users")
 }
 
 model Order {
+  // 自增主键ID
   id               Int       @id @default(autoincrement())
+  // 订单编号，唯一
   orderNo          String    @unique @map("order_no") @db.VarChar(255)
-  createdAt        DateTime? @map("created_at") @db.Timestamptz(6)
+  // 订单创建时间
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  // 订单更新时间
+  updatedAt        DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  // 是否已删除标记
+  isDeleted        Boolean   @default(false) @map("is_deleted")
+  // 用户UUID，关联User表
   userUuid         String    @map("user_uuid") @db.VarChar(255)
+  // 用户邮箱
   userEmail        String    @map("user_email") @db.VarChar(255)
+  // 订单金额
   amount           Int
+  // 计费周期间隔（月、年等）
   interval         String?   @db.VarChar(50)
+  // 订单过期时间
   expiredAt        DateTime? @map("expired_at") @db.Timestamptz(6)
+  // 订单状态
   status           String    @db.VarChar(50)
+  // Stripe支付会话ID
   stripeSessionId  String?   @map("stripe_session_id") @db.VarChar(255)
+  // 订单包含的积分数量
   credits          Int
+  // 货币类型
   currency         String?   @db.VarChar(50)
+  // 订阅ID
   subId            String?   @map("sub_id") @db.VarChar(255)
+  // 订阅间隔计数
   subIntervalCount Int?      @map("sub_interval_count")
+  // 订阅周期锚点
   subCycleAnchor   Int?      @map("sub_cycle_anchor")
+  // 订阅周期结束时间
   subPeriodEnd     Int?      @map("sub_period_end")
+  // 订阅周期开始时间
   subPeriodStart   Int?      @map("sub_period_start")
+  // 订阅次数
   subTimes         Int?      @map("sub_times")
+  // 产品ID
   productId        String?   @map("product_id") @db.VarChar(255)
+  // 产品名称
   productName      String?   @map("product_name") @db.VarChar(255)
+  // 有效月数
   validMonths      Int?      @map("valid_months")
+  // 订单详情（可存储JSON）
   orderDetail      String?   @map("order_detail")
+  // 支付时间
   paidAt           DateTime? @map("paid_at") @db.Timestamptz(6)
+  // 支付邮箱
   paidEmail        String?   @map("paid_email") @db.VarChar(255)
+  // 支付详情
   paidDetail       String?   @map("paid_detail")
+  // 关联用户
   user             User      @relation(fields: [userUuid], references: [uuid])
 
+  // 数据库表映射名称
   @@map("orders")
 }

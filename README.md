@@ -1,7 +1,7 @@
 # TODO:
 1. 登陆功能验证，注册功能添加：
 2. 支付功能验证；
-3. 
+3. 数据库测试用例
 
 
 # NextLaunchPad
@@ -19,6 +19,7 @@ NextLaunchPad 是一个基于 Next.js 15 构建的现代化全栈应用框架，
 - 📊 Prisma ORM 数据库管理
 - 🔔 Sonner 提示系统
 - 📱 响应式设计
+- 🧪 自动化测试方案
 
 ## 技术栈
 
@@ -47,11 +48,16 @@ NextLaunchPad 是一个基于 Next.js 15 构建的现代化全栈应用框架，
 - Prisma 6.1.0
 - Prisma Client
 
+### 测试工具
+- Jest 29.7.0
+- ts-jest 29.1.1
+
 ## 环境要求
 
 - Node.js 18.17 或更高版本
 - pnpm 8.0 或更高版本（推荐）
 - MySQL 8.0 或更高版本（推荐）
+- Docker和Docker Compose（用于测试环境）
 
 ## 快速开始
 
@@ -133,7 +139,63 @@ pnpm db:pull     # 拉取数据库架构
 pnpm db:generate # 生成Prisma Client
 pnpm db:studio   # 启动Prisma Studio
 pnpm db:sync     # 同步数据库架构
+
+# 测试相关命令
+pnpm test:db            # 运行数据库测试
+pnpm test:db:docker     # 使用Docker运行数据库测试
+pnpm docker:up          # 启动Docker容器
+pnpm docker:down        # 停止Docker容器
+
+# 运行脚本步骤；-这一个目录就够
+pnpm run db:test:init
+
+# 推送架构到测试数据库
+pnpm run db:test:push
+
+# 生成Prisma客户端
+pnpm run db:generate
+
+# 或一键设置测试环境
+pnpm run test:db:setup
+# 运行所有数据库测试
+pnpm run test:db
+# 运行测试调试脚本
+pnpm run test:debug
+# 启动Prisma Studio查看测试数据库
+pnpm run db:test:studio
 ```
+
+## 数据库测试
+
+项目包含了对数据库连接和表结构的自动化测试方案。
+
+### 测试内容
+
+- 数据库连接测试
+- 表结构验证测试 
+- 字段类型和默认值测试
+- 表关系测试
+- 软删除功能测试
+
+### 运行测试
+
+使用本地数据库测试:
+
+```bash
+pnpm test:db
+```
+
+使用Docker独立环境测试（推荐）:
+
+```bash
+pnpm test:db:docker
+```
+
+这将：
+1. 启动Docker容器中的PostgreSQL
+2. 执行数据库迁移
+3. 运行所有测试用例
+4. 自动清理测试环境
 
 ## 部署
 
@@ -161,7 +223,14 @@ NextLaunchPad/
 ├── lib/               # 工具函数
 ├── prisma/            # Prisma 配置
 ├── public/            # 静态资源
-└── styles/            # 样式文件
+├── styles/            # 样式文件
+└── tests/             # 测试文件目录
+    ├── db/            # 数据库测试
+    │   ├── connection.test.ts   # 连接测试
+    │   └── schema.test.ts       # 表结构测试
+    ├── setup.ts       # 测试环境设置
+    ├── teardown.ts    # 测试环境清理
+    └── jest.config.js # Jest配置
 ```
 
 ## 贡献指南

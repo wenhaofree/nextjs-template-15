@@ -11,8 +11,17 @@
     "db:pull": "npx dotenv-cli -e .env.local -- npx prisma db pull",
     "db:generate": "npx prisma generate",
     "db:studio": "npx dotenv-cli -e .env.local -- npx prisma studio",
-    "db:sync": "npm run db:pull && npm run db:push && npm run db:generate",
-    "postinstall": "prisma generate"
+    "db:sync": "pnpm run db:pull && pnpm run db:push && pnpm run db:generate",
+    "db:test:push": "npx dotenv-cli -e .env.test -- npx prisma db push",
+    "db:test:init": "node src/tests/init-test-db.js",
+    "db:test:studio": "npx dotenv-cli -e .env.test -- npx prisma studio",
+    "postinstall": "prisma generate",
+    "test:db": "pnpm run db:test:init && npx dotenv-cli -e .env.test -- npx jest --config src/tests/jest.config.js",
+    "test:db:setup": "pnpm run db:test:push && pnpm run db:generate",
+    "test:db:docker": "docker-compose up -d && npx dotenv-cli -e .env.test -- npx prisma db push && pnpm run test:db && docker-compose down",
+    "test:debug": "node src/tests/debug.js",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
@@ -48,15 +57,18 @@
   },
   "devDependencies": {
     "@prisma/client": "^6.1.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20.17.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "dotenv-cli": "^8.0.0",
     "eslint": "^8",
     "eslint-config-next": "15.2.3",
+    "jest": "^29.7.0",
     "postcss": "^8",
     "prisma": "^6.1.0",
     "tailwindcss": "^3.4.1",
+    "ts-jest": "^29.3.1",
     "typescript": "^5"
   }
 }
