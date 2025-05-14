@@ -82,15 +82,22 @@ export default function Header({ header }: HeaderProps) {
         {/* Center: Navigation Links - Desktop Only */}
         <div className="hidden md:flex items-center justify-center flex-1 px-8">
           <div className="flex space-x-8">
-            {Object.entries(header.nav).map(([key, value]) => (
-              <Link
-                key={key}
-                href={`/${pathname.split('/')[1]}#${key}`}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                {value}
-              </Link>
-            ))}
+            {Object.entries(header.nav).map(([key, value]) => {
+              const isActive = pathname.includes(`#${key}`) || pathname.endsWith(`#${key}`);
+              return (
+                <Link
+                  key={key}
+                  href={`/${pathname.split('/')[1]}#${key}`}
+                  className={`text-sm hover:text-gray-900 transition-colors ${
+                    isActive
+                      ? "text-primary font-medium"
+                      : "text-gray-600"
+                  }`}
+                >
+                  {value}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -178,9 +185,9 @@ export default function Header({ header }: HeaderProps) {
               </div>
             ) : (
               <div className="flex items-center">
-                <Button 
-                  onClick={() => signIn()} 
-                  size="sm" 
+                <Button
+                  onClick={() => signIn()}
+                  size="sm"
                   className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full px-6"
                 >
                   {header.cta.login}
@@ -204,15 +211,22 @@ export default function Header({ header }: HeaderProps) {
                 <SheetTitle>{header.logo}</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col space-y-4 mt-6">
-                {Object.entries(header.nav).map(([key, value]) => (
-                  <Link
-                    key={key}
-                    href={key === 'pricing' ? '/pricing' : `#${key.toLowerCase()}`}
-                    className="text-sm text-gray-600 hover:text-gray-900"
-                  >
-                    {value}
-                  </Link>
-                ))}
+                {Object.entries(header.nav).map(([key, value]) => {
+                  const isActive = pathname.includes(`#${key}`) || pathname.endsWith(`#${key}`);
+                  return (
+                    <Link
+                      key={key}
+                      href={`/${pathname.split('/')[1]}#${key}`}
+                      className={`text-sm hover:text-gray-900 transition-colors ${
+                        isActive
+                          ? "text-primary font-medium"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {value}
+                    </Link>
+                  );
+                })}
                 <div className="flex items-center space-x-1 text-sm text-gray-600" onClick={() => switchLocale(currentLocale)}>
                   <Globe className="h-4 w-4" />
                   <span>{localeNames[currentLocale]}</span>
@@ -243,9 +257,9 @@ export default function Header({ header }: HeaderProps) {
                   </div>
                 ) : (
                   <div className="flex flex-col space-y-3 pt-4">
-                    <Button 
-                      onClick={() => signIn()} 
-                      size="sm" 
+                    <Button
+                      onClick={() => signIn()}
+                      size="sm"
                       className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full"
                     >
                       {header.cta.login}

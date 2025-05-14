@@ -1,22 +1,27 @@
 import { Hero } from "@/components/sections/Hero";
-import { Branding } from "@/components/sections/Branding";
-import { Feature1 } from "@/components/sections/Feature1";
 import { Feature2 } from "@/components/sections/Feature2";
-import { Feature3 } from "@/components/sections/Feature3";
-import { Features } from "@/components/sections/Features";
-import { Showcase } from "@/components/sections/Showcase";
 import { Stats } from "@/components/sections/Stats";
 import { Pricing } from "@/components/sections/Pricing";
 import { Testimonial } from "@/components/sections/Testimonial";
 import { FAQ } from "@/components/sections/FAQ";
 import { CTA } from "@/components/sections/CTA";
 import { getLandingPage } from "@/app/actions";
-import { unstable_setRequestLocale } from 'next-intl/server';
-import {routing} from '@/i18n/routing';
-import { Footer } from "@/components/ui/footer-section";
+import { setRequestLocale } from 'next-intl/server';
+import { getMessages } from '@/i18n/routing';
 import GoogleOneTapWrapper from "@/components/GoogleOneTapWrapper";
+import type { Metadata } from "next";
+import { Footer } from "@/components/ui/footer-section";
 
-type Locale = (typeof routing.locales)[number];
+// Add page-specific metadata
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = await getMessages(locale);
+
+  return {
+    title: messages.hero.title,
+    description: messages.hero.description,
+  };
+}
 
 export default async function LandingPage({
   params,
@@ -27,7 +32,7 @@ export default async function LandingPage({
   const { locale } = await params;
 
   // 设置请求的 locale
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   // 获取页面数据
   const page = await getLandingPage(locale);
@@ -36,7 +41,7 @@ export default async function LandingPage({
     <>
       {/* Google One Tap组件 */}
       <GoogleOneTapWrapper />
-      
+
       {page.hero && <Hero hero={page.hero} />}
       {/* {page.branding && <Branding section={page.branding} />} */}
       {/* {page.introduce && <Feature1 section={page.introduce} />} */}
@@ -49,7 +54,7 @@ export default async function LandingPage({
       {page.testimonial && <Testimonial section={page.testimonial} />}
       {page.faq && <FAQ section={page.faq} />}
       {page.cta && <CTA section={page.cta} />}
-      
+
       {/* {page.footer && <Footerdemo footer={page.footer} />} */}
       <Footer />
     </>

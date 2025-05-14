@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 interface CTAProps {
   section: {
@@ -15,24 +16,48 @@ interface CTAProps {
 
 export function CTA({ section }: CTAProps) {
   return (
-    <section className="py-20">
+    <section id="cta" className="py-24 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_400px,#3c8dfc10,transparent)]" />
+      </div>
+
+      {/* Animated grid background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="h-full w-full bg-[linear-gradient(to_right,#4f4f4f0a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f0a_1px,transparent_1px)] bg-[size:38px_38px]" />
+      </div>
+
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">{section.title}</h2>
-          <p className="text-xl text-gray-600 mb-8">{section.subtitle}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+            {section.title}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-10">
+            {section.subtitle}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 h-12 text-base"
+            >
               {section.cta.primary}
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full px-8"
+              className="rounded-full px-8 h-12 text-base border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               {section.cta.secondary}
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

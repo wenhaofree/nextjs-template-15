@@ -1,12 +1,3 @@
-# TODO:
-1. 登陆功能验证，注册功能添加：
-  - OK
-2. 支付功能验证；
-  - OK
-3. 数据库测试用例：
-  - OK
-
-
 # NextLaunchPad
 
 NextLaunchPad 是一个基于 Next.js 15 构建的现代化全栈应用框架，采用最新的 React 技术栈，提供完整的企业级开发解决方案。
@@ -307,3 +298,12 @@ NextLaunchPad/
 - 项目作者：[WenHaoFree]
 - Email：[fuwenhao945@gmail.com]
 - GitHub：[https://github.com/wenhaofree]
+
+
+# TODO:
+1. 登陆功能验证，注册功能添加：
+  - OK
+2. 支付功能验证；
+  - OK
+3. 数据库测试用例：
+  - OK
