@@ -2,19 +2,19 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Your Logo",
+    "logo": "FluxAI Studio",
     "nav": {
       "introduce": "Features",
       "benefit": "Benefits",
-      "showcase": "Showcase",
+      "showcase": "Gallery",
       "stats": "Stats",
       "pricing": "Pricing",
-      "testimonial": "Testimonials",
+      "testimonial": "Reviews",
       "faq": "FAQ"
     },
     "cta": {
-      "login": "Login",
-      "signup": "Get Started"
+      "login": "Sign In",
+      "signup": "Start Creating"
     },
     "userMenu": {
       "myOrders": "My Orders",
@@ -23,12 +23,12 @@
     }
   },
   "hero": {
-    "title": "Transform Your Imagination Into Images",
-    "subtitle": "Watch as your words bloom into stunning visuals with Flux AI Image Generator",
-    "description": "State-of-the-art AI image generation platform with enhanced detail, improved prompt adherence, and diverse outputs",
+    "title": "Create Stunning AI Images in Seconds",
+    "subtitle": "Transform your wildest ideas into breathtaking visuals with our cutting-edge AI technology",
+    "description": "Professional-grade AI image generation powered by Flux models. Create, customize, and download high-resolution images from simple text descriptions.",
     "cta": {
-      "primary": "Start For Free",
-      "secondary": "View Gallery"
+      "primary": "Start Creating Free",
+      "secondary": "Explore Gallery"
     }
   },
   "branding": {
@@ -50,45 +50,45 @@
     ]
   },
   "introduce": {
-    "title": "Advanced AI Image Generation",
-    "subtitle": "Powerful Features for Creative Minds",
-    "description": "Generate high-quality images from text descriptions using our cutting-edge AI technology",
+    "title": "Next-Generation AI Image Creation",
+    "subtitle": "Unleash Your Creative Potential",
+    "description": "Experience the future of digital art with our state-of-the-art Flux AI models that understand your vision and bring it to life",
     "image": "/features/intro.gif",
     "features": [
       {
-        "title": "Enhanced Image Detail",
-        "description": "Generate images with exceptional detail and clarity using advanced AI algorithms",
+        "title": "Ultra-High Resolution",
+        "description": "Generate crisp, detailed images up to 4K resolution with stunning clarity and professional quality",
         "icon": "sparkles"
       },
       {
-        "title": "Improved Prompt Adherence",
-        "description": "Accurately interprets and executes your text prompts for precise results",
+        "title": "Smart Prompt Understanding",
+        "description": "Our AI perfectly interprets complex descriptions, artistic styles, and creative concepts",
         "icon": "wand"
       },
       {
-        "title": "Increased Output Diversity",
-        "description": "Explore various interpretations and styles from similar prompts",
+        "title": "Infinite Creative Styles",
+        "description": "From photorealistic to artistic, abstract to vintage - explore unlimited visual possibilities",
         "icon": "palette"
       }
     ]
   },
   "benefit": {
-    "title": "Why Choose Us",
-    "subtitle": "Benefits that set us apart",
+    "title": "Why FluxAI Studio Leads the Market",
+    "subtitle": "Revolutionary features that transform your creative workflow",
     "benefits": [
       {
-        "title": "Increased Productivity",
-        "description": "Build and deploy faster with automated workflows",
+        "title": "Lightning-Fast Generation",
+        "description": "Create professional-quality images in under 10 seconds with our optimized AI infrastructure",
         "icon": "speed"
       },
       {
-        "title": "Better Collaboration",
-        "description": "Work together seamlessly with built-in collaboration tools",
+        "title": "Advanced AI Models",
+        "description": "Access to Flux Pro, Flux 1.1 Pro Ultra, and Flux Schnell - the most powerful image generation models",
         "icon": "team"
       },
       {
-        "title": "Enhanced Security",
-        "description": "Enterprise-grade security to protect your code and data",
+        "title": "Commercial License Included",
+        "description": "Use generated images for commercial projects with full rights and enterprise-grade security",
         "icon": "shield"
       }
     ]
@@ -157,112 +157,115 @@
     ]
   },
   "stats": {
-    "title": "By the Numbers",
-    "subtitle": "Our impact in the development community",
+    "title": "Trusted by Creators Worldwide",
+    "subtitle": "Join millions of artists, designers, and creators who trust FluxAI Studio",
     "stats": [
       {
-        "value": "10M+",
-        "label": "Downloads",
-        "description": "Active developers using our platform"
+        "value": "5M+",
+        "label": "Images Generated",
+        "description": "High-quality AI images created daily"
       },
       {
-        "value": "50K+",
-        "label": "Projects",
-        "description": "Successfully completed projects"
+        "value": "100K+",
+        "label": "Active Creators",
+        "description": "Artists and designers worldwide"
       },
       {
         "value": "99.9%",
         "label": "Uptime",
-        "description": "Platform reliability"
+        "description": "Reliable AI generation service"
       },
       {
-        "value": "24/7",
-        "label": "Support",
-        "description": "Always here to help"
+        "value": "<10s",
+        "label": "Generation Time",
+        "description": "Average image creation speed"
       }
     ]
   },
   "pricing": {
-    "title": "Choose Your Plan",
-    "subtitle": "Start creating amazing images today",
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the perfect plan for your creative needs",
     "perMonth": "/month",
     "contactUs": "Contact Us",
     "getStarted": "Get Started",
-    "buyNow": "Buy Now",
+    "buyNow": "Start Creating",
     "pleaseLogin": "Please log in to continue with your purchase",
     "plans": [
       {
-        "name": "Basic",
+        "name": "Starter",
         "price": "$9.99",
         "amount": 9.99,
-        "description": "Perfect for individuals",
+        "description": "Perfect for hobbyists and beginners",
         "features": [
-          "100 images per month",
-          "Basic image generation",
-          "Email support",
+          "200 images per month",
           "HD resolution (1024x1024)",
-          "Access to Flux Basic model"
+          "Basic Flux model access",
+          "Email support",
+          "Commercial license included",
+          "Download in PNG/JPG formats"
         ]
       },
       {
-        "name": "Pro",
+        "name": "Creator",
         "price": "$29.99",
         "amount": 29.99,
-        "description": "For creative professionals",
+        "description": "Ideal for professional creators",
         "features": [
-          "500 images per month",
-          "Advanced image generation",
-          "Priority support",
-          "4K resolution",
-          "Access to all Flux models",
-          "Custom image styles",
-          "Batch processing"
+          "1,000 images per month",
+          "4K Ultra HD resolution",
+          "All Flux models (Pro, Ultra, Schnell)",
+          "Priority generation queue",
+          "Advanced style controls",
+          "Batch processing",
+          "Priority email support",
+          "API access"
         ]
       },
       {
-        "name": "Enterprise",
+        "name": "Studio",
         "price": "Contact Us",
-        "description": "For large organizations",
+        "description": "For teams and enterprises",
         "features": [
-          "Unlimited images",
-          "Custom API access",
-          "24/7 dedicated support",
-          "Custom resolution options",
-          "Private model training",
-          "SLA guarantee",
-          "Custom integration support"
+          "Unlimited image generation",
+          "Custom model fine-tuning",
+          "Dedicated account manager",
+          "Custom API integration",
+          "White-label solutions",
+          "SLA guarantee (99.9% uptime)",
+          "24/7 phone support",
+          "Custom resolution options"
         ]
       }
     ]
   },
   "testimonial": {
-    "title": "What Our Users Say",
-    "subtitle": "Don't just take our word for it",
+    "title": "Loved by Creators Worldwide",
+    "subtitle": "See what our community of artists and designers are saying",
     "testimonials": [
       {
-        "content": "This platform has transformed how we build software. The productivity gains are incredible.",
+        "content": "FluxAI Studio has revolutionized my creative workflow. The quality and speed are absolutely incredible - I can bring any concept to life in seconds!",
         "author": {
-          "name": "John Doe",
-          "title": "CTO",
-          "company": "Tech Corp",
+          "name": "Sarah Chen",
+          "title": "Digital Artist",
+          "company": "Creative Studio",
           "image": "/testimonials/1.jpg"
         }
       },
       {
-        "content": "The best development platform we've used. The features and support are unmatched.",
+        "content": "As a marketing professional, I need high-quality visuals fast. FluxAI Studio delivers stunning results every time, saving me hours of work.",
         "author": {
-          "name": "Jane Smith",
-          "title": "Lead Developer",
-          "company": "Dev Inc",
+          "name": "Marcus Rodriguez",
+          "title": "Marketing Director",
+          "company": "Brand Agency",
           "image": "/testimonials/2.jpg"
         }
       },
       {
-        "content": "A game-changer for our development team. We've cut our development time in half.",
+        "content": "The AI understands exactly what I'm looking for. From photorealistic portraits to abstract art, the results consistently exceed my expectations.",
         "author": {
-          "name": "Mike Johnson",
-          "title": "Engineering Manager",
-          "company": "Software Co",
+          "name": "Emily Watson",
+          "title": "Freelance Designer",
+          "company": "Independent",
           "image": "/testimonials/3.jpg"
         }
       }
@@ -270,19 +273,27 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Find answers to common questions",
+    "subtitle": "Everything you need to know about FluxAI Studio",
     "faqs": [
       {
-        "question": "How do I get started?",
-        "answer": "Sign up for a free account and follow our quick start guide. You'll be up and running in minutes."
+        "question": "How do I get started with FluxAI Studio?",
+        "answer": "Simply sign up for a free account, choose your plan, and start creating! Our intuitive interface makes it easy to generate your first AI image in under a minute."
       },
       {
-        "question": "What kind of support do you offer?",
-        "answer": "We offer various support options including community forums, documentation, and dedicated support for paid plans."
+        "question": "What image formats and resolutions are supported?",
+        "answer": "We support PNG and JPG formats with resolutions from 512x512 up to 4K (4096x4096) depending on your plan. All images are generated in high quality with commercial usage rights."
       },
       {
-        "question": "Can I use it with my existing tools?",
-        "answer": "Yes! Our platform integrates with most popular development tools and services."
+        "question": "Can I use the generated images commercially?",
+        "answer": "Yes! All plans include commercial usage rights. You can use the generated images for business, marketing, products, or any commercial purpose without additional licensing fees."
+      },
+      {
+        "question": "How fast is the image generation?",
+        "answer": "Most images are generated in under 10 seconds. Pro and Studio plan users get priority queue access for even faster generation times."
+      },
+      {
+        "question": "What makes Flux models special?",
+        "answer": "Flux models are state-of-the-art AI systems that excel at understanding complex prompts, generating photorealistic details, and maintaining consistency across different styles and subjects."
       }
     ]
   },
@@ -310,36 +321,76 @@
     "signUpSuccess": "Registration successful! Signing you in..."
   },
   "cta": {
-    "title": "Ready to Get Started?",
-    "subtitle": "Join thousands of developers already using our platform",
+    "title": "Ready to Transform Your Ideas?",
+    "subtitle": "Join over 100,000 creators who trust FluxAI Studio for their visual content needs",
     "cta": {
-      "primary": "Start Free Trial",
-      "secondary": "Contact Sales"
+      "primary": "Start Creating Free",
+      "secondary": "View Pricing"
     }
   },
   "footer": {
-    "copyright": "All rights reserved",
-    "about": {
-      "title": "About",
-      "about": "About Us",
-      "blog": "Blog"
+    "newsletter": {
+      "title": "Stay Connected",
+      "description": "Join our newsletter for the latest AI image generation tips, updates, and exclusive offers.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "subscribeAria": "Subscribe to newsletter"
     },
-    "support": {
-      "title": "Support",
-      "helpCenter": "Help Center",
-      "contactUs": "Contact Us"
+    "quickLinks": {
+      "title": "Quick Links",
+      "home": "Home",
+      "features": "Features",
+      "pricing": "Pricing",
+      "gallery": "Gallery",
+      "blog": "Blog",
+      "about": "About Us"
+    },
+    "resources": {
+      "title": "Resources",
+      "documentation": "Documentation",
+      "tutorials": "Tutorials",
+      "community": "Community",
+      "support": "Support Center",
+      "api": "API Reference"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About FluxAI",
+      "careers": "Careers",
+      "press": "Press Kit",
+      "contact": "Contact Us",
+      "partners": "Partners"
+    },
+    "social": {
+      "title": "Follow Us",
+      "facebook": "Follow us on Facebook",
+      "twitter": "Follow us on Twitter",
+      "instagram": "Follow us on Instagram",
+      "linkedin": "Connect with us on LinkedIn",
+      "youtube": "Subscribe to our YouTube",
+      "discord": "Join our Discord"
     },
     "legal": {
       "title": "Legal",
       "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "terms": "Terms of Service",
+      "cookies": "Cookie Settings",
+      "dmca": "DMCA Policy"
     },
-    "language": {
-      "title": "Language",
-      "english": "English",
-      "chinese": "中文",
-      "japanese": "日本語"
-    }
+    "contact": {
+      "title": "Contact Info",
+      "address": "San Francisco, CA",
+      "email": "hello@fluxai.studio",
+      "phone": "+1 (555) 123-4567",
+      "hours": "24/7 Support Available"
+    },
+    "theme": {
+      "light": "Light mode",
+      "dark": "Dark mode",
+      "toggle": "Toggle theme"
+    },
+    "copyright": "© 2024 FluxAI Studio. All rights reserved.",
+    "tagline": "Empowering creativity with AI"
   },
   "orders": {
     "title": "My Orders",

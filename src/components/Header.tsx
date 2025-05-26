@@ -70,14 +70,15 @@ export default function Header({ header }: HeaderProps) {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-      <nav className="relative flex h-16 items-center justify-between">
-        {/* Left: Logo */}
-        <div className="flex-none">
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold">{header.logo}</span>
-          </Link>
-        </div>
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200/50 dark:border-gray-800/50 bg-white/80 dark:bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-background/60 transition-colors duration-300">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <nav className="relative flex h-16 items-center justify-between">
+          {/* Left: Logo */}
+          <div className="flex-none">
+            <Link href="/" className="flex items-center group">
+              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 group-hover:from-blue-700 group-hover:to-purple-700 transition-all duration-300">{header.logo}</span>
+            </Link>
+          </div>
 
         {/* Center: Navigation Links - Desktop Only */}
         <div className="hidden md:flex items-center justify-center flex-1 px-8">
@@ -88,10 +89,10 @@ export default function Header({ header }: HeaderProps) {
                 <Link
                   key={key}
                   href={`/${pathname.split('/')[1]}#${key}`}
-                  className={`text-sm hover:text-gray-900 transition-colors ${
+                  className={`text-sm hover:text-gray-900 dark:hover:text-white transition-colors duration-300 ${
                     isActive
                       ? "text-primary font-medium"
-                      : "text-gray-600"
+                      : "text-gray-600 dark:text-gray-300"
                   }`}
                 >
                   {value}
@@ -105,7 +106,7 @@ export default function Header({ header }: HeaderProps) {
         <div className="hidden md:flex items-center space-x-6">
           <ThemeToggle />
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900">
+            <DropdownMenuTrigger className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
               <Globe className="h-4 w-4" />
               <span>{localeNames[currentLocale]}</span>
             </DropdownMenuTrigger>
@@ -188,7 +189,7 @@ export default function Header({ header }: HeaderProps) {
                 <Button
                   onClick={() => signIn()}
                   size="sm"
-                  className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full px-6"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full px-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   {header.cta.login}
                 </Button>
@@ -270,7 +271,8 @@ export default function Header({ header }: HeaderProps) {
             </SheetContent>
           </Sheet>
         </div>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </header>
   );
 }

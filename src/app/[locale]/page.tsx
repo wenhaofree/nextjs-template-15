@@ -55,8 +55,7 @@ export default async function LandingPage({
       {page.faq && <FAQ section={page.faq} />}
       {page.cta && <CTA section={page.cta} />}
 
-      {/* {page.footer && <Footerdemo footer={page.footer} />} */}
-      <Footer />
+      {page.footer && <Footer footer={page.footer} />}
     </>
   );
 }

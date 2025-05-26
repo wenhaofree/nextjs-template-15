@@ -2,19 +2,19 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "您的Logo",
+    "logo": "FluxAI 工作室",
     "nav": {
       "introduce": "功能特点",
       "benefit": "产品优势",
-      "showcase": "案例展示",
+      "showcase": "作品画廊",
       "stats": "数据统计",
-      "pricing": "价格",
+      "pricing": "价格方案",
       "testimonial": "用户评价",
       "faq": "常见问题"
     },
     "cta": {
       "login": "登录",
-      "signup": "开始使用"
+      "signup": "开始创作"
     },
     "userMenu": {
       "myOrders": "我的订单",
@@ -23,12 +23,12 @@
     }
   },
   "hero": {
-    "title": "将您的想象力转化为图像",
-    "subtitle": "观看您的文字如何在 Flux AI 图像生成器中绽放为惊艳的视觉效果",
-    "description": "领先的AI图像生成平台，具备增强细节、改进提示词响应和多样化输出功能",
+    "title": "秒速创造惊艳AI图像",
+    "subtitle": "用最先进的AI技术，将您最疯狂的创意转化为令人惊叹的视觉作品",
+    "description": "专业级AI图像生成平台，基于Flux模型驱动。从简单的文字描述创建、定制并下载高分辨率图像。",
     "cta": {
-      "primary": "免费开始",
-      "secondary": "查看画廊"
+      "primary": "免费开始创作",
+      "secondary": "浏览作品画廊"
     }
   },
   "branding": {
@@ -50,45 +50,45 @@
     ]
   },
   "introduce": {
-    "title": "先进的AI图像生成",
-    "subtitle": "为创意思维提供强大功能",
-    "description": "使用我们的前沿AI技术，从文本描述生成高质量图像",
+    "title": "下一代AI图像创作技术",
+    "subtitle": "释放您的创意潜能",
+    "description": "体验数字艺术的未来，我们最先进的Flux AI模型能够理解您的愿景并将其变为现实",
     "image": "/features/intro.jpg",
     "features": [
       {
-        "title": "增强图像细节",
-        "description": "使用先进的AI算法生成具有卓越细节和清晰度的图像",
+        "title": "超高分辨率输出",
+        "description": "生成高达4K分辨率的清晰细腻图像，具备惊人的清晰度和专业品质",
         "icon": "sparkles"
       },
       {
-        "title": "改进提示词响应",
-        "description": "准确解释和执行您的文本提示，实现精确的结果",
+        "title": "智能提示词理解",
+        "description": "我们的AI完美解读复杂描述、艺术风格和创意概念",
         "icon": "wand"
       },
       {
-        "title": "提升输出多样性",
-        "description": "从相似的提示词探索各种不同的诠释和风格",
+        "title": "无限创意风格",
+        "description": "从写实到艺术、抽象到复古 - 探索无限的视觉可能性",
         "icon": "palette"
       }
     ]
   },
   "benefit": {
-    "title": "为什么选择我们",
-    "subtitle": "与众不同的优势",
+    "title": "FluxAI工作室引领市场的原因",
+    "subtitle": "革命性功能，改变您的创意工作流程",
     "benefits": [
       {
-        "title": "提升生产力",
-        "description": "通过自动化工作流程更快地构建和部署",
+        "title": "闪电般的生成速度",
+        "description": "通过我们优化的AI基础设施，在10秒内创建专业品质的图像",
         "icon": "speed"
       },
       {
-        "title": "更好的协作",
-        "description": "使用内置协作工具无缝协作",
+        "title": "先进AI模型",
+        "description": "访问Flux Pro、Flux 1.1 Pro Ultra和Flux Schnell - 最强大的图像生成模型",
         "icon": "team"
       },
       {
-        "title": "增强安全性",
-        "description": "企业级安全保护您的代码和数据",
+        "title": "包含商业许可",
+        "description": "生成的图像可用于商业项目，享有完整权利和企业级安全保障",
         "icon": "shield"
       }
     ]
@@ -157,112 +157,143 @@
     ]
   },
   "stats": {
-    "title": "数据说话",
-    "subtitle": "我们在开发者社区的影响力",
+    "title": "全球创作者的信赖之选",
+    "subtitle": "加入数百万信任FluxAI工作室的艺术家、设计师和创作者",
     "stats": [
       {
-        "value": "10M+",
-        "label": "下载量",
-        "description": "正在使用我们平台的活跃开发者"
+        "value": "500万+",
+        "label": "图像生成量",
+        "description": "每日创建的高质量AI图像"
       },
       {
-        "value": "50K+",
-        "label": "项目",
-        "description": "成功完成的项目"
+        "value": "10万+",
+        "label": "活跃创作者",
+        "description": "全球艺术家和设计师"
       },
       {
         "value": "99.9%",
-        "label": "运行时间",
-        "description": "平台可靠性"
+        "label": "服务可用性",
+        "description": "可靠的AI生成服务"
       },
       {
-        "value": "24/7",
-        "label": "支持",
-        "description": "随时为您服务"
+        "value": "<10秒",
+        "label": "生成时间",
+        "description": "平均图像创建速度"
       }
     ]
   },
   "pricing": {
-    "title": "选择您的方案",
-    "subtitle": "立即开始创建惊艳图像",
+    "title": "简单透明的定价",
+    "subtitle": "选择最适合您创意需求的完美方案",
     "perMonth": "/月",
     "contactUs": "联系我们",
     "getStarted": "开始使用",
-    "buyNow": "立即购买",
+    "buyNow": "开始创作",
     "pleaseLogin": "请先登录后再进行购买",
     "plans": [
       {
-        "name": "基础版",
+        "name": "入门版",
         "price": "$9.99",
         "amount": 9.99,
-        "description": "个人用户的完美选择",
+        "description": "适合爱好者和初学者",
         "features": [
-          "每月100张图片",
-          "基础图像生成",
-          "邮件支持",
+          "每月200张图片",
           "HD分辨率 (1024x1024)",
-          "访问Flux基础模型"
+          "基础Flux模型访问",
+          "邮件支持",
+          "包含商业许可",
+          "PNG/JPG格式下载"
         ]
       },
       {
-        "name": "专业版",
+        "name": "创作者版",
         "price": "$29.99",
         "amount": 29.99,
-        "description": "适合专业创作者",
+        "description": "专业创作者的理想选择",
         "features": [
           "每月1000张图片",
-          "高级图像生成",
-          "优先支持",
           "4K超高清分辨率",
-          "访问所有Flux模型",
+          "所有Flux模型 (Pro, Ultra, Schnell)",
+          "优先生成队列",
+          "高级风格控制",
+          "批量处理",
+          "优先邮件支持",
           "API访问"
         ]
       },
       {
-        "name": "企业版",
+        "name": "工作室版",
         "price": "联系我们",
-        "description": "为大型团队定制",
+        "description": "适合团队和企业",
         "features": [
-          "无限图片生成",
-          "企业级功能",
+          "无限图像生成",
+          "自定义模型微调",
           "专属客户经理",
           "自定义API集成",
-          "SLA保障",
-          "高级安全特性"
+          "白标解决方案",
+          "SLA保障 (99.9%可用性)",
+          "24/7电话支持",
+          "自定义分辨率选项"
         ]
       }
     ]
   },
   "testimonial": {
-    "title": "用户评价",
-    "subtitle": "听听他们怎么说",
+    "title": "全球创作者的喜爱之选",
+    "subtitle": "看看我们的艺术家和设计师社区怎么说",
     "testimonials": [
       {
-        "content": "这个平台彻底改变了我们创建内容的方式。生产力提升令人难以置信。",
+        "content": "FluxAI工作室彻底革新了我的创意工作流程。质量和速度都令人惊叹 - 我可以在几秒钟内将任何概念变为现实！",
         "author": {
-          "name": "张三",
-          "title": "技术总监",
-          "company": "科技公司",
+          "name": "陈小雅",
+          "title": "数字艺术家",
+          "company": "创意工作室",
           "image": "/testimonials/1.jpg"
+        }
+      },
+      {
+        "content": "作为营销专业人士，我需要快速获得高质量的视觉内容。FluxAI工作室每次都能提供惊艳的结果，为我节省了数小时的工作时间。",
+        "author": {
+          "name": "王明轩",
+          "title": "营销总监",
+          "company": "品牌代理",
+          "image": "/testimonials/2.jpg"
+        }
+      },
+      {
+        "content": "AI完全理解我想要的效果。从写实肖像到抽象艺术，结果总是超出我的预期。",
+        "author": {
+          "name": "李美琳",
+          "title": "自由设计师",
+          "company": "独立工作者",
+          "image": "/testimonials/3.jpg"
         }
       }
     ]
   },
   "faq": {
     "title": "常见问题",
-    "subtitle": "找到常见问题的答案",
+    "subtitle": "关于FluxAI工作室您需要了解的一切",
     "faqs": [
       {
-        "question": "如何开始使用？",
-        "answer": "注册一个免费账户并按照我们的快速入门指南操作。几分钟内即可开始使用。"
+        "question": "如何开始使用FluxAI工作室？",
+        "answer": "只需注册一个免费账户，选择您的方案，然后开始创作！我们直观的界面让您在一分钟内就能生成第一张AI图像。"
       },
       {
-        "question": "提供什么样的支持？",
-        "answer": "我们提供多种支持选项，包括社区论坛、文档以及付费方案的专属支持。"
+        "question": "支持哪些图像格式和分辨率？",
+        "answer": "我们支持PNG和JPG格式，分辨率从512x512到4K (4096x4096)，具体取决于您的方案。所有图像都以高质量生成，并包含商业使用权。"
       },
       {
-        "question": "可以与现有工具集成吗？",
-        "answer": "是的！我们的平台可以与大多数流行的开发工具和服务集成。"
+        "question": "生成的图像可以商用吗？",
+        "answer": "是的！所有方案都包含商业使用权。您可以将生成的图像用于商业、营销、产品或任何商业目的，无需额外的许可费用。"
+      },
+      {
+        "question": "图像生成速度有多快？",
+        "answer": "大多数图像在10秒内生成完成。专业版和工作室版用户可享受优先队列访问，获得更快的生成时间。"
+      },
+      {
+        "question": "Flux模型有什么特别之处？",
+        "answer": "Flux模型是最先进的AI系统，擅长理解复杂提示词、生成逼真细节，并在不同风格和主题间保持一致性。"
       }
     ]
   },
@@ -290,36 +321,76 @@
     "signUpSuccess": "注册成功！正在自动登录..."
   },
   "cta": {
-    "title": "准备开始了吗？",
-    "subtitle": "加入已经在使用我们平台的数千名开发者",
+    "title": "准备好转化您的创意了吗？",
+    "subtitle": "加入超过10万名信任FluxAI工作室满足视觉内容需求的创作者",
     "cta": {
-      "primary": "免费试用",
-      "secondary": "联系销售"
+      "primary": "免费开始创作",
+      "secondary": "查看价格"
     }
   },
   "footer": {
-    "copyright": "保留所有权利",
-    "about": {
-      "title": "关于",
-      "about": "关于我们",
-      "blog": "博客"
+    "newsletter": {
+      "title": "保持联系",
+      "description": "订阅我们的新闻通讯，获取最新的AI图像生成技巧、更新和独家优惠。",
+      "placeholder": "输入您的邮箱",
+      "subscribe": "订阅",
+      "subscribeAria": "订阅新闻通讯"
     },
-    "support": {
-      "title": "支持",
-      "helpCenter": "帮助中心",
-      "contactUs": "联系我们"
+    "quickLinks": {
+      "title": "快速链接",
+      "home": "首页",
+      "features": "功能特点",
+      "pricing": "价格方案",
+      "gallery": "作品画廊",
+      "blog": "博客",
+      "about": "关于我们"
+    },
+    "resources": {
+      "title": "资源",
+      "documentation": "文档",
+      "tutorials": "教程",
+      "community": "社区",
+      "support": "支持中心",
+      "api": "API参考"
+    },
+    "company": {
+      "title": "公司",
+      "about": "关于FluxAI",
+      "careers": "招聘",
+      "press": "媒体资料",
+      "contact": "联系我们",
+      "partners": "合作伙伴"
+    },
+    "social": {
+      "title": "关注我们",
+      "facebook": "在Facebook上关注我们",
+      "twitter": "在Twitter上关注我们",
+      "instagram": "在Instagram上关注我们",
+      "linkedin": "在LinkedIn上联系我们",
+      "youtube": "订阅我们的YouTube",
+      "discord": "加入我们的Discord"
     },
     "legal": {
       "title": "法律",
       "privacy": "隐私政策",
-      "terms": "服务条款"
+      "terms": "服务条款",
+      "cookies": "Cookie设置",
+      "dmca": "DMCA政策"
     },
-    "language": {
-      "title": "语言",
-      "english": "English",
-      "chinese": "中文",
-      "japanese": "日本語"
-    }
+    "contact": {
+      "title": "联系信息",
+      "address": "旧金山，加利福尼亚",
+      "email": "hello@fluxai.studio",
+      "phone": "+1 (555) 123-4567",
+      "hours": "24/7全天候支持"
+    },
+    "theme": {
+      "light": "浅色模式",
+      "dark": "深色模式",
+      "toggle": "切换主题"
+    },
+    "copyright": "© 2024 FluxAI工作室。保留所有权利。",
+    "tagline": "用AI赋能创意"
   },
   "orders": {
     "title": "我的订单",
