@@ -110,8 +110,8 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
       className={cn(
         "relative flex flex-col gap-8 overflow-hidden p-6",
         isHighlighted
-          ? "bg-foreground text-background"
-          : "bg-background text-foreground",
+          ? "bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 text-gray-900 dark:text-white border-indigo-200 dark:border-slate-700 shadow-xl"
+          : "bg-white dark:bg-gray-800 text-foreground border border-gray-200 dark:border-gray-700 shadow-sm",
         isPopular && "ring-2 ring-primary"
       )}
     >
@@ -139,27 +139,37 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
               value={price}
               className="text-4xl font-medium"
             />
-            <p className="-mt-2 text-xs text-muted-foreground">
+            <p className={cn(
+              "-mt-2 text-xs",
+              isHighlighted ? "text-gray-600 dark:text-gray-300" : "text-muted-foreground"
+            )}>
               {locale === "zh" ? "每月/用户" : "Per month/user"}
             </p>
           </>
         ) : (
-          <h1 className="text-4xl font-medium">{price}</h1>
+          <h1 className="text-4xl font-medium">
+            {price}
+          </h1>
         )}
       </div>
 
       <div className="flex-1 space-y-2">
-        <h3 className="text-sm font-medium">{tier.description}</h3>
+        <h3 className="text-sm font-medium">
+          {tier.description}
+        </h3>
         <ul className="space-y-2">
           {tier.features.map((feature, index) => (
             <li
               key={index}
               className={cn(
                 "flex items-center gap-2 text-sm font-medium",
-                isHighlighted ? "text-background" : "text-muted-foreground"
+                isHighlighted ? "text-gray-700 dark:text-gray-300" : "text-muted-foreground"
               )}
             >
-              <BadgeCheck className="h-4 w-4" />
+              <BadgeCheck className={cn(
+                "h-4 w-4",
+                isHighlighted ? "text-indigo-600 dark:text-indigo-400" : "text-green-500 dark:text-green-400"
+              )} />
               {feature}
             </li>
           ))}
