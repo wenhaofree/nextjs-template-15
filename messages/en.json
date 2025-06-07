@@ -4,9 +4,7 @@
   "header": {
     "logo": "FluxAI Studio",
     "nav": {
-      "introduce": "Features",
       "benefit": "Benefits",
-      "showcase": "Gallery",
       "stats": "Stats",
       "pricing": "Pricing",
       "testimonial": "Reviews",
@@ -31,47 +29,8 @@
       "secondary": "Explore Gallery"
     }
   },
-  "branding": {
-    "title": "Trusted by Industry Leaders",
-    "subtitle": "Join thousands of companies already using our platform",
-    "brands": [
-      {
-        "name": "Company 1",
-        "logo": "/brands/1.svg"
-      },
-      {
-        "name": "Company 2",
-        "logo": "/brands/2.svg"
-      },
-      {
-        "name": "Company 3",
-        "logo": "/brands/3.svg"
-      }
-    ]
-  },
-  "introduce": {
-    "title": "Next-Generation AI Image Creation",
-    "subtitle": "Unleash Your Creative Potential",
-    "description": "Experience the future of digital art with our state-of-the-art Flux AI models that understand your vision and bring it to life",
-    "image": "/features/intro.gif",
-    "features": [
-      {
-        "title": "Ultra-High Resolution",
-        "description": "Generate crisp, detailed images up to 4K resolution with stunning clarity and professional quality",
-        "icon": "sparkles"
-      },
-      {
-        "title": "Smart Prompt Understanding",
-        "description": "Our AI perfectly interprets complex descriptions, artistic styles, and creative concepts",
-        "icon": "wand"
-      },
-      {
-        "title": "Infinite Creative Styles",
-        "description": "From photorealistic to artistic, abstract to vintage - explore unlimited visual possibilities",
-        "icon": "palette"
-      }
-    ]
-  },
+
+
   "benefit": {
     "title": "Why FluxAI Studio Leads the Market",
     "subtitle": "Revolutionary features that transform your creative workflow",
@@ -93,69 +52,9 @@
       }
     ]
   },
-  "usage": {
-    "title": "How It Works",
-    "subtitle": "Get started in three simple steps",
-    "steps": [
-      {
-        "title": "Create Your Project",
-        "description": "Set up your project with our intuitive project creation wizard",
-        "image": "/usage/step1.png"
-      },
-      {
-        "title": "Configure Settings",
-        "description": "Customize your project settings to match your needs",
-        "image": "/usage/step2.png"
-      },
-      {
-        "title": "Start Development",
-        "description": "Begin coding with our powerful development tools",
-        "image": "/usage/step3.png"
-      }
-    ]
-  },
-  "feature": {
-    "title": "Available Models",
-    "subtitle": "Choose the perfect model for your needs",
-    "items": [
-      {
-        "title": "Flux Pro",
-        "description": "Flagship model optimized for high-end commercial use",
-        "icon": "star"
-      },
-      {
-        "title": "Flux 1.1 Pro Ultra",
-        "description": "4K resolution generator optimized for high-speed generation",
-        "icon": "bolt"
-      },
-      {
-        "title": "Flux Schnell",
-        "description": "Turbo mode for fastest image generation",
-        "icon": "rocket"
-      }
-    ]
-  },
-  "showcase": {
-    "title": "See It in Action",
-    "subtitle": "Real projects built with our platform",
-    "gallery": [
-      {
-        "title": "Project 1",
-        "description": "A modern web application",
-        "image": "/gallery/1.jpg"
-      },
-      {
-        "title": "Project 2",
-        "description": "Mobile app development",
-        "image": "/gallery/2.jpg"
-      },
-      {
-        "title": "Project 3",
-        "description": "Enterprise solution",
-        "image": "/gallery/3.jpg"
-      }
-    ]
-  },
+
+
+
   "stats": {
     "title": "Trusted by Creators Worldwide",
     "subtitle": "Join millions of artists, designers, and creators who trust FluxAI Studio",
@@ -341,7 +240,6 @@
       "home": "Home",
       "features": "Features",
       "pricing": "Pricing",
-      "gallery": "Gallery",
       "blog": "Blog",
       "about": "About Us"
     },

@@ -99,10 +99,12 @@ const testimonials = [
 
 export function Testimonial({ section }: TestimonialProps) {
   return (
-    <TestimonialsSection
-      title={section.title}
-      description={section.subtitle}
-      testimonials={testimonials}
-    />
+    <section id="testimonials">
+      <TestimonialsSection
+        title={section.title}
+        description={section.subtitle}
+        testimonials={testimonials}
+      />
+    </section>
   )
 }

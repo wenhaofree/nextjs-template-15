@@ -4,9 +4,7 @@
   "header": {
     "logo": "FluxAI 工作室",
     "nav": {
-      "introduce": "功能特点",
       "benefit": "产品优势",
-      "showcase": "作品画廊",
       "stats": "数据统计",
       "pricing": "价格方案",
       "testimonial": "用户评价",
@@ -31,47 +29,8 @@
       "secondary": "浏览作品画廊"
     }
   },
-  "branding": {
-    "title": "行业领袖的信赖之选",
-    "subtitle": "加入已在使用我们平台的数千家公司",
-    "brands": [
-      {
-        "name": "公司 1",
-        "logo": "/brands/1.svg"
-      },
-      {
-        "name": "公司 2",
-        "logo": "/brands/2.svg"
-      },
-      {
-        "name": "公司 3",
-        "logo": "/brands/3.svg"
-      }
-    ]
-  },
-  "introduce": {
-    "title": "下一代AI图像创作技术",
-    "subtitle": "释放您的创意潜能",
-    "description": "体验数字艺术的未来，我们最先进的Flux AI模型能够理解您的愿景并将其变为现实",
-    "image": "/features/intro.jpg",
-    "features": [
-      {
-        "title": "超高分辨率输出",
-        "description": "生成高达4K分辨率的清晰细腻图像，具备惊人的清晰度和专业品质",
-        "icon": "sparkles"
-      },
-      {
-        "title": "智能提示词理解",
-        "description": "我们的AI完美解读复杂描述、艺术风格和创意概念",
-        "icon": "wand"
-      },
-      {
-        "title": "无限创意风格",
-        "description": "从写实到艺术、抽象到复古 - 探索无限的视觉可能性",
-        "icon": "palette"
-      }
-    ]
-  },
+
+
   "benefit": {
     "title": "FluxAI工作室引领市场的原因",
     "subtitle": "革命性功能，改变您的创意工作流程",
@@ -93,69 +52,9 @@
       }
     ]
   },
-  "usage": {
-    "title": "使用方法",
-    "subtitle": "三个简单步骤开始使用",
-    "steps": [
-      {
-        "title": "创建您的项目",
-        "description": "使用我们直观的项目创建向导设置您的项目",
-        "image": "/usage/step1.png"
-      },
-      {
-        "title": "配置设置",
-        "description": "根据您的需求自定义项目设置",
-        "image": "/usage/step2.png"
-      },
-      {
-        "title": "开始开发",
-        "description": "使用我们强大的开发工具开始编码",
-        "image": "/usage/step3.png"
-      }
-    ]
-  },
-  "feature": {
-    "title": "可用模型",
-    "subtitle": "选择最适合您需求的模型",
-    "items": [
-      {
-        "title": "Flux Pro",
-        "description": "为高端商业用途优化的旗舰模型",
-        "icon": "star"
-      },
-      {
-        "title": "Flux 1.1 Pro Ultra",
-        "description": "针对高速生成优化的4K分辨率生成器",
-        "icon": "bolt"
-      },
-      {
-        "title": "Flux Schnell",
-        "description": "最快图像生成的涡轮模式",
-        "icon": "rocket"
-      }
-    ]
-  },
-  "showcase": {
-    "title": "实际效果",
-    "subtitle": "使用我们平台构建的真实项目",
-    "gallery": [
-      {
-        "title": "项目 1",
-        "description": "现代网络应用",
-        "image": "/gallery/1.jpg"
-      },
-      {
-        "title": "项目 2",
-        "description": "移动应用开发",
-        "image": "/gallery/2.jpg"
-      },
-      {
-        "title": "项目 3",
-        "description": "企业解决方案",
-        "image": "/gallery/3.jpg"
-      }
-    ]
-  },
+
+
+
   "stats": {
     "title": "全球创作者的信赖之选",
     "subtitle": "加入数百万信任FluxAI工作室的艺术家、设计师和创作者",
@@ -341,7 +240,6 @@
       "home": "首页",
       "features": "功能特点",
       "pricing": "价格方案",
-      "gallery": "作品画廊",
       "blog": "博客",
       "about": "关于我们"
     },

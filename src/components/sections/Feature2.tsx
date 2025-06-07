@@ -100,10 +100,14 @@ const features = [
 
 export function Feature2({ section }: Feature2Props) {
   return (
-    <BentoGrid className="lg:grid-rows-3">
-      {features.map((feature) => (
-        <BentoCard key={feature.name} {...feature} />
-      ))}
-    </BentoGrid>
+    <section id="features" className="py-20">
+      <div className="container mx-auto px-4">
+        <BentoGrid className="lg:grid-rows-3">
+          {features.map((feature) => (
+            <BentoCard key={feature.name} {...feature} />
+          ))}
+        </BentoGrid>
+      </div>
+    </section>
   );
 }

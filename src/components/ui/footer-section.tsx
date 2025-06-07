@@ -90,7 +90,7 @@ function Footer({ footer }: FooterProps) {
   }
 
   return (
-    <footer className="relative border-t bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-background transition-colors duration-300">
+    <footer id="contact" className="relative border-t bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-background transition-colors duration-300">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,#3c8dfc05,transparent)]" />
@@ -133,14 +133,11 @@ function Footer({ footer }: FooterProps) {
               <a href="#hero" className="block transition-colors hover:text-primary font-medium">
                 {footer.quickLinks.home}
               </a>
-              <a href="#benefit" className="block transition-colors hover:text-primary">
+              <a href="#features" className="block transition-colors hover:text-primary">
                 {footer.quickLinks.features}
               </a>
               <a href="#pricing" className="block transition-colors hover:text-primary">
                 {footer.quickLinks.pricing}
-              </a>
-              <a href="#showcase" className="block transition-colors hover:text-primary">
-                {footer.quickLinks.gallery}
               </a>
               <a href="/blog" className="block transition-colors hover:text-primary">
                 {footer.quickLinks.blog}

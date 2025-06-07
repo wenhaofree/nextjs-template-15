@@ -27,10 +27,11 @@ interface HeaderProps {
   header: {
     logo: string;
     nav: {
-      features: string;
+      benefit: string;
+      stats: string;
       pricing: string;
-      examples: string;
-      docs: string;
+      testimonial: string;
+      faq: string;
     };
     cta: {
       login: string;
@@ -84,11 +85,20 @@ export default function Header({ header }: HeaderProps) {
         <div className="hidden md:flex items-center justify-center flex-1 px-8">
           <div className="flex space-x-8">
             {Object.entries(header.nav).map(([key, value]) => {
-              const isActive = pathname.includes(`#${key}`) || pathname.endsWith(`#${key}`);
+              // Map header nav keys to actual section IDs
+              const sectionMap: Record<string, string> = {
+                benefit: 'features',
+                stats: 'stats',
+                pricing: 'pricing',
+                testimonial: 'testimonials',
+                faq: 'faq'
+              };
+              const sectionId = sectionMap[key] || key;
+              const isActive = pathname.includes(`#${sectionId}`) || pathname.endsWith(`#${sectionId}`);
               return (
                 <Link
                   key={key}
-                  href={`/${pathname.split('/')[1]}#${key}`}
+                  href={`/${pathname.split('/')[1]}#${sectionId}`}
                   className={`text-sm hover:text-gray-900 dark:hover:text-white transition-colors duration-300 ${
                     isActive
                       ? "text-primary font-medium"
@@ -213,11 +223,20 @@ export default function Header({ header }: HeaderProps) {
               </SheetHeader>
               <div className="flex flex-col space-y-4 mt-6">
                 {Object.entries(header.nav).map(([key, value]) => {
-                  const isActive = pathname.includes(`#${key}`) || pathname.endsWith(`#${key}`);
+                  // Map header nav keys to actual section IDs
+                  const sectionMap: Record<string, string> = {
+                    benefit: 'features',
+                    stats: 'stats',
+                    pricing: 'pricing',
+                    testimonial: 'testimonials',
+                    faq: 'faq'
+                  };
+                  const sectionId = sectionMap[key] || key;
+                  const isActive = pathname.includes(`#${sectionId}`) || pathname.endsWith(`#${sectionId}`);
                   return (
                     <Link
                       key={key}
-                      href={`/${pathname.split('/')[1]}#${key}`}
+                      href={`/${pathname.split('/')[1]}#${sectionId}`}
                       className={`text-sm hover:text-gray-900 transition-colors ${
                         isActive
                           ? "text-primary font-medium"
