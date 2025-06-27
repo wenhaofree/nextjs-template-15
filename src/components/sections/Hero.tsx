@@ -17,19 +17,20 @@ interface HeroProps {
 
 export function Hero({ hero }: HeroProps) {
   return (
-    <section id="hero" className="relative flex items-center justify-center min-h-[calc(100vh-4rem)] w-full py-12 md:py-24 lg:py-32 overflow-hidden">
-      {/* Enhanced Background with theme-aware gradients */}
+    <section id="hero" className="relative flex items-center justify-center min-h-[calc(100vh-4rem)] w-full py-12 md:py-24 lg:py-32 overflow-hidden bg-background">
+      {/* Unified Background System */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/80" />
-        {/* Theme-aware radial gradients */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.08),transparent)] dark:bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.15),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_400px_at_80%_100px,rgba(139,92,246,0.06),transparent)] dark:bg-[radial-gradient(circle_400px_at_80%_100px,rgba(139,92,246,0.12),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_300px_at_20%_300px,rgba(6,182,212,0.05),transparent)] dark:bg-[radial-gradient(circle_300px_at_20%_300px,rgba(6,182,212,0.1),transparent)]" />
+        {/* Base gradient - seamless transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        {/* Subtle accent gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.03),transparent)] dark:bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.06),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_400px_at_80%_100px,rgba(139,92,246,0.02),transparent)] dark:bg-[radial-gradient(circle_400px_at_80%_100px,rgba(139,92,246,0.04),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_300px_at_20%_300px,rgba(6,182,212,0.02),transparent)] dark:bg-[radial-gradient(circle_300px_at_20%_300px,rgba(6,182,212,0.04),transparent)]" />
       </div>
 
-      {/* Enhanced animated grid background with theme awareness */}
+      {/* Unified grid background */}
       <div className="absolute inset-0 -z-10">
-        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       {/* Theme-aware floating particles effect */}

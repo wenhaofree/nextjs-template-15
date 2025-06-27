@@ -90,11 +90,18 @@ function Footer({ footer }: FooterProps) {
   }
 
   return (
-    <footer id="contact" className="relative border-t bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-background transition-colors duration-300">
-      {/* Background decoration */}
+    <footer id="contact" className="relative border-t border-border bg-background transition-colors duration-300">
+      {/* Unified Background System */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,#3c8dfc05,transparent)]" />
-        <div className="h-full w-full bg-[linear-gradient(to_right,#4f4f4f03_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f03_1px,transparent_1px)] bg-[size:50px_50px]" />
+        {/* Base gradient - seamless transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        {/* Subtle accent gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,rgba(59,130,246,0.02),transparent)] dark:bg-[radial-gradient(circle_600px_at_50%_50%,rgba(59,130,246,0.04),transparent)]" />
+      </div>
+
+      {/* Unified grid background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.01)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       <div className="container mx-auto px-4 py-16 md:px-6 lg:px-8">

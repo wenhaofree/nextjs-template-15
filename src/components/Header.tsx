@@ -164,30 +164,30 @@ export default function Header({ header }: HeaderProps) {
                 </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div className="px-4 py-2 text-sm text-gray-700">
+                  <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm py-1 shadow-lg ring-1 ring-black/5 dark:ring-white/10 border border-gray-200 dark:border-gray-700">
+                    <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
                       <div className="font-medium">{session.user?.name}</div>
                     </div>
-                    <div className="px-4 py-2 text-sm text-gray-700">
-                      <div className="text-gray-500">{session.user?.email}</div>
+                    <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
+                      <div className="text-gray-500 dark:text-gray-400">{session.user?.email}</div>
                     </div>
-                    <div className="border-t border-gray-100" />
+                    <div className="border-t border-gray-100 dark:border-gray-700" />
                     <Link
                       href={`/${currentLocale}/orders`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       {header.userMenu.myOrders}
                     </Link>
                     <Link
                       href={`/${currentLocale}/profile`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       {header.userMenu.profile}
                     </Link>
                     <button
                       type="button"
                       onClick={() => signOut({ callbackUrl: `/${currentLocale}` })}
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-pink-50"
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       {header.userMenu.signOut}
                     </button>
@@ -257,20 +257,20 @@ export default function Header({ header }: HeaderProps) {
                     <div className="text-gray-500">{session.user?.email}</div>
                     <Link
                       href={`/${currentLocale}/orders`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors rounded-md"
                     >
                       {header.userMenu.myOrders}
                     </Link>
                     <Link
                       href={`/${currentLocale}/profile`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors rounded-md"
                     >
                       {header.userMenu.profile}
                     </Link>
                     <button
                       type="button"
                       onClick={() => signOut({ callbackUrl: `/${currentLocale}` })}
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-pink-50"
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors rounded-md"
                     >
                       {header.userMenu.signOut}
                     </button>
@@ -280,7 +280,7 @@ export default function Header({ header }: HeaderProps) {
                     <Button
                       onClick={() => signIn()}
                       size="sm"
-                      className="bg-[#00C7B0] hover:bg-[#00B3A0] text-white rounded-full"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full px-6 shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       {header.cta.login}
                     </Button>

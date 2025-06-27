@@ -14,10 +14,18 @@ body {
   
   html {
     scroll-behavior: smooth;
+    @apply bg-background;
   }
   
   body {
     @apply bg-background text-foreground;
+    /* Ensure seamless background across all sections */
+    background-attachment: fixed;
+  }
+  
+  /* Ensure main content area has consistent background */
+  main {
+    @apply bg-background;
   }
 }
 

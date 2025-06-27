@@ -30,7 +30,6 @@
     }
   },
 
-
   "benefit": {
     "title": "Why FluxAI Studio Leads the Market",
     "subtitle": "Revolutionary features that transform your creative workflow",
@@ -38,22 +37,20 @@
       {
         "title": "Lightning-Fast Generation",
         "description": "Create professional-quality images in under 10 seconds with our optimized AI infrastructure",
-        "icon": "speed"
+        "icon": "⚡"
       },
       {
         "title": "Advanced AI Models",
         "description": "Access to Flux Pro, Flux 1.1 Pro Ultra, and Flux Schnell - the most powerful image generation models",
-        "icon": "team"
+        "icon": "🤖"
       },
       {
         "title": "Commercial License Included",
         "description": "Use generated images for commercial projects with full rights and enterprise-grade security",
-        "icon": "shield"
+        "icon": "🛡️"
       }
     ]
   },
-
-
 
   "stats": {
     "title": "Trusted by Creators Worldwide",
@@ -81,19 +78,24 @@
       }
     ]
   },
+
   "pricing": {
-    "title": "Simple, Transparent Pricing",
+    "title": "Simple & Transparent Pricing",
     "subtitle": "Choose the perfect plan for your creative needs",
     "perMonth": "/month",
     "contactUs": "Contact Us",
     "getStarted": "Get Started",
     "buyNow": "Start Creating",
-    "pleaseLogin": "Please log in to continue with your purchase",
+    "pleaseLogin": "Please login before making a purchase",
+    "frequencies": {
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
     "plans": [
       {
         "name": "Starter",
-        "price": "$9.99",
-        "amount": 9.99,
+        "monthlyPrice": 9.99,
+        "yearlyPrice": 99,
         "description": "Perfect for hobbyists and beginners",
         "features": [
           "200 images per month",
@@ -101,17 +103,17 @@
           "Basic Flux model access",
           "Email support",
           "Commercial license included",
-          "Download in PNG/JPG formats"
+          "PNG/JPG format downloads"
         ]
       },
       {
         "name": "Creator",
-        "price": "$29.99",
-        "amount": 29.99,
+        "monthlyPrice": 29.99,
+        "yearlyPrice": 299,
         "description": "Ideal for professional creators",
         "features": [
-          "1,000 images per month",
-          "4K Ultra HD resolution",
+          "1000 images per month",
+          "4K ultra-high resolution",
           "All Flux models (Pro, Ultra, Schnell)",
           "Priority generation queue",
           "Advanced style controls",
@@ -122,7 +124,8 @@
       },
       {
         "name": "Studio",
-        "price": "Contact Us",
+        "monthlyPrice": "Contact Us",
+        "yearlyPrice": "Contact Us",
         "description": "For teams and enterprises",
         "features": [
           "Unlimited image generation",
@@ -137,12 +140,13 @@
       }
     ]
   },
+
   "testimonial": {
     "title": "Loved by Creators Worldwide",
-    "subtitle": "See what our community of artists and designers are saying",
+    "subtitle": "See what our community of artists and designers have to say",
     "testimonials": [
       {
-        "content": "FluxAI Studio has revolutionized my creative workflow. The quality and speed are absolutely incredible - I can bring any concept to life in seconds!",
+        "content": "FluxAI Studio has completely revolutionized my creative workflow. The quality and speed are mind-blowing - I can turn any concept into reality in seconds!",
         "author": {
           "name": "Sarah Chen",
           "title": "Digital Artist",
@@ -151,18 +155,18 @@
         }
       },
       {
-        "content": "As a marketing professional, I need high-quality visuals fast. FluxAI Studio delivers stunning results every time, saving me hours of work.",
+        "content": "As a marketing professional, I need high-quality visuals fast. FluxAI Studio delivers stunning results every time and saves me hours of work.",
         "author": {
-          "name": "Marcus Rodriguez",
+          "name": "Michael Wang",
           "title": "Marketing Director",
           "company": "Brand Agency",
           "image": "/testimonials/2.jpg"
         }
       },
       {
-        "content": "The AI understands exactly what I'm looking for. From photorealistic portraits to abstract art, the results consistently exceed my expectations.",
+        "content": "The AI perfectly understands what I want to achieve. From photorealistic portraits to abstract art, the results always exceed my expectations.",
         "author": {
-          "name": "Emily Watson",
+          "name": "Emily Lin",
           "title": "Freelance Designer",
           "company": "Independent",
           "image": "/testimonials/3.jpg"
@@ -170,25 +174,26 @@
       }
     ]
   },
+
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Everything you need to know about FluxAI Studio",
     "faqs": [
       {
         "question": "How do I get started with FluxAI Studio?",
-        "answer": "Simply sign up for a free account, choose your plan, and start creating! Our intuitive interface makes it easy to generate your first AI image in under a minute."
+        "answer": "Simply sign up for a free account, choose your plan, and start creating! Our intuitive interface lets you generate your first AI image within minutes."
       },
       {
         "question": "What image formats and resolutions are supported?",
-        "answer": "We support PNG and JPG formats with resolutions from 512x512 up to 4K (4096x4096) depending on your plan. All images are generated in high quality with commercial usage rights."
+        "answer": "We support PNG and JPG formats with resolutions from 512x512 up to 4K (4096x4096), depending on your plan. All images are generated in high quality with commercial usage rights included."
       },
       {
         "question": "Can I use the generated images commercially?",
-        "answer": "Yes! All plans include commercial usage rights. You can use the generated images for business, marketing, products, or any commercial purpose without additional licensing fees."
+        "answer": "Yes! All plans include commercial usage rights. You can use generated images for business, marketing, products, or any commercial purpose without additional licensing fees."
       },
       {
-        "question": "How fast is the image generation?",
-        "answer": "Most images are generated in under 10 seconds. Pro and Studio plan users get priority queue access for even faster generation times."
+        "question": "How fast is image generation?",
+        "answer": "Most images are generated within 10 seconds. Pro and Studio users get priority queue access for even faster generation times."
       },
       {
         "question": "What makes Flux models special?",
@@ -196,41 +201,44 @@
       }
     ]
   },
+
   "auth": {
     "signInTitle": "Sign in to your account",
-    "signInWithGoogle": "Continue with Google",
-    "signInWithGithub": "Continue with GitHub",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithGithub": "Sign in with GitHub",
     "signingIn": "Signing in...",
     "oauthError": "An error occurred during sign in. Please try again.",
     "authError": "Authentication error. Please try again.",
-    "signIn": "Sign in",
+    "signIn": "Sign In",
     "email": "Email address",
     "password": "Password",
-    "confirmPassword": "Confirm password",
+    "confirmPassword": "Confirm Password",
     "noAccount": "Don't have an account? Sign up",
     "alreadyHaveAccount": "Already have an account? Sign in",
     "orContinueWith": "Or continue with",
     "invalidCredentials": "Invalid email or password",
     "signInError": "An error occurred during sign in. Please try again.",
-    "signUp": "Sign up",
+    "signUp": "Sign Up",
     "signingUp": "Signing up...",
-    "createAccount": "Create an account",
+    "createAccount": "Create a new account",
     "signUpError": "An error occurred during sign up. Please try again.",
     "passwordsDoNotMatch": "Passwords do not match",
-    "signUpSuccess": "Registration successful! Signing you in..."
+    "signUpSuccess": "Account created successfully! Signing you in..."
   },
+
   "cta": {
-    "title": "Ready to Transform Your Ideas?",
+    "title": "Ready to Transform Your Creative Process?",
     "subtitle": "Join over 100,000 creators who trust FluxAI Studio for their visual content needs",
     "cta": {
       "primary": "Start Creating Free",
       "secondary": "View Pricing"
     }
   },
+
   "footer": {
     "newsletter": {
       "title": "Stay Connected",
-      "description": "Join our newsletter for the latest AI image generation tips, updates, and exclusive offers.",
+      "description": "Subscribe to our newsletter for the latest AI image generation tips, updates, and exclusive offers.",
       "placeholder": "Enter your email",
       "subscribe": "Subscribe",
       "subscribeAria": "Subscribe to newsletter"
@@ -277,19 +285,20 @@
     },
     "contact": {
       "title": "Contact Info",
-      "address": "San Francisco, CA",
+      "address": "San Francisco, California",
       "email": "hello@fluxai.studio",
       "phone": "+1 (555) 123-4567",
       "hours": "24/7 Support Available"
     },
     "theme": {
-      "light": "Light mode",
-      "dark": "Dark mode",
-      "toggle": "Toggle theme"
+      "light": "Light Mode",
+      "dark": "Dark Mode",
+      "toggle": "Toggle Theme"
     },
     "copyright": "© 2024 FluxAI Studio. All rights reserved.",
     "tagline": "Empowering creativity with AI"
   },
+
   "orders": {
     "title": "My Orders",
     "description": "View all your order history and status",
@@ -299,7 +308,7 @@
       "orderId": "Order ID",
       "amount": "Amount",
       "orderDate": "Order Date",
-      "paidDate": "Payment Date",
+      "paidDate": "Paid Date",
       "status": {
         "paid": "Paid",
         "pending": "Pending",
@@ -308,11 +317,12 @@
       }
     }
   },
+
   "profile": {
-    "title": "My Profile",
-    "subtitle": "View and manage your profile",
+    "title": "Profile",
+    "subtitle": "View and manage your personal information",
     "personalInfo": "Personal Information",
-    "uuid": "UUID",
+    "uuid": "Unique ID",
     "email": "Email",
     "nickname": "Nickname",
     "registrationDate": "Registration Date",

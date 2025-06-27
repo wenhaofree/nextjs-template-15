@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 interface TabProps {
   text: string
   selected: boolean
-  setSelected: (text: string) => void
+  setSelected: () => void
   discount?: boolean
 }
 
@@ -21,7 +21,7 @@ export function Tab({
 }: TabProps) {
   return (
     <button
-      onClick={() => setSelected(text)}
+      onClick={setSelected}
       className={cn(
         "relative w-fit px-4 py-2 text-sm font-semibold capitalize",
         "text-foreground transition-colors",
@@ -44,7 +44,7 @@ export function Tab({
             selected && "bg-muted"
           )}
         >
-          Save 35%
+          Save 20%
         </Badge>
       )}
     </button>

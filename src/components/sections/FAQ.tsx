@@ -20,11 +20,18 @@ interface FAQProps {
 
 export function FAQ({ section }: FAQProps) {
   return (
-    <section id="faq" className="py-24 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background relative overflow-hidden">
-      {/* Background decoration */}
+    <section id="faq" className="py-24 bg-background relative overflow-hidden">
+      {/* Unified Background System */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,rgba(6,182,212,0.05),transparent)] dark:bg-[radial-gradient(circle_600px_at_50%_50%,rgba(6,182,212,0.1),transparent)]" />
-        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        {/* Base gradient - seamless transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        {/* Subtle accent gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,rgba(6,182,212,0.03),transparent)] dark:bg-[radial-gradient(circle_600px_at_50%_50%,rgba(6,182,212,0.06),transparent)]" />
+      </div>
+
+      {/* Unified grid background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       <div className="container mx-auto px-4">

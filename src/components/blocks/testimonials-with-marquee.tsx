@@ -20,14 +20,21 @@ export function TestimonialsSection({
 }: TestimonialsSectionProps) {
   return (
     <section className={cn(
-      "bg-gradient-to-b from-white to-gray-50/50 dark:from-background dark:to-gray-900/50 text-foreground relative overflow-hidden",
+      "bg-background text-foreground relative overflow-hidden",
       "py-12 sm:py-24 md:py-32 px-0",
       className
     )}>
-      {/* Background decoration */}
+      {/* Unified Background System */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,rgba(139,92,246,0.05),transparent)] dark:bg-[radial-gradient(circle_600px_at_50%_50%,rgba(139,92,246,0.1),transparent)]" />
-        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        {/* Base gradient - seamless transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        {/* Subtle accent gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_50%,rgba(139,92,246,0.03),transparent)] dark:bg-[radial-gradient(circle_600px_at_50%_50%,rgba(139,92,246,0.06),transparent)]" />
+      </div>
+
+      {/* Unified grid background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       <div className="mx-auto flex max-w-container flex-col items-center gap-4 text-center sm:gap-16">
@@ -54,8 +61,8 @@ export function TestimonialsSection({
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/3 bg-gradient-to-r from-white dark:from-background sm:block" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-white dark:from-background sm:block" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/3 bg-gradient-to-r from-background to-transparent sm:block" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-background to-transparent sm:block" />
         </div>
       </div>
     </section>

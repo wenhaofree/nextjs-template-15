@@ -65,16 +65,10 @@ export default async function Layout({
           <SplashCursor />
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
-            <div className="fixed inset-x-0 top-0 z-50 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="h-full">
-                  {page.header && <Header header={page.header} />}
-                </div>
-            </div>
-            <main className="flex-1 pt-16">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                  {children}
-                </div>
-              </main>
+            {page.header && <Header header={page.header} />}
+            <main className="flex-1">
+              {children}
+            </main>
             {/* <div className="border-t">
               {page.footer && <Footer footer={page.footer} />}
             </div> */}

@@ -16,16 +16,18 @@ interface CTAProps {
 
 export function CTA({ section }: CTAProps) {
   return (
-    <section id="cta" className="py-24 relative overflow-hidden">
-      {/* Background gradient */}
+    <section id="cta" className="py-24 relative overflow-hidden bg-background">
+      {/* Unified Background System */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_400px,#3c8dfc10,transparent)]" />
+        {/* Base gradient - seamless transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        {/* Subtle accent gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_400px,rgba(59,130,246,0.03),transparent)] dark:bg-[radial-gradient(circle_800px_at_50%_400px,rgba(59,130,246,0.06),transparent)]" />
       </div>
 
-      {/* Animated grid background */}
+      {/* Unified grid background */}
       <div className="absolute inset-0 -z-10">
-        <div className="h-full w-full bg-[linear-gradient(to_right,#4f4f4f0a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f0a_1px,transparent_1px)] bg-[size:38px_38px]" />
+        <div className="h-full w-full bg-[linear-gradient(to_right,rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       <div className="container mx-auto px-4">

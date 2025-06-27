@@ -143,7 +143,9 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
               "-mt-2 text-xs",
               isHighlighted ? "text-gray-600 dark:text-gray-300" : "text-muted-foreground"
             )}>
-              {locale === "zh" ? "每月/用户" : "Per month/user"}
+              {paymentFrequency === "monthly" 
+                ? (locale === "zh" ? "每月/用户" : "Per month/user")
+                : (locale === "zh" ? "每年/用户" : "Per year/user")}
             </p>
           </>
         ) : (

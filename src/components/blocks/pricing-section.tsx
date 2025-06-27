@@ -9,6 +9,7 @@ interface PricingSectionProps {
   subtitle: string
   tiers: PricingTier[]
   frequencies: string[]
+  frequencyLabels?: Record<string, string>
 }
 
 export function PricingSection({
@@ -16,6 +17,7 @@ export function PricingSection({
   subtitle,
   tiers,
   frequencies,
+  frequencyLabels,
 }: PricingSectionProps) {
   const [selectedFrequency, setSelectedFrequency] = React.useState(frequencies[0])
 
@@ -30,9 +32,9 @@ export function PricingSection({
           {frequencies.map((freq) => (
             <Tab
               key={freq}
-              text={freq}
+              text={frequencyLabels?.[freq] || freq}
               selected={selectedFrequency === freq}
-              setSelected={setSelectedFrequency}
+              setSelected={() => setSelectedFrequency(freq)}
               discount={freq === "yearly"}
             />
           ))}
