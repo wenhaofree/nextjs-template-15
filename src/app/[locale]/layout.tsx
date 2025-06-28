@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 // import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
-import { SplashCursor } from "@/components/ui/splash-cursor";
+// import { SplashCursor } from "@/components/ui/splash-cursor";
 import type { Metadata } from "next";
 
 
@@ -62,7 +62,7 @@ export default async function Layout({
   return (
     <html lang={locale} className="scroll-smooth" suppressHydrationWarning>
       <body>
-          <SplashCursor />
+          {/* <SplashCursor /> */}
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
             {page.header && <Header header={page.header} />}
