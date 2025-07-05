@@ -1,568 +1,613 @@
 # NextLaunchPad
 
-NextLaunchPad 是一个基于 Next.js 15 构建的现代化全栈应用框架，采用最新的 React 技术栈，提供完整的企业级开发解决方案。这是一个功能完整的 SaaS 应用模板，包含用户认证、支付系统、国际化、现代化UI组件等企业级功能。
+A modern, full-stack SaaS application template built with Next.js 15, featuring enterprise-grade authentication, payment processing, internationalization, and a comprehensive UI component system. This production-ready template provides everything you need to launch your SaaS product quickly and efficiently.
 
-## 🌟 核心特性
+## 🌟 Key Features
 
-- 🚀 **现代化技术栈**: 基于 Next.js 15 和 React 19 RC版本
-- ⚡️ **极致性能**: Turbopack 支持，提供极致开发体验
-- 🎨 **现代化UI**: Radix UI + Tailwind CSS + Framer Motion 动画
-- 🌐 **国际化支持**: 基于 next-intl 的完整国际化方案 (支持中英文)
-- 🔐 **多种认证方式**: NextAuth.js v4 支持 Google、GitHub、邮箱密码登录
-- 💳 **完整支付系统**: Stripe 支付集成，支持订阅和一次性付款
-- 📊 **数据库管理**: Prisma ORM + MySQL/PostgreSQL
-- 🔔 **用户体验**: Sonner 提示系统 + SplashCursor 交互效果
-- 📱 **响应式设计**: 完全适配移动端和桌面端
-- 🧪 **测试覆盖**: 自动化测试方案
-- 🎯 **SEO优化**: 完整的元数据和页面优化
+- 🚀 **Modern Tech Stack**: Built on Next.js 15 with React 19 RC and TypeScript
+- ⚡️ **Blazing Fast**: Turbopack support for lightning-fast development experience
+- 🎨 **Beautiful UI**: Radix UI + Tailwind CSS + Framer Motion animations
+- 🌐 **Internationalization**: Complete i18n solution with next-intl (English & Chinese)
+- 🔐 **Multi-Auth Support**: NextAuth.js v4 with Google, GitHub, email/password, and Google One Tap
+- 💳 **Payment Integration**: Full Stripe integration with subscriptions and one-time payments
+- 📊 **Database Management**: Prisma ORM with PostgreSQL/MySQL support
+- 🔔 **Enhanced UX**: Sonner notifications and interactive cursor effects
+- 📱 **Responsive Design**: Fully optimized for mobile and desktop
+- 🧪 **Testing Suite**: Comprehensive automated testing with Jest
+- 🎯 **SEO Optimized**: Complete metadata and page optimization
+- 🐳 **Docker Ready**: Containerized deployment support
 
-## 🛠️ 技术栈
+## 🏗️ Architecture Overview
 
-### 核心框架
-- **Next.js 15.0.3** - React 全栈框架，支持 App Router
-- **React 19.0.0-rc** - 最新的 React 版本
-- **TypeScript 5.x** - 类型安全的 JavaScript
+NextLaunchPad follows modern full-stack architecture patterns:
 
-### UI 框架与组件
-- **Tailwind CSS 3.4.1** - 原子化 CSS 框架
-- **Radix UI** - 无障碍的 UI 组件库
-  - Accordion, Dialog, Dropdown Menu, Avatar, Badge 等
-- **Framer Motion** - 强大的动画库
-- **Lucide React** - 现代化图标库
-- **Shadcn/ui** - 基于 Radix UI 的组件系统
+- **Frontend**: React 19 with Next.js 15 App Router
+- **Backend**: Next.js API routes with server actions
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js with multiple providers
+- **Payments**: Stripe with webhook handling
+- **Styling**: Tailwind CSS with design system
+- **State Management**: React Server Components + Client Components
+- **Internationalization**: next-intl with dynamic routing
 
-### 认证与安全
-- **NextAuth.js v4** - 完整的认证解决方案
-  - Google OAuth 登录
-  - GitHub OAuth 登录
-  - Google One Tap 登录
-  - 邮箱密码登录
-- **bcryptjs** - 密码加密
+## 🛠️ Technology Stack
 
-### 支付系统
-- **Stripe 17.5.0** - 完整的支付解决方案
-  - 一次性付款
-  - 订阅付款
-  - Webhook 处理
-  - 订单管理
+### Core Framework
+- **Next.js 15.2.3** - Full-stack React framework with App Router
+- **React 18.2.0** - Modern React with concurrent features
+- **TypeScript 5.x** - Type-safe JavaScript development
 
-### 数据库与ORM
-- **Prisma 6.1.0** - 现代化 ORM
-- **MySQL/PostgreSQL** - 关系型数据库支持
-- **Prisma Studio** - 数据库可视化管理
+### UI & Styling
+- **Tailwind CSS 3.4.1** - Utility-first CSS framework
+- **Radix UI** - Accessible, unstyled UI components
+  - Accordion, Dialog, Dropdown Menu, Avatar, Tooltip, etc.
+- **Framer Motion 12.6.2** - Production-ready motion library
+- **Lucide React** - Beautiful & consistent icon library
+- **Shadcn/ui** - Re-usable components built on Radix UI
 
-### 国际化
-- **next-intl 3.26.3** - Next.js 国际化解决方案
-- 支持中文和英文
-- 动态路由本地化
+### Authentication & Security
+- **NextAuth.js 4.24.11** - Complete authentication solution
+  - Google OAuth integration
+  - GitHub OAuth integration
+  - Google One Tap login
+  - Credentials-based authentication
+- **bcryptjs** - Password hashing and verification
 
-### 开发工具
-- **Turbopack** - 极速构建工具
-- **ESLint** - 代码质量检查
-- **Jest** - 单元测试框架
-- **Docker** - 容器化部署
+### Payment Processing
+- **Stripe 17.7.0** - Complete payment infrastructure
+  - One-time payments
+  - Subscription billing
+  - Webhook event handling
+  - Order management system
 
-## 📋 环境要求
+### Database & ORM
+- **Prisma 6.6.0** - Next-generation ORM
+- **PostgreSQL** - Primary database (MySQL also supported)
+- **Prisma Studio** - Visual database management
 
-- **Node.js 18.17+** - JavaScript 运行环境
-- **pnpm 8.0+** - 包管理器（推荐）
-- **MySQL 8.0+** 或 **PostgreSQL 13+** - 数据库
-- **Docker** - 容器化部署（可选）
+### Internationalization
+- **next-intl 3.26.3** - Type-safe internationalization
+- **Multi-language support** - English and Chinese
+- **Dynamic routing** - Locale-based URL structure
 
-## 🚀 快速开始
+### Development Tools
+- **Turbopack** - Ultra-fast bundler for development
+- **ESLint** - Code quality and consistency
+- **Jest 29.7.0** - JavaScript testing framework
+- **Docker** - Containerization and deployment
 
-### 1. 克隆项目
+## 📋 Prerequisites
+
+- **Node.js 18.17+** - JavaScript runtime environment
+- **pnpm 10.10.0+** - Package manager (recommended)
+- **PostgreSQL 13+** or **MySQL 8.0+** - Database
+- **Docker** - For containerized deployment (optional)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/NextLaunchPad.git
 cd NextLaunchPad
 ```
 
-### 2. 安装依赖
+### 2. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. 环境变量配置
+### 3. Environment Configuration
 
 ```bash
 cp .env.example .env.local
 ```
 
-配置以下环境变量：
+Configure the following environment variables:
 
-| 变量名 | 说明 | 示例 | 必需 |
-|-------|------|------|------|
-| **数据库配置** |
-| `DATABASE_URL` | 数据库连接URL | `mysql://user:pass@host:3306/db` | ✅ |
-| **认证配置** |
-| `NEXTAUTH_SECRET` | NextAuth.js 密钥 | `your-secret-key` | ✅ |
-| `NEXTAUTH_URL` | 应用URL | `http://localhost:3000` | ✅ |
+| Variable | Description | Example | Required |
+|----------|-------------|---------|----------|
+| **Database Configuration** |
+| `DATABASE_URL` | Database connection URL | `postgresql://user:pass@host:5432/db` | ✅ |
+| **Authentication Configuration** |
+| `NEXTAUTH_SECRET` | NextAuth.js secret key | `your-secret-key` | ✅ |
+| `NEXTAUTH_URL` | Application URL | `http://localhost:3000` | ✅ |
 | **Google OAuth** |
-| `AUTH_GOOGLE_ID` | Google OAuth ID | `google-oauth-id` | ❌ |
-| `AUTH_GOOGLE_SECRET` | Google OAuth Secret | `google-oauth-secret` | ❌ |
-| `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED` | 启用Google登录 | `true` | ❌ |
-| `NEXT_PUBLIC_AUTH_GOOGLE_ONE_TAP_ENABLED` | 启用Google One Tap | `true` | ❌ |
+| `AUTH_GOOGLE_ID` | Google OAuth Client ID | `google-oauth-id` | ❌ |
+| `AUTH_GOOGLE_SECRET` | Google OAuth Client Secret | `google-oauth-secret` | ❌ |
+| `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED` | Enable Google login | `true` | ❌ |
+| `NEXT_PUBLIC_AUTH_GOOGLE_ONE_TAP_ENABLED` | Enable Google One Tap | `true` | ❌ |
 | **GitHub OAuth** |
-| `AUTH_GITHUB_ID` | GitHub OAuth ID | `github-oauth-id` | ❌ |
-| `AUTH_GITHUB_SECRET` | GitHub OAuth Secret | `github-oauth-secret` | ❌ |
-| `NEXT_PUBLIC_AUTH_GITHUB_ENABLED` | 启用GitHub登录 | `true` | ❌ |
-| **Stripe 支付** |
-| `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` | Stripe 公钥 | `pk_test_xxx` | ❌ |
-| `STRIPE_PRIVATE_KEY` | Stripe 私钥 | `sk_test_xxx` | ❌ |
-| `STRIPE_WEBHOOK_SECRET` | Stripe Webhook 密钥 | `whsec_xxx` | ❌ |
+| `AUTH_GITHUB_ID` | GitHub OAuth Client ID | `github-oauth-id` | ❌ |
+| `AUTH_GITHUB_SECRET` | GitHub OAuth Client Secret | `github-oauth-secret` | ❌ |
+| `NEXT_PUBLIC_AUTH_GITHUB_ENABLED` | Enable GitHub login | `true` | ❌ |
+| **Stripe Payment** |
+| `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` | Stripe publishable key | `pk_test_xxx` | ❌ |
+| `STRIPE_PRIVATE_KEY` | Stripe secret key | `sk_test_xxx` | ❌ |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook secret | `whsec_xxx` | ❌ |
 
-### 4. 数据库初始化
+### 4. Database Setup
 
 ```bash
-# 拉取数据库架构
+# Pull database schema
 pnpm db:pull
 
-# 推送架构变更
+# Push schema changes
 pnpm db:push
 
-# 生成Prisma Client
+# Generate Prisma Client
 pnpm db:generate
 
-# 或者一键同步
+# Or sync everything at once
 pnpm db:sync
 ```
 
-### 5. 启动开发服务器
+### 5. Start Development Server
 
 ```bash
 pnpm dev
 ```
 
-访问 [http://localhost:3000](http://localhost:3000) 查看应用
+Visit [http://localhost:3000](http://localhost:3000) to view the application
 
-## 📚 功能详解
+## 📚 Features Deep Dive
 
-### 🔐 认证系统
+### 🔐 Authentication System
 
-项目支持多种登录方式：
+The application supports multiple authentication methods:
 
-1. **Google OAuth 登录**
-   - 配置 `AUTH_GOOGLE_ID` 和 `AUTH_GOOGLE_SECRET`
-   - 设置 `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED=true`
+1. **Google OAuth Login**
+   - Configure `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`
+   - Set `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED=true`
 
-2. **GitHub OAuth 登录**
-   - 配置 `AUTH_GITHUB_ID` 和 `AUTH_GITHUB_SECRET`
-   - 设置 `NEXT_PUBLIC_AUTH_GITHUB_ENABLED=true`
+2. **GitHub OAuth Login**
+   - Configure `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET`
+   - Set `NEXT_PUBLIC_AUTH_GITHUB_ENABLED=true`
 
-3. **Google One Tap 登录**
-   - 设置 `NEXT_PUBLIC_AUTH_GOOGLE_ONE_TAP_ENABLED=true`
+3. **Google One Tap Login**
+   - Set `NEXT_PUBLIC_AUTH_GOOGLE_ONE_TAP_ENABLED=true`
+   - Provides seamless authentication experience
 
-4. **邮箱密码登录**
-   - 默认启用，支持用户注册和登录
+4. **Email/Password Authentication**
+   - Built-in user registration and login
+   - Secure password hashing with bcryptjs
 
-### 💳 支付系统
+### 💳 Payment System
 
-集成 Stripe 支付，支持：
+Comprehensive Stripe integration supporting:
 
-- **一次性付款**: 单次购买产品或服务
-- **订阅付款**: 月付/年付订阅模式
-- **Webhook 处理**: 自动处理支付状态变更
-- **订单管理**: 完整的订单历史和状态跟踪
+- **One-time Payments**: Single purchase transactions
+- **Subscription Billing**: Monthly/yearly recurring payments
+- **Webhook Processing**: Automatic payment status updates
+- **Order Management**: Complete order history and tracking
+- **Multi-currency Support**: Global payment processing
 
-### 🌐 国际化
+### 🌐 Internationalization
 
-- 支持中文 (`zh`) 和英文 (`en`)
-- 动态路由: `/en/...` 和 `/zh/...`
-- 自动语言检测
-- 完整的翻译文件管理
+- **Multi-language Support**: English (`en`) and Chinese (`zh`)
+- **Dynamic Routing**: Locale-based URLs (`/en/...` and `/zh/...`)
+- **Automatic Language Detection**: Browser preference detection
+- **Type-safe Translations**: Complete translation file management
+- **SEO Optimized**: Localized metadata and sitemap generation
 
-### 🎨 UI 组件
+### 🎨 UI Components
 
-项目包含丰富的 UI 组件：
+Rich collection of production-ready components:
 
-- **Header**: 响应式导航栏，支持多语言切换
-- **Hero Section**: 带动画的首页横幅，渐变背景效果
-- **Feature Sections**: Bento Grid 布局的功能展示
-- **Stats Section**: 数据统计展示
-- **Pricing Section**: 动态定价表格，支持 Stripe 集成
-- **Testimonials**: 用户评价轮播
-- **FAQ Section**: 常见问题手风琴
-- **CTA Section**: 行动号召区域
-- **Footer**: 完整的页脚信息
+- **Header**: Responsive navigation with language switching
+- **Hero Section**: Animated landing section with gradient backgrounds
+- **Feature Sections**: Bento Grid layout for feature showcases
+- **Stats Section**: Animated statistics display
+- **Pricing Section**: Dynamic pricing tables with Stripe integration
+- **Testimonials**: Customer review carousel
+- **FAQ Section**: Collapsible frequently asked questions
+- **CTA Section**: Call-to-action areas
+- **Footer**: Comprehensive footer with links and information
 
-### 📊 数据库设计
+### 📊 Database Schema
 
-使用 Prisma ORM，包含以下主要模型：
+Prisma ORM with the following core models:
 
-- **User**: 用户信息，支持多种登录方式
-- **Order**: 订单信息，关联用户和支付状态
-- **Account**: OAuth 账户关联
-- **Session**: 用户会话管理
+- **User**: User profiles with multi-provider authentication support
+- **Order**: Order management with payment status tracking
+- **Soft Delete**: Built-in soft delete functionality
+- **Timestamps**: Automatic created/updated timestamp tracking
 
-## 🛠️ 可用的脚本命令
+## 🛠️ Available Scripts
 
-### 开发命令
+### Development Commands
 ```bash
-pnpm dev          # 开发环境启动（使用Turbopack）
-pnpm build        # 生产环境构建
-pnpm start        # 生产环境启动
-pnpm lint         # ESLint 代码检查
+pnpm dev          # Start development server (with Turbopack)
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint code quality checks
 ```
 
-### 数据库命令
+### Database Commands
 ```bash
-pnpm db:push      # 推送数据库变更
-pnpm db:pull      # 拉取数据库架构
-pnpm db:generate  # 生成Prisma Client
-pnpm db:studio    # 启动Prisma Studio
-pnpm db:sync      # 同步数据库架构
+pnpm db:push      # Push database schema changes
+pnpm db:pull      # Pull database schema
+pnpm db:generate  # Generate Prisma Client
+pnpm db:studio    # Launch Prisma Studio
+pnpm db:sync      # Sync database schema (pull + push + generate)
 ```
 
-### 测试命令
+### Testing Commands
 ```bash
-pnpm test:db            # 运行数据库测试
-pnpm test:db:docker     # 使用Docker运行数据库测试
-pnpm docker:up          # 启动Docker容器
-pnpm docker:down        # 停止Docker容器
+pnpm test:db            # Run database tests
+pnpm test:db:docker     # Run database tests with Docker
+pnpm test:db:setup      # Setup test database
+pnpm docker:up          # Start Docker containers
+pnpm docker:down        # Stop Docker containers
 ```
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 NextLaunchPad/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── [locale]/          # 国际化路由
-│   │   │   ├── auth/          # 认证页面
-│   │   │   ├── pricing/       # 定价页面
-│   │   │   └── page.tsx       # 首页
-│   │   ├── api/               # API 路由
-│   │   │   ├── auth/          # NextAuth.js 认证
-│   │   │   ├── stripe/        # Stripe 支付
-│   │   │   └── user/          # 用户相关 API
+│   │   ├── [locale]/          # Internationalized routes
+│   │   │   ├── auth/          # Authentication pages
+│   │   │   ├── orders/        # Order management pages
+│   │   │   ├── profile/       # User profile pages
+│   │   │   └── page.tsx       # Landing page
+│   │   ├── api/               # API routes
+│   │   │   ├── auth/          # NextAuth.js endpoints
+│   │   │   ├── stripe/        # Stripe payment APIs
+│   │   │   ├── orders/        # Order management APIs
+│   │   │   └── users/         # User management APIs
 │   │   ├── actions.ts         # Server Actions
-│   │   ├── globals.css        # 全局样式
-│   │   └── providers.tsx      # 全局 Provider
-│   ├── components/            # React 组件
-│   │   ├── sections/          # 页面区块组件
-│   │   │   ├── Hero.tsx       # 首页横幅
-│   │   │   ├── Feature2.tsx   # 功能展示
-│   │   │   ├── Pricing.tsx    # 定价表格
-│   │   │   ├── Stats.tsx      # 数据统计
-│   │   │   ├── Testimonial.tsx # 用户评价
-│   │   │   ├── FAQ.tsx        # 常见问题
-│   │   │   └── CTA.tsx        # 行动号召
-│   │   ├── ui/                # UI 基础组件
-│   │   │   ├── button.tsx     # 按钮组件
-│   │   │   ├── bento-grid.tsx # Bento 网格
-│   │   │   ├── footer-section.tsx # 页脚
-│   │   │   └── splash-cursor.tsx # 光标效果
-│   │   ├── Header.tsx         # 导航栏
-│   │   └── GoogleOneTapWrapper.tsx # Google One Tap
-│   ├── i18n/                  # 国际化配置
-│   │   ├── messages/          # 翻译文件
-│   │   │   ├── en.json        # 英文翻译
-│   │   │   └── zh.json        # 中文翻译
-│   │   └── routing.ts         # 路由配置
-│   ├── lib/                   # 工具函数
-│   │   ├── auth.ts            # 认证配置
-│   │   ├── db.ts              # 数据库连接
-│   │   ├── stripe.ts          # Stripe 配置
-│   │   └── utils.ts           # 通用工具
-│   └── types/                 # TypeScript 类型定义
-├── prisma/                    # Prisma 配置
-│   ├── schema.prisma          # 数据库模型
-│   └── migrations/            # 数据库迁移
-├── tests/                     # 测试文件
-│   ├── db/                    # 数据库测试
-│   └── setup.ts               # 测试配置
-├── public/                    # 静态资源
-├── .env.example               # 环境变量示例
-├── docker-compose.yml         # Docker 配置
-├── middleware.ts              # Next.js 中间件
-└── tailwind.config.ts         # Tailwind 配置
+│   │   ├── globals.css        # Global styles
+│   │   └── providers.tsx      # Global providers
+│   ├── components/            # React components
+│   │   ├── sections/          # Page section components
+│   │   │   ├── Hero.tsx       # Landing hero section
+│   │   │   ├── Feature2.tsx   # Feature showcase
+│   │   │   ├── Pricing.tsx    # Pricing tables
+│   │   │   ├── Stats.tsx      # Statistics display
+│   │   │   ├── Testimonial.tsx # Customer testimonials
+│   │   │   ├── FAQ.tsx        # FAQ accordion
+│   │   │   └── CTA.tsx        # Call-to-action
+│   │   ├── ui/                # Base UI components
+│   │   │   ├── button.tsx     # Button component
+│   │   │   ├── bento-grid.tsx # Bento grid layout
+│   │   │   ├── footer-section.tsx # Footer component
+│   │   │   └── sheet.tsx      # Sheet/drawer component
+│   │   ├── Header.tsx         # Navigation header
+│   │   ├── ThemeToggle.tsx    # Dark/light mode toggle
+│   │   └── GoogleOneTapWrapper.tsx # Google One Tap integration
+│   ├── i18n/                  # Internationalization
+│   │   ├── locales/           # Locale configurations
+│   │   ├── request.ts         # i18n request handler
+│   │   └── routing.ts         # Routing configuration
+│   ├── lib/                   # Utility functions
+│   │   ├── prisma.ts          # Database connection
+│   │   └── utils.ts           # Common utilities
+│   ├── tests/                 # Test files
+│   │   ├── db/                # Database tests
+│   │   ├── jest.config.js     # Jest configuration
+│   │   └── setup.ts           # Test setup
+│   └── types/                 # TypeScript type definitions
+├── messages/                  # Translation files
+│   ├── en.json                # English translations
+│   └── zh.json                # Chinese translations
+├── prisma/                    # Prisma configuration
+│   └── schema.prisma          # Database schema
+├── public/                    # Static assets
+├── .env.example               # Environment variables template
+├── docker-compose.yml         # Docker configuration
+├── middleware.ts              # Next.js middleware
+└── tailwind.config.ts         # Tailwind CSS configuration
 ```
 
-## ⚙️ 配置说明
+## ⚙️ Configuration
 
-### 数据库配置
-- 支持 MySQL 和 PostgreSQL
-- 使用 `sslmode=prefer` 进行安全连接
-- Prisma ORM 提供类型安全的数据库操作
+### Database Configuration
+- **PostgreSQL** (primary) and **MySQL** support
+- Secure connections with SSL support
+- **Prisma ORM** for type-safe database operations
+- Built-in connection pooling and optimization
 
-## 🔌 API 路由
+### Authentication Configuration
+- **NextAuth.js** with multiple provider support
+- **JWT** and **session** strategies
+- **CSRF** protection enabled
+- **Secure cookie** configuration
 
-### 认证相关 API
-- `GET/POST /api/auth/*` - NextAuth.js 认证端点
-- `POST /api/auth/register` - 用户注册
-- `GET /api/user/profile` - 获取用户信息
+## 🔌 API Routes
 
-### 支付相关 API
-- `POST /api/stripe/create-checkout-session` - 创建支付会话
-- `POST /api/stripe/webhook` - Stripe Webhook 处理
-- `GET /api/stripe/orders` - 获取订单列表
+### Authentication APIs
+- `GET/POST /api/auth/*` - NextAuth.js authentication endpoints
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/sync-user` - User synchronization
 
-### 用户相关 API
-- `GET /api/user/orders` - 获取用户订单
-- `PUT /api/user/profile` - 更新用户信息
+### Payment APIs
+- `POST /api/stripe` - Create Stripe checkout session
+- `POST /api/stripe/webhook` - Stripe webhook handler
+- `GET /api/orders` - Retrieve user orders
 
-## 🎯 使用指南
+### User Management APIs
+- `GET /api/users` - User management endpoints
+- `GET /api/posts` - Content management (if applicable)
 
-### 1. 开发新功能
-1. 在 `src/components/sections/` 中创建新的页面区块
-2. 在 `src/i18n/messages/` 中添加多语言文本
-3. 在 `src/app/[locale]/` 中创建新页面
-4. 使用 `src/lib/` 中的工具函数
+## 🎯 Development Guide
 
-### 2. 添加新的 UI 组件
-1. 在 `src/components/ui/` 中创建基础组件
-2. 遵循 Radix UI + Tailwind CSS 的设计模式
-3. 确保组件支持暗色模式
+### 1. Adding New Features
+1. Create new page sections in `src/components/sections/`
+2. Add translations in `messages/en.json` and `messages/zh.json`
+3. Create new pages in `src/app/[locale]/`
+4. Utilize utility functions from `src/lib/`
 
-### 3. 数据库操作
-1. 在 `prisma/schema.prisma` 中定义模型
-2. 运行 `pnpm db:push` 同步数据库
-3. 使用 `src/lib/db.ts` 进行数据库操作
+### 2. Creating UI Components
+1. Add base components in `src/components/ui/`
+2. Follow Radix UI + Tailwind CSS design patterns
+3. Ensure dark mode compatibility
+4. Include proper TypeScript types
 
-### 认证配置注意事项
+### 3. Database Operations
+1. Define models in `prisma/schema.prisma`
+2. Run `pnpm db:push` to sync database
+3. Use `src/lib/prisma.ts` for database operations
+4. Generate types with `pnpm db:generate`
 
-### GitHub OAuth认证配置
+### 4. Adding Authentication Providers
+1. Configure provider in `src/auth.config.ts`
+2. Add environment variables
+3. Update UI components for new provider
+4. Test authentication flow
 
-配置GitHub OAuth登录时，请注意以下关键事项：
+## 🔧 Authentication Setup Guide
 
-1. **GitHub OAuth应用设置**
-   - 在GitHub开发者设置页面 (https://github.com/settings/developers) 创建OAuth应用
-   - 应用名称设置为您的项目名称，如："NextLaunchPad"
-   - Homepage URL必须与环境变量中的`NEXT_PUBLIC_WEB_URL`保持一致
+### GitHub OAuth Configuration
 
-2. **回调URL配置**
-   - 回调URL格式：`{您的域名}/api/auth/callback/github`
-   - 本地开发环境示例：`http://localhost:3000/api/auth/callback/github`
-   - **注意**：`localhost`和`127.0.0.1`在OAuth认证中被视为不同域名，必须精确匹配
+When setting up GitHub OAuth authentication, follow these important steps:
 
-3. **环境变量设置**
-   ```
-   # GitHub认证变量必须正确设置
-   AUTH_GITHUB_ID=您的GitHub客户端ID
-   AUTH_GITHUB_SECRET=您的GitHub客户端密钥
+1. **GitHub OAuth App Setup**
+   - Visit GitHub Developer Settings (https://github.com/settings/developers)
+   - Create a new OAuth App with your project name (e.g., "NextLaunchPad")
+   - Set Homepage URL to match your `NEXTAUTH_URL` environment variable
+
+2. **Callback URL Configuration**
+   - Callback URL format: `{your-domain}/api/auth/callback/github`
+   - Local development example: `http://localhost:3000/api/auth/callback/github`
+   - **Important**: `localhost` and `127.0.0.1` are treated as different domains
+
+3. **Environment Variables**
+   ```bash
+   # GitHub authentication credentials
+   AUTH_GITHUB_ID=your-github-client-id
+   AUTH_GITHUB_SECRET=your-github-client-secret
    NEXT_PUBLIC_AUTH_GITHUB_ENABLED=true
 
-   # NEXTAUTH_URL与GitHub OAuth应用中的域名必须保持一致
-   # 如果GitHub OAuth中使用localhost，这里也必须使用localhost
+   # Ensure NEXTAUTH_URL matches your GitHub OAuth app domain
    NEXTAUTH_URL=http://localhost:3000
-   NEXT_PUBLIC_WEB_URL=http://localhost:3000
    ```
 
-4. **常见错误处理**
-   - `redirect_uri is not associated with this application`：
-     - 检查GitHub OAuth应用中的回调URL与实际使用的域名是否完全一致
-     - 确保使用相同的域名格式（localhost vs 127.0.0.1）
-     - 检查端口号是否匹配
-   - `Missing GitHub client ID or secret`：
-     - 确保环境变量中正确设置了GitHub认证凭据
-     - 检查`AUTH_GITHUB_ID`和`AUTH_GITHUB_SECRET`是否与GitHub OAuth应用一致
-   - `outgoing request timed out after 3500ms`（请求超时错误）：
-     - 这通常是网络连接问题，而非配置错误
-     - 检查您的网络连接是否稳定
-     - 如果使用代理或VPN，尝试临时关闭
-     - GitHub API可能暂时不可用，稍后再试
-     - 如果在中国大陆地区，可能需要配置代理来访问GitHub API
-     - 增加NextAuth超时配置（在auth.config.ts中添加`timeout: 10000`将超时延长到10秒）
+4. **Common Issues & Solutions**
+   - **`redirect_uri is not associated with this application`**:
+     - Verify callback URL in GitHub OAuth app matches exactly
+     - Ensure consistent domain format (localhost vs 127.0.0.1)
+     - Check port number matches
 
-5. **域名变更时的处理**
-   - 当应用域名发生变更时（如从本地开发到生产环境）：
-     - 更新GitHub OAuth应用中的回调URL
-     - 或创建多个OAuth应用分别用于不同环境
+   - **`Missing GitHub client ID or secret`**:
+     - Verify environment variables are correctly set
+     - Ensure credentials match GitHub OAuth app settings
 
-## 数据库测试
+   - **Request timeout errors**:
+     - Usually network connectivity issues
+     - Try disabling proxy/VPN temporarily
+     - GitHub API may be temporarily unavailable
+     - Consider increasing timeout in `auth.config.ts`
 
-项目包含了对数据库连接和表结构的自动化测试方案。
+5. **Multi-Environment Setup**
+   - Create separate OAuth apps for development/production
+   - Or update callback URLs when deploying to different environments
 
-### 测试内容
+## 🧪 Testing
 
-- 数据库连接测试
-- 表结构验证测试
-- 字段类型和默认值测试
-- 表关系测试
-- 软删除功能测试
+The project includes comprehensive automated testing for database operations and application logic.
 
-### 运行测试
+### Test Coverage
 
-使用本地数据库测试:
+- **Database Connection Tests**: Verify database connectivity
+- **Schema Validation Tests**: Validate table structure and relationships
+- **Field Type Tests**: Check data types and constraints
+- **Relationship Tests**: Test model associations
+- **Soft Delete Tests**: Verify soft delete functionality
 
+### Running Tests
+
+**Local Database Testing:**
 ```bash
 pnpm test:db
 ```
 
-使用Docker独立环境测试（推荐）:
-
+**Docker Environment Testing (Recommended):**
 ```bash
 pnpm test:db:docker
 ```
 
-这将：
-1. 启动Docker容器中的PostgreSQL
-2. 执行数据库迁移
-3. 运行所有测试用例
-4. 自动清理测试环境
+This will:
+1. Start PostgreSQL in Docker container
+2. Execute database migrations
+3. Run all test suites
+4. Automatically clean up test environment
 
-## 🚀 部署
+### Test Configuration
 
-### Vercel 部署（推荐）
+- **Jest** for test framework
+- **TypeScript** support with ts-jest
+- **Isolated test database** for safe testing
+- **Automatic setup/teardown** for clean test runs
+
+## 🚀 Deployment
+
+### Vercel Deployment (Recommended)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextLaunchPad&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,NEXT_PUBLIC_STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextlaunchpad&repository-name=nextlaunchpad)
 
-**部署步骤：**
+**Deployment Steps:**
 
-1. **准备工作**
+1. **Preparation**
    ```bash
-   # Fork 本项目到你的 GitHub 账户
+   # Fork this repository to your GitHub account
    git clone https://github.com/your-username/NextLaunchPad.git
    ```
 
-2. **在 Vercel 部署**
-   - 访问 [Vercel Dashboard](https://vercel.com/dashboard)
-   - 点击 "New Project"
-   - 导入你的 GitHub 仓库
-   - 配置环境变量（见下方列表）
-   - 点击 "Deploy"
+2. **Deploy to Vercel**
+   - Visit [Vercel Dashboard](https://vercel.com/dashboard)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Configure environment variables (see list below)
+   - Click "Deploy"
 
-3. **必需的环境变量**
+3. **Required Environment Variables**
    ```bash
-   # 数据库
+   # Database
    DATABASE_URL=your_database_url
 
-   # 认证
+   # Authentication
    NEXTAUTH_SECRET=your_nextauth_secret
    NEXTAUTH_URL=https://your-domain.vercel.app
 
-   # OAuth (可选)
+   # OAuth (optional)
    AUTH_GOOGLE_ID=your_google_client_id
    AUTH_GOOGLE_SECRET=your_google_client_secret
    AUTH_GITHUB_ID=your_github_client_id
    AUTH_GITHUB_SECRET=your_github_client_secret
 
-   # Stripe (可选)
+   # Stripe (optional)
    NEXT_PUBLIC_STRIPE_PUBLIC_KEY=pk_live_xxx
    STRIPE_PRIVATE_KEY=sk_live_xxx
    STRIPE_WEBHOOK_SECRET=whsec_xxx
    ```
 
-### Docker 部署
+### Docker Deployment
 
 ```bash
-# 构建镜像
+# Build the image
 docker build -t nextlaunchpad .
 
-# 运行容器
+# Run the container
 docker run -p 3000:3000 --env-file .env nextlaunchpad
 ```
 
-### 自托管部署
+### Self-Hosted Deployment
 
 ```bash
-# 构建项目
+# Build the project
 pnpm build
 
-# 启动生产服务器
+# Start production server
 pnpm start
 ```
 
-项目包含完整的测试套件：
+### Database Setup for Production
 
-### 数据库测试
-```bash
-# 运行数据库连接和模型测试
-pnpm test:db
+1. **Set up PostgreSQL database** (recommended providers: Supabase, Railway, PlanetScale)
+2. **Configure DATABASE_URL** in your environment variables
+3. **Run database migrations**:
+   ```bash
+   pnpm db:push
+   ```
 
-# 使用 Docker 环境测试（推荐）
-pnpm test:db:docker
-```
+## 🤝 Contributing
 
-**测试内容包括：**
-- 数据库连接测试
-- 表结构验证
-- 字段类型和约束测试
-- 关系模型测试
-- 数据操作测试
+We welcome all forms of contributions to make NextLaunchPad better!
 
-### 单元测试
-```bash
-# 运行所有单元测试
-pnpm test
+### Contributing Workflow
 
-# 监听模式运行测试
-pnpm test:watch
-```
-
-## 🤝 贡献指南
-
-我们欢迎所有形式的贡献！
-
-### 贡献流程
-1. **Fork 项目**
+1. **Fork the Repository**
    ```bash
    git clone https://github.com/your-username/NextLaunchPad.git
    cd NextLaunchPad
    ```
 
-2. **创建功能分支**
+2. **Create Feature Branch**
    ```bash
    git checkout -b feature/amazing-feature
    ```
 
-3. **开发和测试**
+3. **Development & Testing**
    ```bash
-   pnpm dev          # 启动开发服务器
-   pnpm test:db      # 运行测试
-   pnpm lint         # 检查代码质量
+   pnpm dev          # Start development server
+   pnpm test:db      # Run tests
+   pnpm lint         # Check code quality
    ```
 
-4. **提交更改**
+4. **Commit Changes**
    ```bash
    git commit -m 'feat: add amazing feature'
    ```
 
-5. **推送并创建 PR**
+5. **Push & Create PR**
    ```bash
    git push origin feature/amazing-feature
    ```
 
-### 代码规范
-- 使用 TypeScript 进行类型安全开发
-- 遵循 ESLint 配置的代码规范
-- 为新功能添加相应的测试
-- 更新相关文档
+### Code Standards
 
-## 📄 许可证
+- **TypeScript**: Use TypeScript for type-safe development
+- **ESLint**: Follow configured linting rules
+- **Testing**: Add tests for new features
+- **Documentation**: Update relevant documentation
+- **Commit Messages**: Use conventional commit format
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+### Development Best Practices
 
-## 📞 联系方式
+- **Component Structure**: Follow established component patterns
+- **State Management**: Use React Server Components where possible
+- **Performance**: Optimize for Core Web Vitals
+- **Accessibility**: Ensure components are accessible
+- **Internationalization**: Add translations for new text content
 
-- **项目作者**: WenHaoFree
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+- **Project Author**: WenHaoFree
 - **Email**: fuwenhao945@gmail.com
 - **GitHub**: [https://github.com/wenhaofree](https://github.com/wenhaofree)
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-感谢以下开源项目：
-- [Next.js](https://nextjs.org/) - React 全栈框架
-- [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
-- [Radix UI](https://www.radix-ui.com/) - 无障碍 UI 组件
-- [Prisma](https://www.prisma.io/) - 现代化 ORM
-- [NextAuth.js](https://next-auth.js.org/) - 认证解决方案
-- [Stripe](https://stripe.com/) - 支付处理平台
+Special thanks to these amazing open-source projects:
 
-## 🎯 路线图
+- [Next.js](https://nextjs.org/) - The React Framework for Production
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com/) - Low-level UI primitives
+- [Prisma](https://www.prisma.io/) - Next-generation ORM
+- [NextAuth.js](https://next-auth.js.org/) - Complete authentication solution
+- [Stripe](https://stripe.com/) - Payment processing platform
+- [Framer Motion](https://www.framer.com/motion/) - Production-ready motion library
 
-- [x] ✅ 用户认证系统（多种登录方式）
-- [x] ✅ Stripe 支付集成
-- [x] ✅ 数据库测试套件
-- [x] ✅ 国际化支持
-- [x] ✅ 响应式 UI 设计
-- [ ] 🔄 管理员后台
-- [ ] 🔄 邮件通知系统
-- [ ] 🔄 更多支付方式
-- [ ] 🔄 移动端 App
+## 🎯 Roadmap
+
+- [x] ✅ Multi-provider authentication system
+- [x] ✅ Stripe payment integration
+- [x] ✅ Comprehensive testing suite
+- [x] ✅ Internationalization support
+- [x] ✅ Responsive UI design
+- [x] ✅ Dark/light theme support
+- [ ] 🔄 Admin dashboard
+- [ ] 🔄 Email notification system
+- [ ] 🔄 Additional payment providers
+- [ ] 🔄 Mobile application
+- [ ] 🔄 Advanced analytics
+- [ ] 🔄 Multi-tenant support
+
+## 🌟 Show Your Support
+
+If this project helped you, please consider:
+- ⭐ **Starring** the repository
+- 🐛 **Reporting** bugs and issues
+- 💡 **Suggesting** new features
+- 🤝 **Contributing** to the codebase
 
 ---
 
-⭐ 如果这个项目对你有帮助，请给它一个 Star！
+**Built with ❤️ by the NextLaunchPad team**
