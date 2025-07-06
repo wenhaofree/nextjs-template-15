@@ -16,6 +16,7 @@ import { Card } from "@/components/ui/card"
 export interface PricingTier {
   name: string
   price: Record<string, number | string>
+  originalPrice?: Record<string, number | string>
   description: string
   features: string[]
   cta: string
@@ -31,6 +32,7 @@ interface PricingCardProps {
 
 export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
   const price = tier.price[paymentFrequency]
+  const originalPrice = tier.originalPrice?.[paymentFrequency]
   const isHighlighted = tier.highlighted
   const isPopular = tier.popular
   const { data: session } = useSession()
@@ -108,84 +110,99 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
   return (
     <Card
       className={cn(
-        "relative flex flex-col gap-8 overflow-hidden p-6",
+        "relative flex flex-col gap-6 overflow-hidden p-8 transition-all duration-300 hover:shadow-lg group max-w-sm w-full",
         isHighlighted
-          ? "bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 text-gray-900 dark:text-white border-indigo-200 dark:border-slate-700 shadow-xl"
-          : "bg-white dark:bg-gray-800 text-foreground border border-gray-200 dark:border-gray-700 shadow-sm",
-        isPopular && "ring-2 ring-primary"
+          ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 shadow-md"
+          : "bg-white dark:bg-gray-900 text-foreground border border-gray-200 dark:border-gray-700 shadow-sm",
+        isPopular && "border-2 border-orange-400 relative"
       )}
     >
-      {isHighlighted && <HighlightedBackground />}
-      {isPopular && <PopularBackground />}
-
-      <h2 className="flex items-center gap-3 text-xl font-medium capitalize">
-        {tier.name}
-        {isPopular && (
-          <Badge variant="secondary" className="mt-1 z-10">
-            🔥 {locale === "zh" ? "最受欢迎" : "Most Popular"}
+      {isPopular && (
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+          <Badge className="bg-orange-500 text-white px-3 py-1 text-sm font-medium rounded-full">
+            {locale === "zh" ? "最受欢迎" : "Popular"}
           </Badge>
-        )}
-      </h2>
+        </div>
+      )}
 
-      <div className="relative h-12">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          {tier.name}
+        </h2>
+      </div>
+
+      <div className="text-center mb-6">
         {typeof price === "number" ? (
-          <>
-            <NumberFlow
-              format={{
-                style: "currency",
-                currency: "USD",
-                trailingZeroDisplay: "stripIfInteger",
-              }}
-              value={price}
-              className="text-4xl font-medium"
-            />
-            <p className={cn(
-              "-mt-2 text-xs",
-              isHighlighted ? "text-gray-600 dark:text-gray-300" : "text-muted-foreground"
-            )}>
-              {paymentFrequency === "monthly" 
-                ? (locale === "zh" ? "每月/用户" : "Per month/user")
-                : (locale === "zh" ? "每年/用户" : "Per year/user")}
+          <div className="space-y-2">
+            {originalPrice && typeof originalPrice === "number" && (
+              <div className="text-sm text-gray-500 dark:text-gray-400 line-through">
+                ${originalPrice} USD
+              </div>
+            )}
+            <div className="flex items-baseline justify-center gap-1">
+              <NumberFlow
+                format={{
+                  style: "currency",
+                  currency: "USD",
+                  trailingZeroDisplay: "stripIfInteger",
+                }}
+                value={price}
+                className="text-5xl font-bold text-gray-900 dark:text-white"
+              />
+              <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">
+                USD
+              </span>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {locale === "zh" ? "一次性付费。无限制构建项目！" : "Pay once. Build unlimited projects!"}
             </p>
-          </>
+          </div>
         ) : (
-          <h1 className="text-4xl font-medium">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
             {price}
           </h1>
         )}
       </div>
 
-      <div className="flex-1 space-y-2">
-        <h3 className="text-sm font-medium">
+      <div className="flex-1 space-y-4">
+        <h3 className="text-center text-gray-600 dark:text-gray-400 text-sm">
           {tier.description}
         </h3>
-        <ul className="space-y-2">
+
+        <div className="text-center">
+          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+            {locale === "zh" ? "包含" : "Includes"}
+          </h4>
+        </div>
+
+        <ul className="space-y-3">
           {tier.features.map((feature, index) => (
             <li
               key={index}
-              className={cn(
-                "flex items-center gap-2 text-sm font-medium",
-                isHighlighted ? "text-gray-700 dark:text-gray-300" : "text-muted-foreground"
-              )}
+              className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300"
             >
-              <BadgeCheck className={cn(
-                "h-4 w-4",
-                isHighlighted ? "text-indigo-600 dark:text-indigo-400" : "text-green-500 dark:text-green-400"
-              )} />
-              {feature}
+              <BadgeCheck className="h-4 w-4 mt-0.5 text-green-500 dark:text-green-400 flex-shrink-0" />
+              <span>{feature}</span>
             </li>
           ))}
         </ul>
       </div>
 
       <Button
-        variant={isHighlighted ? "secondary" : "default"}
-        className="w-full"
+        className={cn(
+          "w-full py-3 text-base font-semibold transition-all duration-300",
+          isPopular
+            ? "bg-orange-500 hover:bg-orange-600 text-white border-0"
+            : "bg-orange-500 hover:bg-orange-600 text-white border-0"
+        )}
         onClick={handlePayment}
       >
-        {tier.cta}
-        <ArrowRight className="ml-2 h-4 w-4" />
+        {tier.cta} ⚡
       </Button>
+
+      <div className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+        {locale === "zh" ? "一次性付费。无限制构建项目！" : "Pay once. Build unlimited projects!"}
+      </div>
     </Card>
   )
 }

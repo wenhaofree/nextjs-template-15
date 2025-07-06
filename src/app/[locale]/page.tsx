@@ -1,16 +1,18 @@
-import { Hero } from "@/components/sections/Hero";
-import { Feature2 } from "@/components/sections/Feature2";
-import { Stats } from "@/components/sections/Stats";
-import { Pricing } from "@/components/sections/Pricing";
-import { Testimonial } from "@/components/sections/Testimonial";
-import { FAQ } from "@/components/sections/FAQ";
-import { CTA } from "@/components/sections/CTA";
+import {
+  Hero,
+  Benefits,
+  Stats,
+  Pricing,
+  Testimonial,
+  FAQ,
+  CTA,
+  Footer
+} from "@/components/sections";
 import { getLandingPage } from "@/app/actions";
 import { setRequestLocale } from 'next-intl/server';
 import { getMessages } from '@/i18n/routing';
 import GoogleOneTapWrapper from "@/components/GoogleOneTapWrapper";
 import type { Metadata } from "next";
-import { Footer } from "@/components/ui/footer-section";
 
 // Add page-specific metadata
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -38,19 +40,21 @@ export default async function LandingPage({
   const page = await getLandingPage(locale);
 
   return (
-    <>
+    <main className="min-h-screen">
       {/* Google One Tap组件 */}
       <GoogleOneTapWrapper />
 
+      {/* 页面主要内容区域 */}
       {page.hero && <Hero hero={page.hero} />}
-      {page.benefit && <Feature2 section={page.benefit} />}
+      {page.benefit && <Benefits section={page.benefit} />}
       {page.stats && <Stats section={page.stats} />}
       {page.pricing && <Pricing pricing={page.pricing} />}
       {page.testimonial && <Testimonial section={page.testimonial} />}
       {page.faq && <FAQ section={page.faq} />}
       {page.cta && <CTA section={page.cta} />}
 
+      {/* 页面底部 */}
       {page.footer && <Footer footer={page.footer} />}
-    </>
+    </main>
   );
 }

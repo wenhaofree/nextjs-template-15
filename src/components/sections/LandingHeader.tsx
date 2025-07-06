@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { locales, localeNames } from "@/i18n/routing";
 import { Menu, Globe } from "lucide-react";

@@ -22,31 +22,22 @@ export function PricingSection({
   const [selectedFrequency, setSelectedFrequency] = React.useState(frequencies[0])
 
   return (
-    <section className="flex flex-col items-center gap-10 py-10">
-      <div className="space-y-7 text-center">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-medium md:text-5xl">{title}</h1>
-          <p className="text-muted-foreground">{subtitle}</p>
-        </div>
-        <div className="mx-auto flex w-fit rounded-full bg-muted p-1">
-          {frequencies.map((freq) => (
-            <Tab
-              key={freq}
-              text={frequencyLabels?.[freq] || freq}
-              selected={selectedFrequency === freq}
-              setSelected={() => setSelectedFrequency(freq)}
-              discount={freq === "yearly"}
-            />
-          ))}
-        </div>
+    <section className="flex flex-col items-center gap-16 py-20">
+      <div className="space-y-6 text-center max-w-4xl mx-auto">
+        <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
+          {title}
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          {subtitle}
+        </p>
       </div>
 
-      <div className="grid w-full max-w-6xl gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid w-full max-w-6xl gap-8 md:grid-cols-3 justify-items-center px-4">
         {tiers.map((tier) => (
           <PricingCard
             key={tier.name}
             tier={tier}
-            paymentFrequency={selectedFrequency}
+            paymentFrequency="monthly"
           />
         ))}
       </div>

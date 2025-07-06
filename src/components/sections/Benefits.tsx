@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-interface Feature2Props {
+interface BenefitsProps {
   section: {
     title: string;
     subtitle: string;
@@ -14,7 +14,7 @@ interface Feature2Props {
   };
 }
 
-export function Feature2({ section }: Feature2Props) {
+export function Benefits({ section }: BenefitsProps) {
   return (
     <section id="features" className="py-24 relative overflow-hidden bg-background">
       {/* Unified Background System */}

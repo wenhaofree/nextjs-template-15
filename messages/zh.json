@@ -96,48 +96,52 @@
     "plans": [
       {
         "name": "入门版",
-        "monthlyPrice": 9.99,
-        "yearlyPrice": 99,
-        "description": "适合爱好者和初学者",
+        "monthlyPrice": 199,
+        "yearlyPrice": 1990,
+        "originalPrice": 299,
+        "description": "开始您的第一个AI项目",
         "features": [
-          "每月200张图片",
-          "HD分辨率 (1024x1024)",
-          "基础Flux模型访问",
-          "邮件支持",
-          "包含商业许可",
-          "PNG/JPG格式下载"
+          "NextJS 样板代码",
+          "SEO友好结构",
+          "博客 & CMS",
+          "Stripe支付集成",
+          "Supabase数据存储",
+          "Google OAuth & One-Tap登录",
+          "多语言支持"
         ]
       },
       {
-        "name": "创作者版",
-        "monthlyPrice": 29.99,
-        "yearlyPrice": 299,
-        "description": "专业创作者的理想选择",
+        "name": "标准版",
+        "monthlyPrice": 249,
+        "yearlyPrice": 2490,
+        "originalPrice": 349,
+        "description": "快速启动您的AI SaaS项目",
         "features": [
-          "每月1000张图片",
-          "4K超高清分辨率",
-          "所有Flux模型 (Pro, Ultra, Schnell)",
-          "优先生成队列",
-          "高级风格控制",
-          "批量处理",
-          "优先邮件支持",
-          "API访问"
+          "入门版的所有功能",
+          "Vercel或Cloudflare部署",
+          "隐私条款生成",
+          "Google Analytics集成",
+          "Google Search Console集成",
+          "Discord社区",
+          "首次发布技术支持",
+          "终身更新"
         ]
       },
       {
-        "name": "工作室版",
-        "monthlyPrice": "联系我们",
-        "yearlyPrice": "联系我们",
-        "description": "适合团队和企业",
+        "name": "高级版",
+        "monthlyPrice": 299,
+        "yearlyPrice": 2990,
+        "originalPrice": 399,
+        "description": "启动任何AI SaaS项目",
         "features": [
-          "无限图像生成",
-          "自定义模型微调",
-          "专属客户经理",
-          "自定义API集成",
-          "白标解决方案",
-          "SLA保障 (99.9%可用性)",
-          "24/7电话支持",
-          "自定义分辨率选项"
+          "标准版的所有功能",
+          "更多组件选择",
+          "AI业务功能 & SDK",
+          "用户控制台",
+          "管理系统",
+          "积分管理",
+          "API密钥管理",
+          "优先技术支持"
         ]
       }
     ]

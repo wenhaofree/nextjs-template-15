@@ -3,7 +3,7 @@ import {getMessages} from '@/i18n/routing';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import '@/styles/globals.css';
-import Header from '@/components/Header';
+import { LandingHeader } from '@/components/sections';
 // import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
@@ -65,7 +65,7 @@ export default async function Layout({
           {/* <SplashCursor /> */}
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
-            {page.header && <Header header={page.header} />}
+            {page.header && <LandingHeader header={page.header} />}
             <main className="flex-1">
               {children}
             </main>

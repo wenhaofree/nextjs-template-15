@@ -94,48 +94,52 @@
     "plans": [
       {
         "name": "Starter",
-        "monthlyPrice": 9.99,
-        "yearlyPrice": 99,
-        "description": "Perfect for hobbyists and beginners",
+        "monthlyPrice": 199,
+        "yearlyPrice": 1990,
+        "originalPrice": 299,
+        "description": "Get started with your first SaaS startup.",
         "features": [
-          "200 images per month",
-          "HD resolution (1024x1024)",
-          "Basic Flux model access",
-          "Email support",
-          "Commercial license included",
-          "PNG/JPG format downloads"
+          "NextJS boilerplate",
+          "SEO-friendly structure",
+          "Blog & CMS",
+          "Payment with Stripe",
+          "Data storage with Supabase",
+          "Google OAuth & One-Tap Login",
+          "i18n support"
         ]
       },
       {
-        "name": "Creator",
-        "monthlyPrice": 29.99,
-        "yearlyPrice": 299,
-        "description": "Ideal for professional creators",
+        "name": "Standard",
+        "monthlyPrice": 249,
+        "yearlyPrice": 2490,
+        "originalPrice": 349,
+        "description": "Ship Fast with your SaaS Startups.",
         "features": [
-          "1000 images per month",
-          "4K ultra-high resolution",
-          "All Flux models (Pro, Ultra, Schnell)",
-          "Priority generation queue",
-          "Advanced style controls",
-          "Batch processing",
-          "Priority email support",
-          "API access"
+          "Everything in Starter, plus",
+          "Deploy with Vercel or Cloudflare",
+          "Generation of Privacy & Terms",
+          "Google Analytics Integration",
+          "Google Search Console Integration",
+          "Discord community",
+          "Technical support for your first ship",
+          "Lifetime updates"
         ]
       },
       {
-        "name": "Studio",
-        "monthlyPrice": "Contact Us",
-        "yearlyPrice": "Contact Us",
-        "description": "For teams and enterprises",
+        "name": "Premium",
+        "monthlyPrice": 299,
+        "yearlyPrice": 2990,
+        "originalPrice": 399,
+        "description": "Ship Any AI SaaS Startups.",
         "features": [
-          "Unlimited image generation",
-          "Custom model fine-tuning",
-          "Dedicated account manager",
-          "Custom API integration",
-          "White-label solutions",
-          "SLA guarantee (99.9% uptime)",
-          "24/7 phone support",
-          "Custom resolution options"
+          "Everything in Standard, plus",
+          "More Components for choosing",
+          "Business Functions & SDK with AI",
+          "User Console",
+          "Admin System",
+          "Credits Management",
+          "API Keys Management",
+          "Priority Technical Support"
         ]
       }
     ]

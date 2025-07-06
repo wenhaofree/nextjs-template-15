@@ -22,6 +22,7 @@ interface PricingProps {
       name: string;
       monthlyPrice: number | string;
       yearlyPrice: number | string;
+      originalPrice?: number | string;
       description: string;
       features: string[];
     }>;
@@ -219,9 +220,13 @@ export function Pricing({ pricing }: PricingProps) {
       monthly: plan.monthlyPrice,
       yearly: plan.yearlyPrice,
     },
+    originalPrice: plan.originalPrice ? {
+      monthly: plan.originalPrice,
+      yearly: plan.originalPrice,
+    } : undefined,
     description: plan.description,
     features: plan.features,
-    cta: index === 1 ? "Get Started" : "Choose Plan", // Make middle plan primary
+    cta: "Get Start ⚡",
     popular: index === 1, // Make middle plan popular
     highlighted: index === pricing.plans.length - 1, // Make last plan highlighted
   }));
