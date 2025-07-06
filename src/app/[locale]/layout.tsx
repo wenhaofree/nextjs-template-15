@@ -2,7 +2,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from '@/i18n/routing';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
-import '../globals.css';
+import '@/styles/globals.css';
 import Header from '@/components/Header';
 // import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
