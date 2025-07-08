@@ -49,9 +49,13 @@ export async function getMessages(locale: string) {
 
 // Request configuration for next-intl
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  // Validate locale
+  if (!locale || !locales.includes(locale as any)) {
+    notFound();
+  }
 
   return {
-    messages: await getMessages(locale),
+    locale: locale as string,
+    messages: await getMessages(locale as string),
   };
 });

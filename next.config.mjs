@@ -13,7 +13,12 @@ const nextConfig = {
     // dynamicIO: true,              // 动态 IO (需要 Next.js 15+)
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
-
+  // Turbopack 配置 (已从 experimental.turbo 迁移到顶级配置)
+  turbopack: {
+    // 可以在这里添加 Turbopack 特定的配置
+    // resolveAlias: {},
+    // resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
+  },
   // 性能优化
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

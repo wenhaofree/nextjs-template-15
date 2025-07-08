@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 export default async function ProfilePage({
   params,
@@ -15,7 +15,7 @@ export default async function ProfilePage({
   // 使用 await 获取 locale
   const { locale } = await params;
   // 设置请求的 locale
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   
   // 使用getTranslations替代useTranslations
   const t = await getTranslations('profile');

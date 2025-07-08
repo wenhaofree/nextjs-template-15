@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import SignInForm from './SignInForm';
 
 // 服务器组件
@@ -15,7 +15,7 @@ export default async function SignIn(
   const { locale } = await props.params;
 
   // 设置请求的 locale
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   // 获取翻译
   const t = await getTranslations('auth');

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: "登录",
@@ -17,7 +17,7 @@ export default async function AuthLayout({
   const { locale } = await params;
   
   // 设置请求的 locale
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   return (
     <>
