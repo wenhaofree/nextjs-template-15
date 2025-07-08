@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { BadgeCheck, ArrowRight } from "lucide-react"
+import { BadgeCheck } from "lucide-react"
 import NumberFlow from "@number-flow/react"
 import { useSession } from "next-auth/react"
 import { useRouter, usePathname } from "next/navigation"
@@ -108,22 +108,24 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
   }
 
   return (
-    <Card
-      className={cn(
-        "relative flex flex-col gap-6 overflow-hidden p-8 transition-all duration-300 hover:shadow-lg group max-w-sm w-full",
-        isHighlighted
-          ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 shadow-md"
-          : "bg-white dark:bg-gray-900 text-foreground border border-gray-200 dark:border-gray-700 shadow-sm",
-        isPopular && "border-2 border-orange-400 relative"
-      )}
-    >
+    <div className={cn("relative w-full max-w-sm", isPopular && "pt-4")}>
       {isPopular && (
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-          <Badge className="bg-orange-500 text-white px-3 py-1 text-sm font-medium rounded-full">
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-30">
+          <Badge className="bg-orange-500 text-white px-4 py-1.5 text-sm font-medium rounded-full shadow-lg whitespace-nowrap border-2 border-white">
             {locale === "zh" ? "最受欢迎" : "Popular"}
           </Badge>
         </div>
       )}
+
+      <Card
+        className={cn(
+          "relative flex flex-col gap-6 p-8 transition-all duration-300 hover:shadow-lg group w-full rounded-lg",
+          isHighlighted
+            ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 shadow-md"
+            : "bg-white dark:bg-gray-900 text-foreground border border-gray-200 dark:border-gray-700 shadow-sm",
+          isPopular && "border-2 border-orange-400 mt-4"
+        )}
+      >
 
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -189,12 +191,7 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
       </div>
 
       <Button
-        className={cn(
-          "w-full py-3 text-base font-semibold transition-all duration-300",
-          isPopular
-            ? "bg-orange-500 hover:bg-orange-600 text-white border-0"
-            : "bg-orange-500 hover:bg-orange-600 text-white border-0"
-        )}
+        className="w-full py-3 text-base font-semibold transition-all duration-300 bg-orange-500 hover:bg-orange-600 text-white border-0"
         onClick={handlePayment}
       >
         {tier.cta} ⚡
@@ -204,13 +201,7 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
         {locale === "zh" ? "一次性付费。无限制构建项目！" : "Pay once. Build unlimited projects!"}
       </div>
     </Card>
+    </div>
   )
 }
 
-const HighlightedBackground = () => (
-  <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:45px_45px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-)
-
-const PopularBackground = () => (
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
-)

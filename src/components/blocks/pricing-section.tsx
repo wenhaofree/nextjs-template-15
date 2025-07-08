@@ -1,8 +1,6 @@
 "use client"
 
-import * as React from "react"
 import { PricingCard, type PricingTier } from "@/components/ui/pricing-card"
-import { Tab } from "@/components/ui/pricing-tab"
 
 interface PricingSectionProps {
   title: string
@@ -16,10 +14,7 @@ export function PricingSection({
   title,
   subtitle,
   tiers,
-  frequencies,
-  frequencyLabels,
 }: PricingSectionProps) {
-  const [selectedFrequency, setSelectedFrequency] = React.useState(frequencies[0])
 
   return (
     <section className="flex flex-col items-center gap-16 py-20">
@@ -32,7 +27,7 @@ export function PricingSection({
         </p>
       </div>
 
-      <div className="grid w-full max-w-6xl gap-8 md:grid-cols-3 justify-items-center px-4">
+      <div className="grid w-full max-w-6xl gap-8 md:grid-cols-3 justify-items-center px-4 pt-8">
         {tiers.map((tier) => (
           <PricingCard
             key={tier.name}
