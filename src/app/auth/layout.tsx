@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "@/i18n/routing";
 import { headers } from "next/headers";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -23,14 +19,10 @@ export default async function AuthLayout({
   const messages = await getMessages(locale);
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            {children}
-          </main>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        {children}
+      </main>
+    </NextIntlClientProvider>
   );
 }

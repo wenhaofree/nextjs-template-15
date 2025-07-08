@@ -27,6 +27,9 @@ body {
   main {
     @apply bg-background;
   }
+  :root {
+    --elegant-font: 'Great Vibes';
+  }
 }
 
 @layer components {
