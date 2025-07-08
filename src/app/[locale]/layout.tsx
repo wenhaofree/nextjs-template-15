@@ -9,6 +9,9 @@ import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
 // import { SplashCursor } from "@/components/ui/splash-cursor";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 
 // 修改类型定义，使用 generateStaticParams 来处理参数
@@ -61,7 +64,7 @@ export default async function Layout({
 
   return (
     <html lang={locale} className="scroll-smooth" suppressHydrationWarning>
-      <body>
+      <body className={inter.className}>
           {/* <SplashCursor /> */}
           <NextIntlClientProvider messages={messages} locale={locale}>
           <Providers>
