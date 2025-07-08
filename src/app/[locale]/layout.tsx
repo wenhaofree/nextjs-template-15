@@ -1,8 +1,8 @@
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import '@/styles/globals.css';
+import '@/app/globals.css';
 import { LandingHeader } from '@/components/sections';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
@@ -32,8 +32,14 @@ export async function generateMetadata({
   try {
     const { locale } = await params;
 
-    // Skip metadata generation for non-locale requests (like manifest.json, robots.txt, etc.)
-    if (!locale || locale.includes('.') || !routing.locales.includes(locale as any)) {
+    // Skip metadata generation for non-locale requests (like favicon.ico, manifest.json, robots.txt, etc.)
+    if (!locale ||
+        locale.includes('.') ||
+        locale === 'favicon.ico' ||
+        locale === 'manifest.json' ||
+        locale === 'robots.txt' ||
+        locale === 'sitemap.xml' ||
+        !hasLocale(routing.locales, locale)) {
       return {
         title: 'NextLaunchPad',
         description: 'A modern Next.js SaaS template',
@@ -96,14 +102,21 @@ export default async function LocaleLayout({
     // Extract locale from params
     const { locale } = await params;
 
-    // Skip layout for non-locale requests (like manifest.json, robots.txt, etc.)
+    // Skip layout for non-locale requests (like favicon.ico, manifest.json, robots.txt, etc.)
     // These should be handled by the root layout or specific route handlers
-    if (!locale || locale.includes('.') || locale.startsWith('_')) {
+    if (!locale ||
+        locale.includes('.') ||
+        locale.startsWith('_') ||
+        locale === 'favicon.ico' ||
+        locale === 'manifest.json' ||
+        locale === 'robots.txt' ||
+        locale === 'sitemap.xml') {
       notFound();
     }
 
-    // Validate locale
-    if (!routing.locales.includes(locale as any)) {
+    // Validate locale against supported locales using hasLocale
+    if (!hasLocale(routing.locales, locale)) {
+      console.warn(`Invalid locale received: ${locale}`);
       notFound();
     }
 

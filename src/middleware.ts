@@ -14,8 +14,12 @@ export default function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.includes('.') ||
     pathname.startsWith('/favicon') ||
+    pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml'
+    pathname === '/sitemap.xml' ||
+    pathname === '/manifest.json' ||
+    pathname.startsWith('/images/') ||
+    pathname.startsWith('/icons/')
   ) {
     return NextResponse.next();
   }

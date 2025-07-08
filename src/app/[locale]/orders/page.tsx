@@ -67,7 +67,9 @@ export default function OrdersPage() {
   };
 
   const getStatusText = (status: string) => {
-    return t(`orderDetails.status.${status.toLowerCase()}`);
+    const statusKey = status.toLowerCase();
+    // Use type assertion for dynamic keys
+    return t(`orderDetails.status.${statusKey}` as any);
   };
 
   if (loading) {
