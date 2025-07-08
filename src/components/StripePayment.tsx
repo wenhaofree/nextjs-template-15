@@ -14,12 +14,6 @@ interface StripePaymentProps {
 
 export default function StripePayment({ amount, currency = 'usd' }: StripePaymentProps) {
   const { data: session, status } = useSession();
-  
-  console.log('Session status:', status);
-  console.log('Session data:', {
-    email: session?.user?.email,
-    user: session?.user
-  });
 
   if (status === "loading") {
     return <button className="px-4 py-2 bg-gray-400 text-white rounded-md" disabled>
@@ -30,15 +24,8 @@ export default function StripePayment({ amount, currency = 'usd' }: StripePaymen
   const handlePayment = async () => {
     try {
       if (!session?.user?.email) {
-        console.error('No user email found in session');
         return;
       }
-
-      console.log('Sending payment request with data:', {
-        price: amount,
-        currency,
-        email: session.user.email
-      });
 
       const response = await fetch('/api/stripe', {
         method: 'POST',
@@ -55,7 +42,6 @@ export default function StripePayment({ amount, currency = 'usd' }: StripePaymen
       });
 
       const data = await response.json();
-      console.log('Stripe API response:', data);
 
       if (!data.id) {
         throw new Error('No session ID returned');
@@ -71,10 +57,10 @@ export default function StripePayment({ amount, currency = 'usd' }: StripePaymen
       });
 
       if (error) {
-        console.error('Stripe Checkout Error:', error);
+        // Error handling for Stripe checkout
       }
     } catch (error) {
-      console.error('Payment Error:', error);
+      // Error handling for payment
     }
   };
 

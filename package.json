@@ -19,7 +19,6 @@
     "test:db": "pnpm run db:test:init && npx dotenv-cli -e .env.test -- npx jest --config src/__tests__/jest.config.js",
     "test:db:setup": "pnpm run db:test:push && pnpm run db:generate",
     "test:db:docker": "docker-compose up -d && npx dotenv-cli -e .env.test -- npx prisma db push && pnpm run test:db && docker-compose down",
-    "test:debug": "node src/__tests__/debug.js",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   },

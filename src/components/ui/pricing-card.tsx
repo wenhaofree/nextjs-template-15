@@ -42,11 +42,8 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
   const t = useTranslations("pricing")
 
   const handlePayment = async () => {
-    console.log("点击支付按钮, 价格:", price, "类型:", typeof price, "cta:", tier.cta)
-    
     // 处理"联系我们"按钮
     if (tier.cta === "Contact Us") {
-      console.log("导航到联系页面")
       router.push("/contact")
       return
     }
@@ -72,7 +69,6 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
     }
 
     try {
-      console.log("准备发送支付请求, 价格:", price)
       // 调用 Stripe API 创建支付会话
       const response = await fetch("/api/stripe", {
         method: "POST",
@@ -88,21 +84,18 @@ export function PricingCard({ tier, paymentFrequency }: PricingCardProps) {
         }),
       })
 
-      console.log("支付响应状态:", response.status)
       if (!response.ok) {
         const errorData = await response.json()
         throw new Error(errorData.error || locale === "zh" ? "支付请求失败" : "Payment request failed")
       }
 
       const { url } = await response.json()
-      console.log("获取到支付URL:", url)
       if (url) {
         window.location.href = url
       } else {
         throw new Error(locale === "zh" ? "未收到结账 URL" : "No checkout URL received")
       }
     } catch (error) {
-      console.error("支付错误:", error)
       toast.error(error instanceof Error ? error.message : locale === "zh" ? "支付失败，请重试" : "Payment failed. Please try again.")
     }
   }

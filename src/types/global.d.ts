@@ -1,5 +1,3 @@
-import { CredentialsProvider } from "next-auth/providers";
-
 declare global {
   interface Window {
     google?: {
@@ -13,3 +11,5 @@ declare global {
     };
   }
 }
+
+export {};

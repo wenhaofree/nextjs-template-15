@@ -39,7 +39,6 @@ export default function GoogleOneTap() {
             
             window.google.accounts.id.prompt((notification: any) => {
               if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                console.log("Google One Tap不显示:", notification.getNotDisplayedReason());
                 localStorage.setItem("googleOneTapPromptShown", "true");
               }
             });
