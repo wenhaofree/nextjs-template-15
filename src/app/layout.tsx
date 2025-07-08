@@ -1,12 +1,89 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
 
 export const metadata: Metadata = {
-  title: "NextLaunchPad",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  title: {
+    default: "NextLaunchPad",
+    template: "%s | NextLaunchPad",
+  },
   description: "A modern Next.js 15 SaaS template with authentication, payments, and internationalization",
+  keywords: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "SaaS",
+    "Template",
+    "Authentication",
+    "Payments",
+    "Internationalization",
+    "Tailwind CSS",
+  ],
+  authors: [
+    {
+      name: "NextLaunchPad Team",
+      url: "https://github.com/nextlaunchpad",
+    },
+  ],
+  creator: "NextLaunchPad Team",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    title: "NextLaunchPad",
+    description: "A modern Next.js 15 SaaS template with authentication, payments, and internationalization",
+    siteName: "NextLaunchPad",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NextLaunchPad - Modern SaaS Template",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NextLaunchPad",
+    description: "A modern Next.js 15 SaaS template with authentication, payments, and internationalization",
+    images: ["/og-image.png"],
+    creator: "@nextlaunchpad",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +93,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body
+        className={`${inter.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

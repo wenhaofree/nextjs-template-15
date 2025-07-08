@@ -208,6 +208,7 @@
 
   "auth": {
     "signInTitle": "Sign in to your account",
+    "signInDescription": "Access your account to continue",
     "signInWithGoogle": "Sign in with Google",
     "signInWithGithub": "Sign in with GitHub",
     "signingIn": "Signing in...",

@@ -7,7 +7,19 @@ const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
+  // Skip middleware for static files, API routes, and special Next.js files
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.') ||
+    pathname.startsWith('/favicon') ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml'
+  ) {
+    return NextResponse.next();
+  }
+
   // 处理旧的auth路径重定向到本地化路径
   if (pathname === '/auth/signin') {
     // 从原始URL获取callbackUrl参数
@@ -49,5 +61,8 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(zh|en)/:path*', '/auth/signin']
+  // Match all paths except static files, API routes, and Next.js internals
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon|.*\\..*|robots\\.txt|sitemap\\.xml|manifest\\.json).*)'
+  ]
 };

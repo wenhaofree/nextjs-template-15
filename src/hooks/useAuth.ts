@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 /**
  * 认证相关的自定义 Hook
@@ -11,10 +11,26 @@ export const useAuth = () => {
   const isLoading = status === 'loading';
   const user = session?.user;
 
+  /**
+   * 用户登出
+   */
+  const logout = async () => {
+    try {
+      await signOut({
+        callbackUrl: '/',
+        redirect: true
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+      throw error;
+    }
+  };
+
   return {
     user,
     isAuthenticated,
     isLoading,
     session,
+    logout,
   };
 };

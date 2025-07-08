@@ -1,17 +1,19 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from '@/i18n/routing';
-import {notFound} from 'next/navigation';
-import {routing} from '@/i18n/routing';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import '@/styles/globals.css';
 import { LandingHeader } from '@/components/sections';
-// import Footer from '@/components/Footer';
 import { getLandingPage } from '@/app/actions';
 import { Providers } from '@/app/providers';
-// import { SplashCursor } from "@/components/ui/splash-cursor";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 
 // 修改类型定义，使用 generateStaticParams 来处理参数
@@ -19,66 +21,128 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
 
-// Add metadata for better SEO
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  const messages = await getMessages(locale);
+/**
+ * Generate metadata for better SEO based on locale
+ */
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  try {
+    const { locale } = await params;
 
-  return {
-    title: {
-      template: `%s | ${messages.header.logo}`,
-      default: messages.header.logo,
-    },
-    description: messages.hero.description,
-    keywords: ["Next.js", "React", "JavaScript", "Web Development", "AI"],
-    authors: [{ name: "NextLaunchPad Team" }],
-    openGraph: {
-      title: messages.hero.title,
-      description: messages.hero.description,
-      type: "website",
-    },
-  };
+    // Skip metadata generation for non-locale requests (like manifest.json, robots.txt, etc.)
+    if (!locale || locale.includes('.') || !routing.locales.includes(locale as any)) {
+      return {
+        title: 'NextLaunchPad',
+        description: 'A modern Next.js SaaS template',
+      };
+    }
+
+    const messages = await getMessages(locale);
+
+    return {
+      title: {
+        template: `%s | ${messages.header?.logo || 'NextLaunchPad'}`,
+        default: messages.header?.logo || 'NextLaunchPad',
+      },
+      description: messages.hero?.description || 'A modern Next.js SaaS template',
+      keywords: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "SaaS",
+        "Template",
+        "Web Development",
+        "AI"
+      ],
+      authors: [{ name: "NextLaunchPad Team" }],
+      openGraph: {
+        title: messages.hero?.title || 'NextLaunchPad',
+        description: messages.hero?.description || 'A modern Next.js SaaS template',
+        type: "website",
+        locale: locale,
+        siteName: messages.header?.logo || 'NextLaunchPad',
+      },
+      alternates: {
+        languages: routing.locales.reduce((acc, loc) => {
+          acc[loc] = `/${loc}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    // Fallback metadata
+    return {
+      title: 'NextLaunchPad',
+      description: 'A modern Next.js SaaS template',
+    };
+  }
 }
 
-// 更新 Layout 组件以支持异步 params
-export default async function Layout({
+/**
+ * Locale-specific layout component with internationalization support
+ */
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // 使用 await 获取 locale
-  const { locale } = await params;
+  try {
+    // Extract locale from params
+    const { locale } = await params;
 
-  // 验证 locale
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
+    // Skip layout for non-locale requests (like manifest.json, robots.txt, etc.)
+    // These should be handled by the root layout or specific route handlers
+    if (!locale || locale.includes('.') || locale.startsWith('_')) {
+      notFound();
+    }
 
-  // 并行获取消息和页面数据
-  const [messages, page] = await Promise.all([
-    getMessages(locale),
-    getLandingPage(locale)
-  ]);
+    // Validate locale
+    if (!routing.locales.includes(locale as any)) {
+      notFound();
+    }
 
-  return (
-    <html lang={locale} className="scroll-smooth" suppressHydrationWarning>
-      <body className={inter.className}>
-          {/* <SplashCursor /> */}
+    // Parallel data fetching for better performance
+    const [messages, page] = await Promise.all([
+      getMessages(locale),
+      getLandingPage(locale)
+    ]);
+
+    return (
+      <html
+        lang={locale}
+        className="scroll-smooth"
+        suppressHydrationWarning
+      >
+        <body
+          className={`${inter.variable} font-sans antialiased`}
+          suppressHydrationWarning
+        >
           <NextIntlClientProvider messages={messages} locale={locale}>
-          <Providers>
-            {page.header && <LandingHeader header={page.header} />}
-            <main className="flex-1">
-              {children}
-            </main>
-            {/* <div className="border-t">
-              {page.footer && <Footer footer={page.footer} />}
-            </div> */}
+            <Providers>
+              {/* Header Section */}
+              {page.header && (
+                <LandingHeader header={page.header} />
+              )}
+
+              {/* Main Content */}
+              <main className="flex-1 min-h-screen">
+                {children}
+              </main>
+
+              {/* Footer Section - Currently handled in page components */}
             </Providers>
           </NextIntlClientProvider>
-
-      </body>
-    </html>
-  );
+        </body>
+      </html>
+    );
+  } catch (error) {
+    console.error('Error in LocaleLayout:', error);
+    notFound();
+  }
 }

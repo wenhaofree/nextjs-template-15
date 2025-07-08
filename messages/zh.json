@@ -207,6 +207,7 @@
   },
   "auth": {
     "signInTitle": "登录您的账户",
+    "signInDescription": "登录您的账户以继续",
     "signInWithGoogle": "使用 Google 账号登录",
     "signInWithGithub": "使用 GitHub 账号登录",
     "signingIn": "正在登录...",

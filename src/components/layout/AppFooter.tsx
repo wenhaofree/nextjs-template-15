@@ -1,11 +1,30 @@
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import { Github, Twitter, Linkedin } from 'lucide-react';
 
 /**
- * 应用底部组件
+ * Application footer component with links and company information
  */
 const AppFooter = () => {
   const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      href: 'https://github.com/nextlaunchpad',
+      icon: Github,
+    },
+    {
+      name: 'Twitter',
+      href: 'https://twitter.com/nextlaunchpad',
+      icon: Twitter,
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://linkedin.com/company/nextlaunchpad',
+      icon: Linkedin,
+    },
+  ];
 
   return (
     <footer className="border-t bg-background">
@@ -89,8 +108,31 @@ const AppFooter = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Next.js Template. All rights reserved.</p>
+        <div className="mt-8 border-t pt-8">
+          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
+            <p className="text-sm text-muted-foreground">
+              &copy; {currentYear} NextLaunchPad. All rights reserved.
+            </p>
+
+            {/* Social Links */}
+            <div className="flex items-center space-x-4">
+              {socialLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label={link.name}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </footer>
