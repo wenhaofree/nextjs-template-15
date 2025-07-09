@@ -2,17 +2,18 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "FluxAI 工作室",
+    "logo": "Ship SaaS Demo",
     "nav": {
       "benefit": "产品优势",
-      "stats": "数据统计",
+      "features": "功能亮点",
+      "stats": "数据洞察",
       "pricing": "价格方案",
-      "testimonial": "用户评价",
+      "testimonial": "客户评价",
       "faq": "常见问题"
     },
     "cta": {
       "login": "登录",
-      "signup": "开始创作"
+      "signup": "免费试用"
     },
     "userMenu": {
       "myOrders": "我的订单",
@@ -21,73 +22,83 @@
     }
   },
   "hero": {
-    "title": "秒速创造惊艳AI图像",
-    "subtitle": "用最先进的AI技术，将您最疯狂的创意转化为令人惊叹的视觉作品",
-    "description": "专业级AI图像生成平台，基于Flux模型驱动。从简单的文字描述创建、定制并下载高分辨率图像。",
+    "title": "一站式SaaS上线解决方案",
+    "subtitle": "智能自动化，极速发布，助力业务高效增长",
+    "description": "Ship SaaS Demo 提供开箱即用的SaaS模板，集成自动化订阅、国际化、现代UI与多平台集成，极致提升开发与运营效率。无需繁琐配置，专注创新与增长。",
     "cta": {
-      "primary": "免费开始创作",
-      "secondary": "浏览作品画廊"
+      "primary": "立即免费体验",
+      "secondary": "了解价格方案"
     }
   },
-
-
   "benefit": {
-    "title": "FluxAI工作室引领市场的原因",
-    "subtitle": "革命性功能，改变您的创意工作流程",
+    "title": "智能驱动，极致体验",
+    "subtitle": "六大核心优势，赋能每一个SaaS项目",
     "benefits": [
       {
-        "title": "闪电般的生成速度",
-        "description": "通过我们优化的AI基础设施，在10秒内创建专业品质的图像",
-        "icon": "speed"
+        "title": "自动化订阅管理",
+        "description": "内置Stripe自动化订阅与账单，轻松实现持续营收。",
+        "icon": "automation"
       },
       {
-        "title": "先进AI模型",
-        "description": "访问Flux Pro、Flux 1.1 Pro Ultra和Flux Schnell - 最强大的图像生成模型",
-        "icon": "team"
+        "title": "多平台无缝集成",
+        "description": "支持主流云平台与第三方服务，快速对接，灵活扩展。",
+        "icon": "integration"
       },
       {
-        "title": "包含商业许可",
-        "description": "生成的图像可用于商业项目，享有完整权利和企业级安全保障",
-        "icon": "shield"
+        "title": "国际化与SEO优化",
+        "description": "多语言切换与SEO最佳实践，助力产品全球化。",
+        "icon": "globe"
+      },
+      {
+        "title": "现代UI与极致体验",
+        "description": "采用Shadcn UI与Tailwind，界面美观，交互流畅，提升用户满意度。",
+        "icon": "design"
+      },
+      {
+        "title": "开源高扩展性",
+        "description": "全开源架构，支持二次开发与深度定制，满足多样化业务需求。",
+        "icon": "code"
+      },
+      {
+        "title": "安全合规与客户成功",
+        "description": "数据安全与合规保障，专业团队与社区支持，助力客户持续成功。",
+        "icon": "security"
       }
     ]
   },
-
-
-
   "stats": {
-    "title": "全球创作者的信赖之选",
-    "subtitle": "加入数百万信任FluxAI工作室的艺术家、设计师和创作者",
+    "title": "数据见证价值",
+    "subtitle": "数百项目选择，客户满意度持续领先",
     "stats": [
       {
-        "value": "500万+",
-        "label": "图像生成量",
-        "description": "每日创建的高质量AI图像"
+        "value": "500+",
+        "label": "成功上线项目",
+        "description": "众多SaaS团队的共同选择"
       },
       {
-        "value": "10万+",
-        "label": "活跃创作者",
-        "description": "全球艺术家和设计师"
+        "value": "98%",
+        "label": "客户满意度",
+        "description": "高分好评，持续复购"
       },
       {
-        "value": "99.9%",
-        "label": "服务可用性",
-        "description": "可靠的AI生成服务"
+        "value": "20+",
+        "label": "集成平台数",
+        "description": "支持主流云与第三方服务"
       },
       {
-        "value": "<10秒",
-        "label": "生成时间",
-        "description": "平均图像创建速度"
+        "value": "<2天",
+        "label": "平均上线周期",
+        "description": "极速交付，快速验证业务"
       }
     ]
   },
   "pricing": {
-    "title": "简单透明的定价",
-    "subtitle": "选择最适合您创意需求的完美方案",
+    "title": "透明灵活的定价方案",
+    "subtitle": "按需选择，助力每个阶段的SaaS成长",
     "perMonth": "/月",
     "contactUs": "联系我们",
-    "getStarted": "开始使用",
-    "buyNow": "开始创作",
+    "getStarted": "立即开始",
+    "buyNow": "免费试用",
     "pleaseLogin": "请先登录后再进行购买",
     "frequencies": {
       "monthly": "按月付费",
@@ -95,113 +106,105 @@
     },
     "plans": [
       {
-        "name": "入门版",
+        "name": "基础版",
+        "monthlyPrice": 99,
+        "yearlyPrice": 990,
+        "originalPrice": 199,
+        "description": "适合个人开发者和初创团队，快速搭建SaaS原型。",
+        "features": [
+          "自动化订阅管理",
+          "多语言与SEO优化",
+          "现代UI组件库",
+          "开源可定制",
+          "详细开发文档"
+        ]
+      },
+      {
+        "name": "专业版",
         "monthlyPrice": 199,
         "yearlyPrice": 1990,
         "originalPrice": 299,
-        "description": "开始您的第一个AI项目",
+        "description": "适合成长型团队，支持多平台集成与高级扩展。",
         "features": [
-          "NextJS 样板代码",
-          "SEO友好结构",
-          "博客 & CMS",
-          "Stripe支付集成",
-          "Supabase数据存储",
-          "Google OAuth & One-Tap登录",
-          "多语言支持"
+          "基础版全部功能",
+          "多平台无缝集成",
+          "自定义域名与品牌",
+          "高级数据分析",
+          "社区与技术支持"
         ]
       },
       {
-        "name": "标准版",
-        "monthlyPrice": 249,
-        "yearlyPrice": 2490,
-        "originalPrice": 349,
-        "description": "快速启动您的AI SaaS项目",
-        "features": [
-          "入门版的所有功能",
-          "Vercel或Cloudflare部署",
-          "隐私条款生成",
-          "Google Analytics集成",
-          "Google Search Console集成",
-          "Discord社区",
-          "首次发布技术支持",
-          "终身更新"
-        ]
-      },
-      {
-        "name": "高级版",
+        "name": "旗舰版",
         "monthlyPrice": 299,
         "yearlyPrice": 2990,
         "originalPrice": 399,
-        "description": "启动任何AI SaaS项目",
+        "description": "适合企业级SaaS项目，满足复杂业务与安全合规需求。",
         "features": [
-          "标准版的所有功能",
-          "更多组件选择",
-          "AI业务功能 & SDK",
-          "用户控制台",
-          "管理系统",
-          "积分管理",
-          "API密钥管理",
-          "优先技术支持"
+          "专业版全部功能",
+          "多租户与权限管理",
+          "API密钥与Webhook支持",
+          "安全合规保障",
+          "专属客户成功经理"
         ]
       }
     ]
   },
   "testimonial": {
-    "title": "全球创作者的喜爱之选",
-    "subtitle": "看看我们的艺术家和设计师社区怎么说",
+    "title": "客户成功故事",
+    "subtitle": "真实反馈，见证SaaS高效成长",
     "testimonials": [
       {
-        "content": "FluxAI工作室彻底革新了我的创意工作流程。质量和速度都令人惊叹 - 我可以在几秒钟内将任何概念变为现实！",
+        "content": "Ship SaaS Demo 让我们团队实现了从0到1的极速上线，自动化订阅和多平台集成极大提升了运营效率。",
         "author": {
-          "name": "陈小雅",
-          "title": "数字艺术家",
-          "company": "创意工作室",
+          "name": "陈伟",
+          "title": "技术合伙人",
+          "company": "云启科技",
           "image": "/testimonials/1.jpg"
         }
       },
       {
-        "content": "作为营销专业人士，我需要快速获得高质量的视觉内容。FluxAI工作室每次都能提供惊艳的结果，为我节省了数小时的工作时间。",
+        "content": "界面美观、功能丰富，文档完善，支持团队快速扩展和二次开发，客户支持响应及时。",
         "author": {
-          "name": "王明轩",
-          "title": "营销总监",
-          "company": "品牌代理",
+          "name": "李娜",
+          "title": "产品经理",
+          "company": "星辰软件",
           "image": "/testimonials/2.jpg"
         }
       },
       {
-        "content": "AI完全理解我想要的效果。从写实肖像到抽象艺术，结果总是超出我的预期。",
+        "content": "数据安全和合规性让我们企业客户非常放心，Ship SaaS Demo 是值得信赖的SaaS基础设施。",
         "author": {
-          "name": "李美琳",
-          "title": "自由设计师",
-          "company": "独立工作者",
+          "name": "王磊",
+          "title": "运营总监",
+          "company": "智联集团",
           "image": "/testimonials/3.jpg"
         }
       }
     ]
   },
   "faq": {
-    "title": "常见问题",
-    "subtitle": "关于FluxAI工作室您需要了解的一切",
+    "title": "常见问题解答",
+    "subtitle": "关于Ship SaaS Demo的常见疑问",
     "faqs": [
       {
-        "question": "如何开始使用FluxAI工作室？",
-        "answer": "只需注册一个免费账户，选择您的方案，然后开始创作！我们直观的界面让您在一分钟内就能生成第一张AI图像。"
+        "question": "如何快速上线我的SaaS产品？",
+        "answer": "只需克隆项目，配置环境变量，一键部署即可上线，详细文档全程指导。"
       },
       {
-        "question": "支持哪些图像格式和分辨率？",
-        "answer": "我们支持PNG和JPG格式，分辨率从512x512到4K (4096x4096)，具体取决于您的方案。所有图像都以高质量生成，并包含商业使用权。"
+        "question": "支持哪些第三方平台集成？",
+        "answer": "支持Vercel、Cloudflare、Stripe等主流云与支付平台，持续扩展中。"
       },
       {
-        "question": "生成的图像可以商用吗？",
-        "answer": "是的！所有方案都包含商业使用权。您可以将生成的图像用于商业、营销、产品或任何商业目的，无需额外的许可费用。"
+        "question": "数据安全和合规如何保障？",
+        "answer": "采用业界标准安全措施，支持GDPR等合规要求，企业级数据保护。"
       },
       {
-        "question": "图像生成速度有多快？",
-        "answer": "大多数图像在10秒内生成完成。专业版和工作室版用户可享受优先队列访问，获得更快的生成时间。"
+        "question": "是否支持多语言和国际化？",
+        "answer": "内置i18n国际化方案，轻松切换多语言界面，助力全球化。"
       },
       {
-        "question": "Flux模型有什么特别之处？",
-        "answer": "Flux模型是最先进的AI系统，擅长理解复杂提示词、生成逼真细节，并在不同风格和主题间保持一致性。"
+        "question": "遇到问题如何获得支持？",
+        "answer": "提供详细文档、社区支持及专属客户经理（旗舰版），保障无忧使用。"
       }
     ]
   },
@@ -230,75 +233,70 @@
     "signUpSuccess": "注册成功！正在自动登录..."
   },
   "cta": {
-    "title": "准备好转化您的创意了吗？",
-    "subtitle": "加入超过10万名信任FluxAI工作室满足视觉内容需求的创作者",
+    "title": "开启智能SaaS之旅",
+    "subtitle": "立即体验高效、智能、自动化的SaaS开发与运营",
     "cta": {
-      "primary": "免费开始创作",
-      "secondary": "查看价格"
+      "primary": "免费试用Ship SaaS Demo",
+      "secondary": "咨询专属方案"
     }
   },
   "footer": {
     "newsletter": {
-      "title": "保持联系",
-      "description": "订阅我们的新闻通讯，获取最新的AI图像生成技巧、更新和独家优惠。",
+      "title": "订阅最新动态",
+      "description": "获取SaaS开发干货、产品更新与专属优惠，助力业务持续增长。",
       "placeholder": "输入您的邮箱",
       "subscribe": "订阅",
-      "subscribeAria": "订阅新闻通讯"
+      "subscribeAria": "订阅邮件动态"
     },
     "quickLinks": {
       "title": "快速链接",
       "home": "首页",
-      "features": "功能特点",
+      "features": "功能亮点",
       "pricing": "价格方案",
       "blog": "博客",
       "about": "关于我们"
     },
     "resources": {
       "title": "资源",
-      "documentation": "文档",
-      "tutorials": "教程",
-      "community": "社区",
+      "documentation": "开发文档",
+      "tutorials": "使用教程",
+      "community": "开发者社区",
       "support": "支持中心",
       "api": "API参考"
     },
     "company": {
       "title": "公司",
-      "about": "关于FluxAI",
-      "careers": "招聘",
-      "press": "媒体资料",
+      "about": "关于Ship SaaS Demo",
+      "careers": "加入我们",
+      "press": "媒体报道",
       "contact": "联系我们",
       "partners": "合作伙伴"
     },
     "social": {
       "title": "关注我们",
-      "facebook": "在Facebook上关注我们",
-      "twitter": "在Twitter上关注我们",
-      "instagram": "在Instagram上关注我们",
-      "linkedin": "在LinkedIn上联系我们",
-      "youtube": "订阅我们的YouTube",
-      "discord": "加入我们的Discord"
+      "github": "GitHub开源仓库",
+      "twitter": "Twitter官方账号",
+      "discord": "加入Discord社区"
     },
     "legal": {
-      "title": "法律",
+      "title": "法律信息",
       "privacy": "隐私政策",
       "terms": "服务条款",
-      "cookies": "Cookie设置",
-      "dmca": "DMCA政策"
+      "cookies": "Cookie设置"
     },
     "contact": {
-      "title": "联系信息",
-      "address": "旧金山，加利福尼亚",
-      "email": "hello@fluxai.studio",
-      "phone": "+1 (555) 123-4567",
-      "hours": "24/7全天候支持"
+      "title": "联系方式",
+      "address": "中国·上海",
+      "email": "support@shipsaas.com",
+      "hours": "工作日 9:00-18:00"
     },
     "theme": {
       "light": "浅色模式",
       "dark": "深色模式",
       "toggle": "切换主题"
     },
-    "copyright": "© 2024 FluxAI工作室。保留所有权利。",
-    "tagline": "用AI赋能创意"
+    "copyright": "© 2024 Ship SaaS Demo。保留所有权利。",
+    "tagline": "让SaaS上线更智能、更高效"
   },
   "orders": {
     "title": "我的订单",

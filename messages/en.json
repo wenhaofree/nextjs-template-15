@@ -2,90 +2,103 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "FluxAI Studio",
+    "logo": "Ship SaaS Demo",
     "nav": {
       "benefit": "Benefits",
-      "stats": "Stats",
+      "features": "Features",
+      "stats": "Insights",
       "pricing": "Pricing",
-      "testimonial": "Reviews",
+      "testimonial": "Testimonials",
       "faq": "FAQ"
     },
     "cta": {
-      "login": "Sign In",
-      "signup": "Start Creating"
+      "login": "Login",
+      "signup": "Free Trial"
     },
     "userMenu": {
       "myOrders": "My Orders",
       "signOut": "Sign Out",
-      "profile": "My Profile"
+      "profile": "Profile"
     }
   },
   "hero": {
-    "title": "Create Stunning AI Images in Seconds",
-    "subtitle": "Transform your wildest ideas into breathtaking visuals with our cutting-edge AI technology",
-    "description": "Professional-grade AI image generation powered by Flux models. Create, customize, and download high-resolution images from simple text descriptions.",
+    "title": "All-in-One SaaS Launch Solution",
+    "subtitle": "Smart automation, instant deployment, accelerate your business growth",
+    "description": "Ship SaaS Demo delivers a ready-to-use SaaS template with automated subscriptions, i18n, modern UI, and multi-platform integration. Maximize development and operations efficiency—no complex setup, just focus on innovation and scaling.",
     "cta": {
-      "primary": "Start Creating Free",
-      "secondary": "Explore Gallery"
+      "primary": "Try for Free Now",
+      "secondary": "See Pricing"
     }
   },
-
   "benefit": {
-    "title": "Why FluxAI Studio Leads the Market",
-    "subtitle": "Revolutionary features that transform your creative workflow",
+    "title": "Intelligent Power, Ultimate Experience",
+    "subtitle": "Six core advantages to empower every SaaS project",
     "benefits": [
       {
-        "title": "Lightning-Fast Generation",
-        "description": "Create professional-quality images in under 10 seconds with our optimized AI infrastructure",
-        "icon": "⚡"
+        "title": "Automated Subscription Management",
+        "description": "Built-in Stripe automation for subscriptions and billing. Effortless recurring revenue.",
+        "icon": "automation"
       },
       {
-        "title": "Advanced AI Models",
-        "description": "Access to Flux Pro, Flux 1.1 Pro Ultra, and Flux Schnell - the most powerful image generation models",
-        "icon": "🤖"
+        "title": "Seamless Multi-Platform Integration",
+        "description": "Connect with major cloud and third-party services. Fast integration, flexible expansion.",
+        "icon": "integration"
       },
       {
-        "title": "Commercial License Included",
-        "description": "Use generated images for commercial projects with full rights and enterprise-grade security",
-        "icon": "🛡️"
+        "title": "i18n & SEO Optimization",
+        "description": "Multi-language switching and SEO best practices. Go global with ease.",
+        "icon": "globe"
+      },
+      {
+        "title": "Modern UI & Superior Experience",
+        "description": "Stunning Shadcn UI and Tailwind. Beautiful, smooth, and user-centric interfaces.",
+        "icon": "design"
+      },
+      {
+        "title": "Open Source & Extensible",
+        "description": "Fully open source, easy to extend and customize for any business scenario.",
+        "icon": "code"
+      },
+      {
+        "title": "Security, Compliance & Customer Success",
+        "description": "Enterprise-grade security, compliance, and expert support for your ongoing success.",
+        "icon": "security"
       }
     ]
   },
-
   "stats": {
-    "title": "Trusted by Creators Worldwide",
-    "subtitle": "Join millions of artists, designers, and creators who trust FluxAI Studio",
+    "title": "Data-Driven Value",
+    "subtitle": "Hundreds of projects launched, industry-leading satisfaction",
     "stats": [
       {
-        "value": "5M+",
-        "label": "Images Generated",
-        "description": "High-quality AI images created daily"
+        "value": "500+",
+        "label": "Projects Launched",
+        "description": "The trusted choice of SaaS teams"
       },
       {
-        "value": "100K+",
-        "label": "Active Creators",
-        "description": "Artists and designers worldwide"
+        "value": "98%",
+        "label": "Customer Satisfaction",
+        "description": "Top ratings and repeat customers"
       },
       {
-        "value": "99.9%",
-        "label": "Uptime",
-        "description": "Reliable AI generation service"
+        "value": "20+",
+        "label": "Integrated Platforms",
+        "description": "Supports major cloud and third-party services"
       },
       {
-        "value": "<10s",
-        "label": "Generation Time",
-        "description": "Average image creation speed"
+        "value": "<2 days",
+        "label": "Avg. Launch Time",
+        "description": "Rapid delivery, fast business validation"
       }
     ]
   },
-
   "pricing": {
-    "title": "Simple & Transparent Pricing",
-    "subtitle": "Choose the perfect plan for your creative needs",
+    "title": "Transparent & Flexible Pricing",
+    "subtitle": "Choose the right plan for every stage of SaaS growth",
     "perMonth": "/month",
     "contactUs": "Contact Us",
     "getStarted": "Get Started",
-    "buyNow": "Start Creating",
+    "buyNow": "Free Trial",
     "pleaseLogin": "Please login before making a purchase",
     "frequencies": {
       "monthly": "Monthly",
@@ -93,119 +106,108 @@
     },
     "plans": [
       {
-        "name": "Starter",
+        "name": "Basic",
+        "monthlyPrice": 99,
+        "yearlyPrice": 990,
+        "originalPrice": 199,
+        "description": "For solo developers and startups. Build SaaS prototypes fast.",
+        "features": [
+          "Automated subscription management",
+          "i18n & SEO optimization",
+          "Modern UI component library",
+          "Open source & customizable",
+          "Comprehensive documentation"
+        ]
+      },
+      {
+        "name": "Pro",
         "monthlyPrice": 199,
         "yearlyPrice": 1990,
         "originalPrice": 299,
-        "description": "Get started with your first SaaS startup.",
+        "description": "For growing teams. Multi-platform integration and advanced features.",
         "features": [
-          "NextJS boilerplate",
-          "SEO-friendly structure",
-          "Blog & CMS",
-          "Payment with Stripe",
-          "Data storage with Supabase",
-          "Google OAuth & One-Tap Login",
-          "i18n support"
+          "All Basic features",
+          "Seamless multi-platform integration",
+          "Custom domain & branding",
+          "Advanced analytics",
+          "Community & technical support"
         ]
       },
       {
-        "name": "Standard",
-        "monthlyPrice": 249,
-        "yearlyPrice": 2490,
-        "originalPrice": 349,
-        "description": "Ship Fast with your SaaS Startups.",
-        "features": [
-          "Everything in Starter, plus",
-          "Deploy with Vercel or Cloudflare",
-          "Generation of Privacy & Terms",
-          "Google Analytics Integration",
-          "Google Search Console Integration",
-          "Discord community",
-          "Technical support for your first ship",
-          "Lifetime updates"
-        ]
-      },
-      {
-        "name": "Premium",
+        "name": "Enterprise",
         "monthlyPrice": 299,
         "yearlyPrice": 2990,
         "originalPrice": 399,
-        "description": "Ship Any AI SaaS Startups.",
+        "description": "For enterprise SaaS. Meet complex business and compliance needs.",
         "features": [
-          "Everything in Standard, plus",
-          "More Components for choosing",
-          "Business Functions & SDK with AI",
-          "User Console",
-          "Admin System",
-          "Credits Management",
-          "API Keys Management",
-          "Priority Technical Support"
+          "All Pro features",
+          "Multi-tenant & permission management",
+          "API keys & webhook support",
+          "Security & compliance",
+          "Dedicated customer success manager"
         ]
       }
     ]
   },
-
   "testimonial": {
-    "title": "Loved by Creators Worldwide",
-    "subtitle": "See what our community of artists and designers have to say",
+    "title": "Customer Success Stories",
+    "subtitle": "Real feedback, proven SaaS growth",
     "testimonials": [
       {
-        "content": "FluxAI Studio has completely revolutionized my creative workflow. The quality and speed are mind-blowing - I can turn any concept into reality in seconds!",
+        "content": "Ship SaaS Demo enabled our team to launch from zero to live in record time. Automated subscriptions and integrations boosted our efficiency.",
         "author": {
-          "name": "Sarah Chen",
-          "title": "Digital Artist",
-          "company": "Creative Studio",
+          "name": "David Chen",
+          "title": "Tech Partner",
+          "company": "CloudRise",
           "image": "/testimonials/1.jpg"
         }
       },
       {
-        "content": "As a marketing professional, I need high-quality visuals fast. FluxAI Studio delivers stunning results every time and saves me hours of work.",
+        "content": "Beautiful UI, rich features, and great docs. Our team expanded and customized quickly, and support was always responsive.",
         "author": {
-          "name": "Michael Wang",
-          "title": "Marketing Director",
-          "company": "Brand Agency",
+          "name": "Linda Li",
+          "title": "Product Manager",
+          "company": "Starsoft",
           "image": "/testimonials/2.jpg"
         }
       },
       {
-        "content": "The AI perfectly understands what I want to achieve. From photorealistic portraits to abstract art, the results always exceed my expectations.",
+        "content": "Security and compliance give our enterprise clients peace of mind. Ship SaaS Demo is a trustworthy SaaS foundation.",
         "author": {
-          "name": "Emily Lin",
-          "title": "Freelance Designer",
-          "company": "Independent",
+          "name": "Leo Wang",
+          "title": "Operations Director",
+          "company": "Zhilian Group",
           "image": "/testimonials/3.jpg"
         }
       }
     ]
   },
-
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about FluxAI Studio",
+    "subtitle": "Your top questions about Ship SaaS Demo answered",
     "faqs": [
       {
-        "question": "How do I get started with FluxAI Studio?",
-        "answer": "Simply sign up for a free account, choose your plan, and start creating! Our intuitive interface lets you generate your first AI image within minutes."
+        "question": "How do I launch my SaaS product quickly?",
+        "answer": "Just clone the repo, set up environment variables, and deploy. Our docs guide you every step of the way."
       },
       {
-        "question": "What image formats and resolutions are supported?",
-        "answer": "We support PNG and JPG formats with resolutions from 512x512 up to 4K (4096x4096), depending on your plan. All images are generated in high quality with commercial usage rights included."
+        "question": "Which third-party platforms are supported?",
+        "answer": "Supports Vercel, Cloudflare, Stripe, and more. We’re always expanding integrations."
       },
       {
-        "question": "Can I use the generated images commercially?",
-        "answer": "Yes! All plans include commercial usage rights. You can use generated images for business, marketing, products, or any commercial purpose without additional licensing fees."
+        "question": "How is data security and compliance handled?",
+        "answer": "Industry-standard security, GDPR compliance, and enterprise-grade data protection."
       },
       {
-        "question": "How fast is image generation?",
-        "answer": "Most images are generated within 10 seconds. Pro and Studio users get priority queue access for even faster generation times."
+        "question": "Does it support i18n and localization?",
+        "answer": "Yes, built-in i18n makes it easy to switch languages and go global."
       },
       {
-        "question": "What makes Flux models special?",
-        "answer": "Flux models are state-of-the-art AI systems that excel at understanding complex prompts, generating photorealistic details, and maintaining consistency across different styles and subjects."
+        "question": "How do I get support if I have issues?",
+        "answer": "Comprehensive docs, community support, and a dedicated manager (Enterprise) ensure peace of mind."
       }
     ]
   },
-
   "auth": {
     "signInTitle": "Sign in to your account",
     "signInDescription": "Access your account to continue",
@@ -230,20 +232,18 @@
     "passwordsDoNotMatch": "Passwords do not match",
     "signUpSuccess": "Account created successfully! Signing you in..."
   },
-
   "cta": {
-    "title": "Ready to Transform Your Creative Process?",
-    "subtitle": "Join over 100,000 creators who trust FluxAI Studio for their visual content needs",
+    "title": "Start Your Smart SaaS Journey",
+    "subtitle": "Experience efficient, intelligent, and automated SaaS development and operations",
     "cta": {
-      "primary": "Start Creating Free",
-      "secondary": "View Pricing"
+      "primary": "Try Ship SaaS Demo Free",
+      "secondary": "Request a Custom Plan"
     }
   },
-
   "footer": {
     "newsletter": {
-      "title": "Stay Connected",
-      "description": "Subscribe to our newsletter for the latest AI image generation tips, updates, and exclusive offers.",
+      "title": "Subscribe for Updates",
+      "description": "Get SaaS development tips, product news, and exclusive offers to fuel your growth.",
       "placeholder": "Enter your email",
       "subscribe": "Subscribe",
       "subscribeAria": "Subscribe to newsletter"
@@ -258,7 +258,7 @@
     },
     "resources": {
       "title": "Resources",
-      "documentation": "Documentation",
+      "documentation": "Docs",
       "tutorials": "Tutorials",
       "community": "Community",
       "support": "Support Center",
@@ -266,44 +266,38 @@
     },
     "company": {
       "title": "Company",
-      "about": "About FluxAI",
+      "about": "About Ship SaaS Demo",
       "careers": "Careers",
-      "press": "Press Kit",
+      "press": "Press",
       "contact": "Contact Us",
       "partners": "Partners"
     },
     "social": {
       "title": "Follow Us",
-      "facebook": "Follow us on Facebook",
-      "twitter": "Follow us on Twitter",
-      "instagram": "Follow us on Instagram",
-      "linkedin": "Connect with us on LinkedIn",
-      "youtube": "Subscribe to our YouTube",
-      "discord": "Join our Discord"
+      "github": "GitHub Repository",
+      "twitter": "Twitter",
+      "discord": "Join Discord"
     },
     "legal": {
       "title": "Legal",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "cookies": "Cookie Settings",
-      "dmca": "DMCA Policy"
+      "cookies": "Cookie Settings"
     },
     "contact": {
       "title": "Contact Info",
-      "address": "San Francisco, California",
-      "email": "hello@fluxai.studio",
-      "phone": "+1 (555) 123-4567",
-      "hours": "24/7 Support Available"
+      "address": "Shanghai, China",
+      "email": "support@shipsaas.com",
+      "hours": "Mon-Fri 9:00-18:00"
     },
     "theme": {
       "light": "Light Mode",
       "dark": "Dark Mode",
       "toggle": "Toggle Theme"
     },
-    "copyright": "© 2024 FluxAI Studio. All rights reserved.",
-    "tagline": "Empowering creativity with AI"
+    "copyright": "© 2024 Ship SaaS Demo. All rights reserved.",
+    "tagline": "Smarter, faster SaaS launch for every team"
   },
-
   "orders": {
     "title": "My Orders",
     "description": "View all your order history and status",
@@ -322,7 +316,6 @@
       }
     }
   },
-
   "profile": {
     "title": "Profile",
     "subtitle": "View and manage your personal information",
