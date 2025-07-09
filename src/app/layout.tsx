@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { WebVitals } from "@/components/analytics/WebVitals";
+import { PerformanceInit } from "./performance-init";
+import { CookieConsent } from "@/components/CookieConsent";
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -93,10 +97,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* 预连接到重要的第三方资源 */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://unsplash.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://api.stripe.com" />
+        <link rel="dns-prefetch" href="https://js.stripe.com" />
+      </head>
       <body
         className={`${inter.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
+        <PerformanceInit />
+        <WebVitals />
+        <ServiceWorkerRegistration />
+        <CookieConsent />
         {children}
       </body>
     </html>

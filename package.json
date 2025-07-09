@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "npx dotenv-cli -e .env.local -- npx prisma db push",
@@ -60,6 +61,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.3.5",
     "@prisma/client": "^6.11.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.10",
