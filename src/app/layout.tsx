@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { WebVitals } from "@/components/analytics/WebVitals";
 import { PerformanceInit } from "./performance-init";
-import { CookieConsent } from "@/components/CookieConsent";
+// import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 
 const inter = Inter({
@@ -113,7 +113,7 @@ export default function RootLayout({
         <PerformanceInit />
         <WebVitals />
         <ServiceWorkerRegistration />
-        <CookieConsent />
+        {/* <CookieConsent /> */}
         {children}
       </body>
     </html>
