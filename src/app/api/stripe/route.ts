@@ -1,3 +1,20 @@
+/**
+ * Stripe Payment API Route / Stripe 支付 API 路由
+ *
+ * @description Creates Stripe checkout sessions for payment processing.
+ * Handles user authentication, payment validation, and order creation.
+ * @description 创建 Stripe 结账会话用于支付处理。
+ * 处理用户认证、支付验证和订单创建。
+ *
+ * @route POST /api/stripe
+ * @access Private - Requires user authentication
+ * @access 私有 - 需要用户认证
+ *
+ * @author ShipSaaS.CO
+ * @version 1.0.0
+ * @since 2024-01-01
+ */
+
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
@@ -6,16 +23,113 @@ import { config as authOptions } from '@/auth.config';
 
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * Request body interface for Stripe payment creation
+ * Stripe 支付创建的请求体接口
+ */
+interface StripePaymentRequest {
+  /** User email address / 用户邮箱地址 */
+  email: string;
+  /** Product price in USD / 产品价格（美元） */
+  price: number;
+  /** Success redirect URL / 成功重定向 URL */
+  successUrl: string;
+  /** Cancel redirect URL / 取消重定向 URL */
+  cancelUrl: string;
+  /** Optional product name / 可选的产品名称 */
+  productName?: string;
+}
+
+/**
+ * Success response interface
+ * 成功响应接口
+ */
+interface StripePaymentResponse {
+  /** Stripe checkout session URL / Stripe 结账会话 URL */
+  url: string;
+}
+
+/**
+ * Error response interface
+ * 错误响应接口
+ */
+interface ErrorResponse {
+  /** Error message / 错误消息 */
+  error: string;
+}
+
+// Validate Stripe configuration / 验证 Stripe 配置
 if (!process.env.STRIPE_PRIVATE_KEY) {
   throw new Error('STRIPE_PRIVATE_KEY is not set');
 }
 
+/**
+ * Stripe client instance with latest API version
+ * 使用最新 API 版本的 Stripe 客户端实例
+ */
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
   apiVersion: '2025-02-24.acacia',
 });
 
+/**
+ * POST /api/stripe - Create Stripe checkout session
+ * POST /api/stripe - 创建 Stripe 结账会话
+ *
+ * @description Creates a new Stripe checkout session for payment processing.
+ * Validates user authentication, processes payment data, and creates order records.
+ * @description 创建新的 Stripe 结账会话用于支付处理。
+ * 验证用户认证、处理支付数据并创建订单记录。
+ *
+ * @param request - HTTP request object containing payment data
+ * @param request - 包含支付数据的 HTTP 请求对象
+ * @returns Promise<NextResponse<StripePaymentResponse | ErrorResponse>>
+ *
+ * @requestBody StripePaymentRequest
+ * ```json
+ * {
+ *   "email": "user@example.com",
+ *   "price": 29.99,
+ *   "successUrl": "https://example.com/success",
+ *   "cancelUrl": "https://example.com/cancel",
+ *   "productName": "Pro Plan Subscription"
+ * }
+ * ```
+ *
+ * @responses
+ * - 200: StripePaymentResponse - Checkout session created successfully
+ * - 200: StripePaymentResponse - 结账会话创建成功
+ * - 400: ErrorResponse - Invalid price amount or request data
+ * - 400: ErrorResponse - 无效的价格金额或请求数据
+ * - 401: ErrorResponse - Authentication required
+ * - 401: ErrorResponse - 需要认证
+ * - 404: ErrorResponse - User not found in database
+ * - 404: ErrorResponse - 数据库中未找到用户
+ * - 500: ErrorResponse - Internal server error
+ * - 500: ErrorResponse - 内部服务器错误
+ *
+ * @example Usage with fetch / 使用 fetch 的示例
+ * ```typescript
+ * const response = await fetch('/api/stripe', {
+ *   method: 'POST',
+ *   headers: { 'Content-Type': 'application/json' },
+ *   body: JSON.stringify({
+ *     email: 'user@example.com',
+ *     price: 29.99,
+ *     successUrl: window.location.origin + '/success',
+ *     cancelUrl: window.location.origin + '/cancel',
+ *     productName: 'Pro Plan'
+ *   })
+ * });
+ *
+ * if (response.ok) {
+ *   const { url } = await response.json();
+ *   window.location.href = url; // Redirect to Stripe checkout
+ * }
+ * ```
+ */
 export async function POST(request: Request) {
   try {
+    // Authenticate user session / 认证用户会话
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       console.log('Stripe API: 认证失败，用户未登录');
