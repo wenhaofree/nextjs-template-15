@@ -3,7 +3,7 @@
 ## 🎯 优化后的标准Next.js 15目录结构
 
 ```
-nextjs-template-15/
+shipsaas/
 ├── 📁 src/                           # 源代码目录
 │   ├── 📁 app/                       # App Router (Next.js 13+)
 │   │   ├── 📁 [locale]/              # 国际化路由

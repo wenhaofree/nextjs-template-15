@@ -1,4 +1,4 @@
-# NextLaunchPad
+# ShipSaas
 
 A modern, full-stack SaaS application template built with Next.js 15, featuring enterprise-grade authentication, payment processing, internationalization, and a comprehensive UI component system. This production-ready template provides everything you need to launch your SaaS product quickly and efficiently.
 
@@ -19,7 +19,7 @@ A modern, full-stack SaaS application template built with Next.js 15, featuring 
 
 ## 🏗️ Architecture Overview
 
-NextLaunchPad follows modern full-stack architecture patterns:
+ShipSaas follows modern full-stack architecture patterns:
 
 - **Frontend**: React 19 with Next.js 15 App Router
 - **Backend**: Next.js API routes with server actions
@@ -88,8 +88,8 @@ NextLaunchPad follows modern full-stack architecture patterns:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/NextLaunchPad.git
-cd NextLaunchPad
+git clone https://github.com/your-username/ShipSaas.git
+cd ShipSaas
 ```
 
 ### 2. Install Dependencies
@@ -245,7 +245,7 @@ pnpm docker:down        # Stop Docker containers
 ## 📁 Project Structure
 
 ```
-NextLaunchPad/
+ShipSaas/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── [locale]/          # Internationalized routes
@@ -366,7 +366,7 @@ When setting up GitHub OAuth authentication, follow these important steps:
 
 1. **GitHub OAuth App Setup**
    - Visit GitHub Developer Settings (https://github.com/settings/developers)
-   - Create a new OAuth App with your project name (e.g., "NextLaunchPad")
+   - Create a new OAuth App with your project name (e.g., "ShipSaas")
    - Set Homepage URL to match your `NEXTAUTH_URL` environment variable
 
 2. **Callback URL Configuration**
@@ -446,14 +446,14 @@ This will:
 
 ### Vercel Deployment (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextLaunchPad&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,NEXT_PUBLIC_STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextlaunchpad&repository-name=nextlaunchpad)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FShipSaas&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,NEXT_PUBLIC_STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=shipsaas&repository-name=shipsaas)
 
 **Deployment Steps:**
 
 1. **Preparation**
    ```bash
    # Fork this repository to your GitHub account
-   git clone https://github.com/your-username/NextLaunchPad.git
+   git clone https://github.com/your-username/ShipSaas.git
    ```
 
 2. **Deploy to Vercel**
@@ -488,10 +488,10 @@ This will:
 
 ```bash
 # Build the image
-docker build -t nextlaunchpad .
+docker build -t shipsaas .
 
 # Run the container
-docker run -p 3000:3000 --env-file .env nextlaunchpad
+docker run -p 3000:3000 --env-file .env shipsaas
 ```
 
 ### Self-Hosted Deployment
@@ -515,14 +515,14 @@ pnpm start
 
 ## 🤝 Contributing
 
-We welcome all forms of contributions to make NextLaunchPad better!
+We welcome all forms of contributions to make ShipSaas better!
 
 ### Contributing Workflow
 
 1. **Fork the Repository**
    ```bash
-   git clone https://github.com/your-username/NextLaunchPad.git
-   cd NextLaunchPad
+   git clone https://github.com/your-username/ShipSaas.git
+   cd ShipSaas
    ```
 
 2. **Create Feature Branch**
@@ -610,4 +610,4 @@ If this project helped you, please consider:
 
 ---
 
-**Built with ❤️ by the NextLaunchPad team**
+**Built with ❤️ by the ShipSaas team**

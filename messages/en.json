@@ -2,7 +2,7 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Ship SaaS Demo",
+    "logo": "ShipSaas",
     "nav": {
       "benefit": "Benefits",
       "features": "Features",
@@ -24,7 +24,7 @@
   "hero": {
     "title": "All-in-One SaaS Launch Solution",
     "subtitle": "Smart automation, instant deployment, accelerate your business growth",
-    "description": "Ship SaaS Demo delivers a ready-to-use SaaS template with automated subscriptions, i18n, modern UI, and multi-platform integration. Maximize development and operations efficiency—no complex setup, just focus on innovation and scaling.",
+    "description": "ShipSaas delivers a ready-to-use SaaS template with automated subscriptions, i18n, modern UI, and multi-platform integration. Maximize development and operations efficiency—no complex setup, just focus on innovation and scaling.",
     "cta": {
       "primary": "Try for Free Now",
       "secondary": "See Pricing"
@@ -154,7 +154,7 @@
     "subtitle": "Real feedback, proven SaaS growth",
     "testimonials": [
       {
-        "content": "Ship SaaS Demo enabled our team to launch from zero to live in record time. Automated subscriptions and integrations boosted our efficiency.",
+        "content": "ShipSaas enabled our team to launch from zero to live in record time. Automated subscriptions and integrations boosted our efficiency.",
         "author": {
           "name": "David Chen",
           "title": "Tech Partner",
@@ -172,7 +172,7 @@
         }
       },
       {
-        "content": "Security and compliance give our enterprise clients peace of mind. Ship SaaS Demo is a trustworthy SaaS foundation.",
+        "content": "Security and compliance give our enterprise clients peace of mind. ShipSaas is a trustworthy SaaS foundation.",
         "author": {
           "name": "Leo Wang",
           "title": "Operations Director",
@@ -184,7 +184,7 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Your top questions about Ship SaaS Demo answered",
+    "subtitle": "Your top questions about ShipSaas answered",
     "faqs": [
       {
         "question": "How do I launch my SaaS product quickly?",
@@ -236,7 +236,7 @@
     "title": "Start Your Smart SaaS Journey",
     "subtitle": "Experience efficient, intelligent, and automated SaaS development and operations",
     "cta": {
-      "primary": "Try Ship SaaS Demo Free",
+      "primary": "Try ShipSaas Free",
       "secondary": "Request a Custom Plan"
     }
   },
@@ -266,7 +266,7 @@
     },
     "company": {
       "title": "Company",
-      "about": "About Ship SaaS Demo",
+      "about": "About ShipSaas",
       "careers": "Careers",
       "press": "Press",
       "contact": "Contact Us",
@@ -287,7 +287,7 @@
     "contact": {
       "title": "Contact Info",
       "address": "Shanghai, China",
-      "email": "support@shipsaas.com",
+      "email": "support@shipsaas.co",
       "hours": "Mon-Fri 9:00-18:00"
     },
     "theme": {
@@ -295,7 +295,7 @@
       "dark": "Dark Mode",
       "toggle": "Toggle Theme"
     },
-    "copyright": "© 2024 Ship SaaS Demo. All rights reserved.",
+    "copyright": "© 2024 ShipSaas. All rights reserved.",
     "tagline": "Smarter, faster SaaS launch for every team"
   },
   "orders": {

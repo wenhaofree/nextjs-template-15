@@ -1,4 +1,4 @@
-# NextLaunchPad
+# ShipSaas
 
 一个基于 Next.js 15 构建的现代化全栈 SaaS 应用模板，具备企业级认证、支付处理、国际化和完整的 UI 组件系统。这个生产就绪的模板提供了快速高效启动 SaaS 产品所需的一切功能。
 
@@ -19,7 +19,7 @@
 
 ## 🏗️ 架构概览
 
-NextLaunchPad 遵循现代全栈架构模式：
+ShipSaas 遵循现代全栈架构模式：
 
 - **前端**: React 19 配合 Next.js 15 App Router
 - **后端**: Next.js API 路由配合服务器操作
@@ -88,8 +88,8 @@ NextLaunchPad 遵循现代全栈架构模式：
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/your-username/NextLaunchPad.git
-cd NextLaunchPad
+git clone https://github.com/your-username/ShipSaas.git
+cd ShipSaas
 ```
 
 ### 2. 安装依赖
@@ -245,7 +245,7 @@ pnpm docker:down        # 停止 Docker 容器
 ## 📁 项目结构
 
 ```
-NextLaunchPad/
+ShipSaas/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── [locale]/          # 国际化路由
@@ -366,7 +366,7 @@ NextLaunchPad/
 
 1. **GitHub OAuth 应用设置**
    - 访问 GitHub 开发者设置 (https://github.com/settings/developers)
-   - 使用您的项目名称创建新的 OAuth 应用（例如："NextLaunchPad"）
+   - 使用您的项目名称创建新的 OAuth 应用（例如："ShipSaas"）
    - 设置主页 URL 以匹配您的 `NEXTAUTH_URL` 环境变量
 
 2. **回调 URL 配置**
@@ -446,14 +446,14 @@ pnpm test:db:docker
 
 ### Vercel 部署（推荐）
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FNextLaunchPad&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,NEXT_PUBLIC_STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=nextlaunchpad&repository-name=nextlaunchpad)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2FShipSaas&env=DATABASE_URL,NEXTAUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,NEXT_PUBLIC_STRIPE_PUBLIC_KEY,STRIPE_PRIVATE_KEY,STRIPE_WEBHOOK_SECRET&project-name=shipsaas&repository-name=shipsaas)
 
 **部署步骤：**
 
 1. **准备工作**
    ```bash
    # Fork 此仓库到您的 GitHub 账户
-   git clone https://github.com/your-username/NextLaunchPad.git
+   git clone https://github.com/your-username/ShipSaas.git
    ```
 
 2. **部署到 Vercel**
@@ -488,10 +488,10 @@ pnpm test:db:docker
 
 ```bash
 # 构建镜像
-docker build -t nextlaunchpad .
+docker build -t shipsaas .
 
 # 运行容器
-docker run -p 3000:3000 --env-file .env nextlaunchpad
+docker run -p 3000:3000 --env-file .env shipsaas
 ```
 
 ### 自托管部署
@@ -515,14 +515,14 @@ pnpm start
 
 ## 🤝 贡献
 
-我们欢迎各种形式的贡献来改进 NextLaunchPad！
+我们欢迎各种形式的贡献来改进 ShipSaas！
 
 ### 贡献工作流
 
 1. **Fork 仓库**
    ```bash
-   git clone https://github.com/your-username/NextLaunchPad.git
-   cd NextLaunchPad
+   git clone https://github.com/your-username/ShipSaas.git
+   cd ShipSaas
    ```
 
 2. **创建功能分支**
@@ -610,4 +610,4 @@ pnpm start
 
 ---
 
-**由 NextLaunchPad 团队用 ❤️ 构建**
+**由 ShipSaas 团队用 ❤️ 构建**

@@ -2,7 +2,7 @@
   "template": "flux-ai-template",
   "theme": "dark",
   "header": {
-    "logo": "Ship SaaS Demo",
+    "logo": "ShipSaas",
     "nav": {
       "benefit": "产品优势",
       "features": "功能亮点",
@@ -24,7 +24,7 @@
   "hero": {
     "title": "一站式SaaS上线解决方案",
     "subtitle": "智能自动化，极速发布，助力业务高效增长",
-    "description": "Ship SaaS Demo 提供开箱即用的SaaS模板，集成自动化订阅、国际化、现代UI与多平台集成，极致提升开发与运营效率。无需繁琐配置，专注创新与增长。",
+    "description": "ShipSaas 提供开箱即用的SaaS模板，集成自动化订阅、国际化、现代UI与多平台集成，极致提升开发与运营效率。无需繁琐配置，专注创新与增长。",
     "cta": {
       "primary": "立即免费体验",
       "secondary": "了解价格方案"
