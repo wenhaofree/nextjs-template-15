@@ -142,30 +142,43 @@ export function getOptimalImageQuality(): number {
   }
 }
 
-// 预加载关键资源
+// 预加载关键资源 (简化版)
 export function preloadCriticalResources(): void {
   if (typeof window === 'undefined') return
 
-  // 预加载关键字体 - 检查文件是否存在
-  const preloadResource = (href: string, as: string, type?: string, crossOrigin?: string) => {
-    fetch(href, { method: 'HEAD' })
-      .then(response => {
-        if (response.ok) {
-          const link = document.createElement('link')
-          link.rel = 'preload'
-          link.href = href
-          link.as = as
-          if (type) link.type = type
-          if (crossOrigin) link.crossOrigin = crossOrigin
-          document.head.appendChild(link)
-        }
-      })
-      .catch(() => {
-        // 文件不存在，忽略错误
-      })
+  // 简化的资源预加载 - 避免不必要的网络请求
+  // Next.js 已经自动优化了字体和关键资源的加载
+
+  // 只在需要时预加载特定资源
+  const preloadIfNeeded = (href: string, as: string, condition: boolean = true) => {
+    if (!condition) return
+
+    // 检查是否已经预加载过
+    const existing = document.querySelector(`link[rel="preload"][href="${href}"]`)
+    if (existing) return
+
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.href = href
+    link.as = as
+    link.onload = () => {
+      // 预加载成功
+      console.debug(`Preloaded: ${href}`)
+    }
+    link.onerror = () => {
+      // 预加载失败，移除元素
+      link.remove()
+      console.debug(`Failed to preload: ${href}`)
+    }
+    document.head.appendChild(link)
   }
 
-  // 预加载存在的资源
-  preloadResource('/fonts/inter-var.woff2', 'font', 'font/woff2', 'anonymous')
-  preloadResource('/styles/critical.css', 'style')
+  // 在开发环境中可以预加载一些资源
+  if (process.env.NODE_ENV === 'development') {
+    // 开发环境下的预加载逻辑
+    console.debug('Development mode: skipping aggressive preloading')
+  }
+
+  // 生产环境中的关键资源预加载
+  // 注意：Next.js 已经处理了大部分优化，这里只做补充
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -83,6 +84,12 @@ interface FooterProps {
 
 function Footer({ footer }: FooterProps) {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Prevent hydration mismatch by only rendering theme-dependent content after mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // If no footer data is provided, return null or a default footer
   if (!footer) {
@@ -321,7 +328,7 @@ function Footer({ footer }: FooterProps) {
               <Sun className="h-4 w-4 text-orange-500" />
               <Switch
                 id="dark-mode"
-                checked={theme === "dark"}
+                checked={mounted ? theme === "dark" : false}
                 onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
                 className="data-[state=checked]:bg-blue-600"
               />
@@ -331,7 +338,7 @@ function Footer({ footer }: FooterProps) {
               </Label>
             </div>
             <p className="text-xs text-muted-foreground mt-2">
-              {theme === "dark" ? footer.theme.dark : footer.theme.light}
+              {mounted ? (theme === "dark" ? footer.theme.dark : footer.theme.light) : footer.theme.light}
             </p>
           </div>
         </div>

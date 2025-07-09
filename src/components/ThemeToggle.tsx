@@ -1,17 +1,39 @@
 "use client";
 
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch by only rendering theme-dependent content after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9 relative"
+        disabled
+      >
+        <Sun className="h-[1.2rem] w-[1.2rem]" />
+        <span className="sr-only">切换主题</span>
+      </Button>
+    );
+  }
 
   return (
-    <Button 
-      variant="ghost" 
-      size="icon" 
+    <Button
+      variant="ghost"
+      size="icon"
       className="h-9 w-9 relative"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
@@ -20,4 +42,4 @@ export function ThemeToggle() {
       <span className="sr-only">切换主题</span>
     </Button>
   );
-} 
+}

@@ -54,38 +54,38 @@ export const criticalCSS = `
 export function loadNonCriticalCSS(): void {
   if (typeof window === 'undefined') return
 
-  // 延迟加载非关键 CSS - 移除不存在的文件引用
+  // 延迟加载非关键 CSS - 直接加载，避免额外的HEAD请求
   const loadCSS = (href: string) => {
-    // 检查文件是否存在
-    fetch(href, { method: 'HEAD' })
-      .then(response => {
-        if (response.ok) {
-          const link = document.createElement('link')
-          link.rel = 'stylesheet'
-          link.href = href
-          link.media = 'print'
-          link.onload = () => {
-            link.media = 'all'
-          }
-          document.head.appendChild(link)
-        }
-      })
-      .catch(() => {
-        // 文件不存在，忽略错误
-      })
+    // 检查是否已经加载过
+    const existingLink = document.querySelector(`link[href="${href}"]`)
+    if (existingLink) return
+
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = href
+    link.media = 'print'
+    link.onload = () => {
+      link.media = 'all'
+    }
+    link.onerror = () => {
+      // 如果加载失败，移除link元素
+      link.remove()
+      console.debug(`Failed to load CSS: ${href}`)
+    }
+    document.head.appendChild(link)
   }
 
   // 使用 requestIdleCallback 在空闲时加载
   if ('requestIdleCallback' in window) {
     requestIdleCallback(() => {
-      // 只加载存在的 CSS 文件
+      // 加载非关键CSS文件
       loadCSS('/styles/non-critical.css')
-    })
+    }, { timeout: 3000 })
   } else {
     // 降级方案
     setTimeout(() => {
       loadCSS('/styles/non-critical.css')
-    }, 100)
+    }, 1000)
   }
 }
 
@@ -127,7 +127,28 @@ export function compressCSS(css: string): string {
 export function inlineCriticalCSS(): void {
   if (typeof document === 'undefined') return
 
+  // 首先内联基础关键CSS
   const style = document.createElement('style')
   style.textContent = compressCSS(criticalCSS)
+  style.setAttribute('data-critical', 'inline')
   document.head.insertBefore(style, document.head.firstChild)
+
+  // 然后尝试加载外部关键CSS文件
+  const criticalCSSPath = '/styles/critical.css'
+  fetch(criticalCSSPath)
+    .then(response => {
+      if (response.ok) {
+        return response.text()
+      }
+      throw new Error('Critical CSS not found')
+    })
+    .then(cssText => {
+      const externalStyle = document.createElement('style')
+      externalStyle.textContent = compressCSS(cssText)
+      externalStyle.setAttribute('data-critical', 'external')
+      document.head.insertBefore(externalStyle, style.nextSibling)
+    })
+    .catch(() => {
+      console.debug('External critical CSS not found, using inline version only')
+    })
 }

@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { loadPolyfills, preloadCriticalResources } from '@/lib/modern-polyfills'
 import { loadNonCriticalCSS, inlineCriticalCSS } from '@/lib/css-optimizer'
+import { initializeConsoleOptimization, logOptimization } from '@/lib/console-optimizer'
 
 /**
  * 性能优化初始化组件
@@ -10,16 +11,27 @@ import { loadNonCriticalCSS, inlineCriticalCSS } from '@/lib/css-optimizer'
  */
 export function PerformanceInit() {
   useEffect(() => {
+    let hasInitialized = false
+
+    // 初始化控制台优化
+    initializeConsoleOptimization()
+
     // 立即执行的优化
     const immediateOptimizations = async () => {
-      // 内联关键 CSS
-      inlineCriticalCSS()
-      
-      // 预加载关键资源
-      preloadCriticalResources()
-      
+      if (hasInitialized) return
+      hasInitialized = true
+
+      logOptimization('Starting performance optimizations')
+
+      // 内联关键 CSS (只在开发环境或首次加载时)
+      if (process.env.NODE_ENV === 'development' || !document.querySelector('[data-critical]')) {
+        inlineCriticalCSS()
+        logOptimization('Critical CSS inlined')
+      }
+
       // 加载必要的 polyfills
       await loadPolyfills()
+      logOptimization('Polyfills loaded')
     }
 
     // 延迟执行的优化
@@ -28,24 +40,27 @@ export function PerformanceInit() {
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
           loadNonCriticalCSS()
-        }, { timeout: 2000 })
+        }, { timeout: 3000 })
       } else {
         // 降级方案
         setTimeout(() => {
           loadNonCriticalCSS()
-        }, 1000)
+        }, 2000)
       }
     }
 
     // 执行优化
     immediateOptimizations()
-    deferredOptimizations()
 
-    // 监听页面可见性变化
+    // 延迟执行非关键优化
+    setTimeout(() => {
+      deferredOptimizations()
+    }, 500)
+
+    // 监听页面可见性变化 (简化版)
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        // 页面变为可见时的优化
-        preloadCriticalResources()
+      if (document.visibilityState === 'visible' && !hasInitialized) {
+        immediateOptimizations()
       }
     }
 
